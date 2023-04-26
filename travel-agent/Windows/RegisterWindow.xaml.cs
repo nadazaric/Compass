@@ -15,13 +15,14 @@ using System.Windows.Shapes;
 namespace travel_agent.Windows
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    /// Interaction logic for Register.xaml
     /// </summary>
-    public partial class Login : Window
+    public partial class RegisterWindow : Window
     {
-        public Login()
+        public RegisterWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
     }
 }

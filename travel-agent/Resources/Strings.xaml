@@ -4,4 +4,7 @@
     xmlns:System="clr-namespace:System;assembly=mscorlib">
     <System:String x:Key="String.EmailLabel">E-mail adresa</System:String>
     <System:String x:Key="String.PasswordLabel">Lozinka</System:String>
+    <System:String x:Key="String.LoginButton">Prijavi me!</System:String>
+    <System:String x:Key="String.CreateNewAccountLabel">Želiš li napraviti novi nalog?</System:String>
+    <System:String x:Key="String.ToRegisterButton">Registruj se!</System:String>
 </ResourceDictionary>
