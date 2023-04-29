@@ -25,55 +25,141 @@
                 Height="175"
                 Margin="0 0 0 50"/>
 
-            <controls:FancyTextBox
-                x:Name="LoginEmailInput"
-                Placeholder="{StaticResource String.EmailLabel}"
-                Margin="0 0 0 5">
-                <controls:FancyTextBox.ValidationRules>
-                    <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
-                </controls:FancyTextBox.ValidationRules>
-            </controls:FancyTextBox>
+            <StackPanel 
+                x:Name="LoginView"
+                Visibility="Visible">
+                <controls:FancyTextBox
+                    x:Name="LoginEmailInput"
+                    Placeholder="{StaticResource String.EmailLabel}"
+                    Margin="0 0 0 5">
+                    <controls:FancyTextBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyTextBox.ValidationRules>
+                </controls:FancyTextBox>
 
-            <controls:FancyTextBox
-                x:Name="LoginPassworInput"
-                Placeholder="{StaticResource String.PasswordLabel}"
-                Margin="0 0 0 5">
-                <controls:FancyTextBox.ValidationRules>
-                    <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
-                </controls:FancyTextBox.ValidationRules>
-            </controls:FancyTextBox>
+                <controls:FancyPasswordBox
+                    x:Name="LoginPasswordInput"
+                    Placeholder="{StaticResource String.PasswordLabel}"
+                    Margin="0 0 0 5">
+                    <controls:FancyPasswordBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyPasswordBox.ValidationRules>
+                </controls:FancyPasswordBox>
 
-            <Button
-                Content="{StaticResource String.LoginButton}"
-                Click="SingIn"/>
+                <Button
+                    Content="{StaticResource String.LoginButton}"
+                    Click="OnSingInClick"/>
 
-            <StackPanel
-                Orientation="Horizontal"
-                HorizontalAlignment="Center">
-                <Label
-                    Content="{StaticResource String.CreateNewAccountLabel}"
-                    FontSize="{StaticResource Dim.RegularFontSize}"
-                    Padding="0"
-                    Margin="0 0 5 0"/>
-                <Label 
-                    Content="{StaticResource String.ToRegisterButton}"
-                    FontSize="{StaticResource Dim.RegularFontSize}"
-                    FontWeight="Bold"
-                    Padding="0"
-                    MouseLeftButtonDown="OnSingUp">
-                    <Label.Style>
-                        <Style TargetType="Label">
-                            <Setter Property="Foreground" Value="{StaticResource Color.Black}" />
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Foreground" Value="{StaticResource Color.PrimaryDarkColor}" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Label.Style>
-                </Label>
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    <Label
+                        Content="{StaticResource String.CreateNewAccountLabel}"
+                        FontSize="{StaticResource Dim.RegularFontSize}"
+                        Padding="0"
+                        Margin="0 0 5 0"/>
+                    <Label 
+                        Content="{StaticResource String.ToRegisterButton}"
+                        FontSize="{StaticResource Dim.RegularFontSize}"
+                        FontWeight="Bold"
+                        Padding="0"
+                        MouseLeftButtonDown="OnSwichToRegisterViewClick">
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Foreground" Value="{StaticResource Color.Black}" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="{StaticResource Color.PrimaryDarkColor}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </StackPanel>
             </StackPanel>
 
+            <StackPanel 
+                x:Name="RegisterView" 
+                Visibility="Collapsed">
+
+                <controls:FancyTextBox
+                    x:Name="RegisterNameInput"
+                    Placeholder="{StaticResource String.NameLabel}"
+                    Margin="0 0 0 5">
+                    <controls:FancyTextBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyTextBox.ValidationRules>
+                </controls:FancyTextBox>
+
+                <controls:FancyTextBox
+                    x:Name="RegisterLastnameInput"
+                    Placeholder="{StaticResource String.LastnameLabel}"
+                    Margin="0 0 0 5">
+                    <controls:FancyTextBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyTextBox.ValidationRules>
+                </controls:FancyTextBox>
+
+                <controls:FancyTextBox
+                    x:Name="RegisterEmailInput"
+                    Placeholder="{StaticResource String.EmailLabel}"
+                    Margin="0 0 0 5">
+                    <controls:FancyTextBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyTextBox.ValidationRules>
+                </controls:FancyTextBox>
+
+                <controls:FancyPasswordBox
+                    x:Name="RegisterPasswordInput"
+                    Placeholder="{StaticResource String.PasswordLabel}"
+                    Margin="0 0 0 5">
+                    <controls:FancyPasswordBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyPasswordBox.ValidationRules>
+                </controls:FancyPasswordBox>
+
+                <controls:FancyPasswordBox
+                    x:Name="RegisterConfirmePasswordInput"
+                    Placeholder="{StaticResource String.ConfirmePasswordLabel}"
+                    Margin="0 0 0 5">
+                    <controls:FancyPasswordBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyPasswordBox.ValidationRules>
+                </controls:FancyPasswordBox>
+                
+                <Button
+                    Content="{StaticResource String.RegisterButton}"
+                    Click="OnRegisterClick"/>
+
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    <Label
+                        Content="{StaticResource String.AlreadyHaveAnAccountLabel}"
+                        FontSize="{StaticResource Dim.RegularFontSize}"
+                        Padding="0"
+                        Margin="0 0 5 0"/>
+                    <Label 
+                        Content="{StaticResource String.ToLoginButton}"
+                        FontSize="{StaticResource Dim.RegularFontSize}"
+                        FontWeight="Bold"
+                        Padding="0"
+                        MouseLeftButtonDown="OnSwichToLoginViewClick">
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Foreground" Value="{StaticResource Color.Black}" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="{StaticResource Color.PrimaryDarkColor}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </StackPanel>
+
+            </StackPanel>
+            
         </StackPanel>
     </ScrollViewer>
 </Window>

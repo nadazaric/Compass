@@ -5,9 +5,9 @@ using Rule = travel_agent.ValidationRules.ValidationRule;
 
 namespace travel_agent.Controls
 {
-    public partial class FancyTextBox : UserControl
+    public partial class FancyPasswordBox : UserControl
     {
-        public FancyTextBox()
+        public FancyPasswordBox()
         {
             InitializeComponent();
             DataContext = this;
@@ -17,39 +17,37 @@ namespace travel_agent.Controls
         #region ---[ Properties ]---
 
         // Placeholder property
-        public static readonly DependencyProperty PlaceholderProperty = 
-            DependencyProperty.Register("PlaceholderTextBox", typeof(string), typeof(FancyTextBox), new PropertyMetadata(null));
+        public static readonly DependencyProperty PlaceholderProperty =
+            DependencyProperty.Register("PlaceholderPasswordBox", typeof(string), typeof(FancyPasswordBox), new PropertyMetadata(string.Empty));
 
         public string Placeholder
         {
-            get => GetValue(PlaceholderProperty) as string; 
+            get => GetValue(PlaceholderProperty) as string;
             set => SetValue(PlaceholderProperty, value);
         }
 
-        // InputText Property
-        public static DependencyProperty InputTextProperty =
-            DependencyProperty.Register("InputTextTextBox", typeof(string), typeof(FancyTextBox), new PropertyMetadata(string.Empty));
+        // Password property
+        public static readonly DependencyProperty PasswordProperty =
+            DependencyProperty.Register("PasswordPasswordBox", typeof(string), typeof(FancyPasswordBox), new PropertyMetadata(string.Empty));
 
-        public string InputText
+        public string Password
         {
-            get => GetValue(InputTextProperty) as string;
-            set => SetValue(InputTextProperty, value);
+            get => GetValue(PasswordProperty) as string;
+            private set => SetValue(PasswordProperty, value);
         }
 
         // Validation rules property
         public static readonly DependencyProperty ValidationRulesProperty =
-            DependencyProperty.Register("ValidationRulesTextBox", typeof(List<Rule>), typeof(FancyTextBox), new FrameworkPropertyMetadata(null));
+            DependencyProperty.Register("ValidationRulesPasswordBox", typeof(List<Rule>), typeof(FancyPasswordBox), new FrameworkPropertyMetadata(null));
 
         public List<Rule> ValidationRules
         {
             get => (List<Rule>)GetValue(ValidationRulesProperty);
             set => SetValue(ValidationRulesProperty, value);
         }
-
         #endregion
 
         #region ---[ Methods ]---
-
         public void SetManuallyError(string message)
         {
             errorMessage.Content = message;
@@ -67,7 +65,7 @@ namespace travel_agent.Controls
             bool isValid = true;
             foreach (Rule rule in ValidationRules)
             {
-                if(!rule.Validate(textBox.Text))
+                if (!rule.Validate(passwordBox.Password))
                 {
                     isValid = false;
                     errorMessage.Content = rule.ErrorMessage;
@@ -79,9 +77,15 @@ namespace travel_agent.Controls
             return isValid;
         }
 
-        public void RestartTextBoxState()
+        private void OnPasswordChanged(object sender, RoutedEventArgs e)
         {
-            textBox.Text = string.Empty;
+            var passwordBox = sender as PasswordBox;
+            if (!string.IsNullOrEmpty(passwordBox.Password)) Password = passwordBox.Password;
+        }
+
+        public void RestartPasswordBoxState()
+        {
+            passwordBox.Password = string.Empty;
             UnsetManuallyError();
         }
 

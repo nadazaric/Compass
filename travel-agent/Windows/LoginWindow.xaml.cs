@@ -1,30 +1,62 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using travel_agent.Controls;
 
 namespace travel_agent.Windows
-{
-    /// <summary>
-    /// Interaction logic for Login.xaml
-    /// </summary>
+{ 
     public partial class LoginWindow : Window
     {
-        public LoginWindow()
-        {
-            InitializeComponent();
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        }
+        public LoginWindow() => InitializeComponent();
 
-        private void SingIn(object sender, RoutedEventArgs e)
+        private void OnSingInClick(object sender, RoutedEventArgs e)
         {
             LoginEmailInput.IsValid();
-            LoginPassworInput.IsValid();
+            LoginPasswordInput.IsValid();
+            Console.WriteLine(LoginPasswordInput.Password);
         }
 
-        private void OnSingUp(object sender, MouseButtonEventArgs e)
+        private void OnSwichToRegisterViewClick(object sender, MouseButtonEventArgs e)
         {
-            var registerWindow = new RegisterWindow();
-            registerWindow.Show();
-            Hide();
+            LoginView.Visibility = Visibility.Collapsed;
+            RegisterView.Visibility = Visibility.Visible;
+            RestartLoginState();
+        }
+
+        private void OnRegisterClick(object sender, RoutedEventArgs e) => CheckIfRegisterInputsValid();
+
+        private void OnSwichToLoginViewClick(object sender, MouseButtonEventArgs e)
+        {
+            RegisterView.Visibility = Visibility.Collapsed;
+            LoginView.Visibility = Visibility.Visible;
+            RestartRegisterState();
+        }
+
+        private void RestartLoginState()
+        {
+            LoginEmailInput.RestartTextBoxState();
+            LoginPasswordInput.RestartPasswordBoxState();
+        }
+
+        private void RestartRegisterState()
+        {
+            StackPanel registerView = FindName("RegisterView") as StackPanel;
+            foreach (var child in registerView.Children)
+            {
+                if (child is FancyTextBox) (child as FancyTextBox).RestartTextBoxState();
+                else if (child is FancyPasswordBox) (child as FancyPasswordBox).RestartPasswordBoxState();
+            }
+        }
+
+        private void CheckIfRegisterInputsValid()
+        {
+            StackPanel registerView = FindName("RegisterView") as StackPanel;
+            foreach(var child in registerView.Children)
+            {
+                if (child is FancyTextBox) (child as FancyTextBox).IsValid();
+                else if (child is FancyPasswordBox) (child as FancyPasswordBox).IsValid();
+            }
         }
     }
 }

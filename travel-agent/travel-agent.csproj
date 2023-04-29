@@ -58,6 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\FancyPasswordBox.xaml.cs">
+      <DependentUpon>FancyPasswordBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FancyTextBox.xaml.cs">
       <DependentUpon>FancyTextBox.xaml</DependentUpon>
     </Compile>
@@ -67,13 +70,14 @@
     <Compile Include="Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\RegisterWindow.xaml.cs">
-      <DependentUpon>RegisterWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Controls\FancyPasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\FancyTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -99,10 +103,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\LoginWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\RegisterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

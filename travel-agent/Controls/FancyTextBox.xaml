@@ -14,6 +14,7 @@
             Foreground="{StaticResource Color.PrimaryDarkColor}"
             FontWeight="Medium"
             Padding="1 0 0 6"/>
+
         <TextBox 
             Name="textBox"
             Text="{Binding InputText}"
@@ -30,6 +31,7 @@
                 </Style>
             </TextBox.Resources>
         </TextBox>
+
         <Label 
             Name="errorMessage"
             FontSize="13"
@@ -37,5 +39,6 @@
             Foreground="{StaticResource Color.Error}"
             FontWeight="Medium"
             Padding="1 4 0 0"/>
+        
     </StackPanel>
 </UserControl>
