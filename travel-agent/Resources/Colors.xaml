@@ -6,4 +6,5 @@
     <SolidColorBrush x:Key="Color.ButtonHover" Color="#568DA6"/>
     <SolidColorBrush x:Key="Color.Black" Color="Black"/>
     <SolidColorBrush x:Key="Color.White" Color="White"/>
+    <SolidColorBrush x:Key="Color.Error" Color="#e83c3c"/>
 </ResourceDictionary>

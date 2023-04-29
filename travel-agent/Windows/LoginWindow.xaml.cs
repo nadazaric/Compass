@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace travel_agent.Windows
 {
@@ -28,7 +16,8 @@ namespace travel_agent.Windows
 
         private void SingIn(object sender, RoutedEventArgs e)
         {
-
+            LoginEmailInput.IsValid();
+            LoginPassworInput.IsValid();
         }
 
         private void OnSingUp(object sender, MouseButtonEventArgs e)
@@ -37,6 +26,5 @@ namespace travel_agent.Windows
             registerWindow.Show();
             Hide();
         }
-
     }
 }

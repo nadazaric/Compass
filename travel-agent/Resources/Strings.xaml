@@ -7,4 +7,5 @@
     <System:String x:Key="String.LoginButton">Prijavi me!</System:String>
     <System:String x:Key="String.CreateNewAccountLabel">Želiš li napraviti novi nalog?</System:String>
     <System:String x:Key="String.ToRegisterButton">Registruj se!</System:String>
+    <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>
 </ResourceDictionary>
