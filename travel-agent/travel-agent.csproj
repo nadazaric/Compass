@@ -64,6 +64,7 @@
     <Compile Include="Controls\FancyTextBox.xaml.cs">
       <DependentUpon>FancyTextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValidationRules\EmailPatternRule.cs" />
     <Compile Include="ValidationRules\InputLengthRule.cs" />
     <Compile Include="ValidationRules\RequiredTextBoxRule.cs" />
     <Compile Include="ValidationRules\ValidationRule.cs" />

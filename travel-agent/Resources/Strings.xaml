@@ -20,5 +20,8 @@
     
     <!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>
-    
+    <System:String x:Key="String.WrongEmailPatternError">Uneli ste pogšnu formu e-mail adrese!</System:String>
+    <System:String x:Key="String.PasswordMustContainNCaractersError">Lozinka mora sadržati minimalno 6 karaktera!</System:String>
+    <System:String x:Key="String.ConfirmePasswordNotMatchError">Morate uneti istu lozinku kao u polju iznad!</System:String>
+
 </ResourceDictionary>

@@ -24,7 +24,11 @@ namespace travel_agent.Windows
             RestartLoginState();
         }
 
-        private void OnRegisterClick(object sender, RoutedEventArgs e) => CheckIfRegisterInputsValid();
+        private void OnRegisterClick(object sender, RoutedEventArgs e)
+        {
+            IsRegisterInputsValid();
+            if (RegisterConfirmePasswordInput.IsValid()) IsConfirmePasswordCorrect();
+        }
 
         private void OnSwichToLoginViewClick(object sender, MouseButtonEventArgs e)
         {
@@ -49,7 +53,7 @@ namespace travel_agent.Windows
             }
         }
 
-        private void CheckIfRegisterInputsValid()
+        private void IsRegisterInputsValid()
         {
             StackPanel registerView = FindName("RegisterView") as StackPanel;
             foreach(var child in registerView.Children)
@@ -57,6 +61,17 @@ namespace travel_agent.Windows
                 if (child is FancyTextBox) (child as FancyTextBox).IsValid();
                 else if (child is FancyPasswordBox) (child as FancyPasswordBox).IsValid();
             }
+        }
+
+        private bool IsConfirmePasswordCorrect()
+        {
+            if (RegisterPasswordInput.Password == RegisterConfirmePasswordInput.Password)
+            {
+                RegisterConfirmePasswordInput.UnsetManuallyError();
+                return true;
+            }
+            RegisterConfirmePasswordInput.SetManuallyError(Application.Current.Resources["String.ConfirmePasswordNotMatchError"] as string);
+            return false;
         }
     }
 }
