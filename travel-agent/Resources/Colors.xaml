@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <SolidColorBrush x:Key="Color.PrimaryLightColor" Color="#1176CCCF"/>
-    <SolidColorBrush x:Key="Color.PrimaryDarkColor" Color="#336B87"/>
+    <SolidColorBrush x:Key="Color.PrimaryLight" Color="#1176CCCF"/>
+    <SolidColorBrush x:Key="Color.PrimaryDark" Color="#336B87"/>
     <SolidColorBrush x:Key="Color.ButtonHover" Color="#568DA6"/>
     <SolidColorBrush x:Key="Color.Black" Color="Black"/>
     <SolidColorBrush x:Key="Color.White" Color="White"/>

@@ -11,10 +11,9 @@
             Name="placeholder"
             Content="{Binding Placeholder}"
             FontSize="{StaticResource Dim.RegularFontSize}"
-            Foreground="{StaticResource Color.PrimaryDarkColor}"
+            Foreground="{StaticResource Color.PrimaryDark}"
             FontWeight="Medium"
             Padding="1 0 0 6"/>
-
         <TextBox 
             Name="textBox"
             Text="{Binding InputText}"
@@ -22,16 +21,38 @@
             FontWeight="Regular"
             Height="{StaticResource Dim.InputAndButtonHeight}"
             VerticalContentAlignment="Center"
-            Background="{StaticResource Color.PrimaryLightColor}"
-            BorderBrush="{StaticResource Color.PrimaryDarkColor}"
+            Background="{StaticResource Color.PrimaryLight}"
+            BorderBrush="{StaticResource Color.PrimaryDark}"
             Padding="8 5">
             <TextBox.Resources>
-                <Style TargetType="{x:Type Border}">
-                    <Setter Property="CornerRadius" Value="5"/>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TextBox}">
+                                <Grid>
+                                    <Border 
+                                        x:Name="border"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="5">
+                                        <ScrollViewer x:Name="PART_ContentHost" Margin="0"/>
+                                    </Border>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsFocused" Value="True">
+                                        <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
             </TextBox.Resources>
         </TextBox>
-
         <Label 
             Name="errorMessage"
             FontSize="13"
@@ -39,6 +60,5 @@
             Foreground="{StaticResource Color.Error}"
             FontWeight="Medium"
             Padding="1 4 0 0"/>
-        
     </StackPanel>
 </UserControl>

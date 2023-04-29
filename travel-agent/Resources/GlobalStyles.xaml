@@ -4,8 +4,8 @@
 
     <!-- button -->
     <Style TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource Color.PrimaryDarkColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource Color.PrimaryDarkColor}"/>
+        <Setter Property="Background" Value="{StaticResource Color.PrimaryDark}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Color.PrimaryDark}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="{StaticResource Dim.RegularFontSize}"/>
         <Setter Property="Height" Value="{StaticResource Dim.InputAndButtonHeight}"/>
