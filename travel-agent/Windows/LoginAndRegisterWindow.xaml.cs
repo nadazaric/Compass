@@ -14,7 +14,7 @@ namespace travel_agent.Windows
         public LoginWindow()
         {
             InitializeComponent();
-            userService = new UserService();
+            userService = UserService.Instance;
             app = Application.Current;
         }
 
