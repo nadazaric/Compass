@@ -32,7 +32,7 @@ namespace travel_agent.Controls
 
         public string Password
         {
-            get => GetValue(PasswordProperty) as string;
+            get => (GetValue(PasswordProperty) as string).Trim();
             private set => SetValue(PasswordProperty, value);
         }
 
@@ -65,6 +65,7 @@ namespace travel_agent.Controls
             bool isValid = true;
             foreach (Rule rule in ValidationRules)
             {
+                passwordBox.Password = passwordBox.Password.Trim();
                 if (!rule.Validate(passwordBox.Password))
                 {
                     isValid = false;
@@ -83,7 +84,7 @@ namespace travel_agent.Controls
             if (!string.IsNullOrEmpty(passwordBox.Password)) Password = passwordBox.Password;
         }
 
-        public void RestartPasswordBoxState()
+        public void RestartState()
         {
             passwordBox.Password = string.Empty;
             UnsetManuallyError();

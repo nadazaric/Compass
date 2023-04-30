@@ -8,7 +8,7 @@
     xmlns:controls="clr-namespace:travel_agent.Controls"
     xmlns:validatrs="clr-namespace:travel_agent.ValidationRules"
     mc:Ignorable="d"
-    Title="KOMPAS"
+    Title="{StaticResource String.AppName}"
     WindowState="Maximized"
     WindowStartupLocation="CenterScreen">
     <ScrollViewer

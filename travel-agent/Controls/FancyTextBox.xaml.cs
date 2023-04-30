@@ -32,7 +32,7 @@ namespace travel_agent.Controls
 
         public string InputText
         {
-            get => GetValue(InputTextProperty) as string;
+            get => (GetValue(InputTextProperty) as string).Trim();
             set => SetValue(InputTextProperty, value);
         }
 
@@ -67,6 +67,7 @@ namespace travel_agent.Controls
             bool isValid = true;
             foreach (Rule rule in ValidationRules)
             {
+                textBox.Text = textBox.Text.Trim();
                 if(!rule.Validate(textBox.Text))
                 {
                     isValid = false;
@@ -79,7 +80,7 @@ namespace travel_agent.Controls
             return isValid;
         }
 
-        public void RestartTextBoxState()
+        public void RestartState()
         {
             textBox.Text = string.Empty;
             UnsetManuallyError();

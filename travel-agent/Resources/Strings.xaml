@@ -2,6 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:System="clr-namespace:System;assembly=mscorlib">
+
+    <System:String x:Key="String.AppName">KOMPAS</System:String>
     
     <!-- Labels -->
     <System:String x:Key="String.EmailLabel">E-mail adresa</System:String>
@@ -23,5 +25,10 @@
     <System:String x:Key="String.WrongEmailPatternError">Uneli ste pogšnu formu e-mail adrese!</System:String>
     <System:String x:Key="String.PasswordMustContainNCaractersError">Lozinka mora sadržati minimalno 6 karaktera!</System:String>
     <System:String x:Key="String.ConfirmePasswordNotMatchError">Morate uneti istu lozinku kao u polju iznad!</System:String>
+    <System:String x:Key="String.AlreadyUseEmailError">Ova e-mail adresa je već zauzeta!</System:String>
+    <System:String x:Key="String.EmailOrPassworNotCorrectError">E-mail adresa ili lozinka je pogrešna!</System:String>
+    
+    <!-- Message Box Messages -->
+    <System:String x:Key="String.RegisterSuccessMessage">Uspješno ste se registrovali! Sada možete da se prijavite sa novokreiranim nalogom.</System:String>
 
 </ResourceDictionary>
