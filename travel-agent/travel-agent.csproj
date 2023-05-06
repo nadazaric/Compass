@@ -81,12 +81,21 @@
     <Compile Include="ValidationRules\InputLengthRule.cs" />
     <Compile Include="ValidationRules\RequiredTextBoxRule.cs" />
     <Compile Include="ValidationRules\ValidationRule.cs" />
-    <Compile Include="Windows\LoginAndRegisterWindow.xaml.cs">
+    <Compile Include="WindowsAndPages\ArrangementsPage.xaml.cs">
+      <DependentUpon>ArrangementsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsAndPages\LoginAndRegisterWindow.xaml.cs">
       <DependentUpon>LoginAndRegisterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WindowsAndPages\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsAndPages\PlacesPage.xaml.cs">
+      <DependentUpon>PlacesPage.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\FancyPasswordBox.xaml">
       <SubType>Designer</SubType>
@@ -116,7 +125,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\LoginAndRegisterWindow.xaml">
+    <Page Include="WindowsAndPages\ArrangementsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsAndPages\LoginAndRegisterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsAndPages\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsAndPages\PlacesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -153,6 +174,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="k.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\logo-k.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

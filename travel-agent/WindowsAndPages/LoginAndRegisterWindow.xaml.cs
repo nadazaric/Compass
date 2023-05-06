@@ -4,6 +4,7 @@ using System.Windows.Input;
 using travel_agent.Controls;
 using travel_agent.Models;
 using travel_agent.Services;
+using travel_agent.WindowsAndPages;
 
 namespace travel_agent.Windows
 { 
@@ -29,7 +30,9 @@ namespace travel_agent.Windows
                 LoginEmailInput.SetManuallyError(app.Resources["String.EmailOrPassworNotCorrectError"] as string);
                 LoginPasswordInput.SetManuallyError(app.Resources["String.EmailOrPassworNotCorrectError"] as string);
             }
-            // TODO: Go to next window
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+            Hide();
         }
 
         private void OnSwichToRegisterViewClick(object sender, MouseButtonEventArgs e)
