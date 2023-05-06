@@ -11,7 +11,7 @@
     WindowStartupLocation="CenterScreen">
     <Grid>
 
-        <Grid Height="80" VerticalAlignment="Top" Background="{StaticResource Color.NavbarBackground}">
+        <Grid x:Name="Navbar" Height="80" VerticalAlignment="Top" Background="{StaticResource Color.NavbarBackground}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -19,13 +19,22 @@
 
             <Image Source="{StaticResource Image.KLogo}" Margin="15"/>
 
-            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="25 0">
-                <Button Content="Mesta" Padding="10 0" Margin="10 0" Background="Transparent" Foreground="Black" FontWeight="Bold" FontSize="20" BorderBrush="Transparent" Click="OnPlacesNavbarButtonClick"/>
-                <Button Content="Atrakcije" Padding="10 0" Margin="10 0" Background="Transparent" Foreground="Black" FontWeight="Bold" FontSize="20" BorderBrush="Transparent" Click="OnArrangementsNavbarBttonClick"/>
-                <Button Content="Izloguj se" Padding="10 0" Margin="10 0" Background="Transparent" Foreground="Black" FontWeight="Bold" FontSize="20" BorderBrush="Transparent" Click="OnLogoutButtonClick"/>
+            <StackPanel x:Name="NavbarButtons" Height="50" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="25 0">
+                <Button 
+                    Name="PlacesNavbarButton"
+                    Style="{StaticResource NavbarButtonStyle}"
+                    Content="Mesta"
+                    Click="OnPlacesNavbarButtonClick"/>
+                <Button
+                    Style="{StaticResource NavbarButtonStyle}"
+                    Content="Atrakcije" 
+                    Click="OnArrangementsNavbarBttonClick"/>
+                <Button 
+                    Style="{StaticResource NavbarButtonStyle}"
+                    Content="Izloguj se" 
+                    Click="OnLogoutButtonClick"/>
             </StackPanel>
         </Grid>
-
         <Frame x:Name="Main" Margin="0 75 0 0" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

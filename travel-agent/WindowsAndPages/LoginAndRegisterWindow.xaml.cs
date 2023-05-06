@@ -8,27 +8,27 @@ using travel_agent.WindowsAndPages;
 
 namespace travel_agent.Windows
 { 
-    public partial class LoginWindow : Window
+    public partial class LoginAndRegisterWindow : Window
     {
-        UserService userService;
-        Application app;
-        public LoginWindow()
+        private UserService UserService;
+        private Application App;
+        public LoginAndRegisterWindow()
         {
             InitializeComponent();
-            userService = UserService.Instance;
-            app = Application.Current;
+            UserService = UserService.Instance;
+            App = Application.Current;
         }
 
         private void OnSingInClick(object sender, RoutedEventArgs e)
         {
             if (!IsLoginInputsValid()) return;
-            bool isLogged = userService.TryLogin(LoginEmailInput.InputText, LoginPasswordInput.Password);
+            bool isLogged = UserService.TryLogin(LoginEmailInput.InputText, LoginPasswordInput.Password);
             if(!isLogged)
             {
                 LoginEmailInput.RestartState();
                 LoginPasswordInput.RestartState();
-                LoginEmailInput.SetManuallyError(app.Resources["String.EmailOrPassworNotCorrectError"] as string);
-                LoginPasswordInput.SetManuallyError(app.Resources["String.EmailOrPassworNotCorrectError"] as string);
+                LoginEmailInput.SetManuallyError(App.Resources["String.EmailOrPassworNotCorrectError"] as string);
+                LoginPasswordInput.SetManuallyError(App.Resources["String.EmailOrPassworNotCorrectError"] as string);
             }
             var mainWindow = new MainWindow();
             mainWindow.Show();
@@ -53,8 +53,8 @@ namespace travel_agent.Windows
                 Password = RegisterPasswordInput.Password,
                 Role = Role.PASSENGER
             };
-            userService.Create(newUser);
-            MessageBox.Show(app.Resources["String.RegisterSuccessMessage"] as string , app.Resources["String.AppName"] as string, MessageBoxButton.OK, MessageBoxImage.Information);
+            UserService.Create(newUser);
+            MessageBox.Show(App.Resources["String.RegisterSuccessMessage"] as string , App.Resources["String.AppName"] as string, MessageBoxButton.OK, MessageBoxImage.Information);
             RegisterView.Visibility = Visibility.Collapsed;
             LoginView.Visibility = Visibility.Visible;
         }
@@ -108,15 +108,15 @@ namespace travel_agent.Windows
                 RegisterConfirmePasswordInput.UnsetManuallyError();
                 return true;
             }
-            RegisterConfirmePasswordInput.SetManuallyError(app.Resources["String.ConfirmePasswordNotMatchError"] as string);
+            RegisterConfirmePasswordInput.SetManuallyError(App.Resources["String.ConfirmePasswordNotMatchError"] as string);
             return false;
         }
 
         private bool IsEmailAlreadyUsed()
         {
-            if (userService.IsEmailAlreadyUsed(RegisterEmailInput.InputText))
+            if (UserService.IsEmailAlreadyUsed(RegisterEmailInput.InputText))
             {
-                RegisterEmailInput.SetManuallyError(app.Resources["String.AlreadyUseEmailError"] as string);
+                RegisterEmailInput.SetManuallyError(App.Resources["String.AlreadyUseEmailError"] as string);
                 return true;
             }
             RegisterEmailInput.UnsetManuallyError();
