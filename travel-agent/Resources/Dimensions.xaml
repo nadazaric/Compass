@@ -1,0 +1,9 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:System="clr-namespace:System;assembly=mscorlib">
+    <System:Double x:Key="Dim.InputAndButtonHeight">42</System:Double>
+    <CornerRadius x:Key="Dim.RegularCorner">6</CornerRadius>
+    <System:Double x:Key="Dim.RegularFontSize">15</System:Double>
+    <Thickness x:Key="Dim.BorderTickness">1</Thickness>
+</ResourceDictionary>

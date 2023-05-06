@@ -1,0 +1,167 @@
+﻿<Window 
+    x:Class="travel_agent.Windows.LoginWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:travel_agent.Windows"
+    xmlns:controls="clr-namespace:travel_agent.Controls"
+    xmlns:validatrs="clr-namespace:travel_agent.ValidationRules"
+    mc:Ignorable="d"
+    Title="{StaticResource String.AppName}"
+    WindowState="Maximized"
+    WindowStartupLocation="CenterScreen">
+    <ScrollViewer
+        HorizontalScrollBarVisibility="Auto" 
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="300"
+            Margin="20">
+            <Image 
+                Source="{StaticResource Image.Logo}"
+                Width="175"
+                Height="175"
+                Margin="0 0 0 50"/>
+
+            <StackPanel 
+                x:Name="LoginView"
+                Visibility="Visible">
+                <controls:FancyTextBox
+                    x:Name="LoginEmailInput"
+                    Placeholder="{StaticResource String.EmailLabel}"
+                    Margin="0 0 0 5">
+                    <controls:FancyTextBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyTextBox.ValidationRules>
+                </controls:FancyTextBox>
+
+                <controls:FancyPasswordBox
+                    x:Name="LoginPasswordInput"
+                    Placeholder="{StaticResource String.PasswordLabel}"
+                    Margin="0 0 0 5">
+                    <controls:FancyPasswordBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyPasswordBox.ValidationRules>
+                </controls:FancyPasswordBox>
+
+                <Button
+                    Content="{StaticResource String.LoginButton}"
+                    Click="OnSingInClick"/>
+
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    <Label
+                        Content="{StaticResource String.CreateNewAccountLabel}"
+                        FontSize="{StaticResource Dim.RegularFontSize}"
+                        Padding="0"
+                        Margin="0 0 5 0"/>
+                    <Label 
+                        Content="{StaticResource String.ToRegisterButton}"
+                        FontSize="{StaticResource Dim.RegularFontSize}"
+                        FontWeight="Bold"
+                        Padding="0"
+                        MouseLeftButtonDown="OnSwichToRegisterViewClick">
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Foreground" Value="{StaticResource Color.Black}" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="{StaticResource Color.PrimaryDark}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel 
+                x:Name="RegisterView" 
+                Visibility="Collapsed">
+
+                <controls:FancyTextBox
+                    x:Name="RegisterNameInput"
+                    Placeholder="{StaticResource String.NameLabel}"
+                    Margin="0 0 0 5">
+                    <controls:FancyTextBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyTextBox.ValidationRules>
+                </controls:FancyTextBox>
+
+                <controls:FancyTextBox
+                    x:Name="RegisterLastnameInput"
+                    Placeholder="{StaticResource String.LastnameLabel}"
+                    Margin="0 0 0 5">
+                    <controls:FancyTextBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyTextBox.ValidationRules>
+                </controls:FancyTextBox>
+
+                <controls:FancyTextBox
+                    x:Name="RegisterEmailInput"
+                    Placeholder="{StaticResource String.EmailLabel}"
+                    Margin="0 0 0 5">
+                    <controls:FancyTextBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                        <validatrs:EmailPatternRule ErrorMessage="{StaticResource String.WrongEmailPatternError}"/>
+                    </controls:FancyTextBox.ValidationRules>
+                </controls:FancyTextBox>
+
+                <controls:FancyPasswordBox
+                    x:Name="RegisterPasswordInput"
+                    Placeholder="{StaticResource String.PasswordLabel}"
+                    Margin="0 0 0 5">
+                    <controls:FancyPasswordBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                        <validatrs:InputLengthRule ErrorMessage="{StaticResource String.PasswordMustContainNCaractersError}" MinLength="6"/>
+                    </controls:FancyPasswordBox.ValidationRules>
+                </controls:FancyPasswordBox>
+
+                <controls:FancyPasswordBox
+                    x:Name="RegisterConfirmePasswordInput"
+                    Placeholder="{StaticResource String.ConfirmePasswordLabel}"
+                    Margin="0 0 0 5">
+                    <controls:FancyPasswordBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyPasswordBox.ValidationRules>
+                </controls:FancyPasswordBox>
+                
+                <Button
+                    Content="{StaticResource String.RegisterButton}"
+                    Click="OnRegisterClick"/>
+
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    <Label
+                        Content="{StaticResource String.AlreadyHaveAnAccountLabel}"
+                        FontSize="{StaticResource Dim.RegularFontSize}"
+                        Padding="0"
+                        Margin="0 0 5 0"/>
+                    <Label 
+                        Content="{StaticResource String.ToLoginButton}"
+                        FontSize="{StaticResource Dim.RegularFontSize}"
+                        FontWeight="Bold"
+                        Padding="0"
+                        MouseLeftButtonDown="OnSwichToLoginViewClick">
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Foreground" Value="{StaticResource Color.Black}" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="{StaticResource Color.PrimaryDark}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </StackPanel>
+
+            </StackPanel>
+            
+        </StackPanel>
+    </ScrollViewer>
+</Window>
