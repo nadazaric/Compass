@@ -36,11 +36,11 @@
 
     <Style x:Key="NavbarButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Padding" Value="15 0"/>
-        <Setter Property="Margin" Value="10 0"/>
+        <Setter Property="Padding" Value="12"/>
+        <Setter Property="Margin" Value="5 0"/>
         <Setter Property="Foreground" Value="{StaticResource Color.Black}"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontSize" Value="18"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="Template">
             <Setter.Value>

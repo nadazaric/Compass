@@ -17,22 +17,23 @@ namespace travel_agent.Windows
             InitializeComponent();
             UserService = UserService.Instance;
             App = Application.Current;
+            UserService.InitContext();
         }
 
         private void OnSingInClick(object sender, RoutedEventArgs e)
         {
             if (!IsLoginInputsValid()) return;
-            bool isLogged = UserService.TryLogin(LoginEmailInput.InputText, LoginPasswordInput.Password);
-            if(!isLogged)
+            User loggedUser = UserService.TryLogin(LoginEmailInput.InputText, LoginPasswordInput.Password);
+            if(loggedUser == null)
             {
                 LoginEmailInput.RestartState();
                 LoginPasswordInput.RestartState();
                 LoginEmailInput.SetManuallyError(App.Resources["String.EmailOrPassworNotCorrectError"] as string);
                 LoginPasswordInput.SetManuallyError(App.Resources["String.EmailOrPassworNotCorrectError"] as string);
             }
-            var mainWindow = new MainWindow();
+            var mainWindow = new MainWindow(loggedUser);
             mainWindow.Show();
-            Hide();
+            Close();
         }
 
         private void OnSwichToRegisterViewClick(object sender, MouseButtonEventArgs e)

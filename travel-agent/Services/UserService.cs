@@ -1,5 +1,4 @@
-﻿using System.Data.Entity.Core.Common.CommandTrees;
-using System.Linq;
+﻿using System.Linq;
 using travel_agent.Models;
 using Context = travel_agent.Infrastructure.Context;
 
@@ -15,6 +14,11 @@ namespace travel_agent.Services
                 if(instance == null) instance = new UserService();
                 return instance;
             }
+        }
+
+        public void InitContext()
+        {
+            using (var db = new Context()) db.Users.ToList();
         }
 
         public void CreateDefaultAgnt()
@@ -44,14 +48,9 @@ namespace travel_agent.Services
             }
         }
 
-        public bool TryLogin(string email, string password)
+        public User TryLogin(string email, string password)
         {
-            using(var db = new Context())
-            {
-                User user = db.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
-                if (user == null) return false;
-                return true;
-            }
+            using(var db = new Context()) return db.Users.FirstOrDefault(u => u.Email == email && u.Password == password);    
         }
     }
 }

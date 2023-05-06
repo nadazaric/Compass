@@ -19,6 +19,9 @@
     <System:String x:Key="String.RegisterButton">Registruj me!</System:String>
     <System:String x:Key="String.ToLoginButton">Prijavi se.</System:String>
     <System:String x:Key="String.ToRegisterButton">Registruj se.</System:String>
+    <System:String x:Key="String.PlacesNavbarButton">Mesta</System:String>
+    <System:String x:Key="String.ArrangementsNavbarButton">Aranžmani</System:String>
+    <System:String x:Key="String.LogoutNavbarButton">Izloguj se</System:String>
     
     <!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>
