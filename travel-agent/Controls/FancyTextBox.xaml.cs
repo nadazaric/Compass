@@ -46,6 +46,16 @@ namespace travel_agent.Controls
             set => SetValue(ValidationRulesProperty, value);
         }
 
+        // Multiline property
+        public static readonly DependencyProperty MultilineProperty =
+        DependencyProperty.Register("MultilineTextBox", typeof(bool), typeof(FancyTextBox), new PropertyMetadata(false));
+
+        public bool Multiline
+        {
+            get => (bool)GetValue(MultilineProperty);
+            set => SetValue(MultilineProperty, value); 
+        }
+
         #endregion
 
         #region ---[ Methods ]---

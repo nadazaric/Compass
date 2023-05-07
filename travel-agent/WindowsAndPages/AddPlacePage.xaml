@@ -1,0 +1,57 @@
+﻿<Page x:Class="travel_agent.WindowsAndPages.AddPlacePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:travel_agent.WindowsAndPages"
+      xmlns:controls="clr-namespace:travel_agent.Controls"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddPlacePage">
+
+    <WrapPanel
+        Margin="20"
+        Orientation="Vertical">
+
+        <Border 
+            x:Name="test" 
+            CornerRadius="5" 
+            BorderBrush="{StaticResource Color.PrimaryDark}" 
+            Background="{StaticResource Color.PrimaryLight}" 
+            BorderThickness="1" 
+            Width="400" 
+            Height="300"
+            Margin="0 0 0 5" />
+        <Button Content="Dodaj fotografiju" Click="OnAddPictureClick" Margin="0 0 0 5"/>
+
+        <controls:FancyTextBox
+            Placeholder="Ime mesta:"
+            Width="400"
+            Margin="0 0 0 5"/>
+        <controls:FancyTextBox
+            Placeholder="Opis:"
+            Width="400"
+            Multiline="True"
+            Margin="0 0 0 5"/>
+
+        <Label
+            Content="Vrsta:"
+            FontSize="{StaticResource Dim.RegularFontSize}"
+            Foreground="{StaticResource Color.PrimaryDark}"
+            FontWeight="Medium"
+            Padding="1 0 0 6"/>
+        <Border CornerRadius="5" BorderBrush="{StaticResource Color.PrimaryDark}" Background="{StaticResource Color.PrimaryLight}" BorderThickness="1" Width="400" Height="50">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <RadioButton Grid.Column="0" Style="{StaticResource StandardRadioButtonStyle}"  Content="Atrakcija" GroupName="MyRadioButtonGroup" IsChecked="True"/>
+                <RadioButton Grid.Column="1" Style="{StaticResource StandardRadioButtonStyle}" Content="Smeštaj" GroupName="MyRadioButtonGroup" />
+                <RadioButton Grid.Column="2" Style="{StaticResource StandardRadioButtonStyle}" Content="Restoran" GroupName="MyRadioButtonGroup" />
+            </Grid>
+        </Border>
+
+    </WrapPanel>
+</Page>

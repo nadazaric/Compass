@@ -8,6 +8,6 @@
     mc:Ignorable="d" 
     Title="PlacesPage">
     <Grid>
-        <TextBlock Text="Places Page"/>
+        <Button Content="Dodaj novo mesto" Margin="15" Click="OnAddNewPlaceClick"/>
     </Grid>
 </Page>

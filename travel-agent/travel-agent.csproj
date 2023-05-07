@@ -81,6 +81,9 @@
     <Compile Include="ValidationRules\InputLengthRule.cs" />
     <Compile Include="ValidationRules\RequiredTextBoxRule.cs" />
     <Compile Include="ValidationRules\ValidationRule.cs" />
+    <Compile Include="WindowsAndPages\AddPlacePage.xaml.cs">
+      <DependentUpon>AddPlacePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowsAndPages\ArrangementsPage.xaml.cs">
       <DependentUpon>ArrangementsPage.xaml</DependentUpon>
     </Compile>
@@ -122,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Strings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsAndPages\AddPlacePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

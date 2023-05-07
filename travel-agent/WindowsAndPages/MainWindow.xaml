@@ -36,6 +36,6 @@
                     Click="OnLogoutButtonClick"/>
             </StackPanel>
         </Grid>
-        <Frame x:Name="Main" Margin="0 80 0 0" NavigationUIVisibility="Hidden"/>
+        <Frame Name="Main" Margin="0 80 0 0" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

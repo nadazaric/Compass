@@ -4,9 +4,16 @@ namespace travel_agent.WindowsAndPages
 {
     public partial class PlacesPage : Page
     {
-        public PlacesPage()
+        private new readonly MainWindow Parent;
+        public PlacesPage(MainWindow parent)
         {
             InitializeComponent();
+            Parent = parent;
+        }
+
+        private void OnAddNewPlaceClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Parent.MainFrame.Content = new AddPlacePage(Parent);
         }
     }
 }
