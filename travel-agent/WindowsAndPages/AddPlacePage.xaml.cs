@@ -29,7 +29,9 @@ namespace travel_agent.WindowsAndPages
                 imageBrush.Stretch = Stretch.UniformToFill;
                 imageBrush.AlignmentX = AlignmentX.Center;
                 imageBrush.AlignmentY = AlignmentY.Center;
-                test.Background = imageBrush;
+                PlaceImage.Background = imageBrush;
+                PlaceImageLabel.Visibility = Visibility.Hidden;
+                (sender as Button).Content = "Promeni fotografiju";
             }
         }
 

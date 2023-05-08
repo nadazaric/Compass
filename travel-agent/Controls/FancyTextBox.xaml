@@ -13,7 +13,7 @@
             FontSize="{StaticResource Dim.RegularFontSize}"
             Foreground="{StaticResource Color.PrimaryDark}"
             FontWeight="Medium"
-            Padding="1 0 0 6"/>
+            Padding="0"/>
         <TextBox 
             Name="textBox"
             Text="{Binding InputText}"
