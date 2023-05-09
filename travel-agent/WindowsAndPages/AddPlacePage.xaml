@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:local="clr-namespace:travel_agent.WindowsAndPages"
     xmlns:controls="clr-namespace:travel_agent.Controls"
+    xmlns:validatrs="clr-namespace:travel_agent.ValidationRules"
     mc:Ignorable="d" 
     Title="AddPlacePage">
     <ScrollViewer
@@ -17,46 +18,69 @@
             <StackPanel
                 Margin="15 0">
                 <Grid Width="625"></Grid> <!-- to get width -->
-                
+
                 <controls:FancyTextBox
+                    x:Name="PlacesNemeInput"
                     Placeholder="Ime mesta"
-                    Margin="0 0 0 20"/>
-                
-                <Border 
-                    x:Name="PlaceImage" 
-                    CornerRadius="5" 
-                    BorderBrush="{StaticResource Color.PrimaryDark}" 
-                    Background="{StaticResource Color.PrimaryLight}" 
-                    BorderThickness="1" 
-                    Height="325"
                     Margin="0 0 0 20">
+                    <controls:FancyTextBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyTextBox.ValidationRules>
+                </controls:FancyTextBox>
+
+                <StackPanel
+                        Margin="0 0 0 20">
+                    <Border 
+                        x:Name="PlaceImage" 
+                        CornerRadius="5" 
+                        BorderBrush="{StaticResource Color.PrimaryDark}" 
+                        Background="{StaticResource Color.PrimaryLight}" 
+                        BorderThickness="1" 
+                        Height="325">
+                        <Label
+                            x:Name="PlaceImageLabel"
+                            Content="Mesto za fotografiju"
+                            FontSize="14"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"/>
+                    </Border>
                     <Label
-                        x:Name="PlaceImageLabel"
-                        Content="Mesto za fotografiju"
-                        FontSize="14"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        HorizontalContentAlignment="Center"/>
-                </Border>
+                        x:Name="PlaceImageError"
+                        Content="Slika je obavezna"
+                        FontSize="13"
+                        Visibility="Collapsed"
+                        Foreground="{StaticResource Color.Error}"
+                        FontWeight="Medium"
+                        Padding="1 4 0 0"/>
+                </StackPanel>
+                
                 <Button 
+                    Style="{StaticResource OutlineButtonStyle}"
                     Content="Dodaj fotografiju" 
                     Click="OnAddPictureClick"
                     Padding="0"
                     Margin="0 0 0 15"/>
-                
+
                 <controls:FancyTextBox
-                    Placeholder="Opis:"
+                    x:Name="PlaceDescriptionInput"
+                    Placeholder="Opis"
                     Multiline="True"
-                    Margin="0 0 0 15"/>
+                    MaxWidth="625"
+                    Margin="0 0 0 15">
+                    <controls:FancyTextBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyTextBox.ValidationRules>
+                </controls:FancyTextBox>
 
                 <StackPanel
                     Margin="0 0 0 15">
                     <Label
-                        Content="Vrsta:"
+                        Content="Vrsta"
                         FontSize="{StaticResource Dim.RegularFontSize}"
                         Foreground="{StaticResource Color.PrimaryDark}"
                         FontWeight="Medium"
-                        Padding="0"/>
+                        Padding="1 0 0 6"/>
                     <Border 
                         CornerRadius="{StaticResource Dim.RegularCorner}" 
                         BorderBrush="{StaticResource Color.PrimaryDark}" 
@@ -69,9 +93,25 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <RadioButton Grid.Column="0" Style="{StaticResource StandardRadioButtonStyle}"  Content="Atrakcija" GroupName="MyRadioButtonGroup" IsChecked="True"/>
-                            <RadioButton Grid.Column="1" Style="{StaticResource StandardRadioButtonStyle}" Content="Smeštaj" GroupName="MyRadioButtonGroup" />
-                            <RadioButton Grid.Column="2" Style="{StaticResource StandardRadioButtonStyle}" Content="Restoran" GroupName="MyRadioButtonGroup" />
+                            <RadioButton 
+                                x:Name="PlaceAtractionRadioBtn" 
+                                Grid.Column="0" 
+                                Style="{StaticResource StandardRadioButtonStyle}" 
+                                Content="Atrakcija" 
+                                GroupName="MyRadioButtonGroup" 
+                                IsChecked="True"/>
+                            <RadioButton 
+                                x:Name="PlaceRestaurantRadioBtn" 
+                                Grid.Column="1" 
+                                Style="{StaticResource StandardRadioButtonStyle}" 
+                                Content="Smeštaj" 
+                                GroupName="MyRadioButtonGroup" />
+                            <RadioButton 
+                                x:Name="PlaceAccommodationRadioBtn" 
+                                Grid.Column="2" 
+                                Style="{StaticResource StandardRadioButtonStyle}" 
+                                Content="Restoran" 
+                                GroupName="MyRadioButtonGroup" />
                         </Grid>
                     </Border>
                 </StackPanel>
@@ -81,10 +121,15 @@
             <StackPanel
                 Margin="15 0">
                 <Grid Width="625"></Grid> <!-- to get width-->
-                
+
                 <controls:FancyTextBox
-                    Placeholder="Adresa:"
-                    Margin="0 0 0 20"/>
+                    x:Name="PlaceAddressInput"
+                    Placeholder="Adresa"
+                    Margin="0 0 0 20">
+                    <controls:FancyTextBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyTextBox.ValidationRules>
+                </controls:FancyTextBox>
 
                 <Border 
                     CornerRadius="5" 
@@ -103,9 +148,9 @@
 
                 <Button 
                     Content="Završi dodavanje novog mesta" 
-                    Click="OnAddPictureClick"
                     Padding="0"
-                    Margin="0"/>
+                    Margin="0"
+                    Click="OnSubmitClick"/>
             </StackPanel>
         </WrapPanel>
     </ScrollViewer>

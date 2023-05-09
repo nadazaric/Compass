@@ -8,6 +8,7 @@
         <Setter Property="BorderBrush" Value="{StaticResource Color.PrimaryDark}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="{StaticResource Dim.RegularFontSize}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="Height" Value="{StaticResource Dim.InputAndButtonHeight}"/>
         <Setter Property="Margin" Value="0 10"/>
         <Setter Property="Template">
@@ -27,6 +28,39 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="{StaticResource Color.ButtonHover}"/>
                             <Setter Property="BorderBrush" Value="{StaticResource Color.ButtonHover}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="OutlineButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource Color.PrimaryLight}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Color.PrimaryDark}"/>
+        <Setter Property="Foreground" Value="{StaticResource Color.PrimaryDark}"/>
+        <Setter Property="FontSize" Value="{StaticResource Dim.RegularFontSize}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Height" Value="{StaticResource Dim.InputAndButtonHeight}"/>
+        <Setter Property="Margin" Value="0 10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{StaticResource Dim.BorderTickness}"
+                        CornerRadius="{StaticResource Dim.RegularCorner}">
+                        <ContentPresenter 
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource Color.ButtonHover}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource Color.ButtonHover}"/>
+                            <Setter Property="Foreground" Value="White"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

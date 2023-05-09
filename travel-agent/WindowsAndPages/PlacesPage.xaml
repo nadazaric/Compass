@@ -7,7 +7,8 @@
     xmlns:local="clr-namespace:travel_agent.WindowsAndPages"
     mc:Ignorable="d" 
     Title="PlacesPage">
-    <Grid>
+    <Grid
+        x:Name="test">
         <Button Content="Dodaj novo mesto" Margin="15" Click="OnAddNewPlaceClick"/>
     </Grid>
 </Page>
