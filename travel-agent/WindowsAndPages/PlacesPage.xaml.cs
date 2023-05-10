@@ -45,6 +45,20 @@ namespace travel_agent.WindowsAndPages
             if (Parent.User.Role == Role.AGENT) Parent.MainFrame.Content = new AddAndModifyPlacePage(Parent, data as Place);
             else Parent.MainFrame.Content = new ViewPlacePage(Parent, data as Place);
         }
+
+        private void OnShowPopupClick(object sender, RoutedEventArgs e)
+        {
+            ShowPopupButton.Visibility = Visibility.Collapsed;
+            HidePopupButton.Visibility = Visibility.Visible;
+            AdvancedSearchPopup.IsOpen = true;
+        }
+
+        private void OnHidePopupClick(object sender, RoutedEventArgs e)
+        {
+            ShowPopupButton.Visibility = Visibility.Visible;
+            HidePopupButton.Visibility = Visibility.Collapsed;
+            AdvancedSearchPopup.IsOpen = false;
+        }
     }
 
     public class FirstItemTemplateSelector : DataTemplateSelector
