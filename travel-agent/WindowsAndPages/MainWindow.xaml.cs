@@ -7,16 +7,16 @@ namespace travel_agent.WindowsAndPages
 {
     public partial class MainWindow : Window
     {
-        public User Client { get; }
+        public User User { get; }
         public Frame MainFrame { get; }
         private Application App;
-        public MainWindow(User client)
+        public MainWindow(User user)
         {
             InitializeComponent();
             App = Application.Current;
             Main.Content = new PlacesPage(this);
             SetFocusStyle(PlacesNavbarButton);
-            Client = client;
+            User = user;
             MainFrame = Main;
 
         }

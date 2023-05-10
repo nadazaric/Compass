@@ -31,7 +31,13 @@ namespace travel_agent.WindowsAndPages
 
         private void OnAddNewPlaceClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            Parent.MainFrame.Content = new AddPlacePage(Parent);
+            Parent.MainFrame.Content = new AddAndModifyPlacePage(Parent);
+        }
+
+        private void OnPlaceClicked(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            object data = (sender as Grid).DataContext;
+            if (Parent.User.Role == Role.AGENT) Parent.MainFrame.Content = new AddAndModifyPlacePage(Parent, data as Place);
         }
     }
 

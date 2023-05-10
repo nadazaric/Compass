@@ -27,6 +27,7 @@
                 </StackPanel>
             </Button>
         </DataTemplate>
+        
         <DataTemplate x:Key="DefaultItemTemplate">
             <Border 
                 BorderBrush="{StaticResource Color.PrimaryDark}" 
@@ -64,7 +65,8 @@
                         </Setter>
                     </Style>
                 </Border.Style>
-                <Grid>
+                <Grid
+                    MouseLeftButtonUp="OnPlaceClicked">
                     <Grid.Clip>
                         <RectangleGeometry RadiusX="5" RadiusY="5" Rect="0,0,350,350"/>
                     </Grid.Clip>
@@ -90,12 +92,13 @@
                 </Grid>
             </Border>
         </DataTemplate>
+        
         <local:FirstItemTemplateSelector x:Key="FirstItemTemplateSelector" />
     </Page.Resources>
 
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl Margin="0 30" ItemsSource="{Binding Places}" ItemTemplateSelector="{StaticResource FirstItemTemplateSelector}">
+            <ItemsControl x:Name="test" Margin="0 30" ItemsSource="{Binding Places}" ItemTemplateSelector="{StaticResource FirstItemTemplateSelector}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel HorizontalAlignment="Center"/>

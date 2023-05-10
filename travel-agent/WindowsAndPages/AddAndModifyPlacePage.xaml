@@ -1,5 +1,5 @@
 ﻿<Page 
-    x:Class="travel_agent.WindowsAndPages.AddPlacePage"
+    x:Class="travel_agent.WindowsAndPages.AddAndModifyPlacePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -20,7 +20,7 @@
                 <Grid Width="625"></Grid> <!-- to get width -->
 
                 <controls:FancyTextBox
-                    x:Name="PlacesNemeInput"
+                    x:Name="PlacesNameInput"
                     Placeholder="Ime mesta"
                     Margin="0 0 0 20">
                     <controls:FancyTextBox.ValidationRules>
@@ -29,7 +29,7 @@
                 </controls:FancyTextBox>
 
                 <StackPanel
-                        Margin="0 0 0 20">
+                    Margin="0 0 0 20">
                     <Border 
                         x:Name="PlaceImage" 
                         CornerRadius="5" 
@@ -56,6 +56,7 @@
                 </StackPanel>
                 
                 <Button 
+                    x:Name="PlaceAddImageButton"
                     Style="{StaticResource OutlineButtonStyle}"
                     Content="Dodaj fotografiju" 
                     Click="OnAddPictureClick"
@@ -147,6 +148,7 @@
                 </Border>
 
                 <Button 
+                    x:Name="PlacesAddOrModifyButton"
                     Content="Završi dodavanje novog mesta" 
                     Padding="0"
                     Margin="0"
