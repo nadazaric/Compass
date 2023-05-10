@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using travel_agent.Models;
 using travel_agent.Services;
 
@@ -21,6 +18,17 @@ namespace travel_agent.WindowsAndPages
             PlaceService = PlaceService.Instance;
             SetPlacesList();
             DataContext = this;
+            if (Parent.User.Role != Role.AGENT) PlacesItemsControl.Loaded += CollapseFirstItem;
+        }
+
+        private void CollapseFirstItem(object sender, RoutedEventArgs e)
+        {
+            var firstItemContainer = PlacesItemsControl.ItemContainerGenerator.ContainerFromIndex(0) as UIElement;
+            if (firstItemContainer != null)
+            {
+                firstItemContainer.Visibility = Visibility.Collapsed;
+            }
+            PlacesItemsControl.Loaded -= CollapseFirstItem;
         }
 
         private void SetPlacesList()

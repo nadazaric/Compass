@@ -12,11 +12,11 @@ namespace travel_agent.WindowsAndPages
         private Application App;
         public MainWindow(User user)
         {
+            User = user;
             InitializeComponent();
             App = Application.Current;
             Main.Content = new PlacesPage(this);
             SetFocusStyle(PlacesNavbarButton);
-            User = user;
             MainFrame = Main;
 
         }
