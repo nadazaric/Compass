@@ -18,6 +18,7 @@ namespace travel_agent.WindowsAndPages
             PlaceService = PlaceService.Instance;
             SetPlacesList();
             DataContext = this;
+            if (Places.Count <= 1) SetupIfListEmpty();
             if (Parent.User.Role != Role.AGENT) PlacesItemsControl.Loaded += CollapseFirstItem;
         }
 
@@ -32,6 +33,21 @@ namespace travel_agent.WindowsAndPages
         {
             Places = new List<Place> {null};
             foreach (Place p in PlaceService.GetAll()) Places.Add(p);
+        }
+
+        private void SetupIfListEmpty()
+        {
+            if (Parent.User.Role == Role.AGENT)
+            {
+                PlacesList.Margin = new Thickness(20);
+                AdvanceSearch.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                AdvanceSearch.Visibility = Visibility.Collapsed;
+                PlacesList.Visibility = Visibility.Collapsed;
+                EmptyPlaceList.Visibility = Visibility.Visible;
+            }
         }
 
         private void OnAddNewPlaceClick(object sender, System.Windows.RoutedEventArgs e)

@@ -95,10 +95,32 @@
         </DataTemplate>
         <local:FirstItemTemplateSelector x:Key="FirstItemTemplateSelector" />
     </Page.Resources>
-
     <StackPanel>
 
-        <Grid Width="350" Background="White" Margin="0 25 0 0">
+        <Grid 
+            Height="800" 
+            Visibility="Collapsed">
+            <StackPanel
+                x:Name="EmptyPlaceList"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                <TextBlock 
+                    HorizontalAlignment="Center" 
+                    Text="✖"
+                    FontSize="70"
+                    FontWeight="Medium"
+                    Foreground="{StaticResource Color.PrimaryDark}"/>
+                <TextBlock 
+                    FontSize="18" 
+                    Text="Nije pronađeni niti jedno mesto"
+                    HorizontalAlignment="Center"
+                    Foreground="{StaticResource Color.PrimaryDark}"
+                    FontWeight="Medium"/>
+            </StackPanel>
+        </Grid>
+
+
+        <Grid x:Name="AdvanceSearch" Width="350" Background="White" Margin="0 25 0 0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -146,9 +168,9 @@
             </Popup>
         </Grid>
         
-        <Grid>
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl x:Name="PlacesItemsControl" Margin="0 20" ItemsSource="{Binding Places}" ItemTemplateSelector="{StaticResource FirstItemTemplateSelector}">
+        <Grid x:Name="PlacesList">
+            <ScrollViewer VerticalScrollBarVisibility="Auto"> <!--ova margina zbog paddinga na polju za search-->
+                <ItemsControl x:Name="PlacesItemsControl" Margin="0 10 0 20" ItemsSource="{Binding Places}" ItemTemplateSelector="{StaticResource FirstItemTemplateSelector}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel HorizontalAlignment="Center"/>
