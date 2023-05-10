@@ -13,11 +13,13 @@ namespace travel_agent.WindowsAndPages
     public partial class AddPlacePage : Page
     {
         private new readonly MainWindow Parent;
+        private Application App;
         private PlaceService PlaceService;
         private BitmapImage Image = null;
         public AddPlacePage(MainWindow parent)
         {
             InitializeComponent();
+            App = Application.Current;
             Parent = parent;
             PlaceService = PlaceService.Instance;
         }
@@ -44,6 +46,8 @@ namespace travel_agent.WindowsAndPages
         private void OnSubmitClick(object sender, RoutedEventArgs e)
         {
             if (!IsFormInputsValid()) return;
+            var result = MessageBox.Show("Da li ste sigurni da želite dodati novo mesto?", App.Resources["String.AppName"] as string, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No) return;
             Place place = new Place
             {
                 Name = PlacesNemeInput.InputText,
@@ -55,6 +59,7 @@ namespace travel_agent.WindowsAndPages
                 Longitude = 0,
             };
             PlaceService.Create(place);
+            Parent.MainFrame.Content = new PlacesPage(Parent);
         }
 
         private new PlaceType GetType()

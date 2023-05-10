@@ -7,8 +7,102 @@
     xmlns:local="clr-namespace:travel_agent.WindowsAndPages"
     mc:Ignorable="d" 
     Title="PlacesPage">
-    <Grid
-        x:Name="test">
-        <Button Content="Dodaj novo mesto" Margin="15" Click="OnAddNewPlaceClick"/>
+    <Page.Resources>
+        <DataTemplate x:Key="FirstItemTemplate">
+            <Button
+                Style="{StaticResource OutlineButtonStyle}" 
+                Width="350" 
+                Height="350"
+                Click="OnAddNewPlaceClick"
+                Margin="20">
+                <StackPanel
+                    VerticalAlignment="Center">
+                    <TextBlock 
+                        HorizontalAlignment="Center" 
+                        Text="+"
+                        FontSize="90"
+                        Margin="0 -30 0 0"
+                        FontWeight="Medium"/>
+                    <TextBlock Text="Dodaj novo mesto"/>
+                </StackPanel>
+            </Button>
+        </DataTemplate>
+        <DataTemplate x:Key="DefaultItemTemplate">
+            <Border 
+                BorderBrush="{StaticResource Color.PrimaryDark}" 
+                BorderThickness="1.25" 
+                CornerRadius="5"
+                Margin="20"
+                Height="350"
+                Width="350">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1.015" Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1.015" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </Style.Triggers>
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Border.Style>
+                <Grid>
+                    <Grid.Clip>
+                        <RectangleGeometry RadiusX="5" RadiusY="5" Rect="0,0,350,350"/>
+                    </Grid.Clip>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*" MinHeight="100"/>
+                        <RowDefinition Height="*" MaxHeight="200"/>
+                    </Grid.RowDefinitions>
+                    <Image
+                        Grid.Row="0"
+                        Source="{Binding Image}"
+                        Stretch="UniformToFill"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"/>
+                    <DockPanel Grid.Row="1" Background="{StaticResource Color.PrimaryLight}" LastChildFill="True">
+                        <TextBlock
+                            TextWrapping="Wrap"
+                            Text="{Binding Name}"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Padding="10 0"
+                            FontWeight="Medium"/>
+                    </DockPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <local:FirstItemTemplateSelector x:Key="FirstItemTemplateSelector" />
+    </Page.Resources>
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl Margin="0 30" ItemsSource="{Binding Places}" ItemTemplateSelector="{StaticResource FirstItemTemplateSelector}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
+    
 </Page>
