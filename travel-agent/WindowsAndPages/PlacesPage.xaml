@@ -119,14 +119,13 @@
             </StackPanel>
         </Grid>
 
-
         <Grid x:Name="AdvanceSearch" Width="350" Background="White" Margin="0 25 0 0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <controls:FancyTextBox Grid.Column="0" Placeholder="Pretraži po imenu" Padding="0 10 10 10"/>
+                <controls:FancyTextBox x:Name="PlaceSearchName" Grid.Column="0" Placeholder="Pretraži po imenu" Padding="0 10 10 10"/>
                 <Button x:Name="ShowPopupButton" Grid.Column="1" Padding="1.5" Content="▼" Click="OnShowPopupClick" VerticalAlignment="Bottom"/>
                 <Button x:Name="HidePopupButton" Grid.Column="1" Padding="1.5" Content="▲" Visibility="Collapsed" Click="OnHidePopupClick" VerticalAlignment="Bottom"/>
             </Grid>
@@ -154,15 +153,16 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <CheckBox Style="{StaticResource StandardCheckBoxStyle}" Grid.Column="0" Content="Atrakcija"/>
-                                    <CheckBox Style="{StaticResource StandardCheckBoxStyle}" Grid.Column="1" Content="Restoran"/>
-                                    <CheckBox Style="{StaticResource StandardCheckBoxStyle}" Grid.Column="2" Content="Smeštaj"/>
+                                    <CheckBox x:Name="PlaceSearchAtractionType" Style="{StaticResource StandardCheckBoxStyle}" Grid.Column="0" Content="Atrakcija"/>
+                                    <CheckBox x:Name="PlaceSearchRestaurantType" Style="{StaticResource StandardCheckBoxStyle}" Grid.Column="1" Content="Restoran"/>
+                                    <CheckBox x:Name="PlaceSearchAccommodationType" Style="{StaticResource StandardCheckBoxStyle}" Grid.Column="2" Content="Smeštaj"/>
                                 </Grid>
                             </Border>
                         </StackPanel>
 
-                        <controls:FancyTextBox Placeholder="Pretraži po adresi" Margin="20 10"/>
-                        <Button Content="Pretraži" Margin="20 10 20 20"/>
+                        <controls:FancyTextBox x:Name="PlaceSearchAddress" Placeholder="Pretraži po adresi" Margin="20 10"/>
+                        <Button Content="Pretraži" Margin="20 10 20 5" Click="OnSearchButtonClick"/>
+                        <Button Style="{StaticResource OutlineButtonStyle}" Content="Vrati na početno stanje" Margin="20 5 20 20" Click="OnReturnToDefaultClick"/>
                     </StackPanel>
                 </Border>
             </Popup>

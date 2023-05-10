@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using travel_agent.Models;
@@ -10,7 +13,8 @@ namespace travel_agent.WindowsAndPages
     {
         private new readonly MainWindow Parent;
         private PlaceService PlaceService { get; set; }
-        public List<Place> Places { get; set; }
+        private List<Place> FullPlacesList { get; set; }
+        public ObservableCollection<Place> Places { get; set; }
         public PlacesPage(MainWindow parent)
         {
             InitializeComponent();
@@ -31,8 +35,9 @@ namespace travel_agent.WindowsAndPages
 
         private void SetPlacesList()
         {
-            Places = new List<Place> {null};
-            foreach (Place p in PlaceService.GetAll()) Places.Add(p);
+            Places = new ObservableCollection<Place> {null};
+            FullPlacesList = PlaceService.GetAll();
+            foreach (Place p in FullPlacesList) Places.Add(p);
         }
 
         private void SetupIfListEmpty()
@@ -74,6 +79,34 @@ namespace travel_agent.WindowsAndPages
             ShowPopupButton.Visibility = Visibility.Visible;
             HidePopupButton.Visibility = Visibility.Collapsed;
             AdvancedSearchPopup.IsOpen = false;
+        }
+
+        private void Search()
+        {
+            string name = PlaceSearchName.InputText;
+            string address = PlaceSearchAddress.InputText;
+
+            Places = new ObservableCollection<Place> { null };
+            foreach (var place in FullPlacesList)
+            {
+                Console.WriteLine(PlaceSearchAddress.InputText);
+                if ((name != "" && place.Name.ToUpper().Contains(name.ToUpper())) ||
+                    (address != "" && place.Address.ToUpper().Contains(address.ToUpper()))) Places.Add(place);
+            }
+            PlacesItemsControl.ItemsSource = Places;
+        }
+
+        private void OnSearchButtonClick(object sender, RoutedEventArgs e)
+        {
+            Search();
+        }
+
+        private void OnReturnToDefaultClick(object sender, RoutedEventArgs e)
+        {
+            SetPlacesList();
+            PlacesItemsControl.ItemsSource = Places;
+            PlaceSearchName.RestartState();
+            PlaceSearchAddress.RestartState();
         }
     }
 
