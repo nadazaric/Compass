@@ -21,10 +21,12 @@
 
                 <controls:FancyTextBox
                     x:Name="PlacesNameInput"
+                    MaxWidth="625"
                     Placeholder="Ime mesta"
                     Margin="0 0 0 20">
                     <controls:FancyTextBox.ValidationRules>
                         <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                        <validatrs:InputLengthRule ErrorMessage="Maksimalan broj karaktera je 90" MaxLength="90"/>
                     </controls:FancyTextBox.ValidationRules>
                 </controls:FancyTextBox>
 
@@ -105,13 +107,13 @@
                                 x:Name="PlaceRestaurantRadioBtn" 
                                 Grid.Column="1" 
                                 Style="{StaticResource StandardRadioButtonStyle}" 
-                                Content="Smeštaj" 
+                                Content="Restoran" 
                                 GroupName="MyRadioButtonGroup" />
                             <RadioButton 
                                 x:Name="PlaceAccommodationRadioBtn" 
                                 Grid.Column="2" 
                                 Style="{StaticResource StandardRadioButtonStyle}" 
-                                Content="Restoran" 
+                                Content="Smeštaj" 
                                 GroupName="MyRadioButtonGroup" />
                         </Grid>
                     </Border>
@@ -126,7 +128,8 @@
                 <controls:FancyTextBox
                     x:Name="PlaceAddressInput"
                     Placeholder="Adresa"
-                    Margin="0 0 0 20">
+                    Margin="0 0 0 20"
+                    MaxWidth="625">
                     <controls:FancyTextBox.ValidationRules>
                         <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
                     </controls:FancyTextBox.ValidationRules>

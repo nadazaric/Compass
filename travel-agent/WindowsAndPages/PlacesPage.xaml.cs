@@ -24,10 +24,7 @@ namespace travel_agent.WindowsAndPages
         private void CollapseFirstItem(object sender, RoutedEventArgs e)
         {
             var firstItemContainer = PlacesItemsControl.ItemContainerGenerator.ContainerFromIndex(0) as UIElement;
-            if (firstItemContainer != null)
-            {
-                firstItemContainer.Visibility = Visibility.Collapsed;
-            }
+            if (firstItemContainer != null) firstItemContainer.Visibility = Visibility.Collapsed;
             PlacesItemsControl.Loaded -= CollapseFirstItem;
         }
 
@@ -46,6 +43,7 @@ namespace travel_agent.WindowsAndPages
         {
             object data = (sender as Grid).DataContext;
             if (Parent.User.Role == Role.AGENT) Parent.MainFrame.Content = new AddAndModifyPlacePage(Parent, data as Place);
+            else Parent.MainFrame.Content = new ViewPlacePage(Parent, data as Place);
         }
     }
 

@@ -98,7 +98,7 @@
 
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl x:Name="PlacesItemsControl" Margin="0 30" ItemsSource="{Binding Places}" ItemTemplateSelector="{StaticResource FirstItemTemplateSelector}">
+            <ItemsControl x:Name="PlacesItemsControl" Margin="0 20" ItemsSource="{Binding Places}" ItemTemplateSelector="{StaticResource FirstItemTemplateSelector}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel HorizontalAlignment="Center"/>

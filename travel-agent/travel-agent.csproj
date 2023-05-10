@@ -102,6 +102,9 @@
     <Compile Include="WindowsAndPages\PlacesPage.xaml.cs">
       <DependentUpon>PlacesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowsAndPages\ViewPlacePage.xaml.cs">
+      <DependentUpon>ViewPlacePage.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\FancyPasswordBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -147,6 +150,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowsAndPages\PlacesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsAndPages\ViewPlacePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
