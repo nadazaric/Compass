@@ -67,7 +67,7 @@ namespace travel_agent.WindowsAndPages
         {
             object data = (sender as Grid).DataContext;
             if (Parent.User.Role == Role.AGENT) Parent.MainFrame.Content = new AddAndModifyPlacePage(Parent, data as Place);
-            else Parent.MainFrame.Content = new ViewPlacePage(Parent, data as Place);
+            else Parent.MainFrame.Content = new ViewPlacePage(data as Place);
         }
 
         bool IsPopupOpen = false;

@@ -29,7 +29,6 @@ namespace travel_agent.WindowsAndPages
                 if (child is Button) (child as Button).Style = App.Resources["NavbarButtonStyle"] as Style;
         }
 
-
         private void OnPlacesNavbarButtonClick(object sender, RoutedEventArgs e)
         {
             Main.Navigate(new PlacesPage(this));

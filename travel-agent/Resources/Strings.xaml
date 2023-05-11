@@ -16,11 +16,14 @@
     <System:String x:Key="String.PlaceNameLabel">Ime mesta</System:String>
     <System:String x:Key="String.PlaceImageBoxLabel">Mesto za fotografiju</System:String>
     <System:String x:Key="String.DescriptionLabel">Opis</System:String>
+    <System:String x:Key="String.DescriptionWithDoublePointLabel">Opis:</System:String>
     <System:String x:Key="String.TypeLabel">Vrsta</System:String>
+    <System:String x:Key="String.TypeWithDoublePointLabel">Vrsta:</System:String>
     <System:String x:Key="String.AtractionLabel">Atrakcija</System:String>
     <System:String x:Key="String.RestaurantLabel">Restoran</System:String>
     <System:String x:Key="String.AccommodatonLabel">Smeštaj</System:String>
     <System:String x:Key="String.AddressLabe">Adresa</System:String>
+    <System:String x:Key="String.AddressWithDoublePointLabe">Adresa:</System:String>
     
     <!-- Buttons -->
     <System:String x:Key="String.LoginButton">Prijavi me!</System:String>

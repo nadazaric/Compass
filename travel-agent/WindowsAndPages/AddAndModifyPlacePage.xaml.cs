@@ -101,7 +101,7 @@ namespace travel_agent.WindowsAndPages
             Place.Longitude = 0;
         }
 
-        private new PlaceType GetTypeFromRadioButton()
+        private PlaceType GetTypeFromRadioButton()
         {
             if (PlaceAtractionRadioBtn.IsChecked == true) return PlaceType.ATRACTION;
             else if (PlaceRestaurantRadioBtn.IsChecked == true) return PlaceType.RESTAURANT;

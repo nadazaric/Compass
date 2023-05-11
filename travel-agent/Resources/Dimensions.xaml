@@ -5,6 +5,9 @@
     <System:Double x:Key="Dim.InputAndButtonHeight">42</System:Double>
     <CornerRadius x:Key="Dim.RegularCorner">6</CornerRadius>
     <System:Double x:Key="Dim.RegularFontSize">15</System:Double>
+    <System:Double x:Key="Dim.MediumFontSize">18</System:Double>
+    <System:Double x:Key="Dim.LargeFontSize">24</System:Double>
     <System:Double x:Key="Dim.ErrorFontSize">13</System:Double>
     <Thickness x:Key="Dim.BorderTickness">1</Thickness>
+    <Thickness x:Key="Dim.LargerBorderTickness">1.25</Thickness>
 </ResourceDictionary>
