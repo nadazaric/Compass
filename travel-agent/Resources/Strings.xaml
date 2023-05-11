@@ -19,11 +19,17 @@
     <System:String x:Key="String.DescriptionWithDoublePointLabel">Opis:</System:String>
     <System:String x:Key="String.TypeLabel">Vrsta</System:String>
     <System:String x:Key="String.TypeWithDoublePointLabel">Vrsta:</System:String>
+    <System:String x:Key="String.AllLabel">Sve</System:String>
     <System:String x:Key="String.AtractionLabel">Atrakcija</System:String>
     <System:String x:Key="String.RestaurantLabel">Restoran</System:String>
     <System:String x:Key="String.AccommodatonLabel">Smeštaj</System:String>
     <System:String x:Key="String.AddressLabe">Adresa</System:String>
     <System:String x:Key="String.AddressWithDoublePointLabe">Adresa:</System:String>
+    <System:String x:Key="String.SearchByNameLabel">Pretraži po imenu</System:String>
+    <System:String x:Key="String.SearchByTypeLabel">Pretraži po vrsti</System:String>
+    <System:String x:Key="String.SearchByAddressLabel">Pretraži po adresi</System:String>
+    <System:String x:Key="String.NothingLabel">✖</System:String>
+    <System:String x:Key="String.PlacesNotFaundLabel">Nije pronađeno niti jedno mesto</System:String>
     
     <!-- Buttons -->
     <System:String x:Key="String.LoginButton">Prijavi me!</System:String>
@@ -37,6 +43,11 @@
     <System:String x:Key="String.SwichImageButton">Promeni fotografiju</System:String>
     <System:String x:Key="String.FinishAddingPlaceButton">Završi dodavanje novog mesta</System:String>
     <System:String x:Key="String.FinishModifyPlaceButton">Završi izmenu mesta</System:String>
+    <System:String x:Key="String.DownButton">▼</System:String>
+    <System:String x:Key="String.UpButton">▲</System:String>
+    <System:String x:Key="String.AddNewPlaceButton">Dodaj novo mesto</System:String>
+    <System:String x:Key="String.SearchButton">Pretraži</System:String>
+    <System:String x:Key="String.ReturnToDefaultStateButton">Vrati na početno stanje</System:String>
     
     <!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using travel_agent.Controls;
 using travel_agent.Models;
 using travel_agent.Services;
 
@@ -15,35 +12,108 @@ namespace travel_agent.WindowsAndPages
     public partial class PlacesPage : Page
     {
         private new readonly MainWindow Parent;
-        private PlaceService PlaceService { get; set; }
-        private List<Place> FullPlacesList { get; set; }
+        private Application App;
+        private PlaceService PlaceService;
+        private List<Place> FullPlacesList;
         public ObservableCollection<Place> Places { get; set; }
+        private bool IsPopupOpen = false;
+        private bool WasListColapsed = true;
         public PlacesPage(MainWindow parent)
         {
             InitializeComponent();
             Parent = parent;
+            App = Application.Current;
             PlaceService = PlaceService.Instance;
             SetPlacesList();
             DataContext = this;
-            if (Places.Count <= 1) SetupIfListEmpty();
-            if (Parent.User.Role != Role.AGENT) PlacesItemsControl.Loaded += CollapseFirstItem;
+            if (Places.Count <= 1) SetupIfInitiallyNoContent();
+            if (Parent.User.Role != Role.AGENT) PlacesItemsControl.Loaded += CollapseButtonItem;
         }
 
-        private void CollapseFirstItem(object sender, RoutedEventArgs e)
-        {
-            var firstItemContainer = PlacesItemsControl.ItemContainerGenerator.ContainerFromIndex(0) as UIElement;
-            if (firstItemContainer != null) firstItemContainer.Visibility = Visibility.Collapsed;
-            PlacesItemsControl.Loaded -= CollapseFirstItem;
-        }
-
+        #region ---[ Logic ]---
         private void SetPlacesList()
         {
-            Places = new ObservableCollection<Place> {null};
+            Places = new ObservableCollection<Place> { null };
             FullPlacesList = PlaceService.GetAll();
             foreach (Place p in FullPlacesList) Places.Add(p);
         }
 
-        private void SetupIfListEmpty()
+        private void Search()
+        {
+            Places = new ObservableCollection<Place> { null };
+            foreach (var place in FullPlacesList)
+            {
+                if (place.Name.ToUpper().Contains(PlaceSearchName.InputText.ToUpper()) &&
+                    IsTypeCorrect(place) == true &&
+                    place.Address.ToUpper().Contains(PlaceSearchAddress.InputText.ToUpper())) Places.Add(place);
+            }
+            if (Places.Count <= 1) SetIfNoContentAfterSearch();
+            if (Places.Count > 1 && WasListColapsed) SetIfHaveContentAfterSearch();
+            PlacesItemsControl.ItemsSource = Places;
+        }
+
+        private bool IsTypeCorrect(Place place)
+        {
+            if (GetTypeFromRadioButton() == null) return true;
+            return GetTypeFromRadioButton() == place.Type;
+        }
+        #endregion
+
+        #region ---[ Handlers ]---
+        private void CollapseButtonItem(object sender, RoutedEventArgs e)
+        {
+            var firstItemContainer = PlacesItemsControl.ItemContainerGenerator.ContainerFromIndex(0) as UIElement;
+            if (firstItemContainer != null) firstItemContainer.Visibility = Visibility.Collapsed;
+            PlacesItemsControl.Loaded -= CollapseButtonItem;
+        }
+
+        private void OnHandlePopupClick(object sender, RoutedEventArgs e)
+        {
+            if (IsPopupOpen)
+            {
+                HandlePopupButton.Content = App.Resources["String.DownButton"] as string;
+                IsPopupOpen = false;
+                AdvancedSearchPopup.IsOpen = false;
+            }
+            else
+            {
+                HandlePopupButton.Content = App.Resources["String.UpButton"] as string;
+                IsPopupOpen = true;
+                AdvancedSearchPopup.IsOpen = true;
+            }
+        }
+
+        private void OnSearchButtonClick(object sender, RoutedEventArgs e) => Search();
+
+        private async void WhenPopupClosed(object sender, EventArgs e)
+        {
+            HandlePopupButton.Content = App.Resources["String.DownButton"] as string;
+            await Task.Delay(100);
+            IsPopupOpen = false;
+        }
+
+        private void OnReturnToDefaultClick(object sender, RoutedEventArgs e)
+        {
+            SetPlacesList();
+            if (Places.Count > 1 && WasListColapsed) SetIfHaveContentAfterSearch();
+            PlacesItemsControl.ItemsSource = Places;
+            PlaceSearchName.RestartState();
+            PlaceSearchAddress.RestartState();
+            PlaceAllRadioBtn.IsChecked = true;
+        }
+
+        private void OnAddNewPlaceClick(object sender, System.Windows.RoutedEventArgs e) => Parent.MainFrame.Content = new AddAndModifyPlacePage(Parent);
+
+        private void OnPlaceItemClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            object data = (sender as Grid).DataContext;
+            if (Parent.User.Role == Role.AGENT) Parent.MainFrame.Content = new AddAndModifyPlacePage(Parent, data as Place);
+            else Parent.MainFrame.Content = new ViewPlacePage(data as Place);
+        }
+        #endregion
+
+        #region ---[ Helpers ] ---
+        private void SetupIfInitiallyNoContent()
         {
             if (Parent.User.Role == Role.AGENT)
             {
@@ -54,73 +124,11 @@ namespace travel_agent.WindowsAndPages
             {
                 AdvanceSearch.Visibility = Visibility.Collapsed;
                 PlacesList.Visibility = Visibility.Collapsed;
-                EmptyPlaceList.Visibility = Visibility.Visible;
+                NoContent.Visibility = Visibility.Visible;
             }
         }
 
-        private void OnAddNewPlaceClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            Parent.MainFrame.Content = new AddAndModifyPlacePage(Parent);
-        }
-
-        private void OnPlaceClicked(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            object data = (sender as Grid).DataContext;
-            if (Parent.User.Role == Role.AGENT) Parent.MainFrame.Content = new AddAndModifyPlacePage(Parent, data as Place);
-            else Parent.MainFrame.Content = new ViewPlacePage(data as Place);
-        }
-
-        bool IsPopupOpen = false;
-        private void OnHandlePopupClick(object sender, RoutedEventArgs e)
-        {
-            if (IsPopupOpen)
-            {
-                HandlePopupButton.Content = "▼";
-                IsPopupOpen = false;
-                AdvancedSearchPopup.IsOpen = false;
-            }
-            else
-            {
-                HandlePopupButton.Content = "▲";
-                IsPopupOpen = true;
-                AdvancedSearchPopup.IsOpen = true;
-            }
-        }
-
-        private void Search()
-        {
-            Places = new ObservableCollection<Place> { null };
-            foreach (var place in FullPlacesList)
-            {
-                if (place.Name.ToUpper().Contains(PlaceSearchName.InputText.ToUpper()) &&
-                    IsTypeCorrect(place) &&
-                    place.Address.ToUpper().Contains(PlaceSearchAddress.InputText.ToUpper())) Places.Add(place);
-            }
-            
-            PlacesItemsControl.ItemsSource = Places;
-        }
-
-        private void OnSearchButtonClick(object sender, RoutedEventArgs e)
-        {
-            Search();
-        }
-
-        private void OnReturnToDefaultClick(object sender, RoutedEventArgs e)
-        {
-            SetPlacesList();
-            PlacesItemsControl.ItemsSource = Places;
-            PlaceSearchName.RestartState();
-            PlaceSearchAddress.RestartState();
-            PlaceAllRadioBtn.IsChecked = true;
-        }
-
-        private bool IsTypeCorrect(Place place)
-        {
-            if (GetType() == null) return true;
-            return GetType() == place.Type;
-        }
-
-        private Place.PlaceType? GetType()
+        private Place.PlaceType? GetTypeFromRadioButton()
         {
             if (PlaceAllRadioBtn.IsChecked == true) return null;
             else if (PlaceAtractionRadioBtn.IsChecked == true) return Place.PlaceType.ATRACTION;
@@ -128,17 +136,21 @@ namespace travel_agent.WindowsAndPages
             else return Place.PlaceType.ACCOMMODATION;
         }
 
-        private async void AdvancedSearchPopup_Closed(object sender, EventArgs e)
+        private void SetIfNoContentAfterSearch()
         {
-            HandlePopupButton.Content = "▼";
-            await Task.Delay(100);
-            IsPopupOpen = false;
+            if (Parent.User.Role == Role.AGENT) return;
+            NoContent.Visibility = Visibility.Visible;
+            PlacesList.Visibility = Visibility.Collapsed;
+            WasListColapsed = true;
         }
 
-        private void OnEnterFancInputClick(object sender, System.Windows.Input.KeyEventArgs e)
+        private void SetIfHaveContentAfterSearch()
         {
-            if (e.Key == System.Windows.Input.Key.Enter) Search();
+            NoContent.Visibility = Visibility.Collapsed;
+            PlacesList.Visibility = Visibility.Visible;
+            WasListColapsed = false;
         }
+        #endregion
     }
 
     public class FirstItemTemplateSelector : DataTemplateSelector

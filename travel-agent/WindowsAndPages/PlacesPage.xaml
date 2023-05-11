@@ -25,7 +25,7 @@
                         FontSize="90"
                         Margin="0 -30 0 0"
                         FontWeight="Medium"/>
-                    <TextBlock Text="Dodaj novo mesto"/>
+                    <TextBlock Text="{StaticResource String.AddNewPlaceButton}"/>
                 </StackPanel>
             </Button>
         </DataTemplate>
@@ -33,7 +33,7 @@
             <Border 
                 BorderBrush="{StaticResource Color.PrimaryDark}" 
                 BorderThickness="1.25" 
-                CornerRadius="5"
+                CornerRadius="{StaticResource Dim.RegularCorner}"
                 Margin="20"
                 Height="350"
                 Width="350">
@@ -67,7 +67,7 @@
                     </Style>
                 </Border.Style>
                 <Grid
-                    MouseLeftButtonUp="OnPlaceClicked">
+                    MouseLeftButtonUp="OnPlaceItemClick">
                     <Grid.Clip>
                         <RectangleGeometry RadiusX="5" RadiusY="5" Rect="0,0,350,350"/>
                     </Grid.Clip>
@@ -95,104 +95,117 @@
         </DataTemplate>
         <local:FirstItemTemplateSelector x:Key="FirstItemTemplateSelector" />
     </Page.Resources>
-    <StackPanel>
 
-        <Grid 
-            Height="800" 
-            Visibility="Collapsed">
-            <StackPanel
-                x:Name="EmptyPlaceList"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center">
-                <TextBlock 
-                    HorizontalAlignment="Center" 
-                    Text="✖"
-                    FontSize="70"
-                    FontWeight="Medium"
-                    Foreground="{StaticResource Color.PrimaryDark}"/>
-                <TextBlock 
-                    FontSize="18" 
-                    Text="Nije pronađeni niti jedno mesto"
-                    HorizontalAlignment="Center"
-                    Foreground="{StaticResource Color.PrimaryDark}"
-                    FontWeight="Medium"/>
-            </StackPanel>
-        </Grid>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
 
-        <Grid x:Name="AdvanceSearch" Width="400" Background="White" Margin="0 25 0 0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <controls:FancyTextBox x:Name="PlaceSearchName" Grid.Column="0" Placeholder="Pretraži po imenu" Padding="0 10 10 10"/>
-                <Button x:Name="HandlePopupButton" Grid.Column="1" Padding="1.5" Content="▼" Click="OnHandlePopupClick" VerticalAlignment="Bottom"/>
+            <!-- Search -->
+            <Grid x:Name="AdvanceSearch" Width="400" Background="{StaticResource Color.White}" Margin="0 25 0 0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <controls:FancyTextBox x:Name="PlaceSearchName" Grid.Column="0" Placeholder="{StaticResource String.SearchByNameLabel}" Padding="0 10 10 10"/>
+                    <Button x:Name="HandlePopupButton" Grid.Column="1" Padding="1.5" Content="{StaticResource String.DownButton}" Click="OnHandlePopupClick" VerticalAlignment="Bottom"/>
+                </Grid>
+
+                <Popup x:Name="AdvancedSearchPopup" AllowsTransparency="True" PlacementTarget="{Binding ElementName=PlaceSearchName}" StaysOpen="False" PopupAnimation="Slide" Closed="WhenPopupClosed">
+                    <Border BorderBrush="{StaticResource Color.PrimaryDark}" BorderThickness="1" CornerRadius="5" Background="White">
+                        <StackPanel Width="400">
+
+                            <StackPanel Margin="20 20 20 5">
+                                <Label
+                                    Style="{StaticResource PlaceholderLabelStyle}"
+                                    Content="{StaticResource String.SearchByTypeLabel}"/>
+                                <Border 
+                                    CornerRadius="{StaticResource Dim.RegularCorner}" 
+                                    BorderBrush="{StaticResource Color.PrimaryDark}" 
+                                    Background="{StaticResource Color.PrimaryLight}" 
+                                    BorderThickness="{StaticResource Dim.BorderTickness}" 
+                                    Height="{StaticResource Dim.InputAndButtonHeight}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.6*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <RadioButton 
+                                            x:Name="PlaceAllRadioBtn" 
+                                            Grid.Column="0" 
+                                            Style="{StaticResource SmallRadioButtonStyle}" 
+                                            Content="{StaticResource String.AllLabel}" 
+                                            GroupName="PlaceSearchButtonGroup" 
+                                            IsChecked="True"/>
+                                        <RadioButton 
+                                            x:Name="PlaceAtractionRadioBtn" 
+                                            Grid.Column="1" 
+                                            Style="{StaticResource SmallRadioButtonStyle}" 
+                                            Content="{StaticResource String.AtractionLabel}" 
+                                            GroupName="PlaceSearchButtonGroup"/>
+                                        <RadioButton 
+                                            x:Name="PlaceRestaurantRadioBtn" 
+                                            Grid.Column="2" 
+                                            Style="{StaticResource SmallRadioButtonStyle}" 
+                                            Content="{StaticResource String.RestaurantLabel}" 
+                                            GroupName="PlaceSearchButtonGroup" />
+                                        <RadioButton 
+                                            x:Name="PlaceAccommodationRadioBtn" 
+                                            Grid.Column="3" 
+                                            Style="{StaticResource SmallRadioButtonStyle}" 
+                                            Content="{StaticResource String.AccommodatonLabel}" 
+                                            GroupName="PlaceSearchButtonGroup"/>
+                                    </Grid>
+                                </Border>
+                            </StackPanel>
+
+                            <controls:FancyTextBox 
+                                x:Name="PlaceSearchAddress" 
+                                Placeholder="{StaticResource String.SearchByAddressLabel}" 
+                                Margin="20 5 20 10"/>
+
+                            <Button 
+                                Style="{StaticResource OutlineButtonStyle}" 
+                                Content="{StaticResource String.ReturnToDefaultStateButton}" 
+                                Margin="20 10 20 5" 
+                                Click="OnReturnToDefaultClick"/>
+
+                            <Button 
+                                Content="{StaticResource String.SearchButton}" 
+                                Margin="20 5 20 20" 
+                                Click="OnSearchButtonClick"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
             </Grid>
 
-            <Popup x:Name="AdvancedSearchPopup" AllowsTransparency="True" PlacementTarget="{Binding ElementName=PlaceSearchName}" StaysOpen="False" PopupAnimation="Slide" Closed="AdvancedSearchPopup_Closed">
-                
-                <Border BorderBrush="{StaticResource Color.PrimaryDark}" BorderThickness="1" CornerRadius="5" Background="White">
-                    <StackPanel Width="400">
+            <!-- No Content -->
+            <Grid 
+                x:Name="NoContent"
+                Height="700" 
+                Visibility="Collapsed">
+                <StackPanel
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                    <TextBlock 
+                        HorizontalAlignment="Center" 
+                        Text="{StaticResource String.NothingLabel}"
+                        FontSize="70"
+                        FontWeight="Medium"
+                        Foreground="{StaticResource Color.PrimaryDark}"/>
+                    <TextBlock 
+                        FontSize="18" 
+                        Text="{StaticResource String.PlacesNotFaundLabel}"
+                        HorizontalAlignment="Center"
+                        Foreground="{StaticResource Color.PrimaryDark}"
+                        FontWeight="Medium"/>
+                </StackPanel>
+            </Grid>
 
-                        <StackPanel Margin="20 20 20 10">
-                            <Label
-                                Content="Pretraži po vrsti"
-                                FontSize="{StaticResource Dim.RegularFontSize}"
-                                Foreground="{StaticResource Color.PrimaryDark}"
-                                FontWeight="Medium"
-                                Padding="1 0 0 6"/>
-                            <Border 
-                                CornerRadius="{StaticResource Dim.RegularCorner}" 
-                                BorderBrush="{StaticResource Color.PrimaryDark}" 
-                                Background="{StaticResource Color.PrimaryLight}" 
-                                BorderThickness="{StaticResource Dim.BorderTickness}" 
-                                Height="{StaticResource Dim.InputAndButtonHeight}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.6*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <RadioButton 
-                                        x:Name="PlaceAllRadioBtn" 
-                                        Grid.Column="0" 
-                                        Style="{StaticResource SmallRadioButtonStyle}" 
-                                        Content="Sve" 
-                                        GroupName="PlaceSearchButtonGroup" 
-                                        IsChecked="True"/>
-                                    <RadioButton 
-                                        x:Name="PlaceAtractionRadioBtn" 
-                                        Grid.Column="1" 
-                                        Style="{StaticResource SmallRadioButtonStyle}" 
-                                        Content="Atrakcija" 
-                                        GroupName="PlaceSearchButtonGroup"/>
-                                    <RadioButton 
-                                        x:Name="PlaceRestaurantRadioBtn" 
-                                        Grid.Column="2" 
-                                        Style="{StaticResource SmallRadioButtonStyle}" 
-                                        Content="Restoran" 
-                                        GroupName="PlaceSearchButtonGroup" />
-                                    <RadioButton 
-                                        x:Name="PlaceAccommodationRadioBtn" 
-                                        Grid.Column="3" 
-                                        Style="{StaticResource SmallRadioButtonStyle}" 
-                                        Content="Smeštaj" 
-                                        GroupName="PlaceSearchButtonGroup"/>
-                                </Grid>
-                            </Border>
-                        </StackPanel>
-
-                        <controls:FancyTextBox x:Name="PlaceSearchAddress" Placeholder="Pretraži po adresi" Margin="20 10"/>
-                        <Button Content="Pretraži" Margin="20 10 20 5" Click="OnSearchButtonClick"/>
-                        <Button Style="{StaticResource OutlineButtonStyle}" Content="Vrati na početno stanje" Margin="20 5 20 20" Click="OnReturnToDefaultClick"/>
-                    </StackPanel>
-                </Border>
-            </Popup>
-        </Grid>
-        
-        <Grid x:Name="PlacesList">
-            <ScrollViewer VerticalScrollBarVisibility="Auto"> <!--ova margina zbog paddinga na polju za search-->
+            <!-- Places List -->
+            <Grid x:Name="PlacesList">
+                <!-- this margin is because of padding on input field for search -->
                 <ItemsControl x:Name="PlacesItemsControl" Margin="0 10 0 20" ItemsSource="{Binding Places}" ItemTemplateSelector="{StaticResource FirstItemTemplateSelector}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -200,8 +213,8 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-            </ScrollViewer>
-        </Grid>
-        
-    </StackPanel>
+            </Grid>
+
+        </StackPanel>
+    </ScrollViewer>
 </Page>
