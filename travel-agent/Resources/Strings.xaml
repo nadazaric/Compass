@@ -13,6 +13,14 @@
     <System:String x:Key="String.LastnameLabel">Prezime</System:String>
     <System:String x:Key="String.ConfirmePasswordLabel">Unesite lozinku ponovo</System:String>
     <System:String x:Key="String.AlreadyHaveAnAccountLabel">Već imaš napravljen nalog?</System:String>
+    <System:String x:Key="String.PlaceNameLabel">Ime mesta</System:String>
+    <System:String x:Key="String.PlaceImageBoxLabel">Mesto za fotografiju</System:String>
+    <System:String x:Key="String.DescriptionLabel">Opis</System:String>
+    <System:String x:Key="String.TypeLabel">Vrsta</System:String>
+    <System:String x:Key="String.AtractionLabel">Atrakcija</System:String>
+    <System:String x:Key="String.RestaurantLabel">Restoran</System:String>
+    <System:String x:Key="String.AccommodatonLabel">Smeštaj</System:String>
+    <System:String x:Key="String.AddressLabe">Adresa</System:String>
     
     <!-- Buttons -->
     <System:String x:Key="String.LoginButton">Prijavi me!</System:String>
@@ -22,16 +30,24 @@
     <System:String x:Key="String.PlacesNavbarButton">Mesta</System:String>
     <System:String x:Key="String.ArrangementsNavbarButton">Aranžmani</System:String>
     <System:String x:Key="String.LogoutNavbarButton">Izloguj se</System:String>
+    <System:String x:Key="String.AddImageButton">Dodaj fotografiju</System:String>
+    <System:String x:Key="String.SwichImageButton">Promeni fotografiju</System:String>
+    <System:String x:Key="String.FinishAddingPlaceButton">Završi dodavanje novog mesta</System:String>
+    <System:String x:Key="String.FinishModifyPlaceButton">Završi izmenu mesta</System:String>
     
     <!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>
     <System:String x:Key="String.WrongEmailPatternError">Uneli ste pogšnu formu e-mail adrese!</System:String>
     <System:String x:Key="String.PasswordMustContainNCaractersError">Lozinka mora sadržati minimalno 6 karaktera!</System:String>
+    <System:String x:Key="String.PlaceNameCanContainOnlyNCaractersError">Lozinka može sadržati maksimalno 90 karaktera!</System:String>
     <System:String x:Key="String.ConfirmePasswordNotMatchError">Morate uneti istu lozinku kao u polju iznad!</System:String>
     <System:String x:Key="String.AlreadyUseEmailError">Ova e-mail adresa je već zauzeta!</System:String>
     <System:String x:Key="String.EmailOrPassworNotCorrectError">E-mail adresa ili lozinka je pogrešna!</System:String>
+    <System:String x:Key="String.PlaceImageIsEmptyError">Slika je obavezna</System:String>
     
     <!-- Message Box Messages -->
     <System:String x:Key="String.RegisterSuccessMessage">Uspješno ste se registrovali! Sada možete da se prijavite sa novokreiranim nalogom.</System:String>
+    <System:String x:Key="String.AddPlaceQuestionMessage">Da li ste sigurni da želite dodati novo mesto?</System:String>
+    <System:String x:Key="String.ModifyPlaceQuestinMessage">Da li ste sigurni da želite promeniti mesto?</System:String>
 
 </ResourceDictionary>

@@ -14,19 +14,18 @@
         <WrapPanel
             HorizontalAlignment="Center"
             ScrollViewer.CanContentScroll="True"
-            Margin="15 40">
-            <StackPanel
-                Margin="15 0">
+            Margin="15 30">
+            <StackPanel Margin="15 0">
                 <Grid Width="625"></Grid> <!-- to get width -->
 
                 <controls:FancyTextBox
                     x:Name="PlacesNameInput"
                     MaxWidth="625"
-                    Placeholder="Ime mesta"
+                    Placeholder="{StaticResource String.PlaceNameLabel}"
                     Margin="0 0 0 20">
                     <controls:FancyTextBox.ValidationRules>
                         <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
-                        <validatrs:InputLengthRule ErrorMessage="Maksimalan broj karaktera je 90" MaxLength="90"/>
+                        <validatrs:InputLengthRule ErrorMessage="{StaticResource String.PlaceNameCanContainOnlyNCaractersError}" MaxLength="90"/>
                     </controls:FancyTextBox.ValidationRules>
                 </controls:FancyTextBox>
 
@@ -34,23 +33,23 @@
                     Margin="0 0 0 20">
                     <Border 
                         x:Name="PlaceImage" 
-                        CornerRadius="5" 
+                        CornerRadius="{StaticResource Dim.RegularCorner}" 
                         BorderBrush="{StaticResource Color.PrimaryDark}" 
                         Background="{StaticResource Color.PrimaryLight}" 
-                        BorderThickness="1" 
+                        BorderThickness="{StaticResource Dim.BorderTickness}" 
                         Height="325">
                         <Label
                             x:Name="PlaceImageLabel"
-                            Content="Mesto za fotografiju"
-                            FontSize="14"
+                            Content="{StaticResource String.PlaceImageBoxLabel}"
+                            FontSize="{StaticResource Dim.RegularFontSize}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             HorizontalContentAlignment="Center"/>
                     </Border>
                     <Label
                         x:Name="PlaceImageError"
-                        Content="Slika je obavezna"
-                        FontSize="13"
+                        Content="{StaticResource String.PlaceImageIsEmptyError}"
+                        FontSize="{StaticResource Dim.ErrorFontSize}"
                         Visibility="Collapsed"
                         Foreground="{StaticResource Color.Error}"
                         FontWeight="Medium"
@@ -60,14 +59,14 @@
                 <Button 
                     x:Name="PlaceAddImageButton"
                     Style="{StaticResource OutlineButtonStyle}"
-                    Content="Dodaj fotografiju" 
+                    Content="{StaticResource String.AddImageButton}" 
                     Click="OnAddPictureClick"
                     Padding="0"
                     Margin="0 0 0 15"/>
 
                 <controls:FancyTextBox
                     x:Name="PlaceDescriptionInput"
-                    Placeholder="Opis"
+                    Placeholder="{StaticResource String.DescriptionLabel}"
                     Multiline="True"
                     MaxWidth="625"
                     Margin="0 0 0 15">
@@ -76,14 +75,10 @@
                     </controls:FancyTextBox.ValidationRules>
                 </controls:FancyTextBox>
 
-                <StackPanel
-                    Margin="0 0 0 15">
+                <StackPanel Margin="0 0 0 15">
                     <Label
-                        Content="Vrsta"
-                        FontSize="{StaticResource Dim.RegularFontSize}"
-                        Foreground="{StaticResource Color.PrimaryDark}"
-                        FontWeight="Medium"
-                        Padding="1 0 0 6"/>
+                        Style="{StaticResource PlaceholderLabelStyle}"
+                        Content="{StaticResource String.TypeLabel}"/>
                     <Border 
                         CornerRadius="{StaticResource Dim.RegularCorner}" 
                         BorderBrush="{StaticResource Color.PrimaryDark}" 
@@ -100,34 +95,33 @@
                                 x:Name="PlaceAtractionRadioBtn" 
                                 Grid.Column="0" 
                                 Style="{StaticResource StandardRadioButtonStyle}" 
-                                Content="Atrakcija" 
-                                GroupName="MyRadioButtonGroup" 
+                                Content="{StaticResource String.AtractionLabel}" 
+                                GroupName="PlaceTypeRadioButtonGroup" 
                                 IsChecked="True"/>
                             <RadioButton 
                                 x:Name="PlaceRestaurantRadioBtn" 
                                 Grid.Column="1" 
                                 Style="{StaticResource StandardRadioButtonStyle}" 
-                                Content="Restoran" 
-                                GroupName="MyRadioButtonGroup" />
+                                Content="{StaticResource String.RestaurantLabel}" 
+                                GroupName="PlaceTypeRadioButtonGroup"/>
                             <RadioButton 
                                 x:Name="PlaceAccommodationRadioBtn" 
                                 Grid.Column="2" 
                                 Style="{StaticResource StandardRadioButtonStyle}" 
-                                Content="Smeštaj" 
-                                GroupName="MyRadioButtonGroup" />
+                                Content="{StaticResource String.AccommodatonLabel}" 
+                                GroupName="PlaceTypeRadioButtonGroup"/>
                         </Grid>
                     </Border>
                 </StackPanel>
             </StackPanel>
 
             <!-- Right content-->
-            <StackPanel
-                Margin="15 0">
+            <StackPanel Margin="15 0">
                 <Grid Width="625"></Grid> <!-- to get width-->
 
                 <controls:FancyTextBox
                     x:Name="PlaceAddressInput"
-                    Placeholder="Adresa"
+                    Placeholder="{StaticResource String.AddressLabe}"
                     Margin="0 0 0 20"
                     MaxWidth="625">
                     <controls:FancyTextBox.ValidationRules>
@@ -136,7 +130,7 @@
                 </controls:FancyTextBox>
 
                 <Border 
-                    CornerRadius="5" 
+                    CornerRadius="{StaticResource Dim.RegularCorner}" 
                     BorderBrush="{StaticResource Color.PrimaryDark}" 
                     Background="{StaticResource Color.PrimaryLight}" 
                     BorderThickness="1" 
@@ -152,11 +146,13 @@
 
                 <Button 
                     x:Name="PlacesAddOrModifyButton"
-                    Content="Završi dodavanje novog mesta" 
+                    Content="{StaticResource String.FinishAddingPlaceButton}" 
                     Padding="0"
                     Margin="0"
                     Click="OnSubmitClick"/>
+                
             </StackPanel>
         </WrapPanel>
     </ScrollViewer>
 </Page>
+<!-- Note: when el belowe is FancyTextBox Margin="0 0 0 20" else Margin="0 0 0 15" -->

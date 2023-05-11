@@ -59,7 +59,7 @@
         </TextBox>
         <Label 
             Name="errorMessage"
-            FontSize="13"
+            FontSize="{StaticResource Dim.ErrorFontSize}"
             Visibility="Collapsed"
             Foreground="{StaticResource Color.Error}"
             FontWeight="Medium"

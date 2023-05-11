@@ -7,8 +7,6 @@ using System.Windows.Media;
 using travel_agent.Models;
 using static travel_agent.Models.Place;
 using travel_agent.Services;
-using System.Diagnostics;
-using System.Net;
 
 namespace travel_agent.WindowsAndPages
 {
@@ -18,7 +16,7 @@ namespace travel_agent.WindowsAndPages
         private Application App;
         private PlaceService PlaceService;
         private BitmapImage Image = null;
-        private Place Place {  get; set; }
+        private Place Place;
         public AddAndModifyPlacePage(MainWindow parent, Place place = null)
         {
             InitializeComponent();
@@ -35,9 +33,9 @@ namespace travel_agent.WindowsAndPages
             PlacesNameInput.InputText = Place.Name;
             SetImage(Place.Image);
             PlaceDescriptionInput.InputText = Place.Description;
-            SetRadioBtnType();
+            SetPlaceTypeRadioButton();
             PlaceAddressInput.InputText = Place.Address;
-            PlacesAddOrModifyButton.Content = "Završi izmenu mesta";
+            PlacesAddOrModifyButton.Content = App.Resources["String.FinishModifyPlaceButton"] as string;
         }
 
         private void SetImage(BitmapImage image)
@@ -49,10 +47,10 @@ namespace travel_agent.WindowsAndPages
             imageBrush.AlignmentY = AlignmentY.Center;
             PlaceImage.Background = imageBrush;
             PlaceImageLabel.Visibility = Visibility.Hidden;
-            PlaceAddImageButton.Content = "Promeni fotografiju";
+            PlaceAddImageButton.Content = App.Resources["String.SwichImageButton"] as string;
         }
 
-        private void SetRadioBtnType()
+        private void SetPlaceTypeRadioButton()
         {
             if(Place.Type == PlaceType.ATRACTION) PlaceAtractionRadioBtn.IsChecked = true;
             else if(Place.Type == PlaceType.RESTAURANT) PlaceRestaurantRadioBtn.IsChecked = true;
@@ -63,12 +61,7 @@ namespace travel_agent.WindowsAndPages
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image Files (*.png;*.jpeg;*.jpg;*.gif;*.bmp)|*.png;*.jpeg;*.jpg;*.gif;*.bmp";
-
-            if (openFileDialog.ShowDialog() == true)
-            {
-                string selectedImagePath = openFileDialog.FileName;
-                SetImage(new BitmapImage(new Uri(selectedImagePath)));
-            }
+            if (openFileDialog.ShowDialog() == true) SetImage(new BitmapImage(new Uri(openFileDialog.FileName)));
         }
 
         private void OnSubmitClick(object sender, RoutedEventArgs e)
@@ -80,7 +73,7 @@ namespace travel_agent.WindowsAndPages
 
         private void AddPlace()
         {
-            var result = MessageBox.Show("Da li ste sigurni da želite dodati novo mesto?", App.Resources["String.AppName"] as string, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show(App.Resources["String.AddPlaceQuestionMessage"] as string, App.Resources["String.AppName"] as string, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.No) return;
             Place = new Place();
             SetPlace();
@@ -90,7 +83,7 @@ namespace travel_agent.WindowsAndPages
 
         private void ModifyPlace()
         {
-            var result = MessageBox.Show("Da li ste sigurni da želite promeniti mesto?", App.Resources["String.AppName"] as string, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show(App.Resources["String.ModifyPlaceQuestinMessage"] as string, App.Resources["String.AppName"] as string, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.No) return;
             SetPlace();
             PlaceService.Modify(Place);
@@ -102,13 +95,13 @@ namespace travel_agent.WindowsAndPages
             Place.Name = PlacesNameInput.InputText;
             Place.Image = Image;
             Place.Description = PlaceDescriptionInput.InputText;
-            Place.Type = GetType();
+            Place.Type = GetTypeFromRadioButton();
             Place.Address = PlaceAddressInput.InputText;
             Place.Latitude = 0;
             Place.Longitude = 0;
         }
 
-        private new PlaceType GetType()
+        private new PlaceType GetTypeFromRadioButton()
         {
             if (PlaceAtractionRadioBtn.IsChecked == true) return PlaceType.ATRACTION;
             else if (PlaceRestaurantRadioBtn.IsChecked == true) return PlaceType.RESTAURANT;
