@@ -69,7 +69,7 @@
                 <Grid
                     MouseLeftButtonUp="OnPlaceItemClick">
                     <Grid.Clip>
-                        <RectangleGeometry RadiusX="5" RadiusY="5" Rect="0,0,350,350"/>
+                        <RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,0,350,350"/>
                     </Grid.Clip>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="3*" MinHeight="100"/>

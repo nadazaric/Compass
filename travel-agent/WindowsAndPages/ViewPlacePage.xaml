@@ -21,7 +21,7 @@
                 Margin="0 0 0 10">
                 <Grid>
                     <Grid.Clip>
-                        <RectangleGeometry RadiusX="5" RadiusY="5" Rect="0,0,750,450"/>
+                        <RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,0,750,450"/>
                     </Grid.Clip>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="5*"/>
