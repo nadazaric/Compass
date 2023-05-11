@@ -119,20 +119,20 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="AdvanceSearch" Width="350" Background="White" Margin="0 25 0 0">
+        <Grid x:Name="AdvanceSearch" Width="400" Background="White" Margin="0 25 0 0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <controls:FancyTextBox x:Name="PlaceSearchName" Grid.Column="0" Placeholder="Pretraži po imenu" Padding="0 10 10 10"/>
-                <Button x:Name="ShowPopupButton" Grid.Column="1" Padding="1.5" Content="▼" Click="OnShowPopupClick" VerticalAlignment="Bottom"/>
-                <Button x:Name="HidePopupButton" Grid.Column="1" Padding="1.5" Content="▲" Visibility="Collapsed" Click="OnHidePopupClick" VerticalAlignment="Bottom"/>
+                <Button x:Name="HandlePopupButton" Grid.Column="1" Padding="1.5" Content="▼" Click="OnHandlePopupClick" VerticalAlignment="Bottom"/>
             </Grid>
 
-            <Popup x:Name="AdvancedSearchPopup" AllowsTransparency="True" PlacementTarget="{Binding ElementName=AdvancedSearchButton}" StaysOpen="False">
+            <Popup x:Name="AdvancedSearchPopup" AllowsTransparency="True" PlacementTarget="{Binding ElementName=PlaceSearchName}" StaysOpen="False" PopupAnimation="Slide" Closed="AdvancedSearchPopup_Closed">
+                
                 <Border BorderBrush="{StaticResource Color.PrimaryDark}" BorderThickness="1" CornerRadius="5" Background="White">
-                    <StackPanel Width="350">
+                    <StackPanel Width="400">
 
                         <StackPanel Margin="20 20 20 10">
                             <Label
@@ -149,13 +149,36 @@
                                 Height="{StaticResource Dim.InputAndButtonHeight}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.6*"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <CheckBox x:Name="PlaceSearchAtractionType" Style="{StaticResource StandardCheckBoxStyle}" Grid.Column="0" Content="Atrakcija"/>
-                                    <CheckBox x:Name="PlaceSearchRestaurantType" Style="{StaticResource StandardCheckBoxStyle}" Grid.Column="1" Content="Restoran"/>
-                                    <CheckBox x:Name="PlaceSearchAccommodationType" Style="{StaticResource StandardCheckBoxStyle}" Grid.Column="2" Content="Smeštaj"/>
+                                    <RadioButton 
+                                        x:Name="PlaceAllRadioBtn" 
+                                        Grid.Column="0" 
+                                        Style="{StaticResource SmallRadioButtonStyle}" 
+                                        Content="Sve" 
+                                        GroupName="PlaceSearchButtonGroup" 
+                                        IsChecked="True"/>
+                                    <RadioButton 
+                                        x:Name="PlaceAtractionRadioBtn" 
+                                        Grid.Column="1" 
+                                        Style="{StaticResource SmallRadioButtonStyle}" 
+                                        Content="Atrakcija" 
+                                        GroupName="PlaceSearchButtonGroup"/>
+                                    <RadioButton 
+                                        x:Name="PlaceRestaurantRadioBtn" 
+                                        Grid.Column="2" 
+                                        Style="{StaticResource SmallRadioButtonStyle}" 
+                                        Content="Restoran" 
+                                        GroupName="PlaceSearchButtonGroup" />
+                                    <RadioButton 
+                                        x:Name="PlaceAccommodationRadioBtn" 
+                                        Grid.Column="3" 
+                                        Style="{StaticResource SmallRadioButtonStyle}" 
+                                        Content="Smeštaj" 
+                                        GroupName="PlaceSearchButtonGroup"/>
                                 </Grid>
                             </Border>
                         </StackPanel>

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Rule = travel_agent.ValidationRules.ValidationRule;
 
 namespace travel_agent.Controls

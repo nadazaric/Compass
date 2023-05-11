@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using travel_agent.Controls;
 using travel_agent.Models;
 using travel_agent.Services;
 
@@ -67,32 +70,33 @@ namespace travel_agent.WindowsAndPages
             else Parent.MainFrame.Content = new ViewPlacePage(Parent, data as Place);
         }
 
-        private void OnShowPopupClick(object sender, RoutedEventArgs e)
+        bool IsPopupOpen = false;
+        private void OnHandlePopupClick(object sender, RoutedEventArgs e)
         {
-            ShowPopupButton.Visibility = Visibility.Collapsed;
-            HidePopupButton.Visibility = Visibility.Visible;
-            AdvancedSearchPopup.IsOpen = true;
-        }
-
-        private void OnHidePopupClick(object sender, RoutedEventArgs e)
-        {
-            ShowPopupButton.Visibility = Visibility.Visible;
-            HidePopupButton.Visibility = Visibility.Collapsed;
-            AdvancedSearchPopup.IsOpen = false;
+            if (IsPopupOpen)
+            {
+                HandlePopupButton.Content = "▼";
+                IsPopupOpen = false;
+                AdvancedSearchPopup.IsOpen = false;
+            }
+            else
+            {
+                HandlePopupButton.Content = "▲";
+                IsPopupOpen = true;
+                AdvancedSearchPopup.IsOpen = true;
+            }
         }
 
         private void Search()
         {
-            string name = PlaceSearchName.InputText;
-            string address = PlaceSearchAddress.InputText;
-
             Places = new ObservableCollection<Place> { null };
             foreach (var place in FullPlacesList)
             {
-                Console.WriteLine(PlaceSearchAddress.InputText);
-                if ((name != "" && place.Name.ToUpper().Contains(name.ToUpper())) ||
-                    (address != "" && place.Address.ToUpper().Contains(address.ToUpper()))) Places.Add(place);
+                if (place.Name.ToUpper().Contains(PlaceSearchName.InputText.ToUpper()) &&
+                    IsTypeCorrect(place) &&
+                    place.Address.ToUpper().Contains(PlaceSearchAddress.InputText.ToUpper())) Places.Add(place);
             }
+            
             PlacesItemsControl.ItemsSource = Places;
         }
 
@@ -107,6 +111,33 @@ namespace travel_agent.WindowsAndPages
             PlacesItemsControl.ItemsSource = Places;
             PlaceSearchName.RestartState();
             PlaceSearchAddress.RestartState();
+            PlaceAllRadioBtn.IsChecked = true;
+        }
+
+        private bool IsTypeCorrect(Place place)
+        {
+            if (GetType() == null) return true;
+            return GetType() == place.Type;
+        }
+
+        private Place.PlaceType? GetType()
+        {
+            if (PlaceAllRadioBtn.IsChecked == true) return null;
+            else if (PlaceAtractionRadioBtn.IsChecked == true) return Place.PlaceType.ATRACTION;
+            else if (PlaceRestaurantRadioBtn.IsChecked == true) return Place.PlaceType.RESTAURANT;
+            else return Place.PlaceType.ACCOMMODATION;
+        }
+
+        private async void AdvancedSearchPopup_Closed(object sender, EventArgs e)
+        {
+            HandlePopupButton.Content = "▼";
+            await Task.Delay(100);
+            IsPopupOpen = false;
+        }
+
+        private void OnEnterFancInputClick(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter) Search();
         }
     }
 
