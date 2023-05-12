@@ -152,11 +152,10 @@ namespace travel_agent.WindowsAndPages
 
         private void OnFindButtonClick(object sender, RoutedEventArgs e)
         {
-
+            if(PlaceAddressInput.IsValid()) PlaceAddressInput.UnsetManuallyError();
             var address = SearchMap.TryDrawPinFromAddressLine(PlaceAddressInput.InputText);
             if (address != null)
             {
-                PlaceAddressInput.UnsetManuallyError();
                 MapError.Visibility = Visibility.Collapsed;
                 PlaceAddressInput.InputText = address;
                 return;
@@ -174,6 +173,8 @@ namespace travel_agent.WindowsAndPages
                 PlaceAddressInput.InputText = address;
                 return;
             }
+            PlaceAddressInput.InputText = "";
+            PlaceAddressInput.IsValid();
             MapError.Visibility = Visibility.Visible;
             MapError.Content = App.Resources["String.LocationNotInSerbiaError"] as string;
         }

@@ -75,7 +75,11 @@ namespace travel_agent.Controls
         public string TryDrawPinFromAddressLine(string addresQuery)
         {
             LastGeocodeResponse = Geocoder.Geocode(addresQuery);
-            if (LastGeocodeResponse == null) return null;
+            if (LastGeocodeResponse == null)
+            {
+                if (Pin != null) map.Children.Remove(Pin);
+                return null;
+            }
             DrawPin(new Location(LastGeocodeResponse.Latitude, LastGeocodeResponse.Longitude));
             return LastGeocodeResponse.AdressFormatted;
         }
