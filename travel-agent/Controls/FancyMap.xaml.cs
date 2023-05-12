@@ -13,6 +13,7 @@ namespace travel_agent.Controls
         private static int ZOOM_LEVEL = 13;
         public Pushpin Pin { get; set; } = null;
         private Geocoder Geocoder;
+        private bool IsDoubleClickDisabled = false;
         public GeocodeResponse LastGeocodeResponse { get; set; }
         public FancyMap()
         {
@@ -31,6 +32,7 @@ namespace travel_agent.Controls
 
         private void OnDrawPinDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (IsDoubleClickDisabled) return;
             e.Handled = true;
             Point mousePosition = e.GetPosition(this);
             Location location = map.ViewportPointToLocation(mousePosition);
@@ -39,6 +41,8 @@ namespace travel_agent.Controls
             OnPinPlaced(LastGeocodeResponse == null ? null : LastGeocodeResponse.AdressFormatted);
 
         }
+
+        public void DisableDoubleClick() => IsDoubleClickDisabled = true;
 
         public void DrawPin(Location location)
         {
