@@ -9,6 +9,7 @@ using static travel_agent.Models.Place;
 using travel_agent.Services;
 using System.Device.Location;
 using Microsoft.Maps.MapControl.WPF;
+using travel_agent.Controls;
 
 namespace travel_agent.WindowsAndPages
 {
@@ -130,6 +131,29 @@ namespace travel_agent.WindowsAndPages
             if (!PlaceDescriptionInput.IsValid()) isAllValid = false;
             if (!PlaceAddressInput.IsValid()) isAllValid = false;
             return isAllValid;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var address = SearchMap.TryDrawPinFromAddressLine(PlaceAddressInput.InputText);
+            if (address != null)
+            {
+                PlaceAddressInput.UnsetManuallyError();
+                PlaceAddressInput.InputText = address;
+                return;
+            }
+            PlaceAddressInput.SetManuallyError("Adresa nije pronadjena ili nije na teritoriji Srbije");
+        }
+
+        private void OnMapPinPlaced(object sender, string address)
+        {
+            if (address != null)
+            {
+                PlaceAddressInput.UnsetManuallyError();
+                PlaceAddressInput.InputText = address;
+                return;
+            }
+            PlaceAddressInput.SetManuallyError("Morate postaviti pin na teritoriju Srbije.");
         }
     }
 }

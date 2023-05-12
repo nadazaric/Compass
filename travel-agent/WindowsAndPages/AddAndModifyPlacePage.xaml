@@ -119,17 +119,28 @@
             <StackPanel Margin="15 0">
                 <Grid Width="625"></Grid> <!-- to get width-->
 
-                <controls:FancyTextBox
-                    x:Name="PlaceAddressInput"
-                    Placeholder="{StaticResource String.AddressLabe}"
-                    Margin="0 0 0 20"
-                    MaxWidth="625">
-                    <controls:FancyTextBox.ValidationRules>
-                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
-                    </controls:FancyTextBox.ValidationRules>
-                </controls:FancyTextBox>
 
-                <controls:FancyMap Height="325" Margin="0 0 0 20"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <controls:FancyTextBox
+                        Grid.Column="0"
+                        x:Name="PlaceAddressInput"
+                        Placeholder="{StaticResource String.AddressLabe}"
+                        Margin="0 0 0 20"
+                        MaxWidth="625">
+                        <controls:FancyTextBox.ValidationRules>
+                            <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                        </controls:FancyTextBox.ValidationRules>
+                    </controls:FancyTextBox>
+                    <Button 
+                        Grid.Column="1" Content="Pronadji" Click="Button_Click"/>
+                </Grid>
+
+
+                <controls:FancyMap x:Name="SearchMap" Height="325" Margin="0 0 0 20" PinPlaced="OnMapPinPlaced"/>
 
                 <Button 
                     x:Name="PlacesAddOrModifyButton"
