@@ -7,6 +7,8 @@ using System.Windows.Media;
 using travel_agent.Models;
 using static travel_agent.Models.Place;
 using travel_agent.Services;
+using System.Device.Location;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace travel_agent.WindowsAndPages
 {
