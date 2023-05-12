@@ -32,6 +32,8 @@ namespace travel_agent.Controls
         {
             string URL = "http://dev.virtualearth.net/REST/v1/Locations/" + addressQuery + "?o=xml&key=" + (KEY == null ? GetKey() : KEY);
             XmlDocument geocodeDocument = GetXmlResponse(URL);
+            
+            if(geocodeDocument == null) return null;
 
             XmlNamespaceManager namespaceManager = new XmlNamespaceManager(geocodeDocument.NameTable);
             namespaceManager.AddNamespace("ns", "http://schemas.microsoft.com/search/local/ws/rest/v1");
@@ -56,12 +58,14 @@ namespace travel_agent.Controls
         public GeocodeResponse ReverseGeocode(double latitude, double longitude)
         {
             string URL = "http://dev.virtualearth.net/REST/v1/Locations/" + latitude + "," + longitude + "?o=xml&key=" + (KEY == null ? GetKey() : KEY);
-            XmlDocument reverseGeocodeDocument = GetXmlResponse(URL);
+            XmlDocument geocodeDocument = GetXmlResponse(URL);
 
-            XmlNamespaceManager namespaceManager = new XmlNamespaceManager(reverseGeocodeDocument.NameTable);
+            if (geocodeDocument == null) return null;
+
+            XmlNamespaceManager namespaceManager = new XmlNamespaceManager(geocodeDocument.NameTable);
             namespaceManager.AddNamespace("ns", "http://schemas.microsoft.com/search/local/ws/rest/v1");
 
-            XmlNode locationNode = reverseGeocodeDocument.SelectSingleNode("//ns:Location", namespaceManager);
+            XmlNode locationNode = geocodeDocument.SelectSingleNode("//ns:Location", namespaceManager);
             if (locationNode != null)
             {
                 string country = locationNode.SelectSingleNode("ns:Address/ns:CountryRegion", namespaceManager)?.InnerText;
@@ -87,9 +91,12 @@ namespace travel_agent.Controls
                     throw new Exception(String.Format("Server error (HTTP {0}: {1}).",
                     response.StatusCode,
                     response.StatusDescription));
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(response.GetResponseStream());
-                return xmlDoc;
+                try
+                {
+                    XmlDocument xmlDoc = new XmlDocument();
+                    xmlDoc.Load(response.GetResponseStream());
+                    return xmlDoc;
+                } catch { return null; }    
             }
         }
     }

@@ -122,21 +122,20 @@
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="4*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <controls:FancyTextBox
                         Grid.Column="0"
                         x:Name="PlaceAddressInput"
                         Placeholder="{StaticResource String.AddressLabe}"
-                        Margin="0 0 0 20"
+                        Margin="0 0 7 20"
                         MaxWidth="625">
                         <controls:FancyTextBox.ValidationRules>
                             <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
                         </controls:FancyTextBox.ValidationRules>
                     </controls:FancyTextBox>
-                    <Button 
-                        Grid.Column="1" Content="Pronadji" Click="Button_Click"/>
+                    <Button Grid.Column="1" Content="Pronadji" Click="OnFindButtonClick" VerticalAlignment="Top" Margin="7 26 0 0"/>
                 </Grid>
 
 

@@ -22,6 +22,15 @@ namespace travel_agent.Controls
             map.CredentialsProvider = new ApplicationIdCredentialsProvider(GetKey());
             map.Center = new Location(45.256016757384884, 19.840603063313143);
             map.ZoomLevel = ZOOM_LEVEL;
+            Loaded += FancyMap_Loaded;
+        }
+
+        private void FancyMap_Loaded(object sender, RoutedEventArgs e)
+        {
+            var rect = new RectangleGeometry(new Rect(0, 0, ActualWidth - 2, ActualHeight - 2));
+            rect.RadiusX = 6;
+            rect.RadiusY = 6;
+            map.Clip = rect;
         }
 
         private string GetKey()
@@ -43,6 +52,12 @@ namespace travel_agent.Controls
         }
 
         public void DisableDoubleClick() => IsDoubleClickDisabled = true;
+
+        public void SetInitialState(GeocodeResponse location)
+        {
+            LastGeocodeResponse = location;
+            DrawPin(new Location(location.Latitude, location.Longitude));
+        }
 
         public void DrawPin(Location location)
         {

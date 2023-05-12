@@ -40,7 +40,7 @@ namespace travel_agent.WindowsAndPages
             SetPlaceTypeRadioButton();
             PlaceAddressInput.InputText = Place.Address;
             PlacesAddOrModifyButton.Content = App.Resources["String.FinishModifyPlaceButton"] as string;
-            SearchMap.DrawPin(new Location(Place.Latitude, Place.Longitude));
+            SearchMap.SetInitialState(new GeocodeResponse { AdressFormatted = Place.Address, Latitude = Place.Latitude, Longitude = Place.Longitude });
         }
 
         private void SetImage(BitmapImage image)
@@ -125,6 +125,18 @@ namespace travel_agent.WindowsAndPages
             return isValid;
         }
 
+        private bool IsMapValid()
+        {
+            if (MapError.Visibility == Visibility.Visible) return false;
+            if (SearchMap.LastGeocodeResponse == null)
+            {
+                MapError.Visibility = Visibility.Visible;
+                MapError.Content = "Niste selektovali validnu lokaciju na mapi. Molimo vas kliknite na dugme 'Pronađi'.";
+                return false;
+            }
+            return true;
+        }
+
         private bool IsFormInputsValid()
         {
             bool isAllValid = true;
@@ -132,17 +144,18 @@ namespace travel_agent.WindowsAndPages
             if (!IsPictureValid()) isAllValid = false;
             if (!PlaceDescriptionInput.IsValid()) isAllValid = false;
             if (!PlaceAddressInput.IsValid()) isAllValid = false;
-            if (MapError.Visibility == Visibility.Visible) isAllValid = false;
+            if (!IsMapValid()) isAllValid = false;
             return isAllValid;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void OnFindButtonClick(object sender, RoutedEventArgs e)
         {
+
             var address = SearchMap.TryDrawPinFromAddressLine(PlaceAddressInput.InputText);
             if (address != null)
             {
+                PlaceAddressInput.UnsetManuallyError();
                 MapError.Visibility = Visibility.Collapsed;
-                //PlaceAddressInput.UnsetManuallyError();
                 PlaceAddressInput.InputText = address;
                 return;
             }
@@ -154,8 +167,8 @@ namespace travel_agent.WindowsAndPages
         {
             if (address != null)
             {
+                PlaceAddressInput.UnsetManuallyError();
                 MapError.Visibility = Visibility.Collapsed;
-                //PlaceAddressInput.UnsetManuallyError();
                 PlaceAddressInput.InputText = address;
                 return;
             }
