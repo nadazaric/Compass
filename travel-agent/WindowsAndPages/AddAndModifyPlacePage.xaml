@@ -119,37 +119,39 @@
             <StackPanel Margin="15 0">
                 <Grid Width="625"></Grid> <!-- to get width-->
 
-                <controls:FancyTextBox
-                    x:Name="PlaceAddressInput"
-                    Placeholder="{StaticResource String.AddressLabe}"
-                    Margin="0 0 0 20"
-                    MaxWidth="625">
-                    <controls:FancyTextBox.ValidationRules>
-                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
-                    </controls:FancyTextBox.ValidationRules>
-                </controls:FancyTextBox>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <controls:FancyTextBox
+                        Grid.Column="0"
+                        x:Name="PlaceAddressInput"
+                        Placeholder="{StaticResource String.AddressLabe}"
+                        Margin="0 0 7 20"
+                        MaxWidth="625">
+                        <controls:FancyTextBox.ValidationRules>
+                            <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                        </controls:FancyTextBox.ValidationRules>
+                    </controls:FancyTextBox>
+                    <Button Grid.Column="1" Content="{StaticResource String.FindButton}" Click="OnFindButtonClick" VerticalAlignment="Top" Margin="7 26 0 0"/>
+                </Grid>
 
-                <Border 
-                    CornerRadius="{StaticResource Dim.RegularCorner}" 
-                    BorderBrush="{StaticResource Color.PrimaryDark}" 
-                    Background="{StaticResource Color.PrimaryLight}" 
-                    BorderThickness="1" 
-                    Height="325"
-                    Margin="0 0 0 20">
-                    <Label
-                        Content="Mesto za mapu"
-                        FontSize="14"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        HorizontalContentAlignment="Center"/>
-                </Border>
+                <controls:FancyMap x:Name="SearchMap" Height="325" PinPlaced="OnMapPinPlaced"/>
+                <Label 
+                    x:Name="MapError"
+                    FontSize="{StaticResource Dim.ErrorFontSize}"
+                    Visibility="Collapsed"
+                    Foreground="{StaticResource Color.Error}"
+                    FontWeight="Medium"
+                    Padding="1 4 0 0"/>
 
                 <Button 
                     x:Name="PlacesAddOrModifyButton"
                     Content="{StaticResource String.FinishAddingPlaceButton}" 
                     Padding="0"
-                    Margin="0"
-                    Click="OnSubmitClick"/>
+                    Click="OnSubmitClick"
+                    Margin="0 20 0 0"/>
                 
             </StackPanel>
         </WrapPanel>

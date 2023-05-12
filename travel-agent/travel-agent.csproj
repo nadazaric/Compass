@@ -47,9 +47,14 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Maps.MapControl.WPF, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Maps.MapControl.WPF.1.0.0.3\lib\net40-Client\Microsoft.Maps.MapControl.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Device" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -68,12 +73,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\FancyMap.xaml.cs">
+      <DependentUpon>FancyMap.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FancyPasswordBox.xaml.cs">
       <DependentUpon>FancyPasswordBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\FancyTextBox.xaml.cs">
       <DependentUpon>FancyTextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Geocoder.cs" />
     <Compile Include="Infrastructure\Context.cs" />
     <Compile Include="Models\Place.cs" />
     <Compile Include="Models\User.cs" />
@@ -105,6 +114,10 @@
     <Compile Include="WindowsAndPages\ViewPlacePage.xaml.cs">
       <DependentUpon>ViewPlacePage.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\FancyMap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\FancyPasswordBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

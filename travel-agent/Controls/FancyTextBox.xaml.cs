@@ -30,13 +30,14 @@ namespace travel_agent.Controls
 
         // InputText Property
         public static DependencyProperty InputTextProperty =
-            DependencyProperty.Register("InputTextTextBox", typeof(string), typeof(FancyTextBox), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("InputText", typeof(string), typeof(FancyTextBox), new PropertyMetadata(string.Empty));
 
         public string InputText
         {
             get => (GetValue(InputTextProperty) as string).Trim();
             set => SetValue(InputTextProperty, value);
         }
+
 
         // Validation rules property
         public static readonly DependencyProperty ValidationRulesProperty =

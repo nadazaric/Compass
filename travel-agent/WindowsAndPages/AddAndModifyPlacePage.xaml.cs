@@ -7,6 +7,7 @@ using System.Windows.Media;
 using travel_agent.Models;
 using static travel_agent.Models.Place;
 using travel_agent.Services;
+using travel_agent.Controls;
 
 namespace travel_agent.WindowsAndPages
 {
@@ -27,50 +28,7 @@ namespace travel_agent.WindowsAndPages
             SetupPage();
         }
 
-        private void SetupPage()
-        {
-            if (Place == null) return;
-            PlacesNameInput.InputText = Place.Name;
-            SetImage(Place.Image);
-            PlaceDescriptionInput.InputText = Place.Description;
-            SetPlaceTypeRadioButton();
-            PlaceAddressInput.InputText = Place.Address;
-            PlacesAddOrModifyButton.Content = App.Resources["String.FinishModifyPlaceButton"] as string;
-        }
-
-        private void SetImage(BitmapImage image)
-        {
-            Image = image;
-            var imageBrush = new ImageBrush(Image);
-            imageBrush.Stretch = Stretch.UniformToFill;
-            imageBrush.AlignmentX = AlignmentX.Center;
-            imageBrush.AlignmentY = AlignmentY.Center;
-            PlaceImage.Background = imageBrush;
-            PlaceImageLabel.Visibility = Visibility.Hidden;
-            PlaceAddImageButton.Content = App.Resources["String.SwichImageButton"] as string;
-        }
-
-        private void SetPlaceTypeRadioButton()
-        {
-            if(Place.Type == PlaceType.ATRACTION) PlaceAtractionRadioBtn.IsChecked = true;
-            else if(Place.Type == PlaceType.RESTAURANT) PlaceRestaurantRadioBtn.IsChecked = true;
-            else PlaceAccommodationRadioBtn.IsChecked = true;
-        }
-
-        private void OnAddPictureClick(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image Files (*.png;*.jpeg;*.jpg;*.gif;*.bmp)|*.png;*.jpeg;*.jpg;*.gif;*.bmp";
-            if (openFileDialog.ShowDialog() == true) SetImage(new BitmapImage(new Uri(openFileDialog.FileName)));
-        }
-
-        private void OnSubmitClick(object sender, RoutedEventArgs e)
-        {
-            if (!IsFormInputsValid()) return;
-            if (Place == null) AddPlace();
-            else ModifyPlace();
-        }
-
+        #region ---[ Logic ]---
         private void AddPlace()
         {
             var result = MessageBox.Show(App.Resources["String.AddPlaceQuestionMessage"] as string, App.Resources["String.AppName"] as string, MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -96,9 +54,42 @@ namespace travel_agent.WindowsAndPages
             Place.Image = Image;
             Place.Description = PlaceDescriptionInput.InputText;
             Place.Type = GetTypeFromRadioButton();
-            Place.Address = PlaceAddressInput.InputText;
-            Place.Latitude = 0;
-            Place.Longitude = 0;
+            Place.Address = SearchMap.LastGeocodeResponse.AdressFormatted;
+            Place.Latitude = SearchMap.LastGeocodeResponse.Latitude;
+            Place.Longitude = SearchMap.LastGeocodeResponse.Longitude;
+        }
+        #endregion
+
+        #region ---[ Helpers ]---
+        private void SetupPage()
+        {
+            if (Place == null) return;
+            PlacesNameInput.InputText = Place.Name;
+            SetImage(Place.Image);
+            PlaceDescriptionInput.InputText = Place.Description;
+            SetPlaceTypeRadioButton();
+            PlaceAddressInput.InputText = Place.Address;
+            PlacesAddOrModifyButton.Content = App.Resources["String.FinishModifyPlaceButton"] as string;
+            SearchMap.ManuallySetInitialState(new GeocodeResponse { AdressFormatted = Place.Address, Latitude = Place.Latitude, Longitude = Place.Longitude });
+        }
+
+        private void SetImage(BitmapImage image)
+        {
+            Image = image;
+            var imageBrush = new ImageBrush(Image);
+            imageBrush.Stretch = Stretch.UniformToFill;
+            imageBrush.AlignmentX = AlignmentX.Center;
+            imageBrush.AlignmentY = AlignmentY.Center;
+            PlaceImage.Background = imageBrush;
+            PlaceImageLabel.Visibility = Visibility.Hidden;
+            PlaceAddImageButton.Content = App.Resources["String.SwichImageButton"] as string;
+        }
+
+        private void SetPlaceTypeRadioButton()
+        {
+            if (Place.Type == PlaceType.ATRACTION) PlaceAtractionRadioBtn.IsChecked = true;
+            else if (Place.Type == PlaceType.RESTAURANT) PlaceRestaurantRadioBtn.IsChecked = true;
+            else PlaceAccommodationRadioBtn.IsChecked = true;
         }
 
         private PlaceType GetTypeFromRadioButton()
@@ -120,6 +111,18 @@ namespace travel_agent.WindowsAndPages
             return isValid;
         }
 
+        private bool IsMapValid()
+        {
+            if (MapError.Visibility == Visibility.Visible) return false;
+            if (SearchMap.LastGeocodeResponse == null)
+            {
+                MapError.Visibility = Visibility.Visible;
+                MapError.Content = App.Resources["String.NotClickedOnMapFindButtonError"] as string;
+                return false;
+            }
+            return true;
+        }
+
         private bool IsFormInputsValid()
         {
             bool isAllValid = true;
@@ -127,7 +130,53 @@ namespace travel_agent.WindowsAndPages
             if (!IsPictureValid()) isAllValid = false;
             if (!PlaceDescriptionInput.IsValid()) isAllValid = false;
             if (!PlaceAddressInput.IsValid()) isAllValid = false;
+            if (!IsMapValid()) isAllValid = false;
             return isAllValid;
         }
+        #endregion
+
+        #region ---[ Handlers ]---
+        private void OnAddPictureClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files (*.png;*.jpeg;*.jpg;*.gif;*.bmp)|*.png;*.jpeg;*.jpg;*.gif;*.bmp";
+            if (openFileDialog.ShowDialog() == true) SetImage(new BitmapImage(new Uri(openFileDialog.FileName)));
+        }
+
+        private void OnSubmitClick(object sender, RoutedEventArgs e)
+        {
+            if (!IsFormInputsValid()) return;
+            if (Place == null) AddPlace();
+            else ModifyPlace();
+        }
+
+        private void OnFindButtonClick(object sender, RoutedEventArgs e)
+        {
+
+            var address = SearchMap.TryDrawPinFromAddressLine(PlaceAddressInput.InputText);
+            if (address != null)
+            {
+                PlaceAddressInput.UnsetManuallyError();
+                MapError.Visibility = Visibility.Collapsed;
+                PlaceAddressInput.InputText = address;
+                return;
+            }
+            MapError.Visibility = Visibility.Visible;
+            MapError.Content = App.Resources["String.LocationNotFoundError"] as string;
+        }
+
+        private void OnMapPinPlaced(object sender, string address)
+        {
+            if (address != null)
+            {
+                PlaceAddressInput.UnsetManuallyError();
+                MapError.Visibility = Visibility.Collapsed;
+                PlaceAddressInput.InputText = address;
+                return;
+            }
+            MapError.Visibility = Visibility.Visible;
+            MapError.Content = App.Resources["String.LocationNotInSerbiaError"] as string;
+        }
+        #endregion
     }
 }

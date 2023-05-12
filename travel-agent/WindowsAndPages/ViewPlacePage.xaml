@@ -5,6 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:local="clr-namespace:travel_agent.WindowsAndPages"
+    xmlns:components="clr-namespace:travel_agent.Controls"
     mc:Ignorable="d" 
     Title="ViewPlacePage">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -63,20 +64,7 @@
                 <Label Content="{Binding Address}" FontSize="{StaticResource Dim.MediumFontSize}" FontWeight="Medium" Padding="0"/>
             </StackPanel>
 
-            <Border 
-                CornerRadius="{StaticResource Dim.RegularCorner}" 
-                BorderBrush="{StaticResource Color.PrimaryDark}" 
-                Background="{StaticResource Color.PrimaryLight}" 
-                BorderThickness="{StaticResource Dim.BorderTickness}" 
-                Height="450"
-                Margin="0 10 0 0">
-                <Label
-                    Content="Mesto za mapu"
-                    FontSize="14"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    HorizontalContentAlignment="Center"/>
-            </Border>
+            <components:FancyMap x:Name="Map" Height="450" Margin="0 10 0 0"/>
 
         </StackPanel>
     </ScrollViewer>

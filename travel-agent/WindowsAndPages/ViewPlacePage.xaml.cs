@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using travel_agent.Models;
 using static travel_agent.Models.Place;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace travel_agent.WindowsAndPages
 {
@@ -14,6 +15,8 @@ namespace travel_agent.WindowsAndPages
             Place = place;
             DataContext = Place;
             Loaded += SetType;
+            Map.DisableDoubleClick();
+            Map.DrawPin(new Location(Place.Latitude, Place.Longitude));
         }
 
         private void SetType(object sender, RoutedEventArgs e)
