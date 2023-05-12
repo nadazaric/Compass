@@ -10,22 +10,24 @@ namespace travel_agent.Controls
 {
     public partial class FancyMap : UserControl
     {
-        private static int ZOOM_LEVEL = 13;
         public Pushpin Pin { get; set; } = null;
-        private Geocoder Geocoder;
-        private bool IsDoubleClickDisabled = false;
         public GeocodeResponse LastGeocodeResponse { get; set; }
+        private Geocoder Geocoder;
+        private static int ZOOM_LEVEL = 13;
+        private bool IsDoubleClickDisabled = false;
+        private Application App;
         public FancyMap()
         {
             InitializeComponent();
             Geocoder = Geocoder.Instance;
+            App = Application.Current;
             map.CredentialsProvider = new ApplicationIdCredentialsProvider(GetKey());
             map.Center = new Location(45.256016757384884, 19.840603063313143);
             map.ZoomLevel = ZOOM_LEVEL;
-            Loaded += FancyMap_Loaded;
+            Loaded += AfterLoad;
         }
 
-        private void FancyMap_Loaded(object sender, RoutedEventArgs e)
+        private void AfterLoad(object sender, RoutedEventArgs e)
         {
             var rect = new RectangleGeometry(new Rect(0, 0, ActualWidth - 2, ActualHeight - 2));
             rect.RadiusX = 6;
@@ -53,7 +55,7 @@ namespace travel_agent.Controls
 
         public void DisableDoubleClick() => IsDoubleClickDisabled = true;
 
-        public void SetInitialState(GeocodeResponse location)
+        public void ManuallySetInitialState(GeocodeResponse location)
         {
             LastGeocodeResponse = location;
             DrawPin(new Location(location.Latitude, location.Longitude));
@@ -62,11 +64,10 @@ namespace travel_agent.Controls
         public void DrawPin(Location location)
         {
             if (Pin != null) map.Children.Remove(Pin);
-            Pushpin pin = new Pushpin();
-            pin.Location = location;
-            pin.Background = Application.Current.Resources["Color.PrimaryDark"] as SolidColorBrush;
-            map.Children.Add(pin);
-            Pin = pin;
+            Pin = new Pushpin();
+            Pin.Location = location;
+            Pin.Background = App.Resources["Color.PrimaryDark"] as SolidColorBrush;
+            map.Children.Add(Pin);
             map.Center = location;
             map.ZoomLevel = ZOOM_LEVEL;
         }

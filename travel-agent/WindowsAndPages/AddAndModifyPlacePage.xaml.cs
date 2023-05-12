@@ -7,8 +7,6 @@ using System.Windows.Media;
 using travel_agent.Models;
 using static travel_agent.Models.Place;
 using travel_agent.Services;
-using System.Device.Location;
-using Microsoft.Maps.MapControl.WPF;
 using travel_agent.Controls;
 
 namespace travel_agent.WindowsAndPages
@@ -20,7 +18,6 @@ namespace travel_agent.WindowsAndPages
         private PlaceService PlaceService;
         private BitmapImage Image = null;
         private Place Place;
-        private GeocodeResponse Location = null;
         public AddAndModifyPlacePage(MainWindow parent, Place place = null)
         {
             InitializeComponent();
@@ -31,51 +28,7 @@ namespace travel_agent.WindowsAndPages
             SetupPage();
         }
 
-        private void SetupPage()
-        {
-            if (Place == null) return;
-            PlacesNameInput.InputText = Place.Name;
-            SetImage(Place.Image);
-            PlaceDescriptionInput.InputText = Place.Description;
-            SetPlaceTypeRadioButton();
-            PlaceAddressInput.InputText = Place.Address;
-            PlacesAddOrModifyButton.Content = App.Resources["String.FinishModifyPlaceButton"] as string;
-            SearchMap.SetInitialState(new GeocodeResponse { AdressFormatted = Place.Address, Latitude = Place.Latitude, Longitude = Place.Longitude });
-        }
-
-        private void SetImage(BitmapImage image)
-        {
-            Image = image;
-            var imageBrush = new ImageBrush(Image);
-            imageBrush.Stretch = Stretch.UniformToFill;
-            imageBrush.AlignmentX = AlignmentX.Center;
-            imageBrush.AlignmentY = AlignmentY.Center;
-            PlaceImage.Background = imageBrush;
-            PlaceImageLabel.Visibility = Visibility.Hidden;
-            PlaceAddImageButton.Content = App.Resources["String.SwichImageButton"] as string;
-        }
-
-        private void SetPlaceTypeRadioButton()
-        {
-            if(Place.Type == PlaceType.ATRACTION) PlaceAtractionRadioBtn.IsChecked = true;
-            else if(Place.Type == PlaceType.RESTAURANT) PlaceRestaurantRadioBtn.IsChecked = true;
-            else PlaceAccommodationRadioBtn.IsChecked = true;
-        }
-
-        private void OnAddPictureClick(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image Files (*.png;*.jpeg;*.jpg;*.gif;*.bmp)|*.png;*.jpeg;*.jpg;*.gif;*.bmp";
-            if (openFileDialog.ShowDialog() == true) SetImage(new BitmapImage(new Uri(openFileDialog.FileName)));
-        }
-
-        private void OnSubmitClick(object sender, RoutedEventArgs e)
-        {
-            if (!IsFormInputsValid()) return;
-            if (Place == null) AddPlace();
-            else ModifyPlace();
-        }
-
+        #region ---[ Logic ]---
         private void AddPlace()
         {
             var result = MessageBox.Show(App.Resources["String.AddPlaceQuestionMessage"] as string, App.Resources["String.AppName"] as string, MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -105,6 +58,39 @@ namespace travel_agent.WindowsAndPages
             Place.Latitude = SearchMap.LastGeocodeResponse.Latitude;
             Place.Longitude = SearchMap.LastGeocodeResponse.Longitude;
         }
+        #endregion
+
+        #region ---[ Helpers ]---
+        private void SetupPage()
+        {
+            if (Place == null) return;
+            PlacesNameInput.InputText = Place.Name;
+            SetImage(Place.Image);
+            PlaceDescriptionInput.InputText = Place.Description;
+            SetPlaceTypeRadioButton();
+            PlaceAddressInput.InputText = Place.Address;
+            PlacesAddOrModifyButton.Content = App.Resources["String.FinishModifyPlaceButton"] as string;
+            SearchMap.ManuallySetInitialState(new GeocodeResponse { AdressFormatted = Place.Address, Latitude = Place.Latitude, Longitude = Place.Longitude });
+        }
+
+        private void SetImage(BitmapImage image)
+        {
+            Image = image;
+            var imageBrush = new ImageBrush(Image);
+            imageBrush.Stretch = Stretch.UniformToFill;
+            imageBrush.AlignmentX = AlignmentX.Center;
+            imageBrush.AlignmentY = AlignmentY.Center;
+            PlaceImage.Background = imageBrush;
+            PlaceImageLabel.Visibility = Visibility.Hidden;
+            PlaceAddImageButton.Content = App.Resources["String.SwichImageButton"] as string;
+        }
+
+        private void SetPlaceTypeRadioButton()
+        {
+            if (Place.Type == PlaceType.ATRACTION) PlaceAtractionRadioBtn.IsChecked = true;
+            else if (Place.Type == PlaceType.RESTAURANT) PlaceRestaurantRadioBtn.IsChecked = true;
+            else PlaceAccommodationRadioBtn.IsChecked = true;
+        }
 
         private PlaceType GetTypeFromRadioButton()
         {
@@ -131,7 +117,7 @@ namespace travel_agent.WindowsAndPages
             if (SearchMap.LastGeocodeResponse == null)
             {
                 MapError.Visibility = Visibility.Visible;
-                MapError.Content = "Niste selektovali validnu lokaciju na mapi. Molimo vas kliknite na dugme 'Pronađi'.";
+                MapError.Content = App.Resources["String.NotClickedOnMapFindButtonError"] as string;
                 return false;
             }
             return true;
@@ -147,6 +133,22 @@ namespace travel_agent.WindowsAndPages
             if (!IsMapValid()) isAllValid = false;
             return isAllValid;
         }
+        #endregion
+
+        #region ---[ Handlers ]---
+        private void OnAddPictureClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files (*.png;*.jpeg;*.jpg;*.gif;*.bmp)|*.png;*.jpeg;*.jpg;*.gif;*.bmp";
+            if (openFileDialog.ShowDialog() == true) SetImage(new BitmapImage(new Uri(openFileDialog.FileName)));
+        }
+
+        private void OnSubmitClick(object sender, RoutedEventArgs e)
+        {
+            if (!IsFormInputsValid()) return;
+            if (Place == null) AddPlace();
+            else ModifyPlace();
+        }
 
         private void OnFindButtonClick(object sender, RoutedEventArgs e)
         {
@@ -160,7 +162,7 @@ namespace travel_agent.WindowsAndPages
                 return;
             }
             MapError.Visibility = Visibility.Visible;
-            MapError.Content = "Adresa nije pronadjena ili nije na teritoriji Srbije";
+            MapError.Content = App.Resources["String.LocationNotFoundError"] as string;
         }
 
         private void OnMapPinPlaced(object sender, string address)
@@ -173,7 +175,8 @@ namespace travel_agent.WindowsAndPages
                 return;
             }
             MapError.Visibility = Visibility.Visible;
-            MapError.Content = "Morate postaviti pin na teritoriju Srbije.";
+            MapError.Content = App.Resources["String.LocationNotInSerbiaError"] as string;
         }
+        #endregion
     }
 }

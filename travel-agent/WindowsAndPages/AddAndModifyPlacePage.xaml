@@ -119,7 +119,6 @@
             <StackPanel Margin="15 0">
                 <Grid Width="625"></Grid> <!-- to get width-->
 
-
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*"/>
@@ -135,9 +134,8 @@
                             <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
                         </controls:FancyTextBox.ValidationRules>
                     </controls:FancyTextBox>
-                    <Button Grid.Column="1" Content="Pronadji" Click="OnFindButtonClick" VerticalAlignment="Top" Margin="7 26 0 0"/>
+                    <Button Grid.Column="1" Content="{StaticResource String.FindButton}" Click="OnFindButtonClick" VerticalAlignment="Top" Margin="7 26 0 0"/>
                 </Grid>
-
 
                 <controls:FancyMap x:Name="SearchMap" Height="325" PinPlaced="OnMapPinPlaced"/>
                 <Label 

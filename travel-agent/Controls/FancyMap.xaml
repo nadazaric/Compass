@@ -16,8 +16,7 @@
         <m:Map
             x:Name="map"
             ZoomLevel="13"
-            MouseDoubleClick="OnDrawPinDoubleClick"
-            >
+            MouseDoubleClick="OnDrawPinDoubleClick">
         </m:Map>
     </Border>
 </UserControl>

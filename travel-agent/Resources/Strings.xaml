@@ -48,6 +48,7 @@
     <System:String x:Key="String.AddNewPlaceButton">Dodaj novo mesto</System:String>
     <System:String x:Key="String.SearchButton">Pretraži</System:String>
     <System:String x:Key="String.ReturnToDefaultStateButton">Vrati na početno stanje</System:String>
+    <System:String x:Key="String.FindButton">Pronađi</System:String>
     
     <!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>
@@ -58,7 +59,10 @@
     <System:String x:Key="String.AlreadyUseEmailError">Ova e-mail adresa je već zauzeta!</System:String>
     <System:String x:Key="String.EmailOrPassworNotCorrectError">E-mail adresa ili lozinka je pogrešna!</System:String>
     <System:String x:Key="String.PlaceImageIsEmptyError">Slika je obavezna</System:String>
-    
+    <System:String x:Key="String.LocationNotInSerbiaError">Morate postaviti pin na teritoriju Srbije.</System:String>
+    <System:String x:Key="String.LocationNotFoundError">Adresa nije pronadjena ili nije na teritoriji Srbije.</System:String>
+    <System:String x:Key="String.NotClickedOnMapFindButtonError">Niste selektovali validnu lokaciju na mapi. Molimo vas kliknite na dugme "Pronađi".</System:String>
+
     <!-- Message Box Messages -->
     <System:String x:Key="String.RegisterSuccessMessage">Uspješno ste se registrovali! Sada možete da se prijavite sa novokreiranim nalogom.</System:String>
     <System:String x:Key="String.AddPlaceQuestionMessage">Da li ste sigurni da želite dodati novo mesto?</System:String>
