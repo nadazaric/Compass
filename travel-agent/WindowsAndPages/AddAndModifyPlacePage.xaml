@@ -140,14 +140,21 @@
                 </Grid>
 
 
-                <controls:FancyMap x:Name="SearchMap" Height="325" Margin="0 0 0 20" PinPlaced="OnMapPinPlaced"/>
+                <controls:FancyMap x:Name="SearchMap" Height="325" PinPlaced="OnMapPinPlaced"/>
+                <Label 
+                    x:Name="MapError"
+                    FontSize="{StaticResource Dim.ErrorFontSize}"
+                    Visibility="Collapsed"
+                    Foreground="{StaticResource Color.Error}"
+                    FontWeight="Medium"
+                    Padding="1 4 0 0"/>
 
                 <Button 
                     x:Name="PlacesAddOrModifyButton"
                     Content="{StaticResource String.FinishAddingPlaceButton}" 
                     Padding="0"
-                    Margin="0"
-                    Click="OnSubmitClick"/>
+                    Click="OnSubmitClick"
+                    Margin="0 20 0 0"/>
                 
             </StackPanel>
         </WrapPanel>

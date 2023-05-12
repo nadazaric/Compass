@@ -20,6 +20,7 @@ namespace travel_agent.WindowsAndPages
         private PlaceService PlaceService;
         private BitmapImage Image = null;
         private Place Place;
+        private GeocodeResponse Location = null;
         public AddAndModifyPlacePage(MainWindow parent, Place place = null)
         {
             InitializeComponent();
@@ -39,6 +40,7 @@ namespace travel_agent.WindowsAndPages
             SetPlaceTypeRadioButton();
             PlaceAddressInput.InputText = Place.Address;
             PlacesAddOrModifyButton.Content = App.Resources["String.FinishModifyPlaceButton"] as string;
+            SearchMap.DrawPin(new Location(Place.Latitude, Place.Longitude));
         }
 
         private void SetImage(BitmapImage image)
@@ -99,9 +101,9 @@ namespace travel_agent.WindowsAndPages
             Place.Image = Image;
             Place.Description = PlaceDescriptionInput.InputText;
             Place.Type = GetTypeFromRadioButton();
-            Place.Address = PlaceAddressInput.InputText;
-            Place.Latitude = 0;
-            Place.Longitude = 0;
+            Place.Address = SearchMap.LastGeocodeResponse.AdressFormatted;
+            Place.Latitude = SearchMap.LastGeocodeResponse.Latitude;
+            Place.Longitude = SearchMap.LastGeocodeResponse.Longitude;
         }
 
         private PlaceType GetTypeFromRadioButton()
@@ -130,6 +132,7 @@ namespace travel_agent.WindowsAndPages
             if (!IsPictureValid()) isAllValid = false;
             if (!PlaceDescriptionInput.IsValid()) isAllValid = false;
             if (!PlaceAddressInput.IsValid()) isAllValid = false;
+            if (MapError.Visibility == Visibility.Visible) isAllValid = false;
             return isAllValid;
         }
 
@@ -138,22 +141,26 @@ namespace travel_agent.WindowsAndPages
             var address = SearchMap.TryDrawPinFromAddressLine(PlaceAddressInput.InputText);
             if (address != null)
             {
-                PlaceAddressInput.UnsetManuallyError();
+                MapError.Visibility = Visibility.Collapsed;
+                //PlaceAddressInput.UnsetManuallyError();
                 PlaceAddressInput.InputText = address;
                 return;
             }
-            PlaceAddressInput.SetManuallyError("Adresa nije pronadjena ili nije na teritoriji Srbije");
+            MapError.Visibility = Visibility.Visible;
+            MapError.Content = "Adresa nije pronadjena ili nije na teritoriji Srbije";
         }
 
         private void OnMapPinPlaced(object sender, string address)
         {
             if (address != null)
             {
-                PlaceAddressInput.UnsetManuallyError();
+                MapError.Visibility = Visibility.Collapsed;
+                //PlaceAddressInput.UnsetManuallyError();
                 PlaceAddressInput.InputText = address;
                 return;
             }
-            PlaceAddressInput.SetManuallyError("Morate postaviti pin na teritoriju Srbije.");
+            MapError.Visibility = Visibility.Visible;
+            MapError.Content = "Morate postaviti pin na teritoriju Srbije.";
         }
     }
 }

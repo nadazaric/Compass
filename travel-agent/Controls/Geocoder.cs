@@ -17,6 +17,7 @@ namespace travel_agent.Controls
                 return instance;
             }
         }
+
         private string GetKey()
         {
             try 

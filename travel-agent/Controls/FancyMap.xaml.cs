@@ -1,5 +1,4 @@
 ﻿using Microsoft.Maps.MapControl.WPF;
-using Microsoft.Maps.MapControl.WPF.Core;
 using System;
 using System.IO;
 using System.Windows;
@@ -14,6 +13,7 @@ namespace travel_agent.Controls
         private static int ZOOM_LEVEL = 13;
         public Pushpin Pin { get; set; } = null;
         private Geocoder Geocoder;
+        public GeocodeResponse LastGeocodeResponse { get; set; }
         public FancyMap()
         {
             InitializeComponent();
@@ -35,8 +35,8 @@ namespace travel_agent.Controls
             Point mousePosition = e.GetPosition(this);
             Location location = map.ViewportPointToLocation(mousePosition);
             DrawPin(location);
-            GeocodeResponse response = Geocoder.ReverseGeocode(location.Latitude, location.Longitude);
-            OnPinPlaced(response == null ? null : response.AdressFormatted);
+            LastGeocodeResponse = Geocoder.ReverseGeocode(location.Latitude, location.Longitude);
+            OnPinPlaced(LastGeocodeResponse == null ? null : LastGeocodeResponse.AdressFormatted);
 
         }
 
@@ -54,10 +54,10 @@ namespace travel_agent.Controls
 
         public string TryDrawPinFromAddressLine(string addresQuery)
         {
-            GeocodeResponse response = Geocoder.Geocode(addresQuery);
-            if (response == null) return null;
-            DrawPin(new Location(response.Latitude, response.Longitude));
-            return response.AdressFormatted;
+            LastGeocodeResponse = Geocoder.Geocode(addresQuery);
+            if (LastGeocodeResponse == null) return null;
+            DrawPin(new Location(LastGeocodeResponse.Latitude, LastGeocodeResponse.Longitude));
+            return LastGeocodeResponse.AdressFormatted;
         }
 
         public event EventHandler<string> PinPlaced;
