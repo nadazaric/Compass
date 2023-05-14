@@ -6,5 +6,6 @@ namespace travel_agent.Infrastructure
     public class Context : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Place> Places { get; set; }
     }
 }

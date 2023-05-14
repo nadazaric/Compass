@@ -1,0 +1,22 @@
+﻿<UserControl 
+    x:Class="travel_agent.Controls.FancyMap"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:travel_agent.Controls"
+    xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+    mc:Ignorable="d">
+    <Border 
+        x:Name="Test"
+        CornerRadius="{StaticResource Dim.RegularCorner}" 
+        BorderBrush="{StaticResource Color.PrimaryDark}" 
+        Background="{StaticResource Color.PrimaryLight}" 
+        BorderThickness="1">
+        <m:Map
+            x:Name="map"
+            ZoomLevel="13"
+            MouseDoubleClick="OnDrawPinDoubleClick">
+        </m:Map>
+    </Border>
+</UserControl>

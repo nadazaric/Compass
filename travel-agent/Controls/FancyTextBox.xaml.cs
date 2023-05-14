@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Rule = travel_agent.ValidationRules.ValidationRule;
 
 namespace travel_agent.Controls
@@ -28,13 +30,14 @@ namespace travel_agent.Controls
 
         // InputText Property
         public static DependencyProperty InputTextProperty =
-            DependencyProperty.Register("InputTextTextBox", typeof(string), typeof(FancyTextBox), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("InputText", typeof(string), typeof(FancyTextBox), new PropertyMetadata(string.Empty));
 
         public string InputText
         {
             get => (GetValue(InputTextProperty) as string).Trim();
             set => SetValue(InputTextProperty, value);
         }
+
 
         // Validation rules property
         public static readonly DependencyProperty ValidationRulesProperty =
@@ -44,6 +47,16 @@ namespace travel_agent.Controls
         {
             get => (List<Rule>)GetValue(ValidationRulesProperty);
             set => SetValue(ValidationRulesProperty, value);
+        }
+
+        // Multiline property
+        public static readonly DependencyProperty MultilineProperty =
+        DependencyProperty.Register("MultilineTextBox", typeof(bool), typeof(FancyTextBox), new PropertyMetadata(false));
+
+        public bool Multiline
+        {
+            get => (bool)GetValue(MultilineProperty);
+            set => SetValue(MultilineProperty, value); 
         }
 
         #endregion

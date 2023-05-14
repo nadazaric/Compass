@@ -30,6 +30,7 @@ namespace travel_agent.Windows
                 LoginPasswordInput.RestartState();
                 LoginEmailInput.SetManuallyError(App.Resources["String.EmailOrPassworNotCorrectError"] as string);
                 LoginPasswordInput.SetManuallyError(App.Resources["String.EmailOrPassworNotCorrectError"] as string);
+                return;
             }
             var mainWindow = new MainWindow(loggedUser);
             mainWindow.Show();

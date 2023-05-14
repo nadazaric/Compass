@@ -1,8 +1,9 @@
-﻿<Application x:Class="travel_agent.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:travel_agent"
-             StartupUri="WindowsAndPages/LoginAndRegisterWindow.xaml">
+﻿<Application 
+    x:Class="travel_agent.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:travel_agent"
+    StartupUri="WindowsAndPages/LoginAndRegisterWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

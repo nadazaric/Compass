@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static travel_agent.Models.Place;
 
 namespace travel_agent.Models
 {
@@ -13,4 +14,5 @@ namespace travel_agent.Models
     }
 
     public enum Role { AGENT, PASSENGER }
+
 }

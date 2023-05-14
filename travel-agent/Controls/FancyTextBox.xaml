@@ -19,13 +19,14 @@
             Text="{Binding InputText}"
             FontSize="{StaticResource Dim.RegularFontSize}"
             FontWeight="Regular"
-            Height="{StaticResource Dim.InputAndButtonHeight}"
+            MinHeight="{StaticResource Dim.InputAndButtonHeight}"
             VerticalContentAlignment="Center"
             Background="{StaticResource Color.PrimaryLight}"
             BorderBrush="{StaticResource Color.PrimaryDark}"
             Padding="8 5">
             <TextBox.Resources>
                 <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="TextWrapping" Value="NoWrap" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type TextBox}">
@@ -46,6 +47,9 @@
                                     <Trigger Property="IsFocused" Value="True">
                                         <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                                     </Trigger>
+                                    <DataTrigger Binding="{Binding Multiline}" Value="True">
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </DataTrigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
@@ -55,7 +59,7 @@
         </TextBox>
         <Label 
             Name="errorMessage"
-            FontSize="13"
+            FontSize="{StaticResource Dim.ErrorFontSize}"
             Visibility="Collapsed"
             Foreground="{StaticResource Color.Error}"
             FontWeight="Medium"

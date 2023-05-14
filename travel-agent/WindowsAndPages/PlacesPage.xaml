@@ -5,9 +5,216 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:local="clr-namespace:travel_agent.WindowsAndPages"
+    xmlns:controls="clr-namespace:travel_agent.Controls"
+    xmlns:con="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d" 
     Title="PlacesPage">
-    <Grid>
-        <TextBlock Text="Places Page"/>
-    </Grid>
+    <Page.Resources>
+        <DataTemplate x:Key="FirstItemTemplate">
+            <Button
+                Style="{StaticResource OutlineButtonStyle}" 
+                Width="350" 
+                Height="350"
+                Click="OnAddNewPlaceClick"
+                Margin="20">
+                <StackPanel
+                    VerticalAlignment="Center">
+                    <TextBlock 
+                        HorizontalAlignment="Center" 
+                        Text="+"
+                        FontSize="90"
+                        Margin="0 -30 0 0"
+                        FontWeight="Medium"/>
+                    <TextBlock Text="{StaticResource String.AddNewPlaceButton}"/>
+                </StackPanel>
+            </Button>
+        </DataTemplate>
+        <DataTemplate x:Key="DefaultItemTemplate">
+            <Border 
+                BorderBrush="{StaticResource Color.PrimaryDark}" 
+                BorderThickness="1.25" 
+                CornerRadius="{StaticResource Dim.RegularCorner}"
+                Margin="20"
+                Height="350"
+                Width="350">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1.015" Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1.015" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </Style.Triggers>
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Border.Style>
+                <Grid
+                    MouseLeftButtonUp="OnPlaceItemClick">
+                    <Grid.Clip>
+                        <RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,0,350,350"/>
+                    </Grid.Clip>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*" MinHeight="100"/>
+                        <RowDefinition Height="*" MaxHeight="200"/>
+                    </Grid.RowDefinitions>
+                    <Image
+                        Grid.Row="0"
+                        Source="{Binding Image}"
+                        Stretch="UniformToFill"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"/>
+                    <DockPanel Grid.Row="1" Background="{StaticResource Color.PrimaryLight}" LastChildFill="True">
+                        <TextBlock
+                            TextWrapping="Wrap"
+                            Text="{Binding Name}"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Padding="10 0"
+                            FontWeight="Medium"/>
+                    </DockPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <local:FirstItemTemplateSelector x:Key="FirstItemTemplateSelector" />
+    </Page.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+
+            <!-- Search -->
+            <Grid x:Name="AdvanceSearch" Width="400" Background="{StaticResource Color.White}" Margin="0 25 0 0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <controls:FancyTextBox x:Name="PlaceSearchName" Grid.Column="0" Placeholder="{StaticResource String.SearchByNameLabel}" Padding="0 10 10 10"/>
+                    <Button x:Name="HandlePopupButton" Grid.Column="1" Padding="1.5" Content="{StaticResource String.DownButton}" Click="OnHandlePopupClick" VerticalAlignment="Bottom"/>
+                </Grid>
+
+                <Popup x:Name="AdvancedSearchPopup" AllowsTransparency="True" PlacementTarget="{Binding ElementName=PlaceSearchName}" StaysOpen="False" PopupAnimation="Slide" Closed="WhenPopupClosed">
+                    <Border BorderBrush="{StaticResource Color.PrimaryDark}" BorderThickness="1" CornerRadius="5" Background="White">
+                        <StackPanel Width="400">
+
+                            <StackPanel Margin="20 20 20 5">
+                                <Label
+                                    Style="{StaticResource PlaceholderLabelStyle}"
+                                    Content="{StaticResource String.SearchByTypeLabel}"/>
+                                <Border 
+                                    CornerRadius="{StaticResource Dim.RegularCorner}" 
+                                    BorderBrush="{StaticResource Color.PrimaryDark}" 
+                                    Background="{StaticResource Color.PrimaryLight}" 
+                                    BorderThickness="{StaticResource Dim.BorderTickness}" 
+                                    Height="{StaticResource Dim.InputAndButtonHeight}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.6*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <RadioButton 
+                                            x:Name="PlaceAllRadioBtn" 
+                                            Grid.Column="0" 
+                                            Style="{StaticResource SmallRadioButtonStyle}" 
+                                            Content="{StaticResource String.AllLabel}" 
+                                            GroupName="PlaceSearchButtonGroup" 
+                                            IsChecked="True"/>
+                                        <RadioButton 
+                                            x:Name="PlaceAtractionRadioBtn" 
+                                            Grid.Column="1" 
+                                            Style="{StaticResource SmallRadioButtonStyle}" 
+                                            Content="{StaticResource String.AtractionLabel}" 
+                                            GroupName="PlaceSearchButtonGroup"/>
+                                        <RadioButton 
+                                            x:Name="PlaceRestaurantRadioBtn" 
+                                            Grid.Column="2" 
+                                            Style="{StaticResource SmallRadioButtonStyle}" 
+                                            Content="{StaticResource String.RestaurantLabel}" 
+                                            GroupName="PlaceSearchButtonGroup" />
+                                        <RadioButton 
+                                            x:Name="PlaceAccommodationRadioBtn" 
+                                            Grid.Column="3" 
+                                            Style="{StaticResource SmallRadioButtonStyle}" 
+                                            Content="{StaticResource String.AccommodatonLabel}" 
+                                            GroupName="PlaceSearchButtonGroup"/>
+                                    </Grid>
+                                </Border>
+                            </StackPanel>
+
+                            <controls:FancyTextBox 
+                                x:Name="PlaceSearchAddress" 
+                                Placeholder="{StaticResource String.SearchByAddressLabel}" 
+                                Margin="20 5 20 10"/>
+
+                            <Button 
+                                Style="{StaticResource OutlineButtonStyle}" 
+                                Content="{StaticResource String.ReturnToDefaultStateButton}" 
+                                Margin="20 10 20 5" 
+                                Click="OnReturnToDefaultClick"/>
+
+                            <Button 
+                                Content="{StaticResource String.SearchButton}" 
+                                Margin="20 5 20 20" 
+                                Click="OnSearchButtonClick"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+            </Grid>
+
+            <!-- No Content -->
+            <Grid 
+                x:Name="NoContent"
+                Height="700" 
+                Visibility="Collapsed">
+                <StackPanel
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                    <TextBlock 
+                        HorizontalAlignment="Center" 
+                        Text="{StaticResource String.NothingLabel}"
+                        FontSize="70"
+                        FontWeight="Medium"
+                        Foreground="{StaticResource Color.PrimaryDark}"/>
+                    <TextBlock 
+                        FontSize="18" 
+                        Text="{StaticResource String.PlacesNotFaundLabel}"
+                        HorizontalAlignment="Center"
+                        Foreground="{StaticResource Color.PrimaryDark}"
+                        FontWeight="Medium"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Places List -->
+            <Grid x:Name="PlacesList">
+                <!-- this margin is because of padding on input field for search -->
+                <ItemsControl x:Name="PlacesItemsControl" Margin="0 10 0 20" ItemsSource="{Binding Places}" ItemTemplateSelector="{StaticResource FirstItemTemplateSelector}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Center"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+
+        </StackPanel>
+    </ScrollViewer>
 </Page>
