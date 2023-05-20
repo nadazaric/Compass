@@ -11,150 +11,141 @@
     Title="AddPlacePage">
     <ScrollViewer
         VerticalScrollBarVisibility="Auto">
-        <WrapPanel
+        <StackPanel
             HorizontalAlignment="Center"
             ScrollViewer.CanContentScroll="True"
-            Margin="15 30">
-            <StackPanel Margin="15 0">
-                <Grid Width="625"></Grid> <!-- to get width -->
+            Margin="25 30"
+            MinWidth="400">
 
-                <controls:FancyTextBox
-                    x:Name="PlacesNameInput"
-                    MaxWidth="625"
-                    Placeholder="{StaticResource String.PlaceNameLabel}"
-                    Margin="0 0 0 20">
-                    <controls:FancyTextBox.ValidationRules>
-                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
-                        <validatrs:InputLengthRule ErrorMessage="{StaticResource String.PlaceNameCanContainOnlyNCaractersError}" MaxLength="90"/>
-                    </controls:FancyTextBox.ValidationRules>
-                </controls:FancyTextBox>
+            <controls:FancyTextBox
+                x:Name="PlacesNameInput"
+                MaxWidth="625"
+                Placeholder="{StaticResource String.PlaceNameLabel}"
+                Margin="0 0 0 20">
+                <controls:FancyTextBox.ValidationRules>
+                    <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    <validatrs:InputLengthRule ErrorMessage="{StaticResource String.PlaceNameCanContainOnlyNCaractersError}" MaxLength="90"/>
+                </controls:FancyTextBox.ValidationRules>
+            </controls:FancyTextBox>
 
-                <StackPanel
-                    Margin="0 0 0 20">
-                    <Border 
-                        x:Name="PlaceImage" 
-                        CornerRadius="{StaticResource Dim.RegularCorner}" 
-                        BorderBrush="{StaticResource Color.PrimaryDark}" 
-                        Background="{StaticResource Color.PrimaryLight}" 
-                        BorderThickness="{StaticResource Dim.BorderTickness}" 
-                        Height="325">
-                        <Label
-                            x:Name="PlaceImageLabel"
-                            Content="{StaticResource String.PlaceImageBoxLabel}"
-                            FontSize="{StaticResource Dim.RegularFontSize}"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            HorizontalContentAlignment="Center"/>
-                    </Border>
+            <StackPanel Margin="0 0 0 20">
+                <Border 
+                    x:Name="PlaceImage" 
+                    CornerRadius="{StaticResource Dim.RegularCorner}" 
+                    BorderBrush="{StaticResource Color.PrimaryDark}" 
+                    Background="{StaticResource Color.PrimaryLight}" 
+                    BorderThickness="{StaticResource Dim.BorderTickness}" 
+                    Height="325">
                     <Label
-                        x:Name="PlaceImageError"
-                        Content="{StaticResource String.PlaceImageIsEmptyError}"
-                        FontSize="{StaticResource Dim.ErrorFontSize}"
-                        Visibility="Collapsed"
-                        Foreground="{StaticResource Color.Error}"
-                        FontWeight="Medium"
-                        Padding="1 4 0 0"/>
-                </StackPanel>
-                
-                <Button 
-                    x:Name="PlaceAddImageButton"
-                    Style="{StaticResource OutlineButtonStyle}"
-                    Content="{StaticResource String.AddImageButton}" 
-                    Click="OnAddPictureClick"
-                    Padding="0"
-                    Margin="0 0 0 15"/>
-
-                <controls:FancyTextBox
-                    x:Name="PlaceDescriptionInput"
-                    Placeholder="{StaticResource String.DescriptionLabel}"
-                    Multiline="True"
-                    MaxWidth="625"
-                    Margin="0 0 0 15">
-                    <controls:FancyTextBox.ValidationRules>
-                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
-                    </controls:FancyTextBox.ValidationRules>
-                </controls:FancyTextBox>
-
-                <StackPanel Margin="0 0 0 15">
-                    <Label
-                        Style="{StaticResource PlaceholderLabelStyle}"
-                        Content="{StaticResource String.TypeLabel}"/>
-                    <Border 
-                        CornerRadius="{StaticResource Dim.RegularCorner}" 
-                        BorderBrush="{StaticResource Color.PrimaryDark}" 
-                        Background="{StaticResource Color.PrimaryLight}" 
-                        BorderThickness="{StaticResource Dim.BorderTickness}" 
-                        Height="{StaticResource Dim.InputAndButtonHeight}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <RadioButton 
-                                x:Name="PlaceAtractionRadioBtn" 
-                                Grid.Column="0" 
-                                Style="{StaticResource StandardRadioButtonStyle}" 
-                                Content="{StaticResource String.AtractionLabel}" 
-                                GroupName="PlaceTypeRadioButtonGroup" 
-                                IsChecked="True"/>
-                            <RadioButton 
-                                x:Name="PlaceRestaurantRadioBtn" 
-                                Grid.Column="1" 
-                                Style="{StaticResource StandardRadioButtonStyle}" 
-                                Content="{StaticResource String.RestaurantLabel}" 
-                                GroupName="PlaceTypeRadioButtonGroup"/>
-                            <RadioButton 
-                                x:Name="PlaceAccommodationRadioBtn" 
-                                Grid.Column="2" 
-                                Style="{StaticResource StandardRadioButtonStyle}" 
-                                Content="{StaticResource String.AccommodatonLabel}" 
-                                GroupName="PlaceTypeRadioButtonGroup"/>
-                        </Grid>
-                    </Border>
-                </StackPanel>
-            </StackPanel>
-
-            <!-- Right content-->
-            <StackPanel Margin="15 0">
-                <Grid Width="625"></Grid> <!-- to get width-->
-
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="4*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <controls:FancyTextBox
-                        Grid.Column="0"
-                        x:Name="PlaceAddressInput"
-                        Placeholder="{StaticResource String.AddressLabe}"
-                        Margin="0 0 7 20"
-                        MaxWidth="625">
-                        <controls:FancyTextBox.ValidationRules>
-                            <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
-                        </controls:FancyTextBox.ValidationRules>
-                    </controls:FancyTextBox>
-                    <Button Grid.Column="1" Content="{StaticResource String.FindButton}" Click="OnFindButtonClick" VerticalAlignment="Top" Margin="7 26 0 0"/>
-                </Grid>
-
-                <controls:FancyMap x:Name="SearchMap" Height="325" PinPlaced="OnMapPinPlaced"/>
-                <Label 
-                    x:Name="MapError"
+                        x:Name="PlaceImageLabel"
+                        Content="{StaticResource String.PlaceImageBoxLabel}"
+                        FontSize="{StaticResource Dim.RegularFontSize}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"/>
+                </Border>
+                <Label
+                    x:Name="PlaceImageError"
+                    Content="{StaticResource String.PlaceImageIsEmptyError}"
                     FontSize="{StaticResource Dim.ErrorFontSize}"
                     Visibility="Collapsed"
                     Foreground="{StaticResource Color.Error}"
                     FontWeight="Medium"
                     Padding="1 4 0 0"/>
-
-                <Button 
-                    x:Name="PlacesAddOrModifyButton"
-                    Content="{StaticResource String.FinishAddingPlaceButton}" 
-                    Padding="0"
-                    Click="OnSubmitClick"
-                    Margin="0 20 0 0"/>
-                
             </StackPanel>
-        </WrapPanel>
+
+            <Button 
+                x:Name="PlaceAddImageButton"
+                Style="{StaticResource OutlineButtonStyle}"
+                Content="{StaticResource String.AddImageButton}" 
+                Click="OnAddPictureClick"
+                Padding="0"
+                Margin="0 0 0 15"/>
+
+            <controls:FancyTextBox
+                x:Name="PlaceDescriptionInput"
+                Placeholder="{StaticResource String.DescriptionLabel}"
+                Multiline="True"
+                MaxWidth="625"
+                Margin="0 0 0 15">
+                <controls:FancyTextBox.ValidationRules>
+                    <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                </controls:FancyTextBox.ValidationRules>
+            </controls:FancyTextBox>
+
+            <StackPanel Margin="0 0 0 15">
+                <Label
+                    Style="{StaticResource PlaceholderLabelStyle}"
+                    Content="{StaticResource String.TypeLabel}"/>
+                <Border 
+                    CornerRadius="{StaticResource Dim.RegularCorner}" 
+                    BorderBrush="{StaticResource Color.PrimaryDark}" 
+                    Background="{StaticResource Color.PrimaryLight}" 
+                    BorderThickness="{StaticResource Dim.BorderTickness}" 
+                    Height="{StaticResource Dim.InputAndButtonHeight}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <RadioButton 
+                            x:Name="PlaceAtractionRadioBtn" 
+                            Grid.Column="0" 
+                            Style="{StaticResource StandardRadioButtonStyle}" 
+                            Content="{StaticResource String.AtractionLabel}" 
+                            GroupName="PlaceTypeRadioButtonGroup" 
+                            IsChecked="True"/>
+                        <RadioButton 
+                            x:Name="PlaceRestaurantRadioBtn" 
+                            Grid.Column="1" 
+                            Style="{StaticResource StandardRadioButtonStyle}" 
+                            Content="{StaticResource String.RestaurantLabel}" 
+                            GroupName="PlaceTypeRadioButtonGroup"/>
+                        <RadioButton 
+                            x:Name="PlaceAccommodationRadioBtn" 
+                            Grid.Column="2" 
+                            Style="{StaticResource StandardRadioButtonStyle}" 
+                            Content="{StaticResource String.AccommodatonLabel}" 
+                            GroupName="PlaceTypeRadioButtonGroup"/>
+                    </Grid>
+                </Border>
+            </StackPanel>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <controls:FancyTextBox
+                        Grid.Column="0"
+                        x:Name="PlaceAddressInput"
+                        Placeholder="{StaticResource String.AddressLabe}"
+                        Margin="0 0 7 20"
+                        MaxWidth="625">
+                    <controls:FancyTextBox.ValidationRules>
+                        <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+                    </controls:FancyTextBox.ValidationRules>
+                </controls:FancyTextBox>
+                <Button Grid.Column="1" Content="{StaticResource String.FindButton}" Click="OnFindButtonClick" VerticalAlignment="Top" Margin="7 26 0 0"/>
+            </Grid>
+
+            <controls:FancyMap x:Name="SearchMap" Height="325" PinPlaced="OnMapPinPlaced"/>
+            <Label 
+                x:Name="MapError"
+                FontSize="{StaticResource Dim.ErrorFontSize}"
+                Visibility="Collapsed"
+                Foreground="{StaticResource Color.Error}"
+                FontWeight="Medium"
+                Padding="1 4 0 0"/>
+
+            <Button 
+                x:Name="PlacesAddOrModifyButton"
+                Content="{StaticResource String.FinishAddingPlaceButton}" 
+                Padding="0"
+                Click="OnSubmitClick"
+                Margin="0 20 0 0"/>
+
+        </StackPanel>
     </ScrollViewer>
 </Page>
-<!-- Note: when el belowe is FancyTextBox Margin="0 0 0 20" else Margin="0 0 0 15" -->
