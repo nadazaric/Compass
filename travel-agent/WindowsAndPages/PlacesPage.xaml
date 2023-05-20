@@ -206,7 +206,12 @@
             <!-- Places List -->
             <Grid x:Name="PlacesList">
                 <!-- this margin is because of padding on input field for search -->
-                <ItemsControl x:Name="PlacesItemsControl" Margin="0 10 0 20" ItemsSource="{Binding Places}" ItemTemplateSelector="{StaticResource FirstItemTemplateSelector}">
+                <ItemsControl 
+                    x:Name="PlacesItemsControl" 
+                    Margin="0 10 0 20" 
+                    ItemsSource="{Binding Places}" 
+                    ItemTemplateSelector="{StaticResource FirstItemTemplateSelector}"
+                    >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel HorizontalAlignment="Center"/>
