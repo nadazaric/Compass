@@ -14,6 +14,23 @@
             MinWidth="300"
             MaxWidth="750">
 
+            <Button
+                Style="{StaticResource NoneButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="0 -5 0 5"
+                Click="OnBackClick">
+                <StackPanel
+                    VerticalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock 
+                        HorizontalAlignment="Center" 
+                        Text="&lt;"
+                        FontSize="40"
+                        Margin="0 -16 10 0"
+                        FontWeight="Medium"/>
+                    <TextBlock FontSize="20" Text="{StaticResource String.BackButton}"/>
+                </StackPanel>
+            </Button>
+
             <Border 
                 BorderBrush="{StaticResource Color.PrimaryDark}" 
                 BorderThickness="{StaticResource Dim.LargerBorderTickness}" 

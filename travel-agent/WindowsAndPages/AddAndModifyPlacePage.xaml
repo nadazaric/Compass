@@ -15,7 +15,7 @@
         <StackPanel
             HorizontalAlignment="Center"
             ScrollViewer.CanContentScroll="True"
-            Margin="25 30"
+            Margin="30 40"
             MinWidth="400">
 
             <Button
