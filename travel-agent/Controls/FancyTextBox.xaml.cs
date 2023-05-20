@@ -100,5 +100,16 @@ namespace travel_agent.Controls
         }
 
         #endregion
+
+        private void OnKeyDownClick(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                InputText = textBox.Text;
+                OnEnterPressed?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public event EventHandler OnEnterPressed;
     }
 }

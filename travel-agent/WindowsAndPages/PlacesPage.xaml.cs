@@ -27,6 +27,7 @@ namespace travel_agent.WindowsAndPages
             SetPlacesList();
             DataContext = this;
             if (Places.Count <= 1) SetupIfInitiallyNoContent();
+            PlaceAllRadioBtn.Checked += OnPlaceTypeRadioBtnClick;
         }
 
         #region ---[ Logic ]---
@@ -86,6 +87,10 @@ namespace travel_agent.WindowsAndPages
             await Task.Delay(200);
             IsPopupOpen = false;
         }
+
+        private void SearchInputOnEnterPressed(object sender, EventArgs e) => Search();
+
+        private void OnPlaceTypeRadioBtnClick(object sender, RoutedEventArgs e) => Search();
 
         private void OnReturnToDefaultClick(object sender, RoutedEventArgs e)
         {
