@@ -71,6 +71,7 @@ namespace travel_agent.WindowsAndPages
             PlaceAddressInput.InputText = Place.Address;
             PlacesAddOrModifyButton.Content = App.Resources["String.FinishModifyPlaceButton"] as string;
             SearchMap.ManuallySetInitialState(new GeocodeResponse { AdressFormatted = Place.Address, Latitude = Place.Latitude, Longitude = Place.Longitude });
+            PlacesDeleteButton.Visibility = Visibility.Visible;
         }
 
         private void SetImage(BitmapImage image)
@@ -178,6 +179,8 @@ namespace travel_agent.WindowsAndPages
             MapError.Visibility = Visibility.Visible;
             MapError.Content = App.Resources["String.LocationNotInSerbiaError"] as string;
         }
+
+        private void OnBackClick(object sender, RoutedEventArgs e) => Parent.MainFrame.Content = new PlacesPage(Parent);
         #endregion
     }
 }

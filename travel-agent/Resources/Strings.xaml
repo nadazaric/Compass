@@ -49,6 +49,8 @@
     <System:String x:Key="String.SearchButton">Pretraži</System:String>
     <System:String x:Key="String.ReturnToDefaultStateButton">Vrati na početno stanje</System:String>
     <System:String x:Key="String.FindButton">Pronađi</System:String>
+    <System:String x:Key="String.BackButton">Nazad</System:String>
+    <System:String x:Key="String.DeleteButton">Obriši</System:String>
     
     <!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>
