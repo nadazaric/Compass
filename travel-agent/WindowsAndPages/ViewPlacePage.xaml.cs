@@ -9,7 +9,8 @@ namespace travel_agent.WindowsAndPages
     public partial class ViewPlacePage : Page
     {
         private Place Place;
-        public ViewPlacePage(Place place)
+        private MainWindow Parent;
+        public ViewPlacePage(Place place, MainWindow parent)
         {
             InitializeComponent();
             Place = place;
@@ -17,6 +18,7 @@ namespace travel_agent.WindowsAndPages
             Loaded += SetType;
             Map.DisableDoubleClick();
             Map.DrawPin(new Location(Place.Latitude, Place.Longitude));
+            Parent = parent;    
         }
 
         private void SetType(object sender, RoutedEventArgs e)
@@ -26,5 +28,7 @@ namespace travel_agent.WindowsAndPages
             else PlaceTypeAccommodationLabel.Visibility = Visibility.Visible;
             Loaded -= SetType;
         }
+
+        private void OnBackClick(object sender, RoutedEventArgs e) => Parent.MainFrame.Content = new PlacesPage(Parent);
     }
 }

@@ -68,6 +68,69 @@
         </Setter>
     </Style>
 
+    <Style x:Key="OutlineDangerButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="#0ae83c3c"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Color.Error}"/>
+        <Setter Property="Foreground" Value="{StaticResource Color.Error}"/>
+        <Setter Property="FontSize" Value="{StaticResource Dim.RegularFontSize}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Height" Value="{StaticResource Dim.InputAndButtonHeight}"/>
+        <Setter Property="Margin" Value="0 10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{StaticResource Dim.BorderTickness}"
+                        CornerRadius="{StaticResource Dim.RegularCorner}">
+                        <ContentPresenter 
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#aae83c3c"/>
+                            <Setter Property="BorderBrush" Value="#aae83c3c"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NoneButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource Color.PrimaryDark}"/>
+        <Setter Property="FontSize" Value="{StaticResource Dim.RegularFontSize}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Height" Value="{StaticResource Dim.InputAndButtonHeight}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{StaticResource Dim.BorderTickness}"
+                        CornerRadius="{StaticResource Dim.RegularCorner}">
+                        <ContentPresenter 
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="NavbarButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Padding" Value="12"/>

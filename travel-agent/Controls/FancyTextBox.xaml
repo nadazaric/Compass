@@ -23,7 +23,8 @@
             VerticalContentAlignment="Center"
             Background="{StaticResource Color.PrimaryLight}"
             BorderBrush="{StaticResource Color.PrimaryDark}"
-            Padding="8 5">
+            Padding="8 5"
+            KeyDown="OnKeyDownClick">
             <TextBox.Resources>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="TextWrapping" Value="NoWrap" />

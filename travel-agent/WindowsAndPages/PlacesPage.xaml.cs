@@ -27,28 +27,30 @@ namespace travel_agent.WindowsAndPages
             SetPlacesList();
             DataContext = this;
             if (Places.Count <= 1) SetupIfInitiallyNoContent();
-            if (Parent.User.Role != Role.AGENT) PlacesItemsControl.Loaded += CollapseButtonItem;
+            PlaceAllRadioBtn.Checked += OnPlaceTypeRadioBtnClick;
         }
 
         #region ---[ Logic ]---
         private void SetPlacesList()
         {
-            Places = new ObservableCollection<Place> { null };
+            Places = new ObservableCollection<Place>();
+            if (Parent.User.Role == Role.AGENT) Places.Add(null);
             FullPlacesList = PlaceService.GetAll();
             foreach (Place p in FullPlacesList) Places.Add(p);
         }
 
         private void Search()
         {
-            Places = new ObservableCollection<Place> { null };
+            Places = new ObservableCollection<Place>();
+            if (Parent.User.Role == Role.AGENT) Places.Add(null);
             foreach (var place in FullPlacesList)
             {
                 if (place.Name.ToUpper().Contains(PlaceSearchName.InputText.ToUpper()) &&
                     IsTypeCorrect(place) == true &&
                     place.Address.ToUpper().Contains(PlaceSearchAddress.InputText.ToUpper())) Places.Add(place);
             }
-            if (Places.Count <= 1) SetIfNoContentAfterSearch();
-            if (Places.Count > 1 && WasListColapsed) SetIfHaveContentAfterSearch();
+            if (Places.Count == 0 && Parent.User.Role != Role.AGENT) SetIfNoContentAfterSearch();
+            if (Places.Count > 0 && WasListColapsed) SetIfHaveContentAfterSearch();
             PlacesItemsControl.ItemsSource = Places;
         }
 
@@ -60,12 +62,6 @@ namespace travel_agent.WindowsAndPages
         #endregion
 
         #region ---[ Handlers ]---
-        private void CollapseButtonItem(object sender, RoutedEventArgs e)
-        {
-            var firstItemContainer = PlacesItemsControl.ItemContainerGenerator.ContainerFromIndex(0) as UIElement;
-            if (firstItemContainer != null) firstItemContainer.Visibility = Visibility.Collapsed;
-            PlacesItemsControl.Loaded -= CollapseButtonItem;
-        }
 
         private void OnHandlePopupClick(object sender, RoutedEventArgs e)
         {
@@ -88,9 +84,13 @@ namespace travel_agent.WindowsAndPages
         private async void WhenPopupClosed(object sender, EventArgs e)
         {
             HandlePopupButton.Content = App.Resources["String.DownButton"] as string;
-            await Task.Delay(100);
+            await Task.Delay(200);
             IsPopupOpen = false;
         }
+
+        private void SearchInputOnEnterPressed(object sender, EventArgs e) => Search();
+
+        private void OnPlaceTypeRadioBtnClick(object sender, RoutedEventArgs e) => Search();
 
         private void OnReturnToDefaultClick(object sender, RoutedEventArgs e)
         {
@@ -108,7 +108,7 @@ namespace travel_agent.WindowsAndPages
         {
             object data = (sender as Grid).DataContext;
             if (Parent.User.Role == Role.AGENT) Parent.MainFrame.Content = new AddAndModifyPlacePage(Parent, data as Place);
-            else Parent.MainFrame.Content = new ViewPlacePage(data as Place);
+            else Parent.MainFrame.Content = new ViewPlacePage(data as Place, Parent);
         }
         #endregion
 
@@ -138,7 +138,6 @@ namespace travel_agent.WindowsAndPages
 
         private void SetIfNoContentAfterSearch()
         {
-            if (Parent.User.Role == Role.AGENT) return;
             NoContent.Visibility = Visibility.Visible;
             PlacesList.Visibility = Visibility.Collapsed;
             WasListColapsed = true;
@@ -150,6 +149,7 @@ namespace travel_agent.WindowsAndPages
             PlacesList.Visibility = Visibility.Visible;
             WasListColapsed = false;
         }
+
         #endregion
     }
 
@@ -158,8 +158,8 @@ namespace travel_agent.WindowsAndPages
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             var itemsControl = ItemsControl.ItemsControlFromItemContainer(container);
-            var index = itemsControl.ItemContainerGenerator.IndexFromContainer(container);
-            if (index == 0) return (DataTemplate)itemsControl.FindResource("FirstItemTemplate");
+            var place = itemsControl.ItemContainerGenerator.ItemFromContainer(container);
+            if (place == null) return (DataTemplate)itemsControl.FindResource("FirstItemTemplate");
             else return (DataTemplate)itemsControl.FindResource("DefaultItemTemplate");
         }
     }
