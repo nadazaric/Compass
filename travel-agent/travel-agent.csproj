@@ -84,6 +84,8 @@
     </Compile>
     <Compile Include="Controls\Geocoder.cs" />
     <Compile Include="Infrastructure\Context.cs" />
+    <Compile Include="Models\Arrangement.cs" />
+    <Compile Include="Models\ArrangementStep.cs" />
     <Compile Include="Models\Place.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\PlaceService.cs" />
@@ -92,6 +94,9 @@
     <Compile Include="ValidationRules\InputLengthRule.cs" />
     <Compile Include="ValidationRules\RequiredTextBoxRule.cs" />
     <Compile Include="ValidationRules\ValidationRule.cs" />
+    <Compile Include="WindowsAndPages\AddAndModifyArangementPage.xaml.cs">
+      <DependentUpon>AddAndModifyArangementPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowsAndPages\AddAndModifyPlacePage.xaml.cs">
       <DependentUpon>AddAndModifyPlacePage.xaml</DependentUpon>
     </Compile>
@@ -143,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Strings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsAndPages\AddAndModifyArangementPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
