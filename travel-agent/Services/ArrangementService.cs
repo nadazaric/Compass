@@ -10,7 +10,7 @@ namespace travel_agent.Services
 {
 	public class ArrangementService
 	{
-		private static ArrangementService instance;
+		private static ArrangementService instance = null;
 
 		public static ArrangementService Instance
 		{

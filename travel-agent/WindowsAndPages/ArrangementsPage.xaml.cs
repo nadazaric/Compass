@@ -4,25 +4,38 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using travel_agent.Models;
+using travel_agent.Services;
 
 namespace travel_agent.WindowsAndPages
 {
     public partial class ArrangementsPage : Page
     {
-        private new readonly MainWindow Parent;
-        private Application App;
+        private new readonly MainWindow parent;
+        private Application app;
+        private ArrangementService arrangementService;
         public ObservableCollection<Arrangement> Arrangements { get; set; }
         private List<Arrangement> ArrangementsList { get; set; }
         
 
-        public ArrangementsPage()
+        public ArrangementsPage(MainWindow parentWindow)
         {
             InitializeComponent();
-            App = Application.Current;
+            app = Application.Current;
+            parent = parentWindow;
+            arrangementService = ArrangementService.Instance;
             DataContext = this;
+            SetUpArrangements(); 
             if (Arrangements.Count <= 1) SetIfNoContent();
               
         }
+
+        private void SetUpArrangements()
+		{
+            Arrangements = new ObservableCollection<Arrangement>();
+            if (parent.User.Role == Role.AGENT) Arrangements.Add(null);
+            ArrangementsList = arrangementService.GetAll();
+            foreach (Arrangement item in ArrangementsList) Arrangements.Add(item);
+		}
 
   //      private void Search()
 		//{
@@ -34,17 +47,17 @@ namespace travel_agent.WindowsAndPages
 		//	}
 		//}
 
-        private void OnAddNewArangementClick(object sender, System.Windows.RoutedEventArgs e) => Parent.MainFrame.Content = new AddAndModifyArangementPage(Parent);
+        private void OnAddNewArangementClick(object sender, System.Windows.RoutedEventArgs e) => parent.MainFrame.Content = new AddAndModifyArangementPage(parent);
 
         private void OnArrangementItemClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
             object data = (sender as Grid).DataContext;
-            if (Parent.User.Role == Models.Role.AGENT) Parent.MainFrame.Content = new AddAndModifyArangementPage(Parent, data as Arrangement);
+            if (parent.User.Role == Models.Role.AGENT) parent.MainFrame.Content = new AddAndModifyArangementPage(parent, data as Arrangement);
 		}
 
         private void SetIfNoContent()
 		{
-            if(Parent.User.Role == Role.AGENT)
+            if(parent.User.Role == Role.AGENT)
 			{
                 ArrangementsListView.Margin = new Thickness(20);
                 ArrangementsSearch.Visibility = Visibility.Collapsed;

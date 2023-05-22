@@ -18,6 +18,7 @@ namespace travel_agent.Windows
             UserService = UserService.Instance;
             App = Application.Current;
             UserService.InitContext();
+            UserService.InitialSetup();
         }
 
         private void OnSingInClick(object sender, RoutedEventArgs e)

@@ -37,7 +37,7 @@ namespace travel_agent.WindowsAndPages
         }
         private void OnArrangementsNavbarBttonClick(object sender, RoutedEventArgs e)
         {
-            Main.Content = new ArrangementsPage();
+            Main.Content = new ArrangementsPage(this);
             SetUnfocusStyle();
             SetFocusStyle(sender as Button);
         }
