@@ -96,6 +96,9 @@
 
 	<ScrollViewer VerticalScrollBarVisibility="Auto">
 		<StackPanel>
+			
+			<!-- Search -->
+			<!-- TODO Search Popup -->
 			<Grid x:Name="ArrangementsSearch" Width="400" Background="{StaticResource Color.White}" Margin="0 25 0 0">
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -104,6 +107,7 @@
 					</Grid.ColumnDefinitions>
 					<controls:FancyTextBox
 						x:Name="ArrangementSearchName"
+						OnEnterPressed="OnEnterSearch"
 						Grid.Column="0" 
                         Placeholder="{StaticResource String.SearchByNameLabel}" 
                         Padding="0 10 10 10"/>
@@ -114,8 +118,27 @@
                         Content="{StaticResource String.DownButton}" 
                         VerticalAlignment="Bottom"/>
 				</Grid>
+
+				<Popup
+					x:Name="ArrangementsSearchPopup"
+					AllowsTransparency="True"
+					PlacementTarget="{Binding ElementName=ArrangementSearchName}"
+					StaysOpen="False"
+					PopupAnimation="Slide"
+					Closed="WhenPopupIsClosed">
+					<Border BorderBrush="{StaticResource Color.PrimaryDark}" BorderThickness="1" CornerRadius="5" Background="White">
+						<StackPanel Width="400">
+							<StackPanel
+								Margin="20 20 20 5">
+
+
+							</StackPanel>
+						</StackPanel>
+					</Border>
+				</Popup>
 			</Grid>
 
+			<!-- No Content -->
 			<Grid 
                 x:Name="NoContent"
                 Height="700" 
@@ -138,6 +161,7 @@
 				</StackPanel>
 			</Grid>
 
+			<!-- Arrangements List --> 
 			<Grid x:Name="ArrangementsListView">
 				<ItemsControl
 					x:Name="ArrangementsItemsCotrol"

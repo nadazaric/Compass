@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using travel_agent.Models;
@@ -10,12 +11,15 @@ namespace travel_agent.WindowsAndPages
 {
     public partial class ArrangementsPage : Page
     {
-        private new readonly MainWindow parent;
+        private readonly MainWindow parent;
         private Application app;
         private ArrangementService arrangementService;
         public ObservableCollection<Arrangement> Arrangements { get; set; }
         private List<Arrangement> ArrangementsList { get; set; }
-        
+
+        private bool IsPopupOpen = false;
+
+
 
         public ArrangementsPage(MainWindow parentWindow)
         {
@@ -37,17 +41,51 @@ namespace travel_agent.WindowsAndPages
             foreach (Arrangement item in ArrangementsList) Arrangements.Add(item);
 		}
 
-  //      private void Search()
-		//{
-  //          Arrangements = new ObservableCollection<Arrangement>();
-  //          if (Parent.User.Role == Role.AGENT) Arrangements.Add(null);
-  //          foreach(var arrangement in ArrangementsList)
-		//	{
-  //              if(arrangement.Name.ToLower().Contains(ArrangementSearchName.InputText.ToLower() && )
-		//	}
-		//}
+		private void Search()
+		{
+			Arrangements = new ObservableCollection<Arrangement>();
+			if (parent.User.Role == Role.AGENT) Arrangements.Add(null);
+			foreach (var arrangement in ArrangementsList)
+			{
+                if (arrangement.Name.ToLower().Contains(ArrangementSearchName.InputText.ToLower())) Arrangements.Add(arrangement);
+			}
 
-        private void OnAddNewArangementClick(object sender, System.Windows.RoutedEventArgs e) => parent.MainFrame.Content = new AddAndModifyArangementPage(parent);
+		}
+
+        private void OnSearchButtonClick(object sender, EventArgs e)
+		{
+            Search();
+		}
+
+        private void OnEnterSearch(object sender, EventArgs e)
+		{
+            Search();
+		}
+
+        private void OnHandlePopupClick(object sender, RoutedEventArgs e)
+		{
+			if (IsPopupOpen)
+			{
+                HandlePopupButton.Content = app.Resources["String.DownButton"] as string;
+                IsPopupOpen = false;
+                ArrangementsSearchPopup.IsOpen = false;
+			}
+			else
+			{
+                HandlePopupButton.Content = app.Resources["String.UpButton"] as string;
+                IsPopupOpen = true;
+                ArrangementsSearchPopup.IsOpen = true;
+            }
+		}
+
+        private async void WhenPopupIsClosed(object sender, EventArgs e)
+		{
+            HandlePopupButton.Content = app.Resources["String.DownButton"] as string;
+            await Task.Delay(200);
+            IsPopupOpen = false;
+		}
+
+		private void OnAddNewArangementClick(object sender, System.Windows.RoutedEventArgs e) => parent.MainFrame.Content = new AddAndModifyArangementPage(parent);
 
         private void OnArrangementItemClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
@@ -71,21 +109,19 @@ namespace travel_agent.WindowsAndPages
             }
 		}
 
-        //private void SetIfNoContentAfterSearch()
-        //{
-        //    NoContent.Visibility = Visibility.Visible;
-        //    PlacesList.Visibility = Visibility.Collapsed;
-        //    WasListColapsed = true;
-        //}
+		private void SetIfNoContentAfterSearch()
+		{
+			NoContent.Visibility = Visibility.Visible;
+			ArrangementsListView.Visibility = Visibility.Collapsed;
+		}
 
-        //private void SetIfHaveContentAfterSearch()
-        //{
-        //    NoContent.Visibility = Visibility.Collapsed;
-        //    PlacesList.Visibility = Visibility.Visible;
-        //    WasListColapsed = false;
-        //}
+		private void SetIfHaveContentAfterSearch()
+		{
+			NoContent.Visibility = Visibility.Collapsed;
+			ArrangementsListView.Visibility = Visibility.Visible;
+		}
 
-        //private void SearchArrangementOnEnter(object sender, EventArgs e) => Search();
+		private void SearchArrangementOnEnter(object sender, EventArgs e) => Search();
 
-    }
+	}
 }
