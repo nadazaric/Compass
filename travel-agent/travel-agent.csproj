@@ -88,6 +88,7 @@
     <Compile Include="Models\ArrangementStep.cs" />
     <Compile Include="Models\Place.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Services\ArrangementService.cs" />
     <Compile Include="Services\PlaceService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ValidationRules\EmailPatternRule.cs" />

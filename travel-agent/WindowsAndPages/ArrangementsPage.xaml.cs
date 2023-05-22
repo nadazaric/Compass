@@ -20,6 +20,7 @@ namespace travel_agent.WindowsAndPages
             InitializeComponent();
             App = Application.Current;
             DataContext = this;
+            if (Arrangements.Count <= 1) SetIfNoContent();
               
         }
 
@@ -39,6 +40,22 @@ namespace travel_agent.WindowsAndPages
 		{
             object data = (sender as Grid).DataContext;
             if (Parent.User.Role == Models.Role.AGENT) Parent.MainFrame.Content = new AddAndModifyArangementPage(Parent, data as Arrangement);
+		}
+
+        private void SetIfNoContent()
+		{
+            if(Parent.User.Role == Role.AGENT)
+			{
+                ArrangementsListView.Margin = new Thickness(20);
+                ArrangementsSearch.Visibility = Visibility.Collapsed;
+			}
+			else
+			{
+                ArrangementsSearch.Visibility=Visibility.Collapsed;
+                ArrangementsListView.Visibility = Visibility.Collapsed;
+                NoContent.Visibility = Visibility.Visible;
+
+            }
 		}
 
         //private void SetIfNoContentAfterSearch()
