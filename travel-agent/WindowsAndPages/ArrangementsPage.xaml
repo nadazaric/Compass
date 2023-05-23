@@ -115,7 +115,8 @@
 						x:Name="HandlePopupButton"
 						Grid.Column="1"
 						Padding="1.5" 
-                        Content="{StaticResource String.DownButton}" 
+                        Content="{StaticResource String.DownButton}"
+						Click="OnHandlePopupClick" 
                         VerticalAlignment="Bottom"/>
 				</Grid>
 
@@ -130,7 +131,61 @@
 						<StackPanel Width="400">
 							<StackPanel
 								Margin="20 20 20 5">
-
+								<Label
+									Style="{StaticResource PlaceholderLabelStyle}"
+									Content="{StaticResource String.SearchByTransport}">
+								</Label>
+								<Border
+									CornerRadius="{StaticResource Dim.RegularCorner}"
+									BorderBrush="{StaticResource Color.PrimaryDark}" 
+                                    Background="{StaticResource Color.PrimaryLight}" 
+                                    BorderThickness="{StaticResource Dim.BorderTickness}" 
+                                    Height="{StaticResource Dim.InputAndButtonHeight}">
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition/>
+											<ColumnDefinition/>
+											<ColumnDefinition/>
+										</Grid.ColumnDefinitions>
+										<Grid.RowDefinitions>
+											<RowDefinition/>
+											<RowDefinition/>
+										</Grid.RowDefinitions>
+										<CheckBox
+											x:Name="TransportPlaneCB"
+											Grid.Column="0"
+											Grid.Row="0"
+											Style="{StaticResource SmallCheckBoxStyle}"
+											Content="{StaticResource String.TransportPlane}"
+											Click="OnTransportTypeCB"
+											HorizontalAlignment="Left"/>
+										<CheckBox
+											x:Name="TransportTrainCB"
+											Grid.Column="1"
+											Grid.Row="0"
+											Style="{StaticResource SmallCheckBoxStyle}"
+											Content="{StaticResource String.TransportTrain}"
+											Click="OnTransportTypeCB"
+											HorizontalAlignment="Left"/>
+										<CheckBox
+											x:Name="TransportBusCB"
+											Grid.Column="2"
+											Grid.Row="0"
+											Style="{StaticResource SmallCheckBoxStyle}"
+											Content="{StaticResource String.TransportBus}"
+											Click="OnTransportTypeCB"
+											HorizontalAlignment="Left"/>
+										<CheckBox
+											x:Name="TransportSelfCB"
+											Grid.Column="0"
+											Grid.Row="1"
+											Grid.ColumnSpan="2"
+											Style="{StaticResource SmallCheckBoxStyle}"
+											Content="{StaticResource String.TransportSelf}"
+											Click="OnTransportTypeCB"
+											HorizontalAlignment="Left"/>
+									</Grid>
+								</Border>
 
 							</StackPanel>
 						</StackPanel>

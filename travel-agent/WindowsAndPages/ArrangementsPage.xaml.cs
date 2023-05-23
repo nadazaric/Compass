@@ -52,15 +52,11 @@ namespace travel_agent.WindowsAndPages
 
 		}
 
-        private void OnSearchButtonClick(object sender, EventArgs e)
-		{
-            Search();
-		}
+        private void OnSearchButtonClick(object sender, EventArgs e) => Search();
 
-        private void OnEnterSearch(object sender, EventArgs e)
-		{
-            Search();
-		}
+        private void OnEnterSearch(object sender, EventArgs e) => Search();
+
+        private void OnTransportTypeCB(object sender, EventArgs e) => Search();
 
         private void OnHandlePopupClick(object sender, RoutedEventArgs e)
 		{
@@ -98,7 +94,7 @@ namespace travel_agent.WindowsAndPages
             if(parent.User.Role == Role.AGENT)
 			{
                 ArrangementsListView.Margin = new Thickness(20);
-                ArrangementsSearch.Visibility = Visibility.Collapsed;
+                ArrangementsSearch.Visibility = Visibility.Visible;
 			}
 			else
 			{

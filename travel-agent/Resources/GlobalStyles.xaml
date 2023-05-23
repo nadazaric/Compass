@@ -225,6 +225,26 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+	
+	<!--check box-->
+	<Style x:Key="SmallCheckBoxStyle" TargetType="CheckBox">
+		<Setter Property="BorderBrush" Value="{StaticResource Color.ButtonHover}" />
+		<Setter Property="BorderThickness" Value="1.5" />
+		<Setter Property="Background" Value="{StaticResource Color.PrimaryLight}" />
+		<Setter Property="HorizontalAlignment" Value="Center" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="LayoutTransform">
+			<Setter.Value>
+				<ScaleTransform ScaleX="1.3" ScaleY="1.3" />
+			</Setter.Value>
+		</Setter>
+		<Style.Triggers>
+			<Trigger Property="IsFocused" Value="True">
+				<Setter Property="BorderBrush" Value="{StaticResource Color.PrimaryDark}"/>
+			</Trigger>
+		</Style.Triggers>
+
+	</Style>
 
     <!-- labels -->
     <Style x:Key="PlaceholderLabelStyle" TargetType="Label">
