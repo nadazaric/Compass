@@ -186,8 +186,17 @@
 											HorizontalAlignment="Left"/>
 									</Grid>
 								</Border>
-
 							</StackPanel>
+
+							<Button
+								Style="{StaticResource OutlineButtonStyle}"
+								Content="{StaticResource String.ReturnToDefaultStateButton}"
+								Margin="20 10 20 5"
+								Click="OnReturnToDefaultClick"></Button>
+							<Button 
+                                Content="{StaticResource String.SearchButton}" 
+                                Margin="20 5 20 20" 
+                                Click="OnSearchButtonClick"/>
 						</StackPanel>
 					</Border>
 				</Popup>

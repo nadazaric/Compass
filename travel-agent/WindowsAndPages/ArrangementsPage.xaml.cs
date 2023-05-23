@@ -18,6 +18,7 @@ namespace travel_agent.WindowsAndPages
         private List<Arrangement> ArrangementsList { get; set; }
 
         private bool IsPopupOpen = false;
+        private bool WasListCollapsed = true;
 
 
 
@@ -49,7 +50,9 @@ namespace travel_agent.WindowsAndPages
 			{
                 if (arrangement.Name.ToLower().Contains(ArrangementSearchName.InputText.ToLower())) Arrangements.Add(arrangement);
 			}
-
+            if (Arrangements.Count == 0 && parent.User.Role != Role.AGENT) SetIfNoContentAfterSearch();
+            if (Arrangements.Count > 0 && WasListCollapsed) SetIfHaveContentAfterSearch();
+            ArrangementsItemsCotrol.ItemsSource = Arrangements;
 		}
 
         private void OnSearchButtonClick(object sender, EventArgs e) => Search();
@@ -73,6 +76,18 @@ namespace travel_agent.WindowsAndPages
                 ArrangementsSearchPopup.IsOpen = true;
             }
 		}
+
+        private void OnReturnToDefaultClick(object sender, RoutedEventArgs e)
+        {
+            SetUpArrangements();
+            if (Arrangements.Count > 1 && WasListCollapsed) SetIfHaveContentAfterSearch();
+            ArrangementsItemsCotrol.ItemsSource = Arrangements;
+            ArrangementSearchName.RestartState();
+            TransportPlaneCB.IsChecked = false;
+            TransportBusCB.IsChecked = false;
+            TransportSelfCB.IsChecked = false;
+            TransportTrainCB.IsChecked = false;
+        }
 
         private async void WhenPopupIsClosed(object sender, EventArgs e)
 		{
@@ -109,13 +124,16 @@ namespace travel_agent.WindowsAndPages
 		{
 			NoContent.Visibility = Visibility.Visible;
 			ArrangementsListView.Visibility = Visibility.Collapsed;
+            WasListCollapsed = true;
 		}
 
 		private void SetIfHaveContentAfterSearch()
 		{
 			NoContent.Visibility = Visibility.Collapsed;
 			ArrangementsListView.Visibility = Visibility.Visible;
-		}
+            WasListCollapsed = false;
+        }
+
 
 		private void SearchArrangementOnEnter(object sender, EventArgs e) => Search();
 
