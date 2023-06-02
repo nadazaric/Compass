@@ -25,6 +25,7 @@
 
 			<DatePicker
 				x:Name="datePicker"
+				SelectedDate="{Binding SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type local:FancyDatePicker}}}"
 				HorizontalAlignment="Stretch"
 				Background="Transparent"
 				BorderThickness="0">
@@ -37,7 +38,7 @@
 
 									<Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
 										<TextBox x:Name="PART_TextBox"
-												 Text="{Binding Path=SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, StringFormat=\{0:d\}}"
+												 Text="{Binding Path=SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, StringFormat='dd/MM/yyyy'}"
 												 FontSize="{StaticResource Dim.RegularFontSize}"
 												 FontWeight="Regular"
 												 Padding="8 5"

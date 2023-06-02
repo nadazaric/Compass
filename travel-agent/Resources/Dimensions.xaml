@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:System="clr-namespace:System;assembly=mscorlib">
     <System:Double x:Key="Dim.InputAndButtonHeight">42</System:Double>
+	<System:Double x:Key="Dim.BigInputHeight">60</System:Double>
     <CornerRadius x:Key="Dim.RegularCorner">6</CornerRadius>
     <System:Double x:Key="Dim.RegularFontSize">15</System:Double>
     <System:Double x:Key="Dim.MediumFontSize">18</System:Double>

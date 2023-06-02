@@ -26,7 +26,6 @@ namespace travel_agent.Controls
 		{
 			InitializeComponent();
             DataContext = this;
-            ValidationRules = new List<Rule>();
 		}
 
 		public static readonly DependencyProperty PlaceholderProperty = DependencyProperty.Register("PlaceholderDatePicker", typeof(string), typeof(FancyDatePicker), new PropertyMetadata(null));
@@ -46,21 +45,5 @@ namespace travel_agent.Controls
             set => SetValue(SelectedDateProperty, value);
         }
 
-
-        // Validation rules property
-        public static readonly DependencyProperty ValidationRulesProperty =
-            DependencyProperty.Register("ValidationRulesTextBox", typeof(List<Rule>), typeof(FancyDatePicker), new FrameworkPropertyMetadata(null));
-
-        public List<Rule> ValidationRules
-        {
-            get => (List<Rule>)GetValue(ValidationRulesProperty);
-            set => SetValue(ValidationRulesProperty, value);
-        }
-
-        private void OnSelectedDateChanged(object sender, EventArgs e)
-		{
-            Console.WriteLine(SelectedDate);
-		}
-
-    }
+	}
 }

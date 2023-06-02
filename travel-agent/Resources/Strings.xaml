@@ -36,9 +36,13 @@
 	<System:String x:Key="String.TransportTrain">Voz</System:String>
 	<System:String x:Key="String.TransportBus">Autobus</System:String>
 	<System:String x:Key="String.TransportSelf">Sopstveni prevoz</System:String>
-	<System:String x:Key="String.DateRangeLabel">Unesite raspon datuma</System:String>
+	<System:String x:Key="String.DateRangeLabel">Pretraži po rasponu datuma</System:String>
 	<System:String x:Key="String.DateStartLabel">Od</System:String>
 	<System:String x:Key="String.DateEndLabel">Do</System:String>
+	<System:String x:Key="String.SearchByPlaceLabel">Pretraži po mestu</System:String>
+	<System:String x:Key="String.FilterLabel">Aranžman uključuje</System:String>
+	<System:String x:Key="String.RestaurantFilterLabel">Restoran</System:String>
+	<System:String x:Key="String.AccomodationFilterLabel">Prenoćište</System:String>
 	
 	<!-- Buttons -->
     <System:String x:Key="String.LoginButton">Prijavi me!</System:String>

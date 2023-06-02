@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using travel_agent.Controls;
 using travel_agent.Models;
 using travel_agent.Services;
@@ -47,43 +48,81 @@ namespace travel_agent.WindowsAndPages
 		{
 			Arrangements = new ObservableCollection<Arrangement>();
 			if (parent.User.Role == Role.AGENT) Arrangements.Add(null);
-            List<ArrangementStep.TransportType> checkedTransportTypes = GetCheckedTypes();
             foreach (var arrangement in ArrangementsList)
 			{
                 if (arrangement.Name.ToLower().Contains(ArrangementSearchName.InputText.ToLower())
-                    && CheckTransportType(arrangement, checkedTransportTypes)) Arrangements.Add(arrangement);
+                    && CheckTransportType(arrangement) && CheckFilter(arrangement) && CheckDateRange(arrangement))
+                    Arrangements.Add(arrangement);
 			}
             if (Arrangements.Count == 0 && parent.User.Role != Role.AGENT) SetIfNoContentAfterSearch();
             if (Arrangements.Count > 0 && WasListCollapsed) SetIfHaveContentAfterSearch();
             ArrangementsItemsCotrol.ItemsSource = Arrangements;
 		}
 
-        private bool CheckTransportType(Arrangement arrangement, List<ArrangementStep.TransportType> transportTypes)
-		{
-            foreach(ArrangementStep step in arrangement.Steps)
-			{
-                if (transportTypes.Contains(step.Type)) return true;
-			}
 
-            return false;
+        private bool CheckDateRange(Arrangement arrangement)
+        {
+			DateTime? pickedStart = StartDatePicker.SelectedDate;
+            DateTime? pickedEnd = EndDatePicker.SelectedDate;
+
+			// TODO raise on screen error
+			if (pickedStart == null && pickedEnd != null) return false;
+			if (pickedStart != null && pickedEnd  == null) return false;
+			if (pickedStart == null && pickedEnd == null) return true;
+
+            DateTime startTime = arrangement.Start;
+            DateTime endTime = arrangement.End;
+
+            if (DateTime.Compare(startTime, (DateTime)pickedStart) < 0 || DateTime.Compare((DateTime)pickedEnd, endTime) < 0) return false;
+            else return true;
+
+        }
+
+
+        private bool CheckFilter(Arrangement arrangement)
+		{
+			bool hasAccomodation = (bool)FilterAccomodationCB.IsChecked ? false : true;
+            bool hasRestaurant = (bool)FilterRestaurantCB.IsChecked ? false : true;
+
+            if (hasAccomodation && hasRestaurant) return true;
+
+            foreach(var place in arrangement.Places)
+            {
+                if(place.Type == Place.PlaceType.RESTAURANT) hasRestaurant = true;
+                else if(place.Type == Place.PlaceType.ACCOMMODATION) hasAccomodation = true;
+            }
+
+            return hasRestaurant && hasAccomodation;
+
 		}
 
-        private List<ArrangementStep.TransportType> GetCheckedTypes()
+        private bool CheckTransportType(Arrangement arrangement)
 		{
-            List<ArrangementStep.TransportType> checkedTransportTypes = new List<ArrangementStep.TransportType>();
-            if (TransportBusCB.IsChecked == true) checkedTransportTypes.Add(ArrangementStep.TransportType.BUS);
-            if (TransportPlaneCB.IsChecked == true) checkedTransportTypes.Add(ArrangementStep.TransportType.PLANE);
-            if (TransportSelfCB.IsChecked == true) checkedTransportTypes.Add(ArrangementStep.TransportType.SELF);
-            if(TransportTrainCB.IsChecked == true) checkedTransportTypes.Add(ArrangementStep.TransportType.TRAIN);
+            bool bus = (bool)TransportBusCB.IsChecked ? false : true;
+            bool plane = (bool)TransportPlaneCB.IsChecked ? false : true;
+            bool train = (bool)TransportTrainCB.IsChecked ? false : true;
+            bool self = (bool)TransportSelfCB.IsChecked ? false : true;
 
-            return checkedTransportTypes;
+            if(bus && plane && train && self) return true;
+            foreach(var step in arrangement.Steps)
+            {
+                switch (step.Type)
+                {
+                    case ArrangementStep.TransportType.PLANE: plane= true; break;
+                    case ArrangementStep.TransportType.TRAIN: train= true; break;
+                    case ArrangementStep.TransportType.BUS: bus= true; break;
+                    case ArrangementStep.TransportType.SELF: self= true; break;   
+                }
+            }
+
+            return bus && plane && train && self;
 		}
 
         private void OnSearchButtonClick(object sender, EventArgs e) => Search();
 
-        private void OnEnterSearch(object sender, EventArgs e) => Search();
+		private void OnEnterSearch(object sender, EventArgs e) => Search();
 
-        private void OnTransportTypeCB(object sender, EventArgs e) => Search();
+        private void OnCBClick(object sender, EventArgs e) => Search();
 
         private void OnHandlePopupClick(object sender, RoutedEventArgs e)
 		{
@@ -107,11 +146,23 @@ namespace travel_agent.WindowsAndPages
             if (Arrangements.Count > 1 && WasListCollapsed) SetIfHaveContentAfterSearch();
             ArrangementsItemsCotrol.ItemsSource = Arrangements;
             ArrangementSearchName.RestartState();
+
             TransportPlaneCB.IsChecked = false;
             TransportBusCB.IsChecked = false;
             TransportSelfCB.IsChecked = false;
             TransportTrainCB.IsChecked = false;
-        }
+
+            Console.WriteLine("tu sam");
+            Console.WriteLine(StartDatePicker.SelectedDate);
+
+            StartDatePicker.SelectedDate = null;
+            EndDatePicker.SelectedDate = null;
+
+            ArrangementSearchPlace.RestartState();
+
+            FilterRestaurantCB.IsChecked = false;
+            FilterAccomodationCB.IsChecked= false;
+		}
 
         private async void WhenPopupIsClosed(object sender, EventArgs e)
 		{
@@ -128,17 +179,21 @@ namespace travel_agent.WindowsAndPages
             if (parent.User.Role == Models.Role.AGENT) parent.MainFrame.Content = new AddAndModifyArangementPage(parent, data as Arrangement);
 		}
 
-		//private void OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
-		//{
-		//	Console.WriteLine(StartDatePicker.Text.ToString());
-		//}
+        // TODO izaci na kraj sa custom eventovima
+        private void OnSelectedDateChanged(object sender, EventArgs e)
+        {
+			DateTime? selectedDate = ((FancyDatePicker)sender).SelectedDate;
+            Console.WriteLine(selectedDate);
+			Console.WriteLine("trigger");
+            Console.WriteLine(StartDatePicker.SelectedDate);
+        }
 
-		private void SetIfNoContent()
+        private void SetIfNoContent()
 		{
             if(parent.User.Role == Role.AGENT)
 			{
                 ArrangementsListView.Margin = new Thickness(20);
-                ArrangementsSearch.Visibility = Visibility.Visible;
+                ArrangementsSearch.Visibility = Visibility.Collapsed;
 			}
 			else
 			{
