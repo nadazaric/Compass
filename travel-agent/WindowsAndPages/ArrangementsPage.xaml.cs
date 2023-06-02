@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using travel_agent.Controls;
 using travel_agent.Models;
 using travel_agent.Services;
 
@@ -46,13 +47,36 @@ namespace travel_agent.WindowsAndPages
 		{
 			Arrangements = new ObservableCollection<Arrangement>();
 			if (parent.User.Role == Role.AGENT) Arrangements.Add(null);
-			foreach (var arrangement in ArrangementsList)
+            List<ArrangementStep.TransportType> checkedTransportTypes = GetCheckedTypes();
+            foreach (var arrangement in ArrangementsList)
 			{
-                if (arrangement.Name.ToLower().Contains(ArrangementSearchName.InputText.ToLower())) Arrangements.Add(arrangement);
+                if (arrangement.Name.ToLower().Contains(ArrangementSearchName.InputText.ToLower())
+                    && CheckTransportType(arrangement, checkedTransportTypes)) Arrangements.Add(arrangement);
 			}
             if (Arrangements.Count == 0 && parent.User.Role != Role.AGENT) SetIfNoContentAfterSearch();
             if (Arrangements.Count > 0 && WasListCollapsed) SetIfHaveContentAfterSearch();
             ArrangementsItemsCotrol.ItemsSource = Arrangements;
+		}
+
+        private bool CheckTransportType(Arrangement arrangement, List<ArrangementStep.TransportType> transportTypes)
+		{
+            foreach(ArrangementStep step in arrangement.Steps)
+			{
+                if (transportTypes.Contains(step.Type)) return true;
+			}
+
+            return false;
+		}
+
+        private List<ArrangementStep.TransportType> GetCheckedTypes()
+		{
+            List<ArrangementStep.TransportType> checkedTransportTypes = new List<ArrangementStep.TransportType>();
+            if (TransportBusCB.IsChecked == true) checkedTransportTypes.Add(ArrangementStep.TransportType.BUS);
+            if (TransportPlaneCB.IsChecked == true) checkedTransportTypes.Add(ArrangementStep.TransportType.PLANE);
+            if (TransportSelfCB.IsChecked == true) checkedTransportTypes.Add(ArrangementStep.TransportType.SELF);
+            if(TransportTrainCB.IsChecked == true) checkedTransportTypes.Add(ArrangementStep.TransportType.TRAIN);
+
+            return checkedTransportTypes;
 		}
 
         private void OnSearchButtonClick(object sender, EventArgs e) => Search();
@@ -104,7 +128,12 @@ namespace travel_agent.WindowsAndPages
             if (parent.User.Role == Models.Role.AGENT) parent.MainFrame.Content = new AddAndModifyArangementPage(parent, data as Arrangement);
 		}
 
-        private void SetIfNoContent()
+		//private void OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
+		//{
+		//	Console.WriteLine(StartDatePicker.Text.ToString());
+		//}
+
+		private void SetIfNoContent()
 		{
             if(parent.User.Role == Role.AGENT)
 			{

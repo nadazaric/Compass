@@ -36,7 +36,10 @@
 	<System:String x:Key="String.TransportTrain">Voz</System:String>
 	<System:String x:Key="String.TransportBus">Autobus</System:String>
 	<System:String x:Key="String.TransportSelf">Sopstveni prevoz</System:String>
-
+	<System:String x:Key="String.DateRangeLabel">Unesite raspon datuma</System:String>
+	<System:String x:Key="String.DateStartLabel">Od</System:String>
+	<System:String x:Key="String.DateEndLabel">Do</System:String>
+	
 	<!-- Buttons -->
     <System:String x:Key="String.LoginButton">Prijavi me!</System:String>
     <System:String x:Key="String.RegisterButton">Registruj me!</System:String>

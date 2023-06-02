@@ -73,6 +73,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\FancyDatePicker.xaml.cs">
+      <DependentUpon>FancyDatePicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FancyMap.xaml.cs">
       <DependentUpon>FancyMap.xaml</DependentUpon>
     </Compile>
@@ -120,6 +123,10 @@
     <Compile Include="WindowsAndPages\ViewPlacePage.xaml.cs">
       <DependentUpon>ViewPlacePage.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\FancyDatePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\FancyMap.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

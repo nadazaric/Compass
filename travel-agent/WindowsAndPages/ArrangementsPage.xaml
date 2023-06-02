@@ -188,6 +188,34 @@
 								</Border>
 							</StackPanel>
 
+							<StackPanel
+								Margin="20 10 20 5">
+								<Label
+									Style="{StaticResource PlaceholderLabelStyle}"
+									Content="{StaticResource String.DateRangeLabel}"/>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+
+									<controls:FancyDatePicker
+										x:Name="StartDatePicker"
+										Grid.Column="0"
+										Padding="0 0 10 0"
+										Placeholder="Od">
+										
+									</controls:FancyDatePicker>
+									<controls:FancyDatePicker
+										x:Name="EndDatePicker"
+										Grid.Column="1"
+										Padding="10 0 0 0"
+										Placeholder="Do">
+										
+									</controls:FancyDatePicker>
+								</Grid>
+							</StackPanel>
+
 							<Button
 								Style="{StaticResource OutlineButtonStyle}"
 								Content="{StaticResource String.ReturnToDefaultStateButton}"
