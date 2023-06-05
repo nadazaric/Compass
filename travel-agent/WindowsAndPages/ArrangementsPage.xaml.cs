@@ -33,6 +33,8 @@ namespace travel_agent.WindowsAndPages
             DataContext = this;
             SetUpArrangements(); 
             if (Arrangements.Count <= 1) SetIfNoContent();
+            StartDatePicker.DateChanged += StartDatePicker_DateChanged;
+            EndDatePicker.DateChanged += EndDatePicker_DateChanged;
               
         }
 
@@ -204,15 +206,25 @@ namespace travel_agent.WindowsAndPages
             if (parent.User.Role == Models.Role.AGENT) parent.MainFrame.Content = new AddAndModifyArangementPage(parent, data as Arrangement);
 		}
 
-        private void OnSelectedDateChanged(object sender, EventArgs e)
-        {
-			// TODO izaci na kraj sa custom eventovima
+		private void StartDatePicker_DateChanged(object sender, SelectionChangedEventArgs e)
+		{
+			DateTime selectedDate = (DateTime)((FancyDatePicker)sender).SelectedDate;
+			if(EndDatePicker.SelectedDate == null || DateTime.Compare(selectedDate, (DateTime)EndDatePicker.SelectedDate) > 0)
+            {
+                selectedDate = selectedDate.AddDays(1);
+                EndDatePicker.SelectedDate = selectedDate;
+            }
+		}
 
-			DateTime? selectedDate = ((FancyDatePicker)sender).SelectedDate;
-            Console.WriteLine(selectedDate);
-			Console.WriteLine("trigger");
-            Console.WriteLine(StartDatePicker.SelectedDate);
-        }
+        private void EndDatePicker_DateChanged(object sender, SelectionChangedEventArgs args)
+        {
+			DateTime selectedDate = (DateTime)((FancyDatePicker)sender).SelectedDate;
+			if (StartDatePicker.SelectedDate == null || DateTime.Compare(selectedDate, (DateTime)StartDatePicker.SelectedDate) < 0)
+			{
+				selectedDate = selectedDate.AddDays(-1);
+				StartDatePicker.SelectedDate = selectedDate;
+			}
+		}
 
         private void SetIfNoContent()
 		{

@@ -45,5 +45,12 @@ namespace travel_agent.Controls
             set => SetValue(SelectedDateProperty, value);
         }
 
+		public event EventHandler<SelectionChangedEventArgs> DateChanged;
+
+		private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+		{
+			DateChanged?.Invoke(this, e);
+		}
+
 	}
 }
