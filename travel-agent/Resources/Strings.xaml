@@ -49,7 +49,9 @@
 	<System:String x:Key="String.PriceLabel20">+ RSD 20.000</System:String>
 	<System:String x:Key="String.ArrangementNameLabel">Ime aranžmana</System:String>
 	<System:String x:Key="String.DateRangeLabel">Datum početka i kraja</System:String>
-
+	<System:String x:Key="String.Places">Mesta</System:String>
+	<System:String x:Key="String.AttractionsLabel">Atrakcije</System:String>
+	<System:String x:Key="String.RestaurantsLabel">Restorani</System:String>
 
 	<!-- Buttons -->
     <System:String x:Key="String.LoginButton">Prijavi me!</System:String>

@@ -47,5 +47,10 @@ namespace travel_agent.Services
             using (var db = new Context()) return db.Places.ToList();
         }
 
+        public List<Place> GetAllByType(Place.PlaceType placeType)
+        {
+            using (var db = new Context()) return db.Places.Where(p => p.Type == placeType).ToList();
+        }
+
     }
 }

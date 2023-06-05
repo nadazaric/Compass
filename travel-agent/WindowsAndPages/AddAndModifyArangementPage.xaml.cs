@@ -42,22 +42,42 @@ namespace travel_agent.WindowsAndPages
 
 		}
 
-		private List<Place> FilterPlaces()
+		private List<Place> FilterPlaces(Place.PlaceType placeType)
 		{
-			List<Place> allPlaces = PlaceService.GetAll();
-			foreach (var place in allPlaces) { Console.WriteLine(place); }
+			List<Place> allPlaces = PlaceService.GetAllByType(placeType);
 			if(Arrangement == null) return allPlaces;
 			List<Place> places = (from place in allPlaces where !Arrangement.Places.Contains(place) select place ).ToList();
 			return places;
 		}
 
+		private List<Place> FilterByName(Place.PlaceType placeType, string name)
+		{
+			return FilterPlaces(placeType).Where(p => p.Name.ToLower().StartsWith(name.ToLower())).ToList();
+		}
+
 		private void SetUpPage()
 		{
-			List<Place> places = this.FilterPlaces(); 
-			if(places.Count == 0) {
-				// TODO setup no content
+			List<Place> attractions = this.FilterPlaces(Place.PlaceType.ATRACTION);
+			List<Place> restaurants = this.FilterPlaces(Place.PlaceType.RESTAURANT);
+			List<Place> accommodation = this.FilterPlaces(Place.PlaceType.ACCOMMODATION);
+
+			if (attractions.Count == 0) {
+				AttractionsList.Visibility = Visibility.Collapsed;
+				NoContentAttraction.Visibility = Visibility.Visible;
 			}
-			AllPlacesLI.ItemsSource = places;
+			else AttractionsList.ItemsSource = attractions;
+			if(restaurants.Count == 0)
+			{
+				RestaurantsList.Visibility = Visibility.Collapsed;
+				NoContentRestaurants.Visibility = Visibility.Visible;
+			}
+			else RestaurantsList.ItemsSource = restaurants;
+			if(accommodation.Count == 0)
+			{
+				AccommodationList.Visibility = Visibility.Collapsed;
+				NoContentAccommodation.Visibility = Visibility.Visible;
+			}
+			else AccommodationList.ItemsSource = accommodation;
 			if (Arrangement == null) return;
 			ArrangementNameInput.InputText = Arrangement.Name;
 			SetImage(Arrangement.Image);
@@ -85,6 +105,55 @@ namespace travel_agent.WindowsAndPages
 			if (openFileDialog.ShowDialog() == true) SetImage(new BitmapImage(new Uri(openFileDialog.FileName)));
 		}
 
+
+		private void searchPlaceInput_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			TextBox textBox = (TextBox)sender;
+			TextBox innerTextBox = (TextBox)textBox.Template.FindName("PART_TextBox", textBox);
+			string textSearch = innerTextBox.Text;
+			switch((tabControl.SelectedItem as TabItem).Header)
+			{
+				case "Atrakcije":
+					List<Place> attractions = FilterByName(Place.PlaceType.ATRACTION, textSearch);
+					if (attractions.Count == 0)
+					{
+						AttractionsList.Visibility = Visibility.Collapsed;
+						NoContentAttraction.Visibility = Visibility.Visible;
+					}
+					else {
+						AttractionsList.Visibility = Visibility.Visible;
+						NoContentAttraction.Visibility = Visibility.Collapsed;
+						AttractionsList.ItemsSource = attractions;
+					}
+					break;
+				case "Restorani":
+					List<Place>restaurants = FilterByName(Place.PlaceType.RESTAURANT, textSearch);
+					if (restaurants.Count == 0)
+					{
+						RestaurantsList.Visibility = Visibility.Collapsed;
+						NoContentRestaurants.Visibility = Visibility.Visible;
+					}
+					else { RestaurantsList.ItemsSource = restaurants;
+						RestaurantsList.Visibility = Visibility.Visible;
+						NoContentRestaurants.Visibility = Visibility.Collapsed;
+					}
+					break;
+				case "Smeštaj":
+					List<Place> accommodation = FilterByName(Place.PlaceType.ACCOMMODATION, textSearch);
+					if (accommodation.Count == 0)
+					{
+						AccommodationList.Visibility = Visibility.Collapsed;
+						NoContentAccommodation.Visibility = Visibility.Visible;
+					}
+					else { AccommodationList.ItemsSource = accommodation;
+						AccommodationList.Visibility = Visibility.Visible;
+						NoContentAccommodation.Visibility = Visibility.Collapsed;
+					}
+					break;
+			}
+		}
+
 		private void OnBackClick(object sender, RoutedEventArgs e) => Parent.MainFrame.Content = new PlacesPage(Parent);
+
 	}
 }

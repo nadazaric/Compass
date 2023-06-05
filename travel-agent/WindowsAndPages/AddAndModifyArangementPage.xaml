@@ -17,7 +17,7 @@
 			ScrollViewer.CanContentScroll="True"
 			Margin="30 40"
 			MinWidth="400"
-			Width="625">
+			Width="725">
 
 			<Button
                 Style="{StaticResource NoneButtonStyle}" 
@@ -38,7 +38,7 @@
 
 			<controls:FancyTextBox
 				x:Name="ArrangementNameInput"
-				MaxWidth="625"
+				MaxWidth="725"
 				Placeholder="{StaticResource String.ArrangementNameLabel}"
 				Margin="0 0 0 20">
 				<controls:FancyTextBox.ValidationRules>
@@ -115,49 +115,170 @@
 					CornerRadius="{StaticResource Dim.RegularCorner}" 
                     BorderBrush="{StaticResource Color.PrimaryDark}" 
                     Background="{StaticResource Color.PrimaryLight}" 
-                    BorderThickness="{StaticResource Dim.BorderTickness}">
+                    BorderThickness="{StaticResource Dim.BorderTickness}"
+					Padding="10">
 					<Grid>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*"/>
 							<ColumnDefinition Width="*"/>
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
-						<DockPanel>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+						<Label
+							Grid.Row="0"
+							Style="{StaticResource PlaceholderLabelStyle}"
+							Content="{StaticResource String.Places}">
+							
+						</Label>
+						<DockPanel
+							Grid.Row="1">
 
-							<ComboBox 
-								x:Name="PlaceTypeCombo"
-								Padding="10"
-								FontSize="{StaticResource Dim.RegularFontSize}"
-								BorderThickness="0"
-								HorizontalAlignment="Stretch"
-								DockPanel.Dock="Top"
-								IsReadOnly="True"
-								Text="{StaticResource String.TypeLabel}">
-								<ComboBoxItem
-									Content="{StaticResource String.AtractionLabel}">
-								</ComboBoxItem>
-								<ComboBoxItem
-									Content="{StaticResource String.RestaurantLabel}">
-								</ComboBoxItem>
-								<ComboBoxItem
-									Content="{StaticResource String.AccommodatonLabel}">
-								</ComboBoxItem>
-							</ComboBox>
-
-							<TextBox 
+							<TextBox
 								x:Name="searchPlaceInput"
 								DockPanel.Dock="Bottom"
-								Padding="10"
-								FontSize="{StaticResource Dim.RegularFontSize}">
-								
+								FontSize="{StaticResource Dim.RegularFontSize}"
+								BorderBrush="{StaticResource Color.PrimaryDark}"
+								BorderThickness="{StaticResource Dim.BorderTickness}"
+								HorizontalAlignment="Stretch" 
+								TextChanged="searchPlaceInput_TextChanged">
+								<TextBox.Style>
+									<Style TargetType="TextBox">
+										<Setter Property="Template">
+											<Setter.Value>
+												<ControlTemplate TargetType="TextBox">
+													<Border Background="{TemplateBinding Background}"
+														BorderBrush="{TemplateBinding BorderBrush}"
+														BorderThickness="1,0,1,1">
+
+														<Grid>
+															<Grid.ColumnDefinitions>
+																<ColumnDefinition Width="Auto" />
+																<ColumnDefinition Width="*" />
+															</Grid.ColumnDefinitions>
+															<TextBox x:Name="PART_TextBox" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="{TemplateBinding Background}" 
+																Padding="0 10 10 10" Grid.Column="1"/>
+															<Border
+																BorderThickness="0"
+																Background="{StaticResource Color.White}">
+																<Image Source="..\Resources\Images\search.png" Height="16" VerticalAlignment="Center" Margin="5" HorizontalAlignment="Left" Grid.Column="0"/>
+															</Border>
+														</Grid>
+													</Border>
+													<ControlTemplate.Triggers>
+														<Trigger Property="IsEnabled" Value="False">
+															<Setter TargetName="PART_TextBox" Property="Opacity" Value="0.5" />
+														</Trigger>
+													</ControlTemplate.Triggers>
+												</ControlTemplate>
+											</Setter.Value>
+										</Setter>
+									</Style>
+								</TextBox.Style>
 							</TextBox>
 
-							<ListView 
-								x:Name="AllPlacesLI"
-								Padding="10"
-								DisplayMemberPath="Name">
-
-							</ListView>
+							<TabControl Name="tabControl">
+								<TabItem Header="{StaticResource String.AttractionsLabel}">
+									<Grid>
+										<ListView 
+										x:Name="AttractionsList"
+										Padding="10"
+										DisplayMemberPath="Name"
+										HorizontalAlignment="Stretch"
+										FontSize="{StaticResource Dim.RegularFontSize}"
+										MinHeight="100">
+										</ListView>
+										<Grid x:Name="NoContentAttraction"
+											  MinHeight="100"
+											  Visibility="Collapsed">
+											<StackPanel
+												VerticalAlignment="Center"
+												HorizontalAlignment="Center">
+												<TextBlock 
+													HorizontalAlignment="Center" 
+													Text="{StaticResource String.NothingLabel}"
+													FontSize="20"
+													FontWeight="Medium"
+													Foreground="{StaticResource Color.PrimaryDark}"/>
+												<TextBlock 
+													FontSize="12" 
+													Text="{StaticResource String.PlacesNotFoundLabel}"
+													HorizontalAlignment="Center"
+													Foreground="{StaticResource Color.PrimaryDark}"
+													FontWeight="Medium"/>
+											</StackPanel>
+										</Grid>
+									</Grid>
+									
+								</TabItem>
+								<TabItem Header="{StaticResource String.RestaurantsLabel}">
+									<Grid>
+										<ListView 
+											x:Name="RestaurantsList"
+											Padding="10"
+											DisplayMemberPath="Name"
+											HorizontalAlignment="Stretch"
+											FontSize="{StaticResource Dim.RegularFontSize}"
+											MinHeight="100">
+										</ListView>
+										<Grid x:Name="NoContentRestaurants"
+											  MinHeight="100"
+											  Visibility="Collapsed">
+											<StackPanel
+												VerticalAlignment="Center"
+												HorizontalAlignment="Center">
+												<TextBlock 
+													HorizontalAlignment="Center" 
+													Text="{StaticResource String.NothingLabel}"
+													FontSize="20"
+													FontWeight="Medium"
+													Foreground="{StaticResource Color.PrimaryDark}"/>
+												<TextBlock 
+													FontSize="12" 
+													Text="{StaticResource String.PlacesNotFoundLabel}"
+													HorizontalAlignment="Center"
+													Foreground="{StaticResource Color.PrimaryDark}"
+													FontWeight="Medium"/>
+											</StackPanel>
+										</Grid>
+									</Grid>
+									
+								</TabItem>
+								<TabItem Header="{StaticResource String.AccommodatonLabel}">
+									<Grid>
+										<ListView 
+											x:Name="AccommodationList"
+											Padding="10"
+											DisplayMemberPath="Name"
+											HorizontalAlignment="Stretch"
+											FontSize="{StaticResource Dim.RegularFontSize}"
+											MinHeight="100">
+										</ListView>
+										<Grid x:Name="NoContentAccommodation"
+											  MinHeight="100"
+											  Visibility="Collapsed">
+											<StackPanel
+												VerticalAlignment="Center"
+												HorizontalAlignment="Center">
+												<TextBlock 
+													HorizontalAlignment="Center" 
+													Text="{StaticResource String.NothingLabel}"
+													FontSize="20"
+													FontWeight="Medium"
+													Foreground="{StaticResource Color.PrimaryDark}"/>
+												<TextBlock 
+													FontSize="12" 
+													Text="{StaticResource String.PlacesNotFoundLabel}"
+													HorizontalAlignment="Center"
+													Foreground="{StaticResource Color.PrimaryDark}"
+													FontWeight="Medium"/>
+											</StackPanel>
+										</Grid>
+									</Grid>
+								</TabItem>
+							</TabControl>
 
 						</DockPanel>
 					</Grid>
