@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Rule = travel_agent.ValidationRules.ValidationRule;
 
 namespace travel_agent.Controls
@@ -90,6 +92,17 @@ namespace travel_agent.Controls
             UnsetManuallyError();
         }
 
-        #endregion
-    }
+		#endregion
+
+		private void OnKeyDownClick(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter)
+			{
+                Password = passwordBox.Password;
+				OnEnterPressed?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+		public event EventHandler OnEnterPressed;
+	}
 }
