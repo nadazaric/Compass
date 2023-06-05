@@ -121,9 +121,9 @@ namespace travel_agent.WindowsAndPages
             bool bus = (bool)TransportBusCB.IsChecked ? false : true;
             bool plane = (bool)TransportPlaneCB.IsChecked ? false : true;
             bool train = (bool)TransportTrainCB.IsChecked ? false : true;
-            bool self = (bool)TransportSelfCB.IsChecked ? false : true;
+            bool foot = (bool)TransportSelfCB.IsChecked ? false : true;
 
-            if(bus && plane && train && self) return true;
+            if(bus && plane && train && foot) return true;
             foreach(var step in arrangement.Steps)
             {
                 switch (step.Type)
@@ -131,11 +131,11 @@ namespace travel_agent.WindowsAndPages
                     case ArrangementStep.TransportType.PLANE: plane= true; break;
                     case ArrangementStep.TransportType.TRAIN: train= true; break;
                     case ArrangementStep.TransportType.BUS: bus= true; break;
-                    case ArrangementStep.TransportType.SELF: self= true; break;   
+                    case ArrangementStep.TransportType.FOOT: foot = true; break;   
                 }
             }
 
-            return bus && plane && train && self;
+            return bus && plane && train && foot;
 		}
 
         private void OnSearchButtonClick(object sender, EventArgs e) => Search();

@@ -19,7 +19,7 @@ namespace travel_agent.Models
             PLANE,
             TRAIN,
             BUS,
-            SELF
+            FOOT
         }
     }
 }
