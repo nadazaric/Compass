@@ -43,7 +43,14 @@
 	<System:String x:Key="String.FilterLabel">Aranžman uključuje</System:String>
 	<System:String x:Key="String.RestaurantFilterLabel">Restoran</System:String>
 	<System:String x:Key="String.AccomodationFilterLabel">Prenoćište</System:String>
-	
+	<System:String x:Key="String.SearchByPriceLabel">Pretraži po budžetu</System:String>
+	<System:String x:Key="String.PriceLabel0">RSD 0 - RSD 5.000</System:String>
+	<System:String x:Key="String.PriceLabel5">RSD 5.000 - RSD 10.000</System:String>
+	<System:String x:Key="String.PriceLabel10">RSD 10.000 - RSD 15.000</System:String>
+	<System:String x:Key="String.PriceLabel15">RSD 15.000 - RSD 20.000</System:String>
+	<System:String x:Key="String.PriceLabel20">+ RSD 20.000</System:String>
+
+
 	<!-- Buttons -->
     <System:String x:Key="String.LoginButton">Prijavi me!</System:String>
     <System:String x:Key="String.RegisterButton">Registruj me!</System:String>

@@ -51,7 +51,7 @@ namespace travel_agent.WindowsAndPages
             foreach (var arrangement in ArrangementsList)
 			{
                 if (arrangement.Name.ToLower().Contains(ArrangementSearchName.InputText.ToLower())
-                    && CheckTransportType(arrangement) && CheckFilter(arrangement) && CheckDateRange(arrangement))
+                    && CheckTransportType(arrangement) && CheckFilter(arrangement) && CheckDateRange(arrangement) && CheckBudget(arrangement))
                     Arrangements.Add(arrangement);
 			}
             if (Arrangements.Count == 0 && parent.User.Role != Role.AGENT) SetIfNoContentAfterSearch();
@@ -59,8 +59,26 @@ namespace travel_agent.WindowsAndPages
             ArrangementsItemsCotrol.ItemsSource = Arrangements;
 		}
 
+        private bool CheckBudget(Arrangement arrangement)
+        {
+            bool price0 = (bool)PriceCB0.IsChecked ? true : false;
+			bool price5 = (bool)PriceCB5.IsChecked ? true : false;
+			bool price10 = (bool)PriceCB10.IsChecked ? true : false;
+			bool price15 = (bool)PriceCB15.IsChecked ? true : false;
+			bool price20 = (bool)PriceCB20.IsChecked ? true : false;
 
-        private bool CheckDateRange(Arrangement arrangement)
+			if (!price0 && !price10 && !price5 && !price15 && !price20) return true;
+			if (price0 && arrangement.Price <= 5000) return true;
+            if (price5 && arrangement.Price > 5000 && arrangement.Price <= 10000) return true;
+            if (price10 && arrangement.Price > 10000 && arrangement.Price <= 15000) return true;
+            if(price15 && arrangement.Price > 15000 && arrangement.Price <= 20000) return true;
+            if(price20 && arrangement.Price > 20000) return true;
+            return false;
+
+		}
+
+
+		private bool CheckDateRange(Arrangement arrangement)
         {
 			DateTime? pickedStart = StartDatePicker.SelectedDate;
             DateTime? pickedEnd = EndDatePicker.SelectedDate;
@@ -162,6 +180,13 @@ namespace travel_agent.WindowsAndPages
 
             FilterRestaurantCB.IsChecked = false;
             FilterAccomodationCB.IsChecked= false;
+
+            PriceCB0.IsChecked = false;
+            PriceCB5.IsChecked = false;
+            PriceCB10.IsChecked = false;
+            PriceCB15.IsChecked = false;
+            PriceCB20.IsChecked = false;
+
 		}
 
         private async void WhenPopupIsClosed(object sender, EventArgs e)
@@ -179,9 +204,10 @@ namespace travel_agent.WindowsAndPages
             if (parent.User.Role == Models.Role.AGENT) parent.MainFrame.Content = new AddAndModifyArangementPage(parent, data as Arrangement);
 		}
 
-        // TODO izaci na kraj sa custom eventovima
         private void OnSelectedDateChanged(object sender, EventArgs e)
         {
+			// TODO izaci na kraj sa custom eventovima
+
 			DateTime? selectedDate = ((FancyDatePicker)sender).SelectedDate;
             Console.WriteLine(selectedDate);
 			Console.WriteLine("trigger");
@@ -193,7 +219,7 @@ namespace travel_agent.WindowsAndPages
             if(parent.User.Role == Role.AGENT)
 			{
                 ArrangementsListView.Margin = new Thickness(20);
-                ArrangementsSearch.Visibility = Visibility.Collapsed;
+                ArrangementsSearch.Visibility = Visibility.Visible;
 			}
 			else
 			{

@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:local="clr-namespace:travel_agent.WindowsAndPages" xmlns:controls="clr-namespace:travel_agent.Controls"
+    xmlns:local="clr-namespace:travel_agent.WindowsAndPages" 
+	xmlns:controls="clr-namespace:travel_agent.Controls"
 	mc:Ignorable="d"
     Title="ArrangementsPage">
 	<Page.Resources>
@@ -87,6 +88,13 @@
                             FontSize="20"
                             Padding="10 0"
                             FontWeight="Medium"/>
+						<TextBlock
+							TextWrapping="NoWrap"
+							Text="{Binding Price}"
+							VerticalAlignment="Bottom"
+							FontSize="10"
+							Padding="10 0"
+							FontWeight="Light"/>
 					</DockPanel>
 				</Grid>
 			</Border>
@@ -98,7 +106,6 @@
 		<StackPanel>
 			
 			<!-- Search -->
-			<!-- TODO Search Popup -->
 			<Grid x:Name="ArrangementsSearch" Width="400" Background="{StaticResource Color.White}" Margin="0 25 0 0">
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -250,8 +257,50 @@
 										HorizontalAlignment="Left"
 										Grid.Column="1"/>
 								</Grid>
-								
-								
+							</StackPanel>
+
+							<StackPanel
+								Margin="20 10 20 5">
+								<Label
+									Style="{StaticResource PlaceholderLabelStyle}"
+									Content="{StaticResource String.SearchByPriceLabel}"/>
+
+								<CheckBox
+									x:Name="PriceCB0"
+									Style="{StaticResource SmallCheckBoxStyle}"
+									Content="{StaticResource String.PriceLabel0}"
+									Click="OnCBClick"
+									HorizontalAlignment="Left"
+									/>
+								<CheckBox
+									x:Name="PriceCB5"
+									Style="{StaticResource SmallCheckBoxStyle}"
+									Content="{StaticResource String.PriceLabel5}"
+									Click="OnCBClick"
+									HorizontalAlignment="Left"
+									/>
+								<CheckBox
+									x:Name="PriceCB10"
+									Style="{StaticResource SmallCheckBoxStyle}"
+									Content="{StaticResource String.PriceLabel10}"
+									Click="OnCBClick"
+									HorizontalAlignment="Left"
+									/>
+								<CheckBox
+									x:Name="PriceCB15"
+									Style="{StaticResource SmallCheckBoxStyle}"
+									Content="{StaticResource String.PriceLabel15}"
+									Click="OnCBClick"
+									HorizontalAlignment="Left"
+									/>
+								<CheckBox
+									x:Name="PriceCB20"
+									Style="{StaticResource SmallCheckBoxStyle}"
+									Content="{StaticResource String.PriceLabel20}"
+									Click="OnCBClick"
+									HorizontalAlignment="Left"
+									/>
+
 							</StackPanel>
 
 							<Button
