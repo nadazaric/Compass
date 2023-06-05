@@ -219,7 +219,7 @@ namespace travel_agent.WindowsAndPages
             if(parent.User.Role == Role.AGENT)
 			{
                 ArrangementsListView.Margin = new Thickness(20);
-                ArrangementsSearch.Visibility = Visibility.Visible;
+                ArrangementsSearch.Visibility = Visibility.Collapsed;
 			}
 			else
 			{
