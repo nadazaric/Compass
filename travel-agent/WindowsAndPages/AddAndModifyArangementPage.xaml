@@ -4,11 +4,169 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:travel_agent.WindowsAndPages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+	  xmlns:controls="clr-namespace:travel_agent.Controls"
+	  xmlns:validatrs="clr-namespace:travel_agent.ValidationRules"
+      mc:Ignorable="d"
       Title="AddAndModifyArangementPage">
 
-    <Grid>
-        
-    </Grid>
+	<ScrollViewer
+		VerticalScrollBarVisibility="Auto">
+
+		<StackPanel
+			HorizontalAlignment="Center"
+			ScrollViewer.CanContentScroll="True"
+			Margin="30 40"
+			MinWidth="400"
+			Width="625">
+
+			<Button
+                Style="{StaticResource NoneButtonStyle}" 
+                HorizontalAlignment="Left"
+                Margin="0 -5 0 5"
+                Click="OnBackClick">
+				<StackPanel
+                    VerticalAlignment="Center" Orientation="Horizontal">
+					<TextBlock 
+                        HorizontalAlignment="Center" 
+                        Text="&lt;"
+                        FontSize="40"
+                        Margin="0 -16 10 0"
+                        FontWeight="Medium"/>
+					<TextBlock FontSize="20" Text="{StaticResource String.BackButton}"/>
+				</StackPanel>
+			</Button>
+
+			<controls:FancyTextBox
+				x:Name="ArrangementNameInput"
+				MaxWidth="625"
+				Placeholder="{StaticResource String.ArrangementNameLabel}"
+				Margin="0 0 0 20">
+				<controls:FancyTextBox.ValidationRules>
+					<validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+					<validatrs:InputLengthRule ErrorMessage="{StaticResource String.PlaceNameCanContainOnlyNCaractersError}" MaxLength="90"/>
+				</controls:FancyTextBox.ValidationRules>
+			</controls:FancyTextBox>
+
+			<StackPanel Margin="0 0 0 20">
+				<Border 
+                    x:Name="PlaceImage" 
+                    CornerRadius="{StaticResource Dim.RegularCorner}" 
+                    BorderBrush="{StaticResource Color.PrimaryDark}" 
+                    Background="{StaticResource Color.PrimaryLight}" 
+                    BorderThickness="{StaticResource Dim.BorderTickness}" 
+                    Height="325">
+					<Label
+                        x:Name="PlaceImageLabel"
+                        Content="{StaticResource String.PlaceImageBoxLabel}"
+                        FontSize="{StaticResource Dim.RegularFontSize}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"/>
+				</Border>
+				<Label
+                    x:Name="PlaceImageError"
+                    Content="{StaticResource String.PlaceImageIsEmptyError}"
+                    FontSize="{StaticResource Dim.ErrorFontSize}"
+                    Visibility="Collapsed"
+                    Foreground="{StaticResource Color.Error}"
+                    FontWeight="Medium"
+                    Padding="1 4 0 0"/>
+			</StackPanel>
+			<Button 
+                x:Name="PlaceAddImageButton"
+                Style="{StaticResource OutlineButtonStyle}"
+                Content="{StaticResource String.AddImageButton}" 
+                Click="OnAddPictureClick"
+                Padding="0"
+                Margin="0 0 0 15"/>
+
+			<StackPanel
+				Margin="0 0 0 15">
+				<Label 
+					Style="{StaticResource PlaceholderLabelStyle}"
+					Content="{StaticResource String.DateRangeLabel}"/>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<controls:FancyDatePicker
+						x:Name="StartDatePicker"
+						Grid.Column="0"
+						Padding="0 0 10 0"
+						Placeholder="{StaticResource String.DateStartLabel}">
+
+					</controls:FancyDatePicker>
+					<controls:FancyDatePicker
+						x:Name="EndDatePicker"
+						Grid.Column="1"
+						Padding="10 0 0 0"
+						Placeholder="{StaticResource String.DateEndLabel}">
+
+					</controls:FancyDatePicker>
+				</Grid>
+			</StackPanel>
+			
+			<!-- TODO: PRICE -->
+
+			<StackPanel>
+				<Border
+					CornerRadius="{StaticResource Dim.RegularCorner}" 
+                    BorderBrush="{StaticResource Color.PrimaryDark}" 
+                    Background="{StaticResource Color.PrimaryLight}" 
+                    BorderThickness="{StaticResource Dim.BorderTickness}">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<DockPanel>
+
+							<ComboBox 
+								x:Name="PlaceTypeCombo"
+								Padding="10"
+								FontSize="{StaticResource Dim.RegularFontSize}"
+								BorderThickness="0"
+								HorizontalAlignment="Stretch"
+								DockPanel.Dock="Top"
+								IsReadOnly="True"
+								Text="{StaticResource String.TypeLabel}">
+								<ComboBoxItem
+									Content="{StaticResource String.AtractionLabel}">
+								</ComboBoxItem>
+								<ComboBoxItem
+									Content="{StaticResource String.RestaurantLabel}">
+								</ComboBoxItem>
+								<ComboBoxItem
+									Content="{StaticResource String.AccommodatonLabel}">
+								</ComboBoxItem>
+							</ComboBox>
+
+							<TextBox 
+								x:Name="searchPlaceInput"
+								DockPanel.Dock="Bottom"
+								Padding="10"
+								FontSize="{StaticResource Dim.RegularFontSize}">
+								
+							</TextBox>
+
+							<ListView 
+								x:Name="AllPlacesLI"
+								Padding="10"
+								DisplayMemberPath="Name">
+
+							</ListView>
+
+						</DockPanel>
+					</Grid>
+
+				</Border>
+				
+			</StackPanel>
+
+		</StackPanel>
+		
+	</ScrollViewer>
 </Page>
