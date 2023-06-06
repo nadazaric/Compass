@@ -93,9 +93,11 @@
     <Compile Include="Models\Arrangement.cs" />
     <Compile Include="Models\ArrangementStep.cs" />
     <Compile Include="Models\Place.cs" />
+    <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\ArrangementService.cs" />
     <Compile Include="Services\PlaceService.cs" />
+    <Compile Include="Services\ReservationService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ValidationRules\EmailPatternRule.cs" />
     <Compile Include="ValidationRules\InputLengthRule.cs" />
@@ -119,6 +121,9 @@
     </Compile>
     <Compile Include="WindowsAndPages\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsAndPages\PassengerHistory.xaml.cs">
+      <DependentUpon>PassengerHistory.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowsAndPages\PlacesPage.xaml.cs">
       <DependentUpon>PlacesPage.xaml</DependentUpon>
@@ -179,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowsAndPages\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsAndPages\PassengerHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

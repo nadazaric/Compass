@@ -71,8 +71,9 @@
     <System:String x:Key="String.FindButton">Pronađi</System:String>
     <System:String x:Key="String.BackButton">Nazad</System:String>
     <System:String x:Key="String.DeleteButton">Obriši</System:String>
-	<System:String x:Key="String.AddNewArrangementButton">Dodaj novi aranžman</System:String>
-	
+    <System:String x:Key="String.AddNewArrangementButton">Dodaj novi aranžman</System:String>
+    <System:String x:Key="String.HistoryButton">Istorija</System:String>
+
     <!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>
     <System:String x:Key="String.WrongEmailPatternError">Uneli ste pogšnu formu e-mail adrese!</System:String>

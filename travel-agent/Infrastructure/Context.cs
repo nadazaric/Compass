@@ -9,5 +9,6 @@ namespace travel_agent.Infrastructure
         public DbSet<Place> Places { get; set; }
         public DbSet<Arrangement> Arrangements { get; set; }
         public DbSet<ArrangementStep> ArrangementSteps { get; set; } 
+        public DbSet<Reservation> Reservations { get; set; }
     }
 }

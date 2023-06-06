@@ -10,6 +10,8 @@ namespace travel_agent.WindowsAndPages
         public User User { get; }
         public Frame MainFrame { get; }
         private Application App;
+
+        public Visibility IsPassenger = Visibility.Collapsed;
         public MainWindow(User user)
         {
             User = user;
@@ -18,7 +20,10 @@ namespace travel_agent.WindowsAndPages
             Main.Content = new PlacesPage(this);
             SetFocusStyle(PlacesNavbarButton);
             MainFrame = Main;
-
+            if (user.Role == Role.PASSENGER) 
+            {
+                HistoryButton.Visibility = Visibility.Visible;
+            } 
         }
 
         private void SetFocusStyle(Button button) => button.Style = App.Resources["SelectedNavbarButtonStyle"] as Style;
@@ -27,6 +32,13 @@ namespace travel_agent.WindowsAndPages
         {
             foreach (var child in NavbarButtons.Children)
                 if (child is Button) (child as Button).Style = App.Resources["NavbarButtonStyle"] as Style;
+        }
+
+        private void OnHistoryNavbarButtonClick(object sender, RoutedEventArgs e)
+        {
+            Main.Navigate(new PassengerHistory(this));
+            SetUnfocusStyle();
+            SetFocusStyle(sender as Button);
         }
 
         private void OnPlacesNavbarButtonClick(object sender, RoutedEventArgs e)
