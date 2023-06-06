@@ -354,7 +354,7 @@
 							<ToggleButton
 								Style="{StaticResource SmallButtonStyle}"
 								Grid.Column="3"
-								IsEnabled="True"
+								IsEnabled="False"
 								ToolTipService.IsEnabled="True" 
 								ToolTipService.Placement="Mouse"
 								ToolTipService.ShowOnDisabled="True"
@@ -376,8 +376,10 @@
 							AllowDrop="True"
 							Drop="transportListView_Drop"
 							PreviewMouseLeftButtonDown="OnMouseLeftButtonDown"
-							MouseMove="OnMouseMove">
-							
+							MouseMove="OnMouseMove"
+							>
+
+
 						</ListView>
 					</DockPanel>
 				</Grid>

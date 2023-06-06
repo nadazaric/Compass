@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using travel_agent.Controls;
 using travel_agent.Models;
 using travel_agent.Services;
@@ -52,8 +53,8 @@ namespace travel_agent.WindowsAndPages
 		private List<Place> FilterPlaces(Place.PlaceType placeType)
 		{
 			List<Place> allPlaces = PlaceService.GetAllByType(placeType);
-			if(Arrangement == null) return allPlaces;
-			List<Place> places = (from place in allPlaces where !Arrangement.Places.Contains(place) select place ).ToList();
+			if (Arrangement == null) return allPlaces;
+			List<Place> places = (from place in allPlaces where !Arrangement.Places.Contains(place) select place).ToList();
 			return places;
 		}
 
@@ -65,7 +66,7 @@ namespace travel_agent.WindowsAndPages
 		private void SetUpPage()
 		{
 			ObservableCollection<Place> attractions = new ObservableCollection<Place>(FilterPlaces(Place.PlaceType.ATRACTION));
-			ObservableCollection<Place> restaurants = new ObservableCollection<Place>( FilterPlaces(Place.PlaceType.RESTAURANT));
+			ObservableCollection<Place> restaurants = new ObservableCollection<Place>(FilterPlaces(Place.PlaceType.RESTAURANT));
 			ObservableCollection<Place> accommodation = new ObservableCollection<Place>(FilterPlaces(Place.PlaceType.ACCOMMODATION));
 
 			if (attractions.Count == 0) {
@@ -73,25 +74,26 @@ namespace travel_agent.WindowsAndPages
 				NoContentAttraction.Visibility = Visibility.Visible;
 			}
 			else AttractionsList.ItemsSource = attractions;
-			if(restaurants.Count == 0)
+			if (restaurants.Count == 0)
 			{
 				RestaurantsList.Visibility = Visibility.Collapsed;
 				NoContentRestaurants.Visibility = Visibility.Visible;
 			}
 			else RestaurantsList.ItemsSource = restaurants;
-			if(accommodation.Count == 0)
+			if (accommodation.Count == 0)
 			{
 				AccommodationList.Visibility = Visibility.Collapsed;
 				NoContentAccommodation.Visibility = Visibility.Visible;
 			}
 			else AccommodationList.ItemsSource = accommodation;
+			TransportListView.ItemsSource = new ObservableCollection<Place>();
 
 			if (Arrangement == null) return;
 			ArrangementNameInput.InputText = Arrangement.Name;
 			SetImage(Arrangement.Image);
 			StartDatePicker.SelectedDate = Arrangement.Start;
 			EndDatePicker.SelectedDate = Arrangement.End;
-			
+
 		}
 
 		private void SetImage(BitmapImage image)
@@ -119,7 +121,7 @@ namespace travel_agent.WindowsAndPages
 			TextBox textBox = (TextBox)sender;
 			TextBox innerTextBox = (TextBox)textBox.Template.FindName("PART_TextBox", textBox);
 			string textSearch = innerTextBox.Text;
-			switch((tabControl.SelectedItem as TabItem).Header)
+			switch ((tabControl.SelectedItem as TabItem).Header)
 			{
 				case "Atrakcije":
 					List<Place> attractions = FilterByName(Place.PlaceType.ATRACTION, textSearch);
@@ -135,7 +137,7 @@ namespace travel_agent.WindowsAndPages
 					}
 					break;
 				case "Restorani":
-					List<Place>restaurants = FilterByName(Place.PlaceType.RESTAURANT, textSearch);
+					List<Place> restaurants = FilterByName(Place.PlaceType.RESTAURANT, textSearch);
 					if (restaurants.Count == 0)
 					{
 						RestaurantsList.Visibility = Visibility.Collapsed;
@@ -221,22 +223,43 @@ namespace travel_agent.WindowsAndPages
 					Place item = (Place)listView.ItemContainerGenerator.ItemFromContainer(listViewItem);
 					if (item == null) return;
 
-					DataObject dragData = new DataObject("Place", item);
+					DataObject dragData = new DataObject();
+					dragData.SetData("Place", item);
+					dragData.SetData("SourceListView", listView);
 					DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Move);
 
 				}
-				
-				
-            }
+
+
+			}
 		}
 
 		private void transportListView_Drop(object sender, DragEventArgs e)
 		{
-			if(e.Data.GetDataPresent("Place"))
+			if (e.Data.GetDataPresent("Place"))
 			{
 				Place place = e.Data.GetData("Place") as Place;
 				ListView listView = sender as ListView;
-				listView.Items.Add(place);
+				ListViewItem listViewItem = FindAnchestor<ListViewItem>((DependencyObject)e.OriginalSource);
+				ObservableCollection<Place> places = listView.ItemsSource as ObservableCollection<Place>;
+
+				if (listViewItem != null && listViewItem.DataContext is Place)
+				{
+					Place dropLocation = (Place)listViewItem.DataContext;
+					int index = places.IndexOf(dropLocation);
+
+					if (index >= 0)
+					{
+						places.Remove(place);
+						places.Insert(index,place);
+					}
+				}
+				else
+				{
+					places.Remove(place);
+					places.Add(place);
+				}
+
 
 				switch (place.Type)
 				{
@@ -250,16 +273,24 @@ namespace travel_agent.WindowsAndPages
 						(AccommodationList.ItemsSource as ObservableCollection<Place>).Remove(place);
 						break;
 				}
+				
 			}
 		}
 
 		private void placeListView_Drop(object sender, DragEventArgs e)
 		{
+			ListView listView = (ListView)sender;
+			ListView sourceListView = (ListView)e.Data.GetData("SourceListView");
+			if (listView == sourceListView) {
+				return;
+			}
+
 			if (e.Data.GetDataPresent("Place"))
 			{
 				Place place = e.Data.GetData("Place") as Place;
 
-				switch(place.Type)
+
+				switch (place.Type)
 				{
 					case Place.PlaceType.ATRACTION:
 						(AttractionsList.ItemsSource as ObservableCollection<Place>).Add(place);
@@ -267,11 +298,11 @@ namespace travel_agent.WindowsAndPages
 						break;
 					case Place.PlaceType.RESTAURANT:
 						(RestaurantsList.ItemsSource as ObservableCollection<Place>).Add(place);
-						RestaurantsTabItem.IsSelected=true;
+						RestaurantsTabItem.IsSelected = true;
 						break;
 					case Place.PlaceType.ACCOMMODATION:
 						(AccommodationList.ItemsSource as ObservableCollection<Place>).Add(place);
-						AccommmodationTabItem.IsSelected=true;
+						AccommmodationTabItem.IsSelected = true;
 						break;
 				}
 				TransportListView.Items.Remove(place);
@@ -282,4 +313,5 @@ namespace travel_agent.WindowsAndPages
 		private void OnBackClick(object sender, RoutedEventArgs e) => Parent.MainFrame.Content = new ArrangementsPage(Parent);
 
 	}
-}
+} 
+
