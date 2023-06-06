@@ -182,14 +182,18 @@
 						<TabControl Name="tabControl">
 							<TabItem Header="{StaticResource String.AttractionsLabel}">
 								<Grid>
-									<ListView 
-										x:Name="AttractionsList"
-										Padding="10"
-										DisplayMemberPath="Name"
-										HorizontalAlignment="Stretch"
-										FontSize="{StaticResource Dim.RegularFontSize}"
-										MinHeight="100">
-									</ListView>
+									<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+										<ListView 
+											x:Name="AttractionsList"
+											Padding="10"
+											DisplayMemberPath="Name"
+											HorizontalAlignment="Stretch"
+											FontSize="{StaticResource Dim.RegularFontSize}"
+											Height="150"
+											PreviewMouseLeftButtonDown="OnMouseLeftButtonDown"
+											MouseMove="OnMouseMove">
+										</ListView>
+									</ScrollViewer>
 									<Grid x:Name="NoContentAttraction"
 											  MinHeight="100"
 											  Visibility="Collapsed">
@@ -215,14 +219,16 @@
 							</TabItem>
 							<TabItem Header="{StaticResource String.RestaurantsLabel}">
 								<Grid>
-									<ListView 
+									<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+										<ListView 
 											x:Name="RestaurantsList"
 											Padding="10"
 											DisplayMemberPath="Name"
 											HorizontalAlignment="Stretch"
 											FontSize="{StaticResource Dim.RegularFontSize}"
-											MinHeight="100">
-									</ListView>
+											Height="150">
+										</ListView>
+									</ScrollViewer>
 									<Grid x:Name="NoContentRestaurants"
 											  MinHeight="100"
 											  Visibility="Collapsed">
@@ -346,7 +352,13 @@
 						<StackPanel 
 							Height="30"
 							DockPanel.Dock="Top"></StackPanel>
-						<ListView>
+						<ListView
+							x:Name="TransportListView"
+							AllowDrop="True"
+							Drop="listView_Drop"
+							DisplayMemberPath="Name"
+							HorizontalAlignment="Stretch"
+							FontSize="{StaticResource Dim.RegularFontSize}">
 							
 						</ListView>
 					</DockPanel>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,9 @@ namespace travel_agent.WindowsAndPages
 		private BitmapImage Image = null;
 		private Arrangement Arrangement;
 
+		private Point startPoint;
+		private int startIndex = -1;
+
 		public AddAndModifyArangementPage(MainWindow parent, Arrangement arrangement = null)
 		{
 			InitializeComponent();
@@ -60,9 +64,9 @@ namespace travel_agent.WindowsAndPages
 
 		private void SetUpPage()
 		{
-			List<Place> attractions = this.FilterPlaces(Place.PlaceType.ATRACTION);
-			List<Place> restaurants = this.FilterPlaces(Place.PlaceType.RESTAURANT);
-			List<Place> accommodation = this.FilterPlaces(Place.PlaceType.ACCOMMODATION);
+			ObservableCollection<Place> attractions = new ObservableCollection<Place>(FilterPlaces(Place.PlaceType.ATRACTION));
+			ObservableCollection<Place> restaurants = new ObservableCollection<Place>( FilterPlaces(Place.PlaceType.RESTAURANT));
+			ObservableCollection<Place> accommodation = new ObservableCollection<Place>(FilterPlaces(Place.PlaceType.ACCOMMODATION));
 
 			if (attractions.Count == 0) {
 				AttractionsList.Visibility = Visibility.Collapsed;
@@ -81,6 +85,7 @@ namespace travel_agent.WindowsAndPages
 				NoContentAccommodation.Visibility = Visibility.Visible;
 			}
 			else AccommodationList.ItemsSource = accommodation;
+
 			if (Arrangement == null) return;
 			ArrangementNameInput.InputText = Arrangement.Name;
 			SetImage(Arrangement.Image);
@@ -156,6 +161,22 @@ namespace travel_agent.WindowsAndPages
 			}
 		}
 
+
+		private static T FindAnchestor<T>(DependencyObject current)
+		where T : DependencyObject
+		{
+			do
+			{
+				if (current is T)
+				{
+					return (T)current;
+				}
+				current = VisualTreeHelper.GetParent(current);
+			}
+			while (current != null);
+			return null;
+		}
+
 		private void StartDatePicker_DateChanged(object sender, SelectionChangedEventArgs e)
 		{
 			DateTime selectedDate = (DateTime)((FancyDatePicker)sender).SelectedDate;
@@ -173,6 +194,62 @@ namespace travel_agent.WindowsAndPages
 			{
 				selectedDate = selectedDate.AddDays(-1);
 				StartDatePicker.SelectedDate = selectedDate;
+			}
+		}
+
+		private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			startPoint = e.GetPosition(null);
+		}
+
+		private void OnMouseMove(object sender, MouseEventArgs e)
+		{
+
+			Point mousePosition = e.GetPosition(null);
+			Vector diff = startPoint - mousePosition;
+
+			if (e.LeftButton == MouseButtonState.Pressed)
+			{
+
+				if (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+				Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
+				{
+					ListView listView = sender as ListView;
+					ListViewItem listViewItem = FindAnchestor<ListViewItem>((DependencyObject)e.OriginalSource);
+					if (listViewItem == null) return;
+
+					Place item = (Place)listView.ItemContainerGenerator.ItemFromContainer(listViewItem);
+					if (item == null) return;
+
+					DataObject dragData = new DataObject("Place", item);
+					DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Move);
+
+				}
+				
+				
+            }
+		}
+
+		private void listView_Drop(object sender, DragEventArgs e)
+		{
+			if(e.Data.GetDataPresent("Place"))
+			{
+				Place place = e.Data.GetData("Place") as Place;
+				ListView listView = sender as ListView;
+				listView.Items.Add(place);
+
+				switch (place.Type)
+				{
+					case Place.PlaceType.ATRACTION:
+						(AttractionsList.ItemsSource as ObservableCollection<Place>).Remove(place);
+						break;
+					case Place.PlaceType.RESTAURANT:
+						(RestaurantsList.ItemsSource as ObservableCollection<Place>).Remove(place);
+						break;
+					case Place.PlaceType.ACCOMMODATION:
+						(AccommodationList.ItemsSource as ObservableCollection<Place>).Remove(place);
+						break;
+				}
 			}
 		}
 
