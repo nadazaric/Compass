@@ -27,12 +27,13 @@ namespace travel_agent.WindowsAndPages
         private Application app;
         private ReservationService reservationService;
         public PassengerHistory() { }
-        public ObservableCollection<Reservation> Reservations{ get; set; }
+        public ObservableCollection<Arrangement> Arrangements { get; set; }
         private List<Reservation> ReservationsList {  get; set; }
         private List<Arrangement> ArrangementsList { get; set; }
         public PassengerHistory(MainWindow parentWindow)
         {
             InitializeComponent();
+            ArrangementsList = new List<Arrangement>();
             parent = parentWindow;
             reservationService = ReservationService.Instance;
             DataContext = this;
@@ -42,9 +43,19 @@ namespace travel_agent.WindowsAndPages
 
         private void SetUpReservations()
         {
-            Reservations = new ObservableCollection<Reservation>();
+            Arrangements = new ObservableCollection<Arrangement>();
+            Arrangements.Add(null);
             ReservationsList = reservationService.GetAllForUser(parent.User);
-            foreach (Reservation reservation in Reservations) ArrangementsList.Add(reservation.Arrangement);
+            foreach (Reservation reservation in ReservationsList)
+            {
+                ArrangementsList.Add(reservation.Arrangement);
+                Arrangements.Add(reservation.Arrangement);
+            }
+            Console.WriteLine("TEST: " + Arrangements.Count);
+        }
+
+        private void OnHistoryItemClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
 
         }
     }

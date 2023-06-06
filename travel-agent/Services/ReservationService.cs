@@ -23,7 +23,7 @@ namespace travel_agent.Services
 
         public void CreateReservation(User user, Arrangement arrangement)
         {
-            Reservation reservation = new Reservation(user, arrangement);
+            Reservation reservation = new Reservation(user, arrangement, Reservation.ReservationStatus.RESERVED);
             using (var db = new Context())
             {
                 db.Reservations.Add(reservation);
@@ -33,6 +33,40 @@ namespace travel_agent.Services
         public List<Reservation> GetAllForUser(User user)
         {
             using (var db = new Context()) return db.Reservations.Where(r => r.User.Id == user.Id).ToList();
+        }
+
+        public void CancelReservationForUser(Reservation reservation) 
+        {
+            using (var db = new Context())
+            {
+                Reservation res = db.Reservations.Find(reservation.Id);
+                if(res != null)
+                {
+                    res.Status = Reservation.ReservationStatus.CANCELED;
+                    db.SaveChanges();
+                } 
+                else
+                {
+                    Console.WriteLine("Greska prilikom otkazivanja");
+                }
+            }
+        }
+
+        public void PaidReservation(User user, Reservation reservation)
+        {
+            using (var db = new Context())
+            {
+                Reservation res = db.Reservations.Find(reservation.Id);
+                if (res != null)
+                {
+                    res.Status = Reservation.ReservationStatus.PAID;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    Console.WriteLine("Greska prilikom otkazivanja");
+                }
+            }
         }
     }
 }

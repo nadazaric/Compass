@@ -13,11 +13,20 @@ namespace travel_agent.Models
         public User User { get; set; }
         public Arrangement Arrangement { get; set; }
 
+        public ReservationStatus Status { get; set; } 
         public Reservation() { }
-        public Reservation(User user, Arrangement arrangement)
+        public Reservation(User user, Arrangement arrangement, ReservationStatus status)
         {
             User = user;
             Arrangement = arrangement;
+            Status = status;
+        }
+
+        public enum ReservationStatus
+        {
+            RESERVED,
+            PAID,
+            CANCELED
         }
     }
 }
