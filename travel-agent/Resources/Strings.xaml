@@ -35,7 +35,7 @@
 	<System:String x:Key="String.TransportPlane">Avion</System:String>
 	<System:String x:Key="String.TransportTrain">Voz</System:String>
 	<System:String x:Key="String.TransportBus">Autobus</System:String>
-	<System:String x:Key="String.TransportSelf">Sopstveni prevoz</System:String>
+	<System:String x:Key="String.TransportSelf">Peške</System:String>
 	<System:String x:Key="String.SearchDateRangeLabel">Pretraži po rasponu datuma</System:String>
 	<System:String x:Key="String.DateStartLabel">Od</System:String>
 	<System:String x:Key="String.DateEndLabel">Do</System:String>

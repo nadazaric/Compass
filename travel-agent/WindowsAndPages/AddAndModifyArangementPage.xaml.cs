@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using travel_agent.Controls;
 using travel_agent.Models;
 using travel_agent.Services;
 
@@ -38,6 +39,8 @@ namespace travel_agent.WindowsAndPages
 			ArrangementService = ArrangementService.Instance;
 			PlaceService = PlaceService.Instance;
 			Arrangement = arrangement;
+			StartDatePicker.DateChanged += StartDatePicker_DateChanged;
+			EndDatePicker.DateChanged += EndDatePicker_DateChanged;
 			SetUpPage();
 
 		}
@@ -153,7 +156,27 @@ namespace travel_agent.WindowsAndPages
 			}
 		}
 
-		private void OnBackClick(object sender, RoutedEventArgs e) => Parent.MainFrame.Content = new PlacesPage(Parent);
+		private void StartDatePicker_DateChanged(object sender, SelectionChangedEventArgs e)
+		{
+			DateTime selectedDate = (DateTime)((FancyDatePicker)sender).SelectedDate;
+			if (EndDatePicker.SelectedDate == null || DateTime.Compare(selectedDate, (DateTime)EndDatePicker.SelectedDate) > 0)
+			{
+				selectedDate = selectedDate.AddDays(1);
+				EndDatePicker.SelectedDate = selectedDate;
+			}
+		}
+
+		private void EndDatePicker_DateChanged(object sender, SelectionChangedEventArgs args)
+		{
+			DateTime selectedDate = (DateTime)((FancyDatePicker)sender).SelectedDate;
+			if (StartDatePicker.SelectedDate == null || DateTime.Compare(selectedDate, (DateTime)StartDatePicker.SelectedDate) < 0)
+			{
+				selectedDate = selectedDate.AddDays(-1);
+				StartDatePicker.SelectedDate = selectedDate;
+			}
+		}
+
+		private void OnBackClick(object sender, RoutedEventArgs e) => Parent.MainFrame.Content = new ArrangementsPage(Parent);
 
 	}
 }

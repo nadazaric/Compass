@@ -248,14 +248,16 @@
 							</TabItem>
 							<TabItem Header="{StaticResource String.AccommodatonLabel}">
 								<Grid>
-									<ListView 
+									<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+										<ListView 
 											x:Name="AccommodationList"
 											Padding="10"
 											DisplayMemberPath="Name"
 											HorizontalAlignment="Stretch"
 											FontSize="{StaticResource Dim.RegularFontSize}"
-											MinHeight="100">
-									</ListView>
+											Height="150">
+										</ListView>
+									</ScrollViewer>
 									<Grid x:Name="NoContentAccommodation"
 											  MinHeight="100"
 											  Visibility="Collapsed">
@@ -285,15 +287,65 @@
 					<DockPanel
 						Grid.Column="1"
 						Grid.Row="1">
+						<Grid HorizontalAlignment="Stretch"
+							  DockPanel.Dock="Bottom">
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"></ColumnDefinition>
+								<ColumnDefinition Width="*"></ColumnDefinition>
+								<ColumnDefinition Width="*"></ColumnDefinition>
+								<ColumnDefinition Width="*"></ColumnDefinition>
+							</Grid.ColumnDefinitions>
+
+							<ToggleButton
+								Style="{StaticResource SmallButtonStyle}"
+								Grid.Column="0"
+								IsEnabled="False"
+								ToolTipService.IsEnabled="True" 
+								ToolTipService.Placement="Mouse"
+								ToolTipService.ShowOnDisabled="True"
+								ToolTipService.InitialShowDelay="0"
+								ToolTip="{StaticResource String.TransportPlane}">
+								<Image Source="../Resources/Images/plane.png"/>
+							</ToggleButton>
+							<ToggleButton
+								Style="{StaticResource SmallButtonStyle}"
+								Grid.Column="1"
+								IsEnabled="False"
+								ToolTipService.IsEnabled="True"
+								ToolTipService.Placement="Mouse"
+								ToolTipService.ShowOnDisabled="True"
+								ToolTipService.InitialShowDelay="0"
+								ToolTip="{StaticResource String.TransportTrain}">
+								<Image Source="../Resources/Images/train.png"/>
+							</ToggleButton>
+							<ToggleButton
+								Style="{StaticResource SmallButtonStyle}"
+								Grid.Column="2"
+								IsEnabled="False"
+								ToolTipService.IsEnabled="False"
+								ToolTipService.Placement="Mouse"
+								ToolTipService.ShowOnDisabled="True"
+								ToolTipService.InitialShowDelay="0"
+								ToolTip="{StaticResource String.TransportBus}">
+								<Image Source="../Resources/Images/bus.png"/>
+							</ToggleButton>
+							<ToggleButton
+								Style="{StaticResource SmallButtonStyle}"
+								Grid.Column="3"
+								IsEnabled="True"
+								ToolTipService.IsEnabled="True" 
+								ToolTipService.Placement="Mouse"
+								ToolTipService.ShowOnDisabled="True"
+								ToolTipService.InitialShowDelay="0"
+								ToolTip="{StaticResource String.TransportSelf}">
+								<Image Source="../Resources/Images/walk.png"/>
+							</ToggleButton>
+
+						</Grid>
 						<StackPanel 
-							Orientation="Horizontal"
-							DockPanel.Dock="Bottom">
-							<Button
-								Style="{StaticResource NoneButtonStyle}"></Button>
-							<Button></Button>
-							<Button></Button>
-							<Button></Button>
-						</StackPanel>
+							Height="30"
+							DockPanel.Dock="Top"></StackPanel>
 						<ListView>
 							
 						</ListView>
