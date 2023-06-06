@@ -180,7 +180,9 @@
 						</TextBox>
 
 						<TabControl Name="tabControl">
-							<TabItem Header="{StaticResource String.AttractionsLabel}">
+							<TabItem 
+								Header="{StaticResource String.AttractionsLabel}"
+								x:Name="AttractionsTabItem"	 >
 								<Grid>
 									<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
 										<ListView 
@@ -191,7 +193,9 @@
 											FontSize="{StaticResource Dim.RegularFontSize}"
 											Height="150"
 											PreviewMouseLeftButtonDown="OnMouseLeftButtonDown"
-											MouseMove="OnMouseMove">
+											MouseMove="OnMouseMove"
+											AllowDrop="True"
+											Drop="placeListView_Drop">
 										</ListView>
 									</ScrollViewer>
 									<Grid x:Name="NoContentAttraction"
@@ -217,7 +221,9 @@
 								</Grid>
 
 							</TabItem>
-							<TabItem Header="{StaticResource String.RestaurantsLabel}">
+							<TabItem 
+								Header="{StaticResource String.RestaurantsLabel}"
+								x:Name="RestaurantsTabItem">
 								<Grid>
 									<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
 										<ListView 
@@ -226,7 +232,11 @@
 											DisplayMemberPath="Name"
 											HorizontalAlignment="Stretch"
 											FontSize="{StaticResource Dim.RegularFontSize}"
-											Height="150">
+											Height="150"
+											PreviewMouseLeftButtonDown="OnMouseLeftButtonDown"
+											MouseMove="OnMouseMove"
+											AllowDrop="True"
+											Drop="placeListView_Drop">
 										</ListView>
 									</ScrollViewer>
 									<Grid x:Name="NoContentRestaurants"
@@ -252,7 +262,8 @@
 								</Grid>
 
 							</TabItem>
-							<TabItem Header="{StaticResource String.AccommodatonLabel}">
+							<TabItem Header="{StaticResource String.AccommodatonLabel}"
+									 x:Name="AccommmodationTabItem">
 								<Grid>
 									<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
 										<ListView 
@@ -261,7 +272,11 @@
 											DisplayMemberPath="Name"
 											HorizontalAlignment="Stretch"
 											FontSize="{StaticResource Dim.RegularFontSize}"
-											Height="150">
+											Height="150"
+											PreviewMouseLeftButtonDown="OnMouseLeftButtonDown"
+											MouseMove="OnMouseMove"
+											AllowDrop="True"
+											Drop="placeListView_Drop">
 										</ListView>
 									</ScrollViewer>
 									<Grid x:Name="NoContentAccommodation"
@@ -354,11 +369,14 @@
 							DockPanel.Dock="Top"></StackPanel>
 						<ListView
 							x:Name="TransportListView"
-							AllowDrop="True"
-							Drop="listView_Drop"
+							Padding="10"
 							DisplayMemberPath="Name"
 							HorizontalAlignment="Stretch"
-							FontSize="{StaticResource Dim.RegularFontSize}">
+							FontSize="{StaticResource Dim.RegularFontSize}"
+							AllowDrop="True"
+							Drop="transportListView_Drop"
+							PreviewMouseLeftButtonDown="OnMouseLeftButtonDown"
+							MouseMove="OnMouseMove">
 							
 						</ListView>
 					</DockPanel>

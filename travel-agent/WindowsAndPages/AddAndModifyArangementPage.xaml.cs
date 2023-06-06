@@ -230,7 +230,7 @@ namespace travel_agent.WindowsAndPages
             }
 		}
 
-		private void listView_Drop(object sender, DragEventArgs e)
+		private void transportListView_Drop(object sender, DragEventArgs e)
 		{
 			if(e.Data.GetDataPresent("Place"))
 			{
@@ -250,6 +250,32 @@ namespace travel_agent.WindowsAndPages
 						(AccommodationList.ItemsSource as ObservableCollection<Place>).Remove(place);
 						break;
 				}
+			}
+		}
+
+		private void placeListView_Drop(object sender, DragEventArgs e)
+		{
+			if (e.Data.GetDataPresent("Place"))
+			{
+				Place place = e.Data.GetData("Place") as Place;
+
+				switch(place.Type)
+				{
+					case Place.PlaceType.ATRACTION:
+						(AttractionsList.ItemsSource as ObservableCollection<Place>).Add(place);
+						AttractionsTabItem.IsSelected = true;
+						break;
+					case Place.PlaceType.RESTAURANT:
+						(RestaurantsList.ItemsSource as ObservableCollection<Place>).Add(place);
+						RestaurantsTabItem.IsSelected=true;
+						break;
+					case Place.PlaceType.ACCOMMODATION:
+						(AccommodationList.ItemsSource as ObservableCollection<Place>).Add(place);
+						AccommmodationTabItem.IsSelected=true;
+						break;
+				}
+				TransportListView.Items.Remove(place);
+
 			}
 		}
 
