@@ -6,7 +6,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3F59DE35-E313-4C17-B0DF-5535450643D5}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>travel_agent</RootNamespace>
     <AssemblyName>travel-agent</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -39,6 +39,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>k.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -73,6 +76,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\FancyDatePicker.xaml.cs">
+      <DependentUpon>FancyDatePicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FancyMap.xaml.cs">
       <DependentUpon>FancyMap.xaml</DependentUpon>
     </Compile>
@@ -84,14 +90,20 @@
     </Compile>
     <Compile Include="Controls\Geocoder.cs" />
     <Compile Include="Infrastructure\Context.cs" />
+    <Compile Include="Models\Arrangement.cs" />
+    <Compile Include="Models\ArrangementStep.cs" />
     <Compile Include="Models\Place.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Services\ArrangementService.cs" />
     <Compile Include="Services\PlaceService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ValidationRules\EmailPatternRule.cs" />
     <Compile Include="ValidationRules\InputLengthRule.cs" />
     <Compile Include="ValidationRules\RequiredTextBoxRule.cs" />
     <Compile Include="ValidationRules\ValidationRule.cs" />
+    <Compile Include="WindowsAndPages\AddAndModifyArangementPage.xaml.cs">
+      <DependentUpon>AddAndModifyArangementPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowsAndPages\AddAndModifyPlacePage.xaml.cs">
       <DependentUpon>AddAndModifyPlacePage.xaml</DependentUpon>
     </Compile>
@@ -114,6 +126,10 @@
     <Compile Include="WindowsAndPages\ViewPlacePage.xaml.cs">
       <DependentUpon>ViewPlacePage.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\FancyDatePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\FancyMap.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -143,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Strings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsAndPages\AddAndModifyArangementPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

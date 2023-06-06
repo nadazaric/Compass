@@ -29,9 +29,29 @@
     <System:String x:Key="String.SearchByTypeLabel">Pretraži po vrsti</System:String>
     <System:String x:Key="String.SearchByAddressLabel">Pretraži po adresi</System:String>
     <System:String x:Key="String.NothingLabel">✖</System:String>
-    <System:String x:Key="String.PlacesNotFaundLabel">Nije pronađeno niti jedno mesto</System:String>
-    
-    <!-- Buttons -->
+	<System:String x:Key="String.PlacesNotFoundLabel">Nije pronađeno nijedno mesto</System:String>
+	<System:String x:Key="String.ArrangementsNotFoundLabel">Nije pronađen nijedan aranžman</System:String>
+	<System:String x:Key="String.SearchByTransport">Pretraži po vrsti prevoza</System:String>
+	<System:String x:Key="String.TransportPlane">Avion</System:String>
+	<System:String x:Key="String.TransportTrain">Voz</System:String>
+	<System:String x:Key="String.TransportBus">Autobus</System:String>
+	<System:String x:Key="String.TransportSelf">Sopstveni prevoz</System:String>
+	<System:String x:Key="String.DateRangeLabel">Pretraži po rasponu datuma</System:String>
+	<System:String x:Key="String.DateStartLabel">Od</System:String>
+	<System:String x:Key="String.DateEndLabel">Do</System:String>
+	<System:String x:Key="String.SearchByPlaceLabel">Pretraži po mestu</System:String>
+	<System:String x:Key="String.FilterLabel">Aranžman uključuje</System:String>
+	<System:String x:Key="String.RestaurantFilterLabel">Restoran</System:String>
+	<System:String x:Key="String.AccomodationFilterLabel">Prenoćište</System:String>
+	<System:String x:Key="String.SearchByPriceLabel">Pretraži po budžetu</System:String>
+	<System:String x:Key="String.PriceLabel0">RSD 0 - RSD 5.000</System:String>
+	<System:String x:Key="String.PriceLabel5">RSD 5.000 - RSD 10.000</System:String>
+	<System:String x:Key="String.PriceLabel10">RSD 10.000 - RSD 15.000</System:String>
+	<System:String x:Key="String.PriceLabel15">RSD 15.000 - RSD 20.000</System:String>
+	<System:String x:Key="String.PriceLabel20">+ RSD 20.000</System:String>
+
+
+	<!-- Buttons -->
     <System:String x:Key="String.LoginButton">Prijavi me!</System:String>
     <System:String x:Key="String.RegisterButton">Registruj me!</System:String>
     <System:String x:Key="String.ToLoginButton">Prijavi se.</System:String>
@@ -51,7 +71,8 @@
     <System:String x:Key="String.FindButton">Pronađi</System:String>
     <System:String x:Key="String.BackButton">Nazad</System:String>
     <System:String x:Key="String.DeleteButton">Obriši</System:String>
-    
+	<System:String x:Key="String.AddNewArrangementButton">Dodaj novi aranžman</System:String>
+	
     <!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>
     <System:String x:Key="String.WrongEmailPatternError">Uneli ste pogšnu formu e-mail adrese!</System:String>

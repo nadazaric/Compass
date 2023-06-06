@@ -52,5 +52,14 @@ namespace travel_agent.Services
         {
             using(var db = new Context()) return db.Users.FirstOrDefault(u => u.Email == email && u.Password == password);    
         }
+
+        public void InitialSetup()
+		{
+            using(var db = new Context())
+			{
+                var users = db.Users.ToList();
+                if (users.Count == 0) CreateDefaultAgnt();
+			}
+		}
     }
 }

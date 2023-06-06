@@ -217,7 +217,7 @@
                         Foreground="{StaticResource Color.PrimaryDark}"/>
                     <TextBlock 
                         FontSize="18" 
-                        Text="{StaticResource String.PlacesNotFaundLabel}"
+                        Text="{StaticResource String.PlacesNotFoundLabel}"
                         HorizontalAlignment="Center"
                         Foreground="{StaticResource Color.PrimaryDark}"
                         FontWeight="Medium"/>
