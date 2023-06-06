@@ -52,6 +52,7 @@
 	<System:String x:Key="String.Places">Mesta</System:String>
 	<System:String x:Key="String.AttractionsLabel">Atrakcije</System:String>
 	<System:String x:Key="String.RestaurantsLabel">Restorani</System:String>
+	<System:String x:Key="String.AddRideLabel">Dodaj tip prevoza</System:String>
 
 	<!-- Buttons -->
     <System:String x:Key="String.LoginButton">Prijavi me!</System:String>

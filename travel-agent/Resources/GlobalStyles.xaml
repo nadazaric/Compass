@@ -35,6 +35,12 @@
         </Setter>
     </Style>
 
+	<Style x:Key="SmallButtonStyle" TargetType="Button">
+		<Setter Property="Background" Value="{StaticResource Color.White}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource Color.PrimaryDark}"/>
+		
+	</Style>
+
     <Style x:Key="OutlineButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="{StaticResource Color.PrimaryLight}"/>
         <Setter Property="BorderBrush" Value="{StaticResource Color.PrimaryDark}"/>
@@ -254,6 +260,7 @@
 		<Setter Property="Padding" Value="1 0 0 6"/>
 	</Style>
 
+	<!-- tab item style -->
 	<Style TargetType="TabItem">
 		<Setter Property="FontSize" Value="14" />
 		<Setter Property="Template">
