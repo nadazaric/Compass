@@ -126,7 +126,7 @@ namespace travel_agent.WindowsAndPages
             if(bus && plane && train && foot) return true;
             foreach(var step in arrangement.Steps)
             {
-                switch (step.Type)
+                switch (step.TransportationType)
                 {
                     case ArrangementStep.TransportType.PLANE: plane= true; break;
                     case ArrangementStep.TransportType.TRAIN: train= true; break;

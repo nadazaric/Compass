@@ -10,6 +10,7 @@
     mc:Ignorable="d" 
     Title="AddPlacePage">
     <ScrollViewer
+		x:Name="scrollViewer"
         VerticalScrollBarVisibility="Auto">
 
         <StackPanel

@@ -36,6 +36,10 @@ namespace travel_agent.WindowsAndPages
 		private Point startPoint;
 		private int startIndex = -1;
 
+		private ObservableCollection<Place> lastRearrengement = new ObservableCollection<Place>();
+		private ListViewItem selectedListViewItem;
+		private ArrangementStep selectedItem;
+
 		public AddAndModifyArangementPage(MainWindow parent, Arrangement arrangement = null)
 		{
 			InitializeComponent();
@@ -44,8 +48,11 @@ namespace travel_agent.WindowsAndPages
 			ArrangementService = ArrangementService.Instance;
 			PlaceService = PlaceService.Instance;
 			Arrangement = arrangement;
+
 			StartDatePicker.DateChanged += StartDatePicker_DateChanged;
 			EndDatePicker.DateChanged += EndDatePicker_DateChanged;
+			TransportListView.SelectionChanged += ListView_ItemClick;
+
 			SetUpPage();
 
 		}
@@ -86,7 +93,7 @@ namespace travel_agent.WindowsAndPages
 				NoContentAccommodation.Visibility = Visibility.Visible;
 			}
 			else AccommodationList.ItemsSource = accommodation;
-			TransportListView.ItemsSource = new ObservableCollection<Place>();
+			RearrangeListView.ItemsSource = new ObservableCollection<Place>();
 
 			if (Arrangement == null) return;
 			ArrangementNameInput.InputText = Arrangement.Name;
@@ -228,13 +235,19 @@ namespace travel_agent.WindowsAndPages
 					dragData.SetData("SourceListView", listView);
 					DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Move);
 
+					if(RearrangeListView.Items.Count == 1)
+					{
+						NextButton.IsEnabled = false;
+						NextButton.ToolTip = (string)Application.Current.FindResource("String.Add2Places");
+					}
+
 				}
 
 
 			}
 		}
 
-		private void transportListView_Drop(object sender, DragEventArgs e)
+		private void rearrangeListView_Drop(object sender, DragEventArgs e)
 		{
 			if (e.Data.GetDataPresent("Place"))
 			{
@@ -258,6 +271,12 @@ namespace travel_agent.WindowsAndPages
 				{
 					places.Remove(place);
 					places.Add(place);
+				}
+
+				if(RearrangeListView.Items.Count == 2)
+				{
+					NextButton.IsEnabled = true;
+					NextButton.ToolTip = null;
 				}
 
 
@@ -305,13 +324,152 @@ namespace travel_agent.WindowsAndPages
 						AccommmodationTabItem.IsSelected = true;
 						break;
 				}
-				TransportListView.Items.Remove(place);
+				(RearrangeListView.ItemsSource as ObservableCollection<Place>).Remove(place);
 
 			}
 		}
 
+		private void NextButton_Click(object sender, RoutedEventArgs e)
+		{
+			ObservableCollection<Place> rearrangedPlaces = RearrangeListView.ItemsSource as ObservableCollection<Place>;
+			ObservableCollection<ArrangementStep> steps = new ObservableCollection<ArrangementStep>();
+
+			for(int i = 0; i < rearrangedPlaces.Count-1; i++)
+			{
+				ArrangementStep step = new ArrangementStep();
+				step.StartPlace = rearrangedPlaces[i];
+				step.EndPlace = rearrangedPlaces[i+1];
+
+				steps.Add(step);
+			}
+
+			TransportListView.ItemsSource = steps;
+			lastRearrengement = rearrangedPlaces;
+			RearrangeListView.ItemsSource = new ObservableCollection<Place>();
+			NextButton.IsEnabled = false;
+			NextButton.ToolTip = (string)Application.Current.FindResource("String.Add2Places");
+			BackButton.IsEnabled = true;
+
+		}
+
+
+		private void ListView_ItemClick(object sender, SelectionChangedEventArgs e)
+		{
+			// Cast the clicked item to the appropriate type
+			ListView listView = (ListView)sender;
+			selectedItem = (ArrangementStep)listView.SelectedItem;
+			selectedListViewItem = listView.ItemContainerGenerator.ContainerFromItem(selectedItem) as ListViewItem;
+
+			PlaneToggle.IsEnabled = true;
+			PlaneToggle.ToolTip = (string)Application.Current.FindResource("String.TransportPlane");
+			TrainToggle.IsEnabled = true;
+			TrainToggle.ToolTip = (string)Application.Current.FindResource("String.TransportTrain");
+			BusToggle.IsEnabled = true;
+			BusToggle.ToolTip = (string)Application.Current.FindResource("String.TransportBus");
+			FootToggle.IsEnabled = true;
+			FootToggle.ToolTip = (string)Application.Current.FindResource("String.TransportSelf");
+
+		}
+
 		private void OnBackClick(object sender, RoutedEventArgs e) => Parent.MainFrame.Content = new ArrangementsPage(Parent);
 
+		private void PlaneToggle_Checked(object sender, RoutedEventArgs e)
+		{
+			TrainToggle.IsChecked = false;
+			BusToggle.IsChecked = false;
+			FootToggle.IsChecked = false;
+
+			selectedItem.TransportationType = ArrangementStep.TransportType.PLANE;
+			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
+			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/plane.png", UriKind.Relative));
+
+		}
+
+		private void TrainToggle_Checked(object sender, RoutedEventArgs e)
+		{
+			PlaneToggle.IsChecked = false;
+			BusToggle.IsChecked = false;
+			FootToggle.IsChecked = false;
+
+			selectedItem.TransportationType = ArrangementStep.TransportType.TRAIN;
+			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
+			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/train.png", UriKind.Relative));
+		}
+
+		private void BusToggle_Checked(object sender, RoutedEventArgs e)
+		{
+			PlaneToggle.IsChecked = false;
+			TrainToggle.IsChecked = false;
+			FootToggle.IsChecked = false;
+
+			selectedItem.TransportationType = ArrangementStep.TransportType.BUS;
+			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
+			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/bus.png", UriKind.Relative));
+
+		}
+
+		private void FootToggle_Checked(object sender, RoutedEventArgs e)
+		{
+			PlaneToggle.IsChecked = false;
+			TrainToggle.IsChecked = false;
+			BusToggle.IsChecked = false;
+			selectedItem.TransportationType = ArrangementStep.TransportType.FOOT;
+
+			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
+			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/walk.png", UriKind.Relative));
+
+		}
+
+
+		private T FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
+		{
+			int childCount = VisualTreeHelper.GetChildrenCount(parent);
+			for (int i = 0; i < childCount; i++)
+			{
+				DependencyObject child = VisualTreeHelper.GetChild(parent, i);
+
+				if (child is T typedChild)
+				{
+					return typedChild;
+				}
+
+				T nestedChild = FindVisualChild<T>(child);
+				if (nestedChild != null)
+				{
+					return nestedChild;
+				}
+			}
+
+			return null;
+		}
+
+		private void BackButton_Click(object sender, RoutedEventArgs e)
+		{
+			BackButton.IsEnabled = false;
+			NextButton.IsEnabled = true;
+			NextButton.ToolTip = null;
+
+			TransportListView.SelectedItem = null;
+
+			PlaneToggle.ToolTip = (string)Application.Current.FindResource("String.ChooseStep");
+			PlaneToggle.IsChecked = false;
+			PlaneToggle.IsEnabled = false;
+
+			TrainToggle.IsChecked = false;
+			TrainToggle.ToolTip = (string)Application.Current.FindResource("String.ChooseStep");
+			TrainToggle.IsEnabled = false;
+
+			BusToggle.IsChecked = false;
+			BusToggle.ToolTip = (string)Application.Current.FindResource("String.ChooseStep");
+			BusToggle.IsEnabled = false;
+
+			FootToggle.IsChecked = false;
+			FootToggle.ToolTip = (string)Application.Current.FindResource("String.ChooseStep");
+			FootToggle.IsEnabled = false;
+
+			TransportListView.ItemsSource = new ObservableCollection<Place>();
+			RearrangeListView.ItemsSource =lastRearrengement;
+		}
 	}
 } 
 

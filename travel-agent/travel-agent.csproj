@@ -89,6 +89,7 @@
       <DependentUpon>FancyTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Geocoder.cs" />
+    <Compile Include="Controls\ScrollViewerHelper.cs" />
     <Compile Include="Infrastructure\Context.cs" />
     <Compile Include="Models\Arrangement.cs" />
     <Compile Include="Models\ArrangementStep.cs" />

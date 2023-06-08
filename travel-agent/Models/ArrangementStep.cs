@@ -13,7 +13,7 @@ namespace travel_agent.Models
         public Place StartPlace { get; set; }
         public Place EndPlace { get; set; }
         public double TravelDistance { get; set; }
-        public TransportType Type { get; set; }
+        public TransportType TransportationType { get; set; }
         public enum TransportType
         {
             PLANE,
