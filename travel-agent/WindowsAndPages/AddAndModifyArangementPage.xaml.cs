@@ -57,26 +57,14 @@ namespace travel_agent.WindowsAndPages
 
 		}
 
-		private List<Place> FilterPlaces(Place.PlaceType placeType)
-		{
-			List<Place> allPlaces = PlaceService.GetAllByType(placeType);
-			if (Arrangement == null) return allPlaces;
-			List<Place> places = (from place in allPlaces where !Arrangement.Places.Contains(place) select place).ToList();
-			return places;
-		}
-
-		private List<Place> FilterByName(Place.PlaceType placeType, string name)
-		{
-			return FilterPlaces(placeType).Where(p => p.Name.ToLower().StartsWith(name.ToLower())).ToList();
-		}
-
 		private void SetUpPage()
 		{
 			ObservableCollection<Place> attractions = new ObservableCollection<Place>(FilterPlaces(Place.PlaceType.ATRACTION));
 			ObservableCollection<Place> restaurants = new ObservableCollection<Place>(FilterPlaces(Place.PlaceType.RESTAURANT));
 			ObservableCollection<Place> accommodation = new ObservableCollection<Place>(FilterPlaces(Place.PlaceType.ACCOMMODATION));
 
-			if (attractions.Count == 0) {
+			if (attractions.Count == 0)
+			{
 				AttractionsList.Visibility = Visibility.Collapsed;
 				NoContentAttraction.Visibility = Visibility.Visible;
 			}
@@ -95,12 +83,34 @@ namespace travel_agent.WindowsAndPages
 			else AccommodationList.ItemsSource = accommodation;
 			RearrangeListView.ItemsSource = new ObservableCollection<Place>();
 
-			if (Arrangement == null) return;
+			if (Arrangement == null)
+			{
+				return;
+			}
+			ArrangementsAddOrModifyButton.Content = (string)Application.Current.FindResource("String.FinishModifyArrangementButton");
 			ArrangementNameInput.InputText = Arrangement.Name;
 			SetImage(Arrangement.Image);
 			StartDatePicker.SelectedDate = Arrangement.Start;
 			EndDatePicker.SelectedDate = Arrangement.End;
 
+		}
+
+		private bool IsFormValid()
+		{
+			return true;
+		}
+
+		private List<Place> FilterPlaces(Place.PlaceType placeType)
+		{
+			List<Place> allPlaces = PlaceService.GetAllByType(placeType);
+			if (Arrangement == null) return allPlaces;
+			List<Place> places = (from place in allPlaces where !Arrangement.Places.Contains(place) select place).ToList();
+			return places;
+		}
+
+		private List<Place> FilterByName(Place.PlaceType placeType, string name)
+		{
+			return FilterPlaces(placeType).Where(p => p.Name.ToLower().StartsWith(name.ToLower())).ToList();
 		}
 
 		private void SetImage(BitmapImage image)
@@ -469,6 +479,11 @@ namespace travel_agent.WindowsAndPages
 
 			TransportListView.ItemsSource = new ObservableCollection<Place>();
 			RearrangeListView.ItemsSource =lastRearrengement;
+		}
+
+		private void OnSubmitClick(object sender, RoutedEventArgs e)
+		{
+			//if(Arrangement == null) 
 		}
 	}
 } 

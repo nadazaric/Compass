@@ -107,11 +107,36 @@
 					</controls:FancyDatePicker>
 				</Grid>
 			</StackPanel>
-			
-			<!-- TODO: PRICE -->
+
+			<StackPanel
+				Margin="0 0 0 15">
+				<Label 
+					Content="{StaticResource String.PriceLabel}"
+					Style="{StaticResource PlaceholderLabelStyle}"></Label>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<controls:FancyCurrencyTextBox
+						Grid.Column="0">
+						<controls:FancyCurrencyTextBox.ValidationRules>
+							<validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+							<validatrs:InputLengthRule ErrorMessage="{StaticResource String.PlaceNameCanContainOnlyNCaractersError}" MaxLength="90"/>
+						</controls:FancyCurrencyTextBox.ValidationRules>
+					</controls:FancyCurrencyTextBox>
+					<Label 
+						Grid.Column="1"
+						VerticalAlignment="Center"
+						Style="{StaticResource PlaceholderLabelStyle}"
+						Margin="-40">RSD</Label>
+				</Grid>
+			</StackPanel>
 
 			<StackPanel>
-				<Grid>
+				<Grid
+					Margin="0 20 0 15">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="*"/>
@@ -237,7 +262,7 @@
 											DisplayMemberPath="Name"
 											HorizontalAlignment="Stretch"
 											FontSize="{StaticResource Dim.RegularFontSize}"
-											Height="150"
+											Height="300"
 											PreviewMouseLeftButtonDown="OnMouseLeftButtonDown"
 											MouseMove="OnMouseMove"
 											AllowDrop="True"
@@ -277,7 +302,7 @@
 											DisplayMemberPath="Name"
 											HorizontalAlignment="Stretch"
 											FontSize="{StaticResource Dim.RegularFontSize}"
-											Height="150"
+											Height="300"
 											PreviewMouseLeftButtonDown="OnMouseLeftButtonDown"
 											MouseMove="OnMouseMove"
 											AllowDrop="True"
@@ -478,6 +503,13 @@
 						
 					</DockPanel>
 				</Grid>
+
+				<Button 
+					x:Name="ArrangementsAddOrModifyButton"
+					Content="{StaticResource String.FinishAddingArrangementButton}" 
+					Padding="0"
+					Click="OnSubmitClick"
+					Margin="0 20 0 0"/>
 
 			</StackPanel>
 

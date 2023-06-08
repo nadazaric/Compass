@@ -55,6 +55,7 @@
 	<System:String x:Key="String.RearrangePlacesLabel">Prevuci i definiši raspored mesta</System:String>
 	<System:String x:Key="String.ArrowDownLabel">↓</System:String>
 	<System:String x:Key="String.AddTransportLabel">Dodaj tip prevoza</System:String>
+	<System:String x:Key="String.PriceLabel">Cena</System:String>
 	
 	<!-- Tooltip -->
 	<System:String x:Key="String.Add2Places">Potrebno je najmanje 2 mesta za nastavak</System:String>
@@ -83,6 +84,8 @@
     <System:String x:Key="String.BackButton">Nazad</System:String>
     <System:String x:Key="String.DeleteButton">Obriši</System:String>
 	<System:String x:Key="String.AddNewArrangementButton">Dodaj novi aranžman</System:String>
+	<System:String x:Key="String.FinishAddingArrangementButton">Završi dodavanje novog aranžman</System:String>
+	<System:String x:Key="String.FinishModifyArrangementButton">Završi izmenu aranžmana</System:String>
 	
     <!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>

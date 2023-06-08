@@ -76,6 +76,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\CurrencyValueConverter.cs" />
+    <Compile Include="Controls\FancyCurrencyTextBox.xaml.cs">
+      <DependentUpon>FancyCurrencyTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FancyDatePicker.xaml.cs">
       <DependentUpon>FancyDatePicker.xaml</DependentUpon>
     </Compile>
@@ -89,7 +93,6 @@
       <DependentUpon>FancyTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Geocoder.cs" />
-    <Compile Include="Controls\ScrollViewerHelper.cs" />
     <Compile Include="Infrastructure\Context.cs" />
     <Compile Include="Models\Arrangement.cs" />
     <Compile Include="Models\ArrangementStep.cs" />
@@ -127,6 +130,10 @@
     <Compile Include="WindowsAndPages\ViewPlacePage.xaml.cs">
       <DependentUpon>ViewPlacePage.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\FancyCurrencyTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\FancyDatePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
