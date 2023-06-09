@@ -65,28 +65,30 @@ namespace travel_agent.WindowsAndPages
 
 		private void SetUpPage()
 		{
-			ObservableCollection<Place> attractions = new ObservableCollection<Place>(FilterPlaces(Place.PlaceType.ATRACTION));
-			ObservableCollection<Place> restaurants = new ObservableCollection<Place>(FilterPlaces(Place.PlaceType.RESTAURANT));
-			ObservableCollection<Place> accommodation = new ObservableCollection<Place>(FilterPlaces(Place.PlaceType.ACCOMMODATION));
+			ObservableCollection<Place> attractions = new ObservableCollection<Place>(FilterAllPlaces(Place.PlaceType.ATRACTION));
+			ObservableCollection<Place> restaurants = new ObservableCollection<Place>(FilterAllPlaces(Place.PlaceType.RESTAURANT));
+			ObservableCollection<Place> accommodation = new ObservableCollection<Place>(FilterAllPlaces(Place.PlaceType.ACCOMMODATION));
 
 			if (attractions.Count == 0)
 			{
 				AttractionsList.Visibility = Visibility.Collapsed;
 				NoContentAttraction.Visibility = Visibility.Visible;
 			}
-			else AttractionsList.ItemsSource = attractions;
 			if (restaurants.Count == 0)
 			{
 				RestaurantsList.Visibility = Visibility.Collapsed;
 				NoContentRestaurants.Visibility = Visibility.Visible;
 			}
-			else RestaurantsList.ItemsSource = restaurants;
 			if (accommodation.Count == 0)
 			{
 				AccommodationList.Visibility = Visibility.Collapsed;
 				NoContentAccommodation.Visibility = Visibility.Visible;
 			}
-			else AccommodationList.ItemsSource = accommodation;
+			AccommodationList.ItemsSource = accommodation;
+			RestaurantsList.ItemsSource = restaurants;
+			AttractionsList.ItemsSource = attractions;
+
+
 			RearrangeListView.ItemsSource = new ObservableCollection<Place>();
 
 			if (Arrangement == null)
@@ -211,7 +213,7 @@ namespace travel_agent.WindowsAndPages
 		}
 
 
-		private List<Place> FilterPlaces(Place.PlaceType placeType)
+		private List<Place> FilterAllPlaces(Place.PlaceType placeType)
 		{
 			List<Place> allPlaces = PlaceService.GetAllByType(placeType);
 			if (Arrangement == null) return allPlaces;
@@ -228,9 +230,23 @@ namespace travel_agent.WindowsAndPages
 			return places;
 		}
 
+
 		private List<Place> FilterByName(Place.PlaceType placeType, string name)
 		{
-			return FilterPlaces(placeType).Where(p => p.Name.ToLower().StartsWith(name.ToLower())).ToList();
+			List<Place> ret;
+			switch (placeType)
+			{
+				case Place.PlaceType.ATRACTION:
+					ret = (AttractionsList.ItemsSource as ObservableCollection<Place>).ToList();
+					break;
+				case Place.PlaceType.RESTAURANT:
+					ret = (RestaurantsList.ItemsSource as ObservableCollection<Place>).ToList();
+					break;
+				default:
+					ret = (AccommodationList.ItemsSource as ObservableCollection<Place>).ToList();
+					break;
+			}
+			return ret.Where(p=> p.Name.ToLower().StartsWith(name.ToLower())).ToList();
 		}
 
 		private void SetImage(BitmapImage image)
@@ -261,16 +277,17 @@ namespace travel_agent.WindowsAndPages
 			switch ((tabControl.SelectedItem as TabItem).Header)
 			{
 				case "Atrakcije":
-					List<Place> attractions = FilterByName(Place.PlaceType.ATRACTION, textSearch);
+					ObservableCollection<Place> attractions = new ObservableCollection<Place>(FilterByName(Place.PlaceType.ATRACTION, textSearch));
 					if (attractions.Count == 0)
 					{
 						AttractionsList.Visibility = Visibility.Collapsed;
 						NoContentAttraction.Visibility = Visibility.Visible;
 					}
 					else {
+						AttractionsList.ItemsSource = attractions;
 						AttractionsList.Visibility = Visibility.Visible;
 						NoContentAttraction.Visibility = Visibility.Collapsed;
-						AttractionsList.ItemsSource = attractions;
+						
 					}
 					break;
 				case "Restorani":
@@ -424,6 +441,41 @@ namespace travel_agent.WindowsAndPages
 				}
 				
 			}
+		}
+
+		private void NoContent_Drop(object sender, DragEventArgs e)
+		{
+
+			if (e.Data.GetDataPresent("Place"))
+			{
+				Place place = e.Data.GetData("Place") as Place;
+
+
+				switch (place.Type)
+				{
+					case Place.PlaceType.ATRACTION:
+						(AttractionsList.ItemsSource as ObservableCollection<Place>).Add(place);
+						AttractionsTabItem.IsSelected = true;
+						NoContentAttraction.Visibility=Visibility.Collapsed;
+						AttractionsList.Visibility = Visibility.Visible;
+						break;
+					case Place.PlaceType.RESTAURANT:
+						(RestaurantsList.ItemsSource as ObservableCollection<Place>).Add(place);
+						RestaurantsTabItem.IsSelected = true;
+						NoContentRestaurants.Visibility=Visibility.Collapsed;
+						RestaurantsList.Visibility = Visibility.Visible;
+						break;
+					case Place.PlaceType.ACCOMMODATION:
+						(AccommodationList.ItemsSource as ObservableCollection<Place>).Add(place);
+						AccommmodationTabItem.IsSelected = true;
+						NoContentAccommodation.Visibility=Visibility.Collapsed;
+						AccommodationList.Visibility = Visibility.Visible;
+						break;
+				}
+				(RearrangeListView.ItemsSource as ObservableCollection<Place>).Remove(place);
+
+			}
+			
 		}
 
 		private void placeListView_Drop(object sender, DragEventArgs e)

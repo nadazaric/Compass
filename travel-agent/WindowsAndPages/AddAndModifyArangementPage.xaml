@@ -274,8 +274,10 @@
 										</ListView>
 									</ScrollViewer>
 									<Grid x:Name="NoContentAttraction"
-											  MinHeight="300"
-											  Visibility="Collapsed">
+											  Height="300"
+											  Visibility="Collapsed"
+										  AllowDrop="True"
+										  Drop="NoContent_Drop">
 										<StackPanel
 												VerticalAlignment="Center"
 												HorizontalAlignment="Center">
@@ -315,8 +317,10 @@
 										</ListView>
 									</ScrollViewer>
 									<Grid x:Name="NoContentRestaurants"
-											  MinHeight="300"
-											  Visibility="Collapsed">
+											  Height="300"
+											  Visibility="Collapsed"
+										  AllowDrop="True"
+										  Drop="NoContent_Drop">
 										<StackPanel
 												VerticalAlignment="Center"
 												HorizontalAlignment="Center">
@@ -355,8 +359,10 @@
 										</ListView>
 									</ScrollViewer>
 									<Grid x:Name="NoContentAccommodation"
-											  MinHeight="300"
-											  Visibility="Collapsed">
+										  Height="300"
+										  Visibility="Collapsed"
+										  AllowDrop="True"
+										  Drop="NoContent_Drop">
 										<StackPanel
 												VerticalAlignment="Center"
 												HorizontalAlignment="Center">
