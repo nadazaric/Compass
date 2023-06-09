@@ -24,6 +24,9 @@ namespace travel_agent.WindowsAndPages
 	/// <summary>
 	/// Interaction logic for AddAndModifyArangementPage.xaml
 	/// </summary>
+	/// 
+
+	// TODO Reset errors on click of specific controls
 	public partial class AddAndModifyArangementPage : Page
 	{
 		private new readonly MainWindow Parent;
@@ -34,7 +37,9 @@ namespace travel_agent.WindowsAndPages
 		private Arrangement Arrangement;
 
 		private Point startPoint;
-		private int startIndex = -1;
+
+		private bool restaurantAdded = false;
+		private bool accommodationAdded = false;
 
 		private ObservableCollection<Place> lastRearrengement = new ObservableCollection<Place>();
 		private ListViewItem selectedListViewItem;
@@ -102,7 +107,8 @@ namespace travel_agent.WindowsAndPages
 			if (!IsPictureValid()) isValid = false;
 			if (!IsDateInputValid()) isValid = false;
 			if (!PriceTextBox.IsValid()) isValid = false;
-			return true;
+			if (!IsStepsValid()) isValid = false;
+			return isValid;
 		}
 
 		private bool IsPictureValid()
@@ -151,13 +157,23 @@ namespace travel_agent.WindowsAndPages
 			if(TransportListView.Items.Count == 0)
 			{
 				StepsError.Visibility = Visibility.Visible;
-				StepsError.Content = (string)Application.Current.FindResource("String.StepsEmptyError");
 				return false;
 			}
 			else
 			{
-				return true;
+				StepsError.Visibility= Visibility.Collapsed;
+				foreach(ArrangementStep step in TransportListView.Items)
+				{
+					if(step.TransportationType == ArrangementStep.TransportType.NONE)
+					{
+						TransportError.Visibility = Visibility.Visible;
+						return false;
+					}
+				}
 			}
+			return true;
+
+			
 		}
 
 
@@ -408,8 +424,8 @@ namespace travel_agent.WindowsAndPages
 			for(int i = 0; i < rearrangedPlaces.Count-1; i++)
 			{
 				ArrangementStep step = new ArrangementStep();
-				step.StartPlace = rearrangedPlaces[i];
-				step.EndPlace = rearrangedPlaces[i+1];
+				step.StartPlace = PlaceService.GetOne(rearrangedPlaces[i].Id);
+				step.EndPlace = PlaceService.GetOne(rearrangedPlaces[i+1].Id);
 
 				steps.Add(step);
 			}
@@ -550,7 +566,39 @@ namespace travel_agent.WindowsAndPages
 
 		private void OnSubmitClick(object sender, RoutedEventArgs e)
 		{
-			//if(Arrangement == null) 
+			if (IsFormValid())
+			{
+				if (Arrangement == null) AddArrangement();
+				else ModifyArrangement();
+			}
+			else return;
+		}
+
+		private void AddArrangement()
+		{
+			Arrangement = new Arrangement();
+			SetArrangementAttributes();
+			ArrangementService.Create(Arrangement);
+			Parent.MainFrame.Content = new ArrangementsPage(Parent);
+		}
+
+		private void ModifyArrangement()
+		{
+			SetArrangementAttributes();
+			ArrangementService.Modify(Arrangement);
+			Parent.MainFrame.Content = new ArrangementsPage(Parent);
+		}
+
+		private void SetArrangementAttributes()
+		{
+			Arrangement.Name = ArrangementNameInput.InputText;
+			Arrangement.Image = Image;
+			Arrangement.Start = (DateTime)StartDatePicker.SelectedDate;
+			Arrangement.End = (DateTime)EndDatePicker.SelectedDate;
+			Arrangement.Price = PriceTextBox.InputPrice;
+			Arrangement.Places = lastRearrengement.ToList();
+			// TODO calculate distance
+			Arrangement.Steps = (TransportListView.ItemsSource as ObservableCollection<ArrangementStep>).ToList();
 		}
 	}
 } 

@@ -21,7 +21,7 @@ namespace travel_agent.Models
 		public DateTime Start { get; set; }
 		public DateTime End { get; set; }
 		public double TotalDistance { get; set; }
-		public double Price { get; set; }
+		public decimal Price { get; set; }
 
 		[NotMapped]
 		public BitmapImage Image

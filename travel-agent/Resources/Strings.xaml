@@ -89,7 +89,7 @@
 	
     <!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>
-    <System:String x:Key="String.WrongEmailPatternError">Uneli ste pogšnu formu e-mail adrese!</System:String>
+    <System:String x:Key="String.WrongEmailPatternError">Uneli ste pogrešnu formu e-mail adrese!</System:String>
     <System:String x:Key="String.PasswordMustContainNCaractersError">Lozinka mora sadržati minimalno 6 karaktera!</System:String>
     <System:String x:Key="String.PlaceNameCanContainOnlyNCaractersError">Lozinka može sadržati maksimalno 90 karaktera!</System:String>
     <System:String x:Key="String.ConfirmePasswordNotMatchError">Morate uneti istu lozinku kao u polju iznad!</System:String>
@@ -101,6 +101,7 @@
 	<System:String x:Key="String.NotClickedOnMapFindButtonError">Niste selektovali validnu lokaciju na mapi. Molimo vas kliknite na dugme "Pronađi".</System:String>
 	<System:String x:Key="String.DatePassedError">Ovaj datum je već prošao. Izaberite budući datum!</System:String>
 	<System:String x:Key="String.StepsEmptyError">Nije dodato nijedno mesto u aranžman</System:String>
+	<System:String x:Key="String.TransportationNotSelectedError">Nije svim koracima aranžmana dodat prevoz!</System:String>
 
     <!-- Message Box Messages -->
     <System:String x:Key="String.RegisterSuccessMessage">Uspješno ste se registrovali! Sada možete da se prijavite sa novokreiranim nalogom.</System:String>

@@ -144,15 +144,14 @@
 						x:Name="PriceTextBox"
 						Grid.Column="0">
 						<controls:FancyCurrencyTextBox.ValidationRules>
-							<validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
-							<validatrs:InputLengthRule ErrorMessage="{StaticResource String.PlaceNameCanContainOnlyNCaractersError}" MaxLength="90"/>
+							<validatrs:PriceTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
 						</controls:FancyCurrencyTextBox.ValidationRules>
 					</controls:FancyCurrencyTextBox>
 					<Label 
 						Grid.Column="1"
 						VerticalAlignment="Center"
 						Style="{StaticResource PlaceholderLabelStyle}"
-						Margin="-40">RSD</Label>
+						Margin="-40 0 0 0">RSD</Label>
 				</Grid>
 			</StackPanel>
 
@@ -194,10 +193,21 @@
 						Visibility="Collapsed"
 						FontSize="{StaticResource Dim.ErrorFontSize}"
 						Foreground="{StaticResource Color.Error}"
+						Content="{StaticResource String.StepsEmptyError}"
 						FontWeight="Medium"
 						Padding="1 4 0 0">
 						
 					</Label>
+					<Label
+						x:Name="TransportError"
+						Grid.Column="2"
+						Grid.Row="2"
+						Visibility="Collapsed"
+						FontSize="{StaticResource Dim.ErrorFontSize}"
+						Foreground="{StaticResource Color.Error}"
+						Content="{StaticResource String.TransportationNotSelectedError}"
+						FontWeight="Medium"
+						Padding="1 4 0 0"></Label>
 
 					<DockPanel
 							Grid.Row="1">

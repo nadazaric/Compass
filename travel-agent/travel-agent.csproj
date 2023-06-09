@@ -103,6 +103,7 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ValidationRules\EmailPatternRule.cs" />
     <Compile Include="ValidationRules\InputLengthRule.cs" />
+    <Compile Include="ValidationRules\PriceTextBoxRule.cs" />
     <Compile Include="ValidationRules\RequiredTextBoxRule.cs" />
     <Compile Include="ValidationRules\ValidationRule.cs" />
     <Compile Include="WindowsAndPages\AddAndModifyArangementPage.xaml.cs">

@@ -1,6 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
+using System.Windows.Documents;
 using System.Windows.Media.Imaging;
 
 namespace travel_agent.Models
@@ -15,6 +17,7 @@ namespace travel_agent.Models
         public double Longitude { get; set; }
         public double Latitude { get; set; }
         public PlaceType Type { get; set; }
+        public List<Arrangement> Arrangements { get; set; }
 
         [NotMapped]
         public BitmapImage Image
