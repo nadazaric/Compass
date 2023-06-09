@@ -274,7 +274,7 @@
 										</ListView>
 									</ScrollViewer>
 									<Grid x:Name="NoContentAttraction"
-											  MinHeight="100"
+											  MinHeight="300"
 											  Visibility="Collapsed">
 										<StackPanel
 												VerticalAlignment="Center"
@@ -315,7 +315,7 @@
 										</ListView>
 									</ScrollViewer>
 									<Grid x:Name="NoContentRestaurants"
-											  MinHeight="100"
+											  MinHeight="300"
 											  Visibility="Collapsed">
 										<StackPanel
 												VerticalAlignment="Center"
@@ -355,7 +355,7 @@
 										</ListView>
 									</ScrollViewer>
 									<Grid x:Name="NoContentAccommodation"
-											  MinHeight="100"
+											  MinHeight="300"
 											  Visibility="Collapsed">
 										<StackPanel
 												VerticalAlignment="Center"
@@ -510,7 +510,8 @@
 								x:Name="TransportListView"
 								Padding="10"
 								HorizontalAlignment="Stretch"
-								FontSize="{StaticResource Dim.RegularFontSize}">
+								FontSize="{StaticResource Dim.RegularFontSize}"
+								Loaded="TransportListView_Loaded">
 								<ListView.ItemTemplate>
 									<DataTemplate>
 										<Grid HorizontalAlignment="Stretch">

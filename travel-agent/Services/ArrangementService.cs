@@ -41,7 +41,6 @@ namespace travel_agent.Services
 					db.Places.Attach(place);
 				}
 
-				// Set the state of arrangement and its associated places to Unchanged
 				db.Entry(arrangement).State = EntityState.Added;
 				foreach (var place in arrangement.Places)
 				{
@@ -61,7 +60,7 @@ namespace travel_agent.Services
 
 		public List<Arrangement> GetAll()
 		{
-			using (var db = new Context()) return db.Arrangements.ToList();
+			using (var db = new Context()) return db.Arrangements.Include(a => a.Places).Include(a => a.Steps).ToList();
 		}
 	}
 }

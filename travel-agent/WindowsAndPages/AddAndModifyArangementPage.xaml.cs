@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -97,7 +98,40 @@ namespace travel_agent.WindowsAndPages
 			SetImage(Arrangement.Image);
 			StartDatePicker.SelectedDate = Arrangement.Start;
 			EndDatePicker.SelectedDate = Arrangement.End;
+			PriceTextBox.InputPrice = Arrangement.Price;
 
+			lastRearrengement = new ObservableCollection<Place>(Arrangement.Places);
+			ObservableCollection<ArrangementStep> steps = new ObservableCollection<ArrangementStep>(Arrangement.Steps);
+			TransportListView.ItemsSource = steps;
+			RearrangeListView.ItemsSource = new ObservableCollection<Place>();
+
+		}
+
+		private void SetUpSteps()
+		{
+
+			foreach(ArrangementStep item in TransportListView.ItemsSource)
+			{
+				Image nestedImage = FindVisualChild<Image>(TransportListView.ItemContainerGenerator.ContainerFromItem(item) as ListViewItem);
+				switch (item.TransportationType)
+				{
+					case ArrangementStep.TransportType.PLANE:
+						nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/plane.png", UriKind.Relative));
+						break;
+					case ArrangementStep.TransportType.TRAIN:
+						nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/train.png", UriKind.Relative));
+						break;
+					case ArrangementStep.TransportType.BUS:
+						nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/bus.png", UriKind.Relative));
+						break;
+					case ArrangementStep.TransportType.FOOT:
+						nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/walk.png", UriKind.Relative));
+						break;
+				}
+			}
+
+			NextButton.IsEnabled = false;
+			BackButton.IsEnabled = true;
 		}
 
 		private bool IsFormValid()
@@ -181,7 +215,16 @@ namespace travel_agent.WindowsAndPages
 		{
 			List<Place> allPlaces = PlaceService.GetAllByType(placeType);
 			if (Arrangement == null) return allPlaces;
-			List<Place> places = (from place in allPlaces where !Arrangement.Places.Contains(place) select place).ToList();
+			List<Place> places = new List<Place>();
+			foreach(var place in allPlaces)
+			{
+				bool found = false;
+				foreach(var p in Arrangement.Places)
+				{
+					if (p.Id == place.Id) { found = true;  break; }
+				}
+				if (!found) places.Add(place);
+			}
 			return places;
 		}
 
@@ -599,6 +642,23 @@ namespace travel_agent.WindowsAndPages
 			Arrangement.Places = lastRearrengement.ToList();
 			// TODO calculate distance
 			Arrangement.Steps = (TransportListView.ItemsSource as ObservableCollection<ArrangementStep>).ToList();
+		}
+
+		private void TransportListView_Loaded(object sender, RoutedEventArgs e)
+		{
+			if (Arrangement == null) return;
+
+			TransportListView.ItemContainerGenerator.StatusChanged += ItemContainerGenerator_StatusChanged;
+		}
+
+		private void ItemContainerGenerator_StatusChanged(object sender, EventArgs e)
+		{
+			ItemContainerGenerator generator = (ItemContainerGenerator)sender;
+			if (generator.Status == GeneratorStatus.ContainersGenerated)
+			{
+				// The ListView has finished generating its items, perform the update
+				SetUpSteps();
+			}
 		}
 	}
 } 
