@@ -49,7 +49,7 @@
 	<System:String x:Key="String.PriceLabel20">+20.000 RSD</System:String>
 	<System:String x:Key="String.ArrangementNameLabel">Ime aranžmana</System:String>
 	<System:String x:Key="String.DateRangeLabel">Datum početka i kraja</System:String>
-	<System:String x:Key="String.Places">Sva mesta</System:String>
+	<System:String x:Key="String.Places">Dostupna mesta</System:String>
 	<System:String x:Key="String.AttractionsLabel">Atrakcije</System:String>
 	<System:String x:Key="String.RestaurantsLabel">Restorani</System:String>
 	<System:String x:Key="String.RearrangePlacesLabel">Prevuci i definiši raspored mesta</System:String>
@@ -98,7 +98,9 @@
     <System:String x:Key="String.PlaceImageIsEmptyError">Slika je obavezna</System:String>
     <System:String x:Key="String.LocationNotInSerbiaError">Morate postaviti pin na teritoriju Srbije.</System:String>
     <System:String x:Key="String.LocationNotFoundError">Adresa nije pronadjena ili nije na teritoriji Srbije.</System:String>
-    <System:String x:Key="String.NotClickedOnMapFindButtonError">Niste selektovali validnu lokaciju na mapi. Molimo vas kliknite na dugme "Pronađi".</System:String>
+	<System:String x:Key="String.NotClickedOnMapFindButtonError">Niste selektovali validnu lokaciju na mapi. Molimo vas kliknite na dugme "Pronađi".</System:String>
+	<System:String x:Key="String.DatePassedError">Ovaj datum je već prošao. Izaberite budući datum!</System:String>
+	<System:String x:Key="String.StepsEmptyError">Nije dodato nijedno mesto u aranžman</System:String>
 
     <!-- Message Box Messages -->
     <System:String x:Key="String.RegisterSuccessMessage">Uspješno ste se registrovali! Sada možete da se prijavite sa novokreiranim nalogom.</System:String>

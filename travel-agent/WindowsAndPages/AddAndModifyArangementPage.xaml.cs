@@ -97,8 +97,69 @@ namespace travel_agent.WindowsAndPages
 
 		private bool IsFormValid()
 		{
+			bool isValid = true;
+			if (!ArrangementNameInput.IsValid()) isValid = false;
+			if (!IsPictureValid()) isValid = false;
+			if (!IsDateInputValid()) isValid = false;
+			if (!PriceTextBox.IsValid()) isValid = false;
 			return true;
 		}
+
+		private bool IsPictureValid()
+		{
+			bool isValid = true;
+			if (Image == null)
+			{
+				ArrangementImageError.Visibility = Visibility.Visible;
+				isValid = false;
+			}
+			else ArrangementImageError.Visibility = Visibility.Collapsed;
+			return isValid;
+		}
+
+		private bool IsDateInputValid()
+		{
+			bool isValid = true;
+			if (StartDatePicker.SelectedDate == null)
+			{
+				isValid = false;
+				StartDateError.Visibility = Visibility.Visible;
+				StartDateError.Content = (string)Application.Current.FindResource("String.RequiredTextBoxError");
+			}
+			else if(DateTime.Compare((DateTime)StartDatePicker.SelectedDate, DateTime.Now)<0) {
+				isValid = false;
+				StartDateError.Visibility = Visibility.Visible;
+				StartDateError.Content = (string)Application.Current.FindResource("String.DatePassedError");
+			}
+			if(EndDatePicker.SelectedDate == null)
+			{
+				EndDateError.Visibility = Visibility.Visible;
+				EndDateError.Content = (string)Application.Current.FindResource("String.RequiredTextBoxError");
+				isValid = false;
+			}else if(DateTime.Compare((DateTime)EndDatePicker.SelectedDate, DateTime.Now) < 0)
+			{
+				isValid = false;
+				EndDateError.Visibility = Visibility.Visible;
+				EndDateError.Content = (string)Application.Current.FindResource("String.DatePassedError");
+			}
+			return isValid;
+			
+        }
+
+		private bool IsStepsValid()
+		{
+			if(TransportListView.Items.Count == 0)
+			{
+				StepsError.Visibility = Visibility.Visible;
+				StepsError.Content = (string)Application.Current.FindResource("String.StepsEmptyError");
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+
 
 		private List<Place> FilterPlaces(Place.PlaceType placeType)
 		{
@@ -120,9 +181,9 @@ namespace travel_agent.WindowsAndPages
 			imageBrush.Stretch = Stretch.UniformToFill;
 			imageBrush.AlignmentX = AlignmentX.Center;
 			imageBrush.AlignmentY = AlignmentY.Center;
-			PlaceImage.Background = imageBrush;
-			PlaceImageLabel.Visibility = Visibility.Hidden;
-			PlaceAddImageButton.Content = App.Resources["String.SwichImageButton"] as string;
+			ArrangementImage.Background = imageBrush;
+			ArrangementImageLabel.Visibility = Visibility.Hidden;
+			ArrangementAddImageButton.Content = App.Resources["String.SwichImageButton"] as string;
 		}
 
 		private void OnAddPictureClick(object sender, RoutedEventArgs e)
@@ -357,7 +418,6 @@ namespace travel_agent.WindowsAndPages
 			lastRearrengement = rearrangedPlaces;
 			RearrangeListView.ItemsSource = new ObservableCollection<Place>();
 			NextButton.IsEnabled = false;
-			NextButton.ToolTip = (string)Application.Current.FindResource("String.Add2Places");
 			BackButton.IsEnabled = true;
 
 		}
@@ -378,6 +438,10 @@ namespace travel_agent.WindowsAndPages
 			BusToggle.ToolTip = (string)Application.Current.FindResource("String.TransportBus");
 			FootToggle.IsEnabled = true;
 			FootToggle.ToolTip = (string)Application.Current.FindResource("String.TransportSelf");
+			PlaneToggle.IsChecked = selectedItem?.TransportationType == ArrangementStep.TransportType.PLANE;
+			TrainToggle.IsChecked = selectedItem?.TransportationType == ArrangementStep.TransportType.TRAIN;
+			BusToggle.IsChecked = selectedItem?.TransportationType == ArrangementStep.TransportType.BUS;
+			FootToggle.IsChecked = selectedItem?.TransportationType == ArrangementStep.TransportType.FOOT;
 
 		}
 
@@ -389,7 +453,8 @@ namespace travel_agent.WindowsAndPages
 			BusToggle.IsChecked = false;
 			FootToggle.IsChecked = false;
 
-			selectedItem.TransportationType = ArrangementStep.TransportType.PLANE;
+			(TransportListView.ItemsSource as ObservableCollection<ArrangementStep>).First(item => item.StartPlace == selectedItem.StartPlace).TransportationType = ArrangementStep.TransportType.PLANE;
+
 			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
 			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/plane.png", UriKind.Relative));
 
@@ -401,7 +466,8 @@ namespace travel_agent.WindowsAndPages
 			BusToggle.IsChecked = false;
 			FootToggle.IsChecked = false;
 
-			selectedItem.TransportationType = ArrangementStep.TransportType.TRAIN;
+			(TransportListView.ItemsSource as ObservableCollection<ArrangementStep>).First(item => item.StartPlace == selectedItem.StartPlace).TransportationType = ArrangementStep.TransportType.TRAIN; ;
+
 			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
 			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/train.png", UriKind.Relative));
 		}
@@ -412,7 +478,7 @@ namespace travel_agent.WindowsAndPages
 			TrainToggle.IsChecked = false;
 			FootToggle.IsChecked = false;
 
-			selectedItem.TransportationType = ArrangementStep.TransportType.BUS;
+			(TransportListView.ItemsSource as ObservableCollection<ArrangementStep>).First(item => item.StartPlace == selectedItem.StartPlace).TransportationType = ArrangementStep.TransportType.BUS; ;
 			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
 			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/bus.png", UriKind.Relative));
 
@@ -423,8 +489,8 @@ namespace travel_agent.WindowsAndPages
 			PlaneToggle.IsChecked = false;
 			TrainToggle.IsChecked = false;
 			BusToggle.IsChecked = false;
-			selectedItem.TransportationType = ArrangementStep.TransportType.FOOT;
 
+			(TransportListView.ItemsSource as ObservableCollection<ArrangementStep>).First(item => item.StartPlace == selectedItem.StartPlace).TransportationType = ArrangementStep.TransportType.FOOT; 
 			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
 			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/walk.png", UriKind.Relative));
 
@@ -455,6 +521,7 @@ namespace travel_agent.WindowsAndPages
 
 		private void BackButton_Click(object sender, RoutedEventArgs e)
 		{
+
 			BackButton.IsEnabled = false;
 			NextButton.IsEnabled = true;
 			NextButton.ToolTip = null;

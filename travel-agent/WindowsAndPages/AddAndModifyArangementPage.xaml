@@ -49,14 +49,14 @@
 
 			<StackPanel Margin="0 0 0 20">
 				<Border 
-                    x:Name="PlaceImage" 
+                    x:Name="ArrangementImage" 
                     CornerRadius="{StaticResource Dim.RegularCorner}" 
                     BorderBrush="{StaticResource Color.PrimaryDark}" 
                     Background="{StaticResource Color.PrimaryLight}" 
                     BorderThickness="{StaticResource Dim.BorderTickness}" 
                     Height="325">
 					<Label
-                        x:Name="PlaceImageLabel"
+                        x:Name="ArrangementImageLabel"
                         Content="{StaticResource String.PlaceImageBoxLabel}"
                         FontSize="{StaticResource Dim.RegularFontSize}"
                         HorizontalAlignment="Center"
@@ -64,7 +64,7 @@
                         HorizontalContentAlignment="Center"/>
 				</Border>
 				<Label
-                    x:Name="PlaceImageError"
+                    x:Name="ArrangementImageError"
                     Content="{StaticResource String.PlaceImageIsEmptyError}"
                     FontSize="{StaticResource Dim.ErrorFontSize}"
                     Visibility="Collapsed"
@@ -73,7 +73,7 @@
                     Padding="1 4 0 0"/>
 			</StackPanel>
 			<Button 
-                x:Name="PlaceAddImageButton"
+                x:Name="ArrangementAddImageButton"
                 Style="{StaticResource OutlineButtonStyle}"
                 Content="{StaticResource String.AddImageButton}" 
                 Click="OnAddPictureClick"
@@ -90,21 +90,41 @@
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition></RowDefinition>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
 
 					<controls:FancyDatePicker
 						x:Name="StartDatePicker"
 						Grid.Column="0"
 						Padding="0 0 10 0"
 						Placeholder="{StaticResource String.DateStartLabel}">
-
 					</controls:FancyDatePicker>
 					<controls:FancyDatePicker
 						x:Name="EndDatePicker"
 						Grid.Column="1"
 						Padding="10 0 0 0"
 						Placeholder="{StaticResource String.DateEndLabel}">
-
 					</controls:FancyDatePicker>
+					<Label
+						x:Name="StartDateError"
+						Grid.Row="1"
+						Visibility="Collapsed"
+						FontSize="{StaticResource Dim.ErrorFontSize}"
+						Foreground="{StaticResource Color.Error}"
+						FontWeight="Medium"
+						Padding="1 4 0 0"
+						></Label>
+					<Label
+						x:Name="EndDateError"
+						Grid.Row="1"
+						Grid.Column="1"
+						Visibility="Collapsed"
+						FontSize="{StaticResource Dim.ErrorFontSize}"
+						Foreground="{StaticResource Color.Error}"
+						FontWeight="Medium"
+						Padding="1 4 0 0"></Label>
 				</Grid>
 			</StackPanel>
 
@@ -120,6 +140,8 @@
 					</Grid.ColumnDefinitions>
 
 					<controls:FancyCurrencyTextBox
+						
+						x:Name="PriceTextBox"
 						Grid.Column="0">
 						<controls:FancyCurrencyTextBox.ValidationRules>
 							<validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
@@ -145,6 +167,7 @@
 					<Grid.RowDefinitions>
 						<RowDefinition Height="auto"/>
 						<RowDefinition Height="*"/>
+						<RowDefinition Height="auto"/>
 					</Grid.RowDefinitions>
 					<Label
 							Grid.Row="0"
@@ -161,6 +184,18 @@
 						Grid.Column="2"
 						Style="{StaticResource PlaceholderLabelStyle}"
 						Content="{StaticResource String.AddTransportLabel}">
+
+					</Label>
+
+					<Label
+						x:Name="StepsError"
+						Grid.Column="1"
+						Grid.Row="2"
+						Visibility="Collapsed"
+						FontSize="{StaticResource Dim.ErrorFontSize}"
+						Foreground="{StaticResource Color.Error}"
+						FontWeight="Medium"
+						Padding="1 4 0 0">
 						
 					</Label>
 
@@ -338,11 +373,11 @@
 					<DockPanel
 						Grid.Column="1"
 						Grid.Row="1">
-						
+
 						<StackPanel 
 							Height="30"
 							DockPanel.Dock="Top">
-							
+
 						</StackPanel>
 						<StackPanel
 							DockPanel.Dock="Bottom"
@@ -359,7 +394,7 @@
 								ToolTipService.ShowOnDisabled="True"
 								ToolTipService.InitialShowDelay="0"
 								ToolTip="{StaticResource String.Add2Places}"></Button>
-	
+
 						</StackPanel>
 						<ScrollViewer
 							VerticalScrollBarVisibility="Auto">
@@ -394,9 +429,9 @@
 								HorizontalAlignment="Left"
 								Content="{StaticResource String.BackLeftButton}"
 								IsEnabled="False" Click="BackButton_Click">
-								
+
 							</Button>
-							
+
 						</StackPanel>
 						<Grid HorizontalAlignment="Stretch"
 							  DockPanel.Dock="Bottom">
@@ -486,9 +521,9 @@
 														Text="{StaticResource String.ArrowDownLabel}"></TextBlock>
 												<TextBlock
 													   Text="{Binding EndPlace.Name}"></TextBlock>
-												
+
 											</StackPanel>
-											
+
 										</Grid>
 									</DataTemplate>
 								</ListView.ItemTemplate>
@@ -499,19 +534,18 @@
 								</ListView.ItemContainerStyle>
 							</ListView>
 						</ScrollViewer>
-						
-						
+
+
 					</DockPanel>
 				</Grid>
 
-				<Button 
-					x:Name="ArrangementsAddOrModifyButton"
-					Content="{StaticResource String.FinishAddingArrangementButton}" 
-					Padding="0"
-					Click="OnSubmitClick"
-					Margin="0 20 0 0"/>
-
 			</StackPanel>
+			<Button 
+				x:Name="ArrangementsAddOrModifyButton"
+				Content="{StaticResource String.FinishAddingArrangementButton}" 
+				Padding="0"
+				Click="OnSubmitClick"
+				Margin="0 20 0 0"/>
 
 		</StackPanel>
 		
