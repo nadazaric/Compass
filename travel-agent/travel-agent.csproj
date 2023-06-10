@@ -130,11 +130,14 @@
     <Compile Include="WindowsAndPages\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowsAndPages\PassengerHistory.xaml.cs">
-      <DependentUpon>PassengerHistory.xaml</DependentUpon>
+    <Compile Include="WindowsAndPages\MyTripsPage.xaml.cs">
+      <DependentUpon>MyTripsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowsAndPages\PlacesPage.xaml.cs">
       <DependentUpon>PlacesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsAndPages\ViewArrangementPage.xaml.cs">
+      <DependentUpon>ViewArrangementPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowsAndPages\ViewPlacePage.xaml.cs">
       <DependentUpon>ViewPlacePage.xaml</DependentUpon>
@@ -199,11 +202,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="WindowsAndPages\PassengerHistory.xaml">
+    <Page Include="WindowsAndPages\MyTripsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowsAndPages\PlacesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsAndPages\ViewArrangementPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

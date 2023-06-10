@@ -22,11 +22,11 @@
             <Image Source="{StaticResource Image.KLogo}" Margin="15"/>
             <StackPanel x:Name="NavbarButtons" Height="50" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0 5 0">
                 <Button 
-                    Name="HistoryButton"
+                    Name="MyTripsButton"
                     Visibility="Collapsed"
                     Style="{StaticResource NavbarButtonStyle}"
-                    Content="{StaticResource String.HistoryButton}"
-                    Click="OnHistoryNavbarButtonClick"/>
+                    Content="{StaticResource String.MyTripsButton}"
+                    Click="OnMyTripsNavbarButtonClick"/>
                 <Button 
                     Name="PlacesNavbarButton"
                     Style="{StaticResource NavbarButtonStyle}"

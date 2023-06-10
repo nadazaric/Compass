@@ -56,6 +56,10 @@
 	<System:String x:Key="String.ArrowDownLabel">↓</System:String>
 	<System:String x:Key="String.AddTransportLabel">Dodaj tip prevoza</System:String>
 	<System:String x:Key="String.PriceLabel">Cena</System:String>
+	<System:String x:Key="String.PriceLongLabel">Cena: </System:String>
+	<System:String x:Key="String.DateStartLongLabel">Datum polaska: </System:String>
+	<System:String x:Key="String.DateEndLongLabel">Datum povratka:</System:String>
+
 
 	<!-- Tooltip -->
 	<System:String x:Key="String.Add2Places">Potrebno je najmanje 2 mesta za nastavak</System:String>
@@ -84,9 +88,10 @@
     <System:String x:Key="String.BackButton">Nazad</System:String>
 	<System:String x:Key="String.DeleteButton">Obriši</System:String>
 	<System:String x:Key="String.AddNewArrangementButton">Dodaj novi aranžman</System:String>
-	<System:String x:Key="String.HistoryButton">Istorija</System:String>
+	<System:String x:Key="String.MyTripsButton">Moja putovanja</System:String>
 	<System:String x:Key="String.FinishAddingArrangementButton">Završi dodavanje novog aranžman</System:String>
 	<System:String x:Key="String.FinishModifyArrangementButton">Završi izmenu aranžmana</System:String>
+	<System:String x:Key="String.MakeReservationButton">Rezerviši</System:String>
 	
     <!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>

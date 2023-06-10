@@ -22,7 +22,7 @@ namespace travel_agent.WindowsAndPages
             MainFrame = Main;
             if (user.Role == Role.PASSENGER) 
             {
-                HistoryButton.Visibility = Visibility.Visible;
+                MyTripsButton.Visibility = Visibility.Visible;
             } 
         }
 
@@ -34,9 +34,9 @@ namespace travel_agent.WindowsAndPages
                 if (child is Button) (child as Button).Style = App.Resources["NavbarButtonStyle"] as Style;
         }
 
-        private void OnHistoryNavbarButtonClick(object sender, RoutedEventArgs e)
+        private void OnMyTripsNavbarButtonClick(object sender, RoutedEventArgs e)
         {
-            Main.Navigate(new PassengerHistory(this));
+            Main.Navigate(new MyTripsPage(this));
             SetUnfocusStyle();
             SetFocusStyle(sender as Button);
         }
