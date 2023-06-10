@@ -111,6 +111,8 @@ namespace travel_agent.WindowsAndPages
 			RestaurantsList.IsEnabled = false;
 			AttractionsList.IsEnabled = false;
 
+			DeleteArrangementButton.Visibility = Visibility.Visible;
+
 		}
 
 		private void SetUpSteps()
@@ -747,6 +749,11 @@ namespace travel_agent.WindowsAndPages
 				// The ListView has finished generating its items, perform the update
 				SetUpSteps();
 			}
+		}
+
+		private void DeleteArrangementButton_Click(object sender, RoutedEventArgs e)
+		{
+
 		}
 	}
 } 

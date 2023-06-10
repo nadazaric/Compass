@@ -168,8 +168,9 @@
 
             <Button 
                 x:Name="PlacesDeleteButton"
-                Style="{StaticResource OutlineDangerButtonStyle}"
+                Style="{StaticResource OutlineButtonStyle}"
                 Content="{StaticResource String.DeleteButton}" 
+				Background="{StaticResource Color.White}"
                 Padding="0"
                 Margin="0 10 0 0"
                 Visibility="Collapsed"/>
