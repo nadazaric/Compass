@@ -53,6 +53,9 @@
     <Reference Include="Microsoft.Maps.MapControl.WPF, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Maps.MapControl.WPF.1.0.0.3\lib\net40-Client\Microsoft.Maps.MapControl.WPF.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -76,6 +79,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\CurrencyValueConverter.cs" />
+    <Compile Include="Controls\FancyCurrencyTextBox.xaml.cs">
+      <DependentUpon>FancyCurrencyTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FancyDatePicker.xaml.cs">
       <DependentUpon>FancyDatePicker.xaml</DependentUpon>
     </Compile>
@@ -101,6 +108,7 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ValidationRules\EmailPatternRule.cs" />
     <Compile Include="ValidationRules\InputLengthRule.cs" />
+    <Compile Include="ValidationRules\PriceTextBoxRule.cs" />
     <Compile Include="ValidationRules\RequiredTextBoxRule.cs" />
     <Compile Include="ValidationRules\ValidationRule.cs" />
     <Compile Include="WindowsAndPages\AddAndModifyArangementPage.xaml.cs">
@@ -131,6 +139,10 @@
     <Compile Include="WindowsAndPages\ViewPlacePage.xaml.cs">
       <DependentUpon>ViewPlacePage.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\FancyCurrencyTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\FancyDatePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -235,6 +247,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\logo-k.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\plane.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\bus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\train.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\walk.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

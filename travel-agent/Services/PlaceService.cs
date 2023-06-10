@@ -42,9 +42,19 @@ namespace travel_agent.Services
             }
         }
 
+        public Place GetOne(int id)
+        {
+            using (var db = new Context()) { return db.Places.First(p => p.Id == id); }
+        }
+
         public List<Place> GetAll()
         {
             using (var db = new Context()) return db.Places.ToList();
+        }
+
+        public List<Place> GetAllByType(Place.PlaceType placeType)
+        {
+            using (var db = new Context()) return db.Places.Where(p => p.Type == placeType).ToList();
         }
 
     }

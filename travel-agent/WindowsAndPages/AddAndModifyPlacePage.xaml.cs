@@ -8,6 +8,7 @@ using travel_agent.Models;
 using static travel_agent.Models.Place;
 using travel_agent.Services;
 using travel_agent.Controls;
+using System.Windows.Input;
 
 namespace travel_agent.WindowsAndPages
 {
@@ -18,6 +19,8 @@ namespace travel_agent.WindowsAndPages
         private PlaceService PlaceService;
         private BitmapImage Image = null;
         private Place Place;
+
+        private bool isMouseOverMap = false;
         public AddAndModifyPlacePage(MainWindow parent, Place place = null)
         {
             InitializeComponent();
@@ -181,6 +184,7 @@ namespace travel_agent.WindowsAndPages
         }
 
         private void OnBackClick(object sender, RoutedEventArgs e) => Parent.MainFrame.Content = new PlacesPage(Parent);
-        #endregion
-    }
+		#endregion
+
+	}
 }
