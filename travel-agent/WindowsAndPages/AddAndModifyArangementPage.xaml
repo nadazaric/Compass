@@ -566,8 +566,7 @@
 			<Button
 				x:Name="DeleteArrangementButton"
 				Content="{StaticResource String.DeleteButton}"
-				Style="{StaticResource OutlineButtonStyle}"
-				Background="{StaticResource Color.White}"
+				Style="{StaticResource OutlineDeleteButtonStyle}"
 				Padding="0"
 				Margin="0 10 0 0" Click="DeleteArrangementButton_Click"
 				Visibility="Collapsed"

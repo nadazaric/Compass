@@ -231,7 +231,7 @@ namespace travel_agent.WindowsAndPages
 				bool found = false;
 				foreach(var p in Arrangement.Places)
 				{
-					if (p.Id == place.Id) { found = true;  break; }
+					if (p.Id == place.Id && p.Type == Place.PlaceType.ATRACTION) { found = true;  break; }
 				}
 				if (!found) places.Add(place);
 			}
@@ -434,19 +434,7 @@ namespace travel_agent.WindowsAndPages
 					NextButton.ToolTip = null;
 				}
 
-
-				switch (place.Type)
-				{
-					case Place.PlaceType.ATRACTION:
-						(AttractionsList.ItemsSource as ObservableCollection<Place>).Remove(place);
-						break;
-					case Place.PlaceType.RESTAURANT:
-						(RestaurantsList.ItemsSource as ObservableCollection<Place>).Remove(place);
-						break;
-					case Place.PlaceType.ACCOMMODATION:
-						(AccommodationList.ItemsSource as ObservableCollection<Place>).Remove(place);
-						break;
-				}
+				if(place.Type == Place.PlaceType.ATRACTION) (AttractionsList.ItemsSource as ObservableCollection<Place>).Remove(place);
 				
 			}
 		}
@@ -468,13 +456,11 @@ namespace travel_agent.WindowsAndPages
 						AttractionsList.Visibility = Visibility.Visible;
 						break;
 					case Place.PlaceType.RESTAURANT:
-						(RestaurantsList.ItemsSource as ObservableCollection<Place>).Add(place);
 						RestaurantsTabItem.IsSelected = true;
 						NoContentRestaurants.Visibility=Visibility.Collapsed;
 						RestaurantsList.Visibility = Visibility.Visible;
 						break;
 					case Place.PlaceType.ACCOMMODATION:
-						(AccommodationList.ItemsSource as ObservableCollection<Place>).Add(place);
 						AccommmodationTabItem.IsSelected = true;
 						NoContentAccommodation.Visibility=Visibility.Collapsed;
 						AccommodationList.Visibility = Visibility.Visible;
@@ -506,11 +492,9 @@ namespace travel_agent.WindowsAndPages
 						AttractionsTabItem.IsSelected = true;
 						break;
 					case Place.PlaceType.RESTAURANT:
-						(RestaurantsList.ItemsSource as ObservableCollection<Place>).Add(place);
 						RestaurantsTabItem.IsSelected = true;
 						break;
 					case Place.PlaceType.ACCOMMODATION:
-						(AccommodationList.ItemsSource as ObservableCollection<Place>).Add(place);
 						AccommmodationTabItem.IsSelected = true;
 						break;
 				}

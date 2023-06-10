@@ -75,10 +75,10 @@
         </Setter>
     </Style>
 
-    <Style x:Key="OutlineDangerButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="#0ae83c3c"/>
-        <Setter Property="BorderBrush" Value="{StaticResource Color.Error}"/>
-        <Setter Property="Foreground" Value="{StaticResource Color.Error}"/>
+    <Style x:Key="OutlineDeleteButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource Color.White}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource Color.PrimaryDark}"/>
+		<Setter Property="Foreground" Value="{StaticResource Color.PrimaryDark}"/>
         <Setter Property="FontSize" Value="{StaticResource Dim.RegularFontSize}"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="Height" Value="{StaticResource Dim.InputAndButtonHeight}"/>
@@ -97,12 +97,11 @@
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#aae83c3c"/>
-                            <Setter Property="BorderBrush" Value="#aae83c3c"/>
-                            <Setter Property="Foreground" Value="White"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Background" Value="{StaticResource Color.PrimaryLight}"/>
+							<Setter Property="BorderBrush" Value="{StaticResource Color.ButtonHover}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
