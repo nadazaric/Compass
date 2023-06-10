@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace travel_agent.Controls
@@ -27,6 +30,28 @@ namespace travel_agent.Controls
             }
             catch (FileNotFoundException) { return string.Empty; }
         }
+
+        public async Task<double> CalculateDistanceAsync(string origin, string destination)
+        {
+			using (var httpClient = new HttpClient())
+			{
+				string encodedOrigin = Uri.EscapeDataString(origin);
+				string encodedDestination = Uri.EscapeDataString(destination);
+				string requestUrl = $"https://dev.virtualearth.net/REST/v1/Routes?wayPoint.1={encodedOrigin}&wayPoint.2={encodedDestination}&routeAttributes=routeSummariesOnly&key=" + (KEY == null ? GetKey() : KEY);
+
+				HttpResponseMessage response = await httpClient.GetAsync(requestUrl);
+          
+				response.EnsureSuccessStatusCode();
+
+				var json = await response.Content.ReadAsStringAsync();
+				var result = Newtonsoft.Json.JsonConvert.DeserializeObject<BingMapsApiResponse>(json);
+				// Extract the distance value from the response
+				double distance = result?.ResourceSets?.FirstOrDefault()?.Resources?.FirstOrDefault()?.TravelDistance ?? 0;
+                Console.WriteLine(distance);
+				return distance;
+			}
+
+		}
 
         public GeocodeResponse Geocode(string addressQuery)
         {
@@ -107,4 +132,19 @@ namespace travel_agent.Controls
         public double Longitude { get; set; }
         public double Latitude { get; set; }
     }
+
+	public class BingMapsApiResponse
+	{
+		public BingMapsResourceSet[] ResourceSets { get; set; }
+	}
+
+	public class BingMapsResourceSet
+	{
+		public BingMapsResource[] Resources { get; set; }
+	}
+
+	public class BingMapsResource
+	{
+		public double TravelDistance { get; set; }
+	}
 }

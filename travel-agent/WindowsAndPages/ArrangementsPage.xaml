@@ -81,20 +81,69 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"/>
 					<DockPanel Grid.Row="1" Background="{StaticResource Color.PrimaryLight}" LastChildFill="True">
-						<TextBlock
-                            TextWrapping="Wrap"
-                            Text="{Binding Name}"
-                            VerticalAlignment="Center"
-                            FontSize="20"
-                            Padding="10 0"
-                            FontWeight="Medium"/>
-						<TextBlock
-							TextWrapping="NoWrap"
-							Text="{Binding Price}"
-							VerticalAlignment="Bottom"
-							FontSize="10"
-							Padding="10 0"
-							FontWeight="Light"/>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"></RowDefinition>
+								<RowDefinition Height="Auto"></RowDefinition>
+								<RowDefinition Height="*"></RowDefinition>
+							</Grid.RowDefinitions>
+							<TextBlock
+								TextWrapping="Wrap"
+								Text="{Binding Name}"
+								FontSize="20"
+								Padding="10 0"
+								FontWeight="Medium"
+								/>
+							<StackPanel
+								Orientation="Horizontal"
+								HorizontalAlignment="Left"
+								Grid.Column="0"
+								Grid.Row="1"
+								Margin="10 0"
+								>
+								<TextBlock
+									Text="{Binding Start, StringFormat='dd.MM.yyyy'}"
+									FontSize="15"
+									Padding="0 0 5 0"
+									FontWeight="Regular"/>
+								<TextBlock
+									Text="-"
+									FontSize="15"
+									Padding="5 0"
+									FontWeight="Regular"/>
+								<TextBlock
+									Text="{Binding End , StringFormat='dd.MM.yyyy'}"
+									FontSize="15"
+									Padding="5 0"
+									FontWeight="Regular"/>
+
+							</StackPanel>
+							<StackPanel
+								Orientation="Horizontal"
+								Grid.Column="1"
+								Grid.Row="2"
+								VerticalAlignment="Bottom"
+								HorizontalAlignment="Right"
+								Margin="10">
+
+								<TextBlock
+								TextWrapping="NoWrap"
+								Text="{Binding Price}"
+								FontSize="15"
+								Padding="5 0"
+								FontWeight="Regular"/>
+								<TextBlock
+									Text="RSD"
+									FontSize="15"
+									Padding="5 0"
+									FontWeight="Regular"/>
+
+							</StackPanel>
+						</Grid>
 					</DockPanel>
 				</Grid>
 			</Border>
