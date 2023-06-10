@@ -103,6 +103,7 @@ namespace travel_agent.WindowsAndPages
 			StartDatePicker.SelectedDate = Arrangement.Start;
 			EndDatePicker.SelectedDate = Arrangement.End;
 			PriceTextBox.InputPrice = Arrangement.Price;
+			ArrangementDescriptionInput.InputText = Arrangement.Description;
 
 			lastRearrengement = new ObservableCollection<Place>(Arrangement.Places);
 			ObservableCollection<ArrangementStep> steps = new ObservableCollection<ArrangementStep>(Arrangement.Steps);
@@ -152,6 +153,7 @@ namespace travel_agent.WindowsAndPages
 			if (!IsDateInputValid()) isValid = false;
 			if (!PriceTextBox.IsValid()) isValid = false;
 			if (!IsStepsValid()) isValid = false;
+			if(!ArrangementDescriptionInput.IsValid()) isValid = false;
 			return isValid;
 		}
 

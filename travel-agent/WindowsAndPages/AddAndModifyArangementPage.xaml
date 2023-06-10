@@ -80,6 +80,17 @@
                 Padding="0"
                 Margin="0 0 0 15"/>
 
+			<controls:FancyTextBox
+                x:Name="ArrangementDescriptionInput"
+                Placeholder="{StaticResource String.DescriptionLabel}"
+                Multiline="True"
+                MaxWidth="800"
+                Margin="0 0 0 15">
+				<controls:FancyTextBox.ValidationRules>
+					<validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+				</controls:FancyTextBox.ValidationRules>
+			</controls:FancyTextBox>
+
 			<StackPanel
 				Margin="0 0 0 15">
 				<Label 

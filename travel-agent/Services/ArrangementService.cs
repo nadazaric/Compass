@@ -69,6 +69,7 @@ namespace travel_agent.Services
 				arrangementUpdate.Name = arrangement.Name;
 				arrangementUpdate.Price = arrangement.Price;
 				arrangementUpdate.TotalDistance = arrangement.TotalDistance;
+				arrangementUpdate.Description = arrangement.Description;
 
 				arrangementUpdate.Steps.Clear();
 
