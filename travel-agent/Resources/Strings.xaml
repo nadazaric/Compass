@@ -56,7 +56,7 @@
 	<System:String x:Key="String.ArrowDownLabel">↓</System:String>
 	<System:String x:Key="String.AddTransportLabel">Dodaj tip prevoza</System:String>
 	<System:String x:Key="String.PriceLabel">Cena</System:String>
-	
+
 	<!-- Tooltip -->
 	<System:String x:Key="String.Add2Places">Potrebno je najmanje 2 mesta za nastavak</System:String>
 	<System:String x:Key="String.ChooseStep">Izaberite red iz liste za dodavanje prevoza</System:String>

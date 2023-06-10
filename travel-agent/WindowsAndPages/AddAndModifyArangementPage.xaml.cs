@@ -107,6 +107,10 @@ namespace travel_agent.WindowsAndPages
 			TransportListView.ItemsSource = steps;
 			RearrangeListView.ItemsSource = new ObservableCollection<Place>();
 
+			AccommodationList.IsEnabled = false;
+			RestaurantsList.IsEnabled = false;
+			AttractionsList.IsEnabled = false;
+
 		}
 
 		private void SetUpSteps()
@@ -551,6 +555,9 @@ namespace travel_agent.WindowsAndPages
 
 			}
 
+			AttractionsList.IsEnabled = false;
+			RestaurantsList.IsEnabled = false;
+			AccommodationList.IsEnabled = false;
 			TransportListView.ItemsSource = steps;
 			lastRearrengement = rearrangedPlaces;
 			RearrangeListView.ItemsSource = new ObservableCollection<Place>();
@@ -683,6 +690,9 @@ namespace travel_agent.WindowsAndPages
 
 			TransportListView.ItemsSource = new ObservableCollection<Place>();
 			RearrangeListView.ItemsSource =lastRearrengement;
+			AccommodationList.IsEnabled = true;
+			AttractionsList.IsEnabled = true;
+			RestaurantsList.IsEnabled = true;
 		}
 
 		private void OnSubmitClick(object sender, RoutedEventArgs e)
