@@ -518,11 +518,37 @@ namespace travel_agent.WindowsAndPages
 
 			for(int i = 0; i < rearrangedPlaces.Count-1; i++)
 			{
-				ArrangementStep step = new ArrangementStep();
-				step.StartPlace = PlaceService.GetOne(rearrangedPlaces[i].Id);
-				step.EndPlace = PlaceService.GetOne(rearrangedPlaces[i+1].Id);
+				ArrangementStep step;
+				if(Arrangement != null)
+				{
+					step = ArrangementService.GetByPlacesAndArrangement(rearrangedPlaces[i].Id, rearrangedPlaces[i + 1].Id, Arrangement.Id);
+					if(step != null)
+					{
+						steps.Add(step);
+					}
+					else
+					{
+						step = new ArrangementStep();
+						step.StartPlace = PlaceService.GetOne(rearrangedPlaces[i].Id);
+						step.StartPlaceId = rearrangedPlaces[i].Id;
+						step.EndPlace = PlaceService.GetOne(rearrangedPlaces[i + 1].Id);
+						step.EndPlaceId = rearrangedPlaces[i + 1].Id;
+						steps.Add(step);
 
-				steps.Add(step);
+					}
+
+				}
+				else
+				{
+					step = new ArrangementStep();
+					step.StartPlace = PlaceService.GetOne(rearrangedPlaces[i].Id);
+					step.StartPlaceId = rearrangedPlaces[i].Id;
+					step.EndPlaceId = rearrangedPlaces[i + 1].Id;
+					step.EndPlace = PlaceService.GetOne(rearrangedPlaces[i + 1].Id);
+					steps.Add(step);
+				}
+				
+
 			}
 
 			TransportListView.ItemsSource = steps;

@@ -172,9 +172,6 @@ namespace travel_agent.WindowsAndPages
             TransportSelfCB.IsChecked = false;
             TransportTrainCB.IsChecked = false;
 
-            Console.WriteLine("tu sam");
-            Console.WriteLine(StartDatePicker.SelectedDate);
-
             StartDatePicker.SelectedDate = null;
             EndDatePicker.SelectedDate = null;
 

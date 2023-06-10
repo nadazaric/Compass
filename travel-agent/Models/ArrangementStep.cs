@@ -27,10 +27,6 @@ namespace travel_agent.Models
             BUS,
             FOOT
         }
-		public override string ToString()
-		{
-            return "id: " + Id + "| Start Place: "  + StartPlace.Name + "| End Place: " + EndPlace.Name + " Travel type: " + TransportationType.ToString();
-		}
 	}
 
 
