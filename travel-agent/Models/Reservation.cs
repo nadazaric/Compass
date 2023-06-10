@@ -10,7 +10,11 @@ namespace travel_agent.Models
     public class Reservation
     {
         [Key] public int Id { get; set; }
+
+        public int UserId { get; set; }
         public User User { get; set; }
+
+        public int ArrangementId { get; set; }
         public Arrangement Arrangement { get; set; }
 
         public ReservationStatus Status { get; set; } 
@@ -26,7 +30,8 @@ namespace travel_agent.Models
         {
             RESERVED,
             PAID,
-            CANCELED
+            CANCELED,
+            DELETED
         }
     }
 }

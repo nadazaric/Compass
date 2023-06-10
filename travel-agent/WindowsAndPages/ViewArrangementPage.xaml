@@ -158,9 +158,27 @@
 			<Button
 				x:Name="MakeReservationButton"
 				Margin="10"
-				Content="{StaticResource String.MakeReservationButton}">
+				Content="{StaticResource String.MakeReservationButton}" Click="MakeReservationButton_Click">
 				
 			</Button>
+			<Button
+				x:Name="PayTripButton"
+				Margin="10"
+				Content="{StaticResource String.PayReservationButton}"
+				Visibility="Collapsed"
+				Click="PayTripButton_Click">
+
+			</Button>
+			<Button
+				x:Name="CancelReservationButton"
+				Margin="10"
+				Content="{StaticResource String.DeleteReservationButton}"
+				Style="{StaticResource OutlineDeleteButtonStyle}"
+				Visibility="Collapsed"
+				Click="CancelReservationButton_Click">
+				
+			</Button>
+			
 		</StackPanel>
 	</ScrollViewer>
 </Page>

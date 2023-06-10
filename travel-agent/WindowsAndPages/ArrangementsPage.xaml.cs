@@ -43,7 +43,12 @@ namespace travel_agent.WindowsAndPages
         private void SetUpArrangements()
 		{
             Arrangements = new ObservableCollection<Arrangement>();
-            ArrangementsList = arrangementService.GetAll();
+            if (parent.User.Role == Role.AGENT)
+            {
+                ArrangementsList = arrangementService.GetAll();
+            }
+            else ArrangementsList = arrangementService.GetFuture();
+
             foreach (Arrangement item in ArrangementsList) Arrangements.Add(item);
             Arrangements = new ObservableCollection<Arrangement>(Arrangements.Reverse());
 			if (parent.User.Role == Role.AGENT) Arrangements.Insert(0,null);

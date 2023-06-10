@@ -34,5 +34,20 @@ namespace travel_agent.WindowsAndPages
 		}
 
 		private void OnBackClick(object sender, RoutedEventArgs e) => parent.MainFrame.Content = new ArrangementsPage(parent);
+
+		private void MakeReservationButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void CancelReservationButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void PayTripButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
 	}
 }

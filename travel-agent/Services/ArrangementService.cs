@@ -139,9 +139,14 @@ namespace travel_agent.Services
 			}
 		}
 
+		public List<Arrangement> GetFuture()
+		{
+			using(var db = new Context()) { return db.Arrangements.Include(a => a.Places).Include(a => a.Steps).Where(a => DateTime.Compare(a.Start, DateTime.Now)>0).ToList(); }
+		}
 		public List<Arrangement> GetAll()
 		{
 			using (var db = new Context()) return db.Arrangements.Include(a => a.Places).Include(a => a.Steps).ToList();
 		}
+
 	}
 }

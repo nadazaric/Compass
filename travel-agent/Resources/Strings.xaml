@@ -92,6 +92,8 @@
 	<System:String x:Key="String.FinishAddingArrangementButton">Završi dodavanje novog aranžman</System:String>
 	<System:String x:Key="String.FinishModifyArrangementButton">Završi izmenu aranžmana</System:String>
 	<System:String x:Key="String.MakeReservationButton">Rezerviši</System:String>
+	<System:String x:Key="String.DeleteReservationButton">Otkaži rezervaciju</System:String>
+	<System:String x:Key="String.PayReservationButton">Plati putovanje</System:String>
 	
     <!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>
