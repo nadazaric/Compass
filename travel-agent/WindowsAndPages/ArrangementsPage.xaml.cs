@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,9 +42,10 @@ namespace travel_agent.WindowsAndPages
         private void SetUpArrangements()
 		{
             Arrangements = new ObservableCollection<Arrangement>();
-            if (parent.User.Role == Role.AGENT) Arrangements.Add(null);
             ArrangementsList = arrangementService.GetAll();
             foreach (Arrangement item in ArrangementsList) Arrangements.Add(item);
+            Arrangements = new ObservableCollection<Arrangement>(Arrangements.Reverse());
+			if (parent.User.Role == Role.AGENT) Arrangements.Insert(0,null);
 		}
 
 		private void Search()
