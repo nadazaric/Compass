@@ -200,7 +200,7 @@
 								Margin="20 10 20 5">
 								<Label
 									Style="{StaticResource PlaceholderLabelStyle}"
-									Content="{StaticResource String.DateRangeLabel}"/>
+									Content="{StaticResource String.SearchDateRangeLabel}"/>
 								<Grid>
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="*"/>
@@ -243,7 +243,7 @@
 									<CheckBox
 										x:Name="FilterRestaurantCB"
 										Style="{StaticResource SmallCheckBoxStyle}"
-										Content="{StaticResource String.RestaurantFilterLabel}"
+										Content="{StaticResource String.RestaurantLabel}"
 										Click="OnCBClick"
 										HorizontalAlignment="Left">
 										
@@ -252,7 +252,7 @@
 									<CheckBox
 										x:Name="FilterAccomodationCB"
 										Style="{StaticResource SmallCheckBoxStyle}"
-										Content="{StaticResource String.AccomodationFilterLabel}"
+										Content="{StaticResource String.AccommodatonLabel}"
 										Click="OnCBClick"
 										HorizontalAlignment="Left"
 										Grid.Column="1"/>

@@ -18,7 +18,7 @@
 
 		<Border 
             x:Name="border"
-            CornerRadius="5"
+            CornerRadius="{StaticResource Dim.RegularCorner}"
 			Background="{StaticResource Color.PrimaryLight}"
 			BorderBrush="{StaticResource Color.PrimaryDark}"
 			BorderThickness="1">
@@ -42,7 +42,7 @@
 												 Text="{Binding Path=SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, StringFormat='dd/MM/yyyy'}"
 												 FontSize="{StaticResource Dim.RegularFontSize}"
 												 FontWeight="Regular"
-												 Padding="8 5"
+												 Padding="20 5"
 												 IsReadOnly="True"
 												 BorderThickness="0"
 												 Background="Transparent"

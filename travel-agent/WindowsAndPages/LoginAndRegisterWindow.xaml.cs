@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using travel_agent.Controls;
@@ -21,22 +22,24 @@ namespace travel_agent.Windows
             UserService.InitialSetup();
         }
 
-        private void OnSingInClick(object sender, RoutedEventArgs e)
+        private void Login()
         {
-            if (!IsLoginInputsValid()) return;
-            User loggedUser = UserService.TryLogin(LoginEmailInput.InputText, LoginPasswordInput.Password);
-            if(loggedUser == null)
-            {
-                LoginEmailInput.RestartState();
-                LoginPasswordInput.RestartState();
-                LoginEmailInput.SetManuallyError(App.Resources["String.EmailOrPassworNotCorrectError"] as string);
-                LoginPasswordInput.SetManuallyError(App.Resources["String.EmailOrPassworNotCorrectError"] as string);
-                return;
-            }
-            var mainWindow = new MainWindow(loggedUser);
-            mainWindow.Show();
-            Close();
-        }
+			if (!IsLoginInputsValid()) return;
+			User loggedUser = UserService.TryLogin(LoginEmailInput.InputText, LoginPasswordInput.Password);
+			if (loggedUser == null)
+			{
+				LoginEmailInput.RestartState();
+				LoginPasswordInput.RestartState();
+				LoginEmailInput.SetManuallyError(App.Resources["String.EmailOrPassworNotCorrectError"] as string);
+				LoginPasswordInput.SetManuallyError(App.Resources["String.EmailOrPassworNotCorrectError"] as string);
+				return;
+			}
+			var mainWindow = new MainWindow(loggedUser);
+			mainWindow.Show();
+			Close();
+		}
+
+        private void OnSingInClick(object sender, RoutedEventArgs e) => Login();
 
         private void OnSwichToRegisterViewClick(object sender, MouseButtonEventArgs e)
         {
@@ -125,5 +128,7 @@ namespace travel_agent.Windows
             RegisterEmailInput.UnsetManuallyError();
             return false;
         }
+
+        private void LoginOnEnter(object sender, EventArgs e) => Login();
     }
 }

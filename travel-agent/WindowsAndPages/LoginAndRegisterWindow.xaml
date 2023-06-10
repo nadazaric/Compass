@@ -31,7 +31,8 @@
                 <controls:FancyTextBox
                     x:Name="LoginEmailInput"
                     Placeholder="{StaticResource String.EmailLabel}"
-                    Margin="0 0 0 5">
+                    Margin="0 0 0 5"
+					OnEnterPressed="LoginOnEnter">
                     <controls:FancyTextBox.ValidationRules>
                         <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
                     </controls:FancyTextBox.ValidationRules>
@@ -40,7 +41,8 @@
                 <controls:FancyPasswordBox
                     x:Name="LoginPasswordInput"
                     Placeholder="{StaticResource String.PasswordLabel}"
-                    Margin="0 0 0 5">
+                    Margin="0 0 0 5"
+					OnEnterPressed="LoginOnEnter">
                     <controls:FancyPasswordBox.ValidationRules>
                         <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
                     </controls:FancyPasswordBox.ValidationRules>

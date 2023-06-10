@@ -35,21 +35,31 @@
 	<System:String x:Key="String.TransportPlane">Avion</System:String>
 	<System:String x:Key="String.TransportTrain">Voz</System:String>
 	<System:String x:Key="String.TransportBus">Autobus</System:String>
-	<System:String x:Key="String.TransportSelf">Sopstveni prevoz</System:String>
-	<System:String x:Key="String.DateRangeLabel">Pretraži po rasponu datuma</System:String>
+	<System:String x:Key="String.TransportSelf">Peške</System:String>
+	<System:String x:Key="String.SearchDateRangeLabel">Pretraži po rasponu datuma</System:String>
 	<System:String x:Key="String.DateStartLabel">Od</System:String>
 	<System:String x:Key="String.DateEndLabel">Do</System:String>
 	<System:String x:Key="String.SearchByPlaceLabel">Pretraži po mestu</System:String>
 	<System:String x:Key="String.FilterLabel">Aranžman uključuje</System:String>
-	<System:String x:Key="String.RestaurantFilterLabel">Restoran</System:String>
-	<System:String x:Key="String.AccomodationFilterLabel">Prenoćište</System:String>
 	<System:String x:Key="String.SearchByPriceLabel">Pretraži po budžetu</System:String>
-	<System:String x:Key="String.PriceLabel0">RSD 0 - RSD 5.000</System:String>
-	<System:String x:Key="String.PriceLabel5">RSD 5.000 - RSD 10.000</System:String>
-	<System:String x:Key="String.PriceLabel10">RSD 10.000 - RSD 15.000</System:String>
-	<System:String x:Key="String.PriceLabel15">RSD 15.000 - RSD 20.000</System:String>
-	<System:String x:Key="String.PriceLabel20">+ RSD 20.000</System:String>
+	<System:String x:Key="String.PriceLabel0">0 RSD - 5.000 RSD</System:String>
+	<System:String x:Key="String.PriceLabel5">5.000 RSD - 10.000 RSD</System:String>
+	<System:String x:Key="String.PriceLabel10">10.000 RSD - 15.000 RSD</System:String>
+	<System:String x:Key="String.PriceLabel15">15.000 RSD - 20.000 RSD</System:String>
+	<System:String x:Key="String.PriceLabel20">+20.000 RSD</System:String>
+	<System:String x:Key="String.ArrangementNameLabel">Ime aranžmana</System:String>
+	<System:String x:Key="String.DateRangeLabel">Datum početka i kraja</System:String>
+	<System:String x:Key="String.Places">Dostupna mesta</System:String>
+	<System:String x:Key="String.AttractionsLabel">Atrakcije</System:String>
+	<System:String x:Key="String.RestaurantsLabel">Restorani</System:String>
+	<System:String x:Key="String.RearrangePlacesLabel">Prevuci i definiši raspored mesta</System:String>
+	<System:String x:Key="String.ArrowDownLabel">↓</System:String>
+	<System:String x:Key="String.AddTransportLabel">Dodaj tip prevoza</System:String>
+	<System:String x:Key="String.PriceLabel">Cena</System:String>
 
+	<!-- Tooltip -->
+	<System:String x:Key="String.Add2Places">Potrebno je najmanje 2 mesta za nastavak</System:String>
+	<System:String x:Key="String.ChooseStep">Izaberite red iz liste za dodavanje prevoza</System:String>
 
 	<!-- Buttons -->
     <System:String x:Key="String.LoginButton">Prijavi me!</System:String>
@@ -65,6 +75,8 @@
     <System:String x:Key="String.FinishModifyPlaceButton">Završi izmenu mesta</System:String>
     <System:String x:Key="String.DownButton">▼</System:String>
     <System:String x:Key="String.UpButton">▲</System:String>
+	<System:String x:Key="String.NextRightButton">Dalje ▶</System:String>
+	<System:String x:Key="String.BackLeftButton">◀ Nazad</System:String>
     <System:String x:Key="String.AddNewPlaceButton">Dodaj novo mesto</System:String>
     <System:String x:Key="String.SearchButton">Pretraži</System:String>
     <System:String x:Key="String.ReturnToDefaultStateButton">Vrati na početno stanje</System:String>
@@ -72,10 +84,12 @@
     <System:String x:Key="String.BackButton">Nazad</System:String>
     <System:String x:Key="String.DeleteButton">Obriši</System:String>
 	<System:String x:Key="String.AddNewArrangementButton">Dodaj novi aranžman</System:String>
+	<System:String x:Key="String.FinishAddingArrangementButton">Završi dodavanje novog aranžman</System:String>
+	<System:String x:Key="String.FinishModifyArrangementButton">Završi izmenu aranžmana</System:String>
 	
     <!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>
-    <System:String x:Key="String.WrongEmailPatternError">Uneli ste pogšnu formu e-mail adrese!</System:String>
+    <System:String x:Key="String.WrongEmailPatternError">Uneli ste pogrešnu formu e-mail adrese!</System:String>
     <System:String x:Key="String.PasswordMustContainNCaractersError">Lozinka mora sadržati minimalno 6 karaktera!</System:String>
     <System:String x:Key="String.PlaceNameCanContainOnlyNCaractersError">Lozinka može sadržati maksimalno 90 karaktera!</System:String>
     <System:String x:Key="String.ConfirmePasswordNotMatchError">Morate uneti istu lozinku kao u polju iznad!</System:String>
@@ -84,7 +98,10 @@
     <System:String x:Key="String.PlaceImageIsEmptyError">Slika je obavezna</System:String>
     <System:String x:Key="String.LocationNotInSerbiaError">Morate postaviti pin na teritoriju Srbije.</System:String>
     <System:String x:Key="String.LocationNotFoundError">Adresa nije pronadjena ili nije na teritoriji Srbije.</System:String>
-    <System:String x:Key="String.NotClickedOnMapFindButtonError">Niste selektovali validnu lokaciju na mapi. Molimo vas kliknite na dugme "Pronađi".</System:String>
+	<System:String x:Key="String.NotClickedOnMapFindButtonError">Niste selektovali validnu lokaciju na mapi. Molimo vas kliknite na dugme "Pronađi".</System:String>
+	<System:String x:Key="String.DatePassedError">Ovaj datum je već prošao. Izaberite budući datum!</System:String>
+	<System:String x:Key="String.StepsEmptyError">Nije dodato nijedno mesto u aranžman</System:String>
+	<System:String x:Key="String.TransportationNotSelectedError">Nije svim koracima aranžmana dodat prevoz!</System:String>
 
     <!-- Message Box Messages -->
     <System:String x:Key="String.RegisterSuccessMessage">Uspješno ste se registrovali! Sada možete da se prijavite sa novokreiranim nalogom.</System:String>

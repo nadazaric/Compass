@@ -3,39 +3,46 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- button styles -->
-    <Style TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource Color.PrimaryDark}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource Color.PrimaryDark}"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="FontSize" Value="{StaticResource Dim.RegularFontSize}"/>
-        <Setter Property="FontWeight" Value="Medium"/>
-        <Setter Property="Height" Value="{StaticResource Dim.InputAndButtonHeight}"/>
-        <Setter Property="Margin" Value="0 10"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border 
+	<Style TargetType="Button">
+		<Setter Property="Background" Value="{StaticResource Color.PrimaryDark}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource Color.PrimaryDark}"/>
+		<Setter Property="Foreground" Value="White"/>
+		<Setter Property="FontSize" Value="{StaticResource Dim.RegularFontSize}"/>
+		<Setter Property="FontWeight" Value="Medium"/>
+		<Setter Property="Height" Value="{StaticResource Dim.InputAndButtonHeight}"/>
+		<Setter Property="Margin" Value="0 10"/>
+		<Setter Property="Opacity" Value="1"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					<Border 
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{StaticResource Dim.BorderTickness}"
                         CornerRadius="{StaticResource Dim.RegularCorner}">
-                        <ContentPresenter 
+						<ContentPresenter 
                             Margin="{TemplateBinding Padding}"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource Color.ButtonHover}"/>
-                            <Setter Property="BorderBrush" Value="{StaticResource Color.ButtonHover}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Opacity" Value="0.7"></Setter>
+							<Setter Property="Background" Value="{StaticResource Color.ButtonHover}"/>
+							<Setter Property="BorderBrush" Value="{StaticResource Color.ButtonHover}"/>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Background" Value="{StaticResource Color.Disabled}"/>
+							<Setter Property="BorderBrush" Value="{StaticResource Color.DisabledBorder}"/>
+							<Setter Property="Foreground" Value="{StaticResource Color.DisabledBorder}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
-    <Style x:Key="OutlineButtonStyle" TargetType="Button">
+	<Style x:Key="OutlineButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="{StaticResource Color.PrimaryLight}"/>
         <Setter Property="BorderBrush" Value="{StaticResource Color.PrimaryDark}"/>
         <Setter Property="Foreground" Value="{StaticResource Color.PrimaryDark}"/>
@@ -188,8 +195,53 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    <!-- radio buttons styles -->
+
+	<!-- toggle button -->
+	
+	<Style x:Key="SmallButtonStyle" TargetType="ToggleButton">
+		<Setter Property="Background" Value="{StaticResource Color.White}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource Color.PrimaryDark}"/>
+		<Setter Property="Height" Value="{StaticResource Dim.InputAndButtonHeight}"/>
+		<Setter Property="Padding" Value="3"></Setter>
+		<Setter Property="Opacity" Value="1"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type ToggleButton}">
+					<Border 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{StaticResource Dim.BorderTickness}"
+                        CornerRadius="{StaticResource Dim.RegularCorner}">
+						<ContentPresenter 
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsChecked" Value="True">
+							<Setter Property="Background" Value="{StaticResource Color.PrimaryDark}" />
+							<Setter Property="BorderBrush" Value="{StaticResource Color.PrimaryDark}" />
+						</Trigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsMouseOver" Value="True" />
+								<Condition Property="IsChecked" Value="False" />
+							</MultiTrigger.Conditions>
+							<Setter Property="Background" Value="{StaticResource Color.DescreteHover}"/>
+							<Setter Property="BorderBrush" Value="{StaticResource Color.ButtonHover}"/>
+						</MultiTrigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Opacity" Value="0.7"></Setter>
+							<Setter Property="Background" Value="{StaticResource Color.Disabled}"/>
+							<Setter Property="BorderBrush" Value="{StaticResource Color.DisabledBorder}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!-- radio buttons styles -->
     <Style x:Key="StandardRadioButtonStyle" TargetType="RadioButton">
         <Setter Property="BorderBrush" Value="{StaticResource Color.ButtonHover}" />
         <Setter Property="BorderThickness" Value="1.5" />
@@ -253,47 +305,37 @@
 		<Setter Property="FontWeight" Value="Medium"/>
 		<Setter Property="Padding" Value="1 0 0 6"/>
 	</Style>
-	
-	<!-- date picker text box -->
-	<!--<Style x:Key="DatePickerStyle" TargetType="DatePicker">
+
+	<!-- tab item style -->
+	<Style TargetType="TabItem">
+		<Setter Property="FontSize" Value="14" />
 		<Setter Property="Template">
 			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type DatePicker}">
-					<Grid x:Name="PART_Root">
-						<Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-						<DatePickerTextBox x:Name="PART_TextBox">
-							
-						</DatePickerTextBox>
-						<Border 
-                            x:Name="border"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="5">
-							<DatePickerTextBox x:Name="PART_TextBox"></DatePickerTextBox>
+				<ControlTemplate TargetType="TabItem">
+					<Grid>
+						<Border x:Name="Border" BorderBrush="{StaticResource Color.PrimaryDark}" BorderThickness="1,1,1,0" CornerRadius="2,2,0,0" Background="{StaticResource Color.White}" Padding="2">
+							<ContentPresenter x:Name="ContentPresenter" ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,2" TextElement.Foreground="{StaticResource Color.PrimaryDark}"/>
 						</Border>
-
 					</Grid>
-
 					<ControlTemplate.Triggers>
-						<Trigger Property="IsMouseOver" Value="True">
-							<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+						<Trigger Property="IsSelected" Value="True">
+							<Setter TargetName="Border" Property="Background" Value="{StaticResource Color.PrimaryDark}" />
+							<Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Color.PrimaryDark}" />
+							<Setter TargetName="ContentPresenter" Property="TextElement.Foreground" Value="White" />
 						</Trigger>
-						<Trigger Property="IsFocused" Value="True">
-							<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-						</Trigger>
-						<DataTrigger Binding="{Binding Multiline}" Value="True">
-							<Setter Property="TextWrapping" Value="Wrap" />
-						</DataTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsMouseOver" Value="True" />
+								<Condition Property="IsSelected" Value="False" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="Border" Property="Background" Value="{StaticResource Color.DescreteHover}" />
+							<Setter TargetName="ContentPresenter" Property="TextElement.Foreground" Value="Black" />
+
+						</MultiTrigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
-				
 			</Setter.Value>
 		</Setter>
-	</Style>-->
+	</Style>
 
 </ResourceDictionary>
