@@ -21,12 +21,7 @@
             </Grid.Effect>
             <Image Source="{StaticResource Image.KLogo}" Margin="15"/>
             <StackPanel x:Name="NavbarButtons" Height="50" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0 5 0">
-                <Button 
-                    Name="MyTripsButton"
-                    Visibility="Collapsed"
-                    Style="{StaticResource NavbarButtonStyle}"
-                    Content="{StaticResource String.MyTripsButton}"
-                    Click="OnMyTripsNavbarButtonClick"/>
+                
                 <Button 
                     Name="PlacesNavbarButton"
                     Style="{StaticResource NavbarButtonStyle}"
@@ -36,10 +31,17 @@
                     Style="{StaticResource NavbarButtonStyle}"
                     Content="{StaticResource String.ArrangementsNavbarButton}" 
                     Click="OnArrangementsNavbarBttonClick"/>
+				<Button 
+                    Name="MyTripsButton"
+                    Visibility="Collapsed"
+                    Style="{StaticResource NavbarButtonStyle}"
+                    Content="{StaticResource String.MyTripsButton}"
+                    Click="OnMyTripsNavbarButtonClick"/>
                 <Button 
                     Style="{StaticResource NavbarButtonStyle}"
                     Content="{StaticResource String.LogoutNavbarButton}" 
                     Click="OnLogoutButtonClick"/>
+				
             </StackPanel>
         </Grid>
         <Frame Name="Main" Margin="0 80 0 0" NavigationUIVisibility="Hidden"/>

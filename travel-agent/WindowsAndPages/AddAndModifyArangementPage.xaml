@@ -282,6 +282,15 @@
 											MouseMove="OnMouseMove"
 											AllowDrop="True"
 											Drop="placeListView_Drop">
+											<ListView.ItemContainerStyle>
+												<Style TargetType="ListViewItem">
+													<Setter Property="ToolTip">
+														<Setter.Value>
+															<ToolTip Content="{Binding Address}" />
+														</Setter.Value>
+													</Setter>
+												</Style>
+											</ListView.ItemContainerStyle>
 										</ListView>
 									</ScrollViewer>
 									<Grid x:Name="NoContentAttraction"
@@ -325,6 +334,15 @@
 											MouseMove="OnMouseMove"
 											AllowDrop="True"
 											Drop="placeListView_Drop">
+											<ListView.ItemContainerStyle>
+												<Style TargetType="ListViewItem">
+													<Setter Property="ToolTip">
+														<Setter.Value>
+															<ToolTip Content="{Binding Address}" />
+														</Setter.Value>
+													</Setter>
+												</Style>
+											</ListView.ItemContainerStyle>
 										</ListView>
 									</ScrollViewer>
 									<Grid x:Name="NoContentRestaurants"
@@ -367,6 +385,15 @@
 											MouseMove="OnMouseMove"
 											AllowDrop="True"
 											Drop="placeListView_Drop">
+											<ListView.ItemContainerStyle>
+												<Style TargetType="ListViewItem">
+													<Setter Property="ToolTip">
+														<Setter.Value>
+															<ToolTip Content="{Binding Address}" />
+														</Setter.Value>
+													</Setter>
+												</Style>
+											</ListView.ItemContainerStyle>
 										</ListView>
 									</ScrollViewer>
 									<Grid x:Name="NoContentAccommodation"

@@ -40,9 +40,6 @@ namespace travel_agent.WindowsAndPages
 
 		private Point startPoint;
 
-		private bool restaurantAdded = false;
-		private bool accommodationAdded = false;
-
 		private ObservableCollection<Place> lastRearrengement = new ObservableCollection<Place>();
 		private ListViewItem selectedListViewItem;
 		private ArrangementStep selectedItem;
@@ -105,7 +102,7 @@ namespace travel_agent.WindowsAndPages
 			PriceTextBox.InputPrice = Arrangement.Price;
 			ArrangementDescriptionInput.InputText = Arrangement.Description;
 
-			lastRearrengement = new ObservableCollection<Place>(Arrangement.Places);
+			RegenerateLastPlaces();
 			ObservableCollection<ArrangementStep> steps = new ObservableCollection<ArrangementStep>(Arrangement.Steps);
 			TransportListView.ItemsSource = steps;
 			RearrangeListView.ItemsSource = new ObservableCollection<Place>();
@@ -115,6 +112,19 @@ namespace travel_agent.WindowsAndPages
 			AttractionsList.IsEnabled = false;
 
 			DeleteArrangementButton.Visibility = Visibility.Visible;
+
+		}
+
+		private void RegenerateLastPlaces()
+		{
+
+			foreach (var step in Arrangement.Steps)
+			{
+				lastRearrengement.Add(step.StartPlace);
+
+			}
+
+			lastRearrengement.Add(Arrangement.Steps[Arrangement.Steps.Count - 1].EndPlace);
 
 		}
 
@@ -233,7 +243,7 @@ namespace travel_agent.WindowsAndPages
 				bool found = false;
 				foreach(var p in Arrangement.Places)
 				{
-					if (p.Id == place.Id && p.Type == Place.PlaceType.ATRACTION) { found = true;  break; }
+					if (p.Id == place.Id) { found = true;  break; }
 				}
 				if (!found) places.Add(place);
 			}
@@ -437,6 +447,8 @@ namespace travel_agent.WindowsAndPages
 				}
 
 				if(place.Type == Place.PlaceType.ATRACTION) (AttractionsList.ItemsSource as ObservableCollection<Place>).Remove(place);
+				else if(place.Type == Place.PlaceType.RESTAURANT) (RestaurantsList.ItemsSource as ObservableCollection<Place>).Remove(place);
+				else (AccommodationList.ItemsSource as ObservableCollection<Place>).Remove(place);
 				
 			}
 		}
@@ -458,11 +470,13 @@ namespace travel_agent.WindowsAndPages
 						AttractionsList.Visibility = Visibility.Visible;
 						break;
 					case Place.PlaceType.RESTAURANT:
+						(RestaurantsList.ItemsSource as ObservableCollection<Place>).Add(place);
 						RestaurantsTabItem.IsSelected = true;
 						NoContentRestaurants.Visibility=Visibility.Collapsed;
 						RestaurantsList.Visibility = Visibility.Visible;
 						break;
 					case Place.PlaceType.ACCOMMODATION:
+						(AccommodationList.ItemsSource as ObservableCollection<Place>).Add(place);
 						AccommmodationTabItem.IsSelected = true;
 						NoContentAccommodation.Visibility=Visibility.Collapsed;
 						AccommodationList.Visibility = Visibility.Visible;
@@ -494,9 +508,11 @@ namespace travel_agent.WindowsAndPages
 						AttractionsTabItem.IsSelected = true;
 						break;
 					case Place.PlaceType.RESTAURANT:
+						(RestaurantsList.ItemsSource as ObservableCollection<Place>).Add(place);
 						RestaurantsTabItem.IsSelected = true;
 						break;
 					case Place.PlaceType.ACCOMMODATION:
+						(AccommodationList.ItemsSource as ObservableCollection<Place>).Add(place);
 						AccommmodationTabItem.IsSelected = true;
 						break;
 				}
@@ -717,17 +733,17 @@ namespace travel_agent.WindowsAndPages
 			Arrangement.Start = (DateTime)StartDatePicker.SelectedDate;
 			Arrangement.End = (DateTime)EndDatePicker.SelectedDate;
 			Arrangement.Price = PriceTextBox.InputPrice;
+			Arrangement.Description = ArrangementDescriptionInput.InputText;
 			Arrangement.Places = lastRearrengement.ToList();
 			Arrangement.Steps = (TransportListView.ItemsSource as ObservableCollection<ArrangementStep>).ToList();
-			double total = 0;
 			foreach (var step in Arrangement.Steps)
 			{
 				Console.WriteLine(step.StartPlace.Address);
 				double distance  = await CalculateDistanceAsync(step.StartPlace.Address, step.EndPlace.Address);
 				step.TravelDistance = distance;
-				total += distance;
+				
 			}
-			Arrangement.TotalDistance = total;
+			
 		}
 
 		private async Task<double> CalculateDistanceAsync(string place1, string place2)
