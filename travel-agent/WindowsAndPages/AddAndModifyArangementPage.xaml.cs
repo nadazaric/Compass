@@ -36,6 +36,7 @@ namespace travel_agent.WindowsAndPages
 		private PlaceService PlaceService;
 		private BitmapImage Image = null;
 		private Arrangement Arrangement;
+		private Geocoder geocoder;
 
 		private Point startPoint;
 
@@ -54,6 +55,7 @@ namespace travel_agent.WindowsAndPages
 			ArrangementService = ArrangementService.Instance;
 			PlaceService = PlaceService.Instance;
 			Arrangement = arrangement;
+			geocoder = Geocoder.Instance;
 
 			StartDatePicker.DateChanged += StartDatePicker_DateChanged;
 			EndDatePicker.DateChanged += EndDatePicker_DateChanged;
@@ -722,7 +724,7 @@ namespace travel_agent.WindowsAndPages
 			Parent.MainFrame.Content = new ArrangementsPage(Parent);
 		}
 
-		private void SetArrangementAttributes()
+		private async void SetArrangementAttributes()
 		{
 			Arrangement.Name = ArrangementNameInput.InputText;
 			Arrangement.Image = Image;
@@ -730,8 +732,22 @@ namespace travel_agent.WindowsAndPages
 			Arrangement.End = (DateTime)EndDatePicker.SelectedDate;
 			Arrangement.Price = PriceTextBox.InputPrice;
 			Arrangement.Places = lastRearrengement.ToList();
-			// TODO calculate distance
 			Arrangement.Steps = (TransportListView.ItemsSource as ObservableCollection<ArrangementStep>).ToList();
+			double total = 0;
+			foreach (var step in Arrangement.Steps)
+			{
+				Console.WriteLine(step.StartPlace.Address);
+				double distance  = await CalculateDistanceAsync(step.StartPlace.Address, step.EndPlace.Address);
+				step.TravelDistance = distance;
+				total += distance;
+			}
+			Arrangement.TotalDistance = total;
+		}
+
+		private async Task<double> CalculateDistanceAsync(string place1, string place2)
+		{
+			double distance = await geocoder.CalculateDistanceAsync(place1, place2);
+			return distance;
 		}
 
 		private void TransportListView_Loaded(object sender, RoutedEventArgs e)
