@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.Maps.MapControl.WPF;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +20,7 @@ using System.Xml.Linq;
 using travel_agent.Controls;
 using travel_agent.Models;
 using travel_agent.Services;
+using Point = System.Windows.Point;
 
 namespace travel_agent.WindowsAndPages
 {
@@ -40,9 +42,6 @@ namespace travel_agent.WindowsAndPages
 
 		private Point startPoint;
 
-		private bool restaurantAdded = false;
-		private bool accommodationAdded = false;
-
 		private ObservableCollection<Place> lastRearrengement = new ObservableCollection<Place>();
 		private ListViewItem selectedListViewItem;
 		private ArrangementStep selectedItem;
@@ -60,6 +59,8 @@ namespace travel_agent.WindowsAndPages
 			StartDatePicker.DateChanged += StartDatePicker_DateChanged;
 			EndDatePicker.DateChanged += EndDatePicker_DateChanged;
 			TransportListView.SelectionChanged += ListView_ItemClick;
+
+			RouteMap.DisableDoubleClick();
 
 			SetUpPage();
 
@@ -113,8 +114,9 @@ namespace travel_agent.WindowsAndPages
 			StartDatePicker.SelectedDate = Arrangement.Start;
 			EndDatePicker.SelectedDate = Arrangement.End;
 			PriceTextBox.InputPrice = Arrangement.Price;
+			ArrangementDescriptionInput.InputText = Arrangement.Description;
 
-			lastRearrengement = new ObservableCollection<Place>(Arrangement.Places);
+			RegenerateLastPlaces();
 			ObservableCollection<ArrangementStep> steps = new ObservableCollection<ArrangementStep>(Arrangement.Steps);
 			TransportListView.ItemsSource = steps;
 			RearrangeListView.ItemsSource = new ObservableCollection<Place>();
@@ -122,6 +124,19 @@ namespace travel_agent.WindowsAndPages
 			AccommodationList.IsEnabled = false;
 			RestaurantsList.IsEnabled = false;
 			AttractionsList.IsEnabled = false;
+
+		}
+
+		private void RegenerateLastPlaces()
+		{
+
+			foreach (var step in Arrangement.Steps)
+			{
+				lastRearrengement.Add(step.StartPlace);
+
+			}
+
+			lastRearrengement.Add(Arrangement.Steps[Arrangement.Steps.Count - 1].EndPlace);
 
 		}
 
@@ -160,6 +175,7 @@ namespace travel_agent.WindowsAndPages
 			if (!IsDateInputValid()) isValid = false;
 			if (!PriceTextBox.IsValid()) isValid = false;
 			if (!IsStepsValid()) isValid = false;
+			if(!ArrangementDescriptionInput.IsValid()) isValid = false;
 			return isValid;
 		}
 
@@ -436,25 +452,21 @@ namespace travel_agent.WindowsAndPages
 					places.Add(place);
 				}
 
+				if(RearrangeListView != e.Data.GetData("SourceListView"))
+				{
+					RouteMap.DrawPinForRoute(place);
+				}
+				
+
 				if(RearrangeListView.Items.Count == 2)
 				{
 					NextButton.IsEnabled = true;
 					NextButton.ToolTip = null;
 				}
 
-
-				switch (place.Type)
-				{
-					case Place.PlaceType.ATRACTION:
-						(AttractionsList.ItemsSource as ObservableCollection<Place>).Remove(place);
-						break;
-					case Place.PlaceType.RESTAURANT:
-						(RestaurantsList.ItemsSource as ObservableCollection<Place>).Remove(place);
-						break;
-					case Place.PlaceType.ACCOMMODATION:
-						(AccommodationList.ItemsSource as ObservableCollection<Place>).Remove(place);
-						break;
-				}
+				if(place.Type == Place.PlaceType.ATRACTION) (AttractionsList.ItemsSource as ObservableCollection<Place>).Remove(place);
+				else if(place.Type == Place.PlaceType.RESTAURANT) (RestaurantsList.ItemsSource as ObservableCollection<Place>).Remove(place);
+				else (AccommodationList.ItemsSource as ObservableCollection<Place>).Remove(place);
 				
 			}
 		}
@@ -489,7 +501,7 @@ namespace travel_agent.WindowsAndPages
 						break;
 				}
 				(RearrangeListView.ItemsSource as ObservableCollection<Place>).Remove(place);
-
+				RouteMap.DeletePin(new Microsoft.Maps.MapControl.WPF.Location(place.Latitude, place.Longitude));
 			}
 			
 		}
@@ -523,7 +535,7 @@ namespace travel_agent.WindowsAndPages
 						break;
 				}
 				(RearrangeListView.ItemsSource as ObservableCollection<Place>).Remove(place);
-
+				RouteMap.DeletePin(new Microsoft.Maps.MapControl.WPF.Location(place.Latitude, place.Longitude));
 			}
 		}
 
@@ -567,6 +579,7 @@ namespace travel_agent.WindowsAndPages
 
 			}
 
+			GenerateRoute();
 			AttractionsList.IsEnabled = false;
 			RestaurantsList.IsEnabled = false;
 			AccommodationList.IsEnabled = false;
@@ -576,6 +589,16 @@ namespace travel_agent.WindowsAndPages
 			NextButton.IsEnabled = false;
 			BackButton.IsEnabled = true;
 
+		}
+
+		private void GenerateRoute()
+		{
+			List<Location> locations = new List<Location>();
+			foreach(Place place in RearrangeListView.Items)
+			{
+				locations.Add(new Location(place.Latitude, place.Longitude));
+			}
+			RouteMap.DrawRouteAsync(locations);
 		}
 
 
@@ -739,17 +762,17 @@ namespace travel_agent.WindowsAndPages
 			Arrangement.Start = (DateTime)StartDatePicker.SelectedDate;
 			Arrangement.End = (DateTime)EndDatePicker.SelectedDate;
 			Arrangement.Price = PriceTextBox.InputPrice;
+			Arrangement.Description = ArrangementDescriptionInput.InputText;
 			Arrangement.Places = lastRearrengement.ToList();
 			Arrangement.Steps = (TransportListView.ItemsSource as ObservableCollection<ArrangementStep>).ToList();
-			double total = 0;
 			foreach (var step in Arrangement.Steps)
 			{
 				Console.WriteLine(step.StartPlace.Address);
 				double distance  = await CalculateDistanceAsync(step.StartPlace.Address, step.EndPlace.Address);
 				step.TravelDistance = distance;
-				total += distance;
+				
 			}
-			Arrangement.TotalDistance = total;
+			
 		}
 
 		private async Task<double> CalculateDistanceAsync(string place1, string place2)

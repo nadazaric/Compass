@@ -32,8 +32,9 @@ namespace travel_agent.WindowsAndPages
             parent = parentWindow;
             arrangementService = ArrangementService.Instance;
             DataContext = this;
-            SetUpArrangements(); 
-            if (Arrangements.Count <= 1) SetIfNoContent();
+            SetUpArrangements();
+ 
+			if (Arrangements.Count <= (parent.User.Role == Role.AGENT ? 1 : 0)) SetIfNoContent();
             StartDatePicker.DateChanged += StartDatePicker_DateChanged;
             EndDatePicker.DateChanged += EndDatePicker_DateChanged;
               
@@ -42,7 +43,12 @@ namespace travel_agent.WindowsAndPages
         private void SetUpArrangements()
 		{
             Arrangements = new ObservableCollection<Arrangement>();
-            ArrangementsList = arrangementService.GetAll();
+            if (parent.User.Role == Role.AGENT)
+            {
+                ArrangementsList = arrangementService.GetAll();
+            }
+            else ArrangementsList = arrangementService.GetFuture();
+
             foreach (Arrangement item in ArrangementsList) Arrangements.Add(item);
             Arrangements = new ObservableCollection<Arrangement>(Arrangements.Reverse());
 			if (parent.User.Role == Role.AGENT) Arrangements.Insert(0,null);
@@ -118,6 +124,7 @@ namespace travel_agent.WindowsAndPages
 
 		}
 
+        // TODO Check logic for filter
         private bool CheckTransportType(Arrangement arrangement)
 		{
             bool bus = (bool)TransportBusCB.IsChecked ? false : true;
@@ -203,6 +210,7 @@ namespace travel_agent.WindowsAndPages
 		{
             object data = (sender as Grid).DataContext;
             if (parent.User.Role == Models.Role.AGENT) parent.MainFrame.Content = new AddAndModifyArangementPage(parent, data as Arrangement);
+            else parent.MainFrame.Content = new ViewArrangementPage(parent, data as Arrangement);
 		}
 
 		private void StartDatePicker_DateChanged(object sender, SelectionChangedEventArgs e)

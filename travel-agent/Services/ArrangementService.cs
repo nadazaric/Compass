@@ -46,12 +46,14 @@ namespace travel_agent.Services
 
 		public void Create(Arrangement arrangement)
 		{
+			arrangement.TotalDistance = 0;
 			foreach (var step in arrangement.Steps)
 			{
 				step.StartPlaceId = step.StartPlace.Id;
 				step.StartPlace = null;
 				step.EndPlaceId = step.EndPlace.Id;
 				step.EndPlace = null;
+				arrangement.TotalDistance += step.TravelDistance;
 			}
 			using (var db = new Context())
 			{
@@ -66,7 +68,7 @@ namespace travel_agent.Services
 				{
 					db.Entry(place).State = EntityState.Unchanged;
 				}
-
+				Console.WriteLine("TOTAL " +arrangement.TotalDistance);
 				db.SaveChanges();
 			}
 		}
@@ -89,6 +91,7 @@ namespace travel_agent.Services
 				arrangementUpdate.Name = arrangement.Name;
 				arrangementUpdate.Price = arrangement.Price;
 				arrangementUpdate.TotalDistance = arrangement.TotalDistance;
+				arrangementUpdate.Description = arrangement.Description;
 
 				arrangementUpdate.Steps.Clear();
 
@@ -156,9 +159,14 @@ namespace travel_agent.Services
 			}
 		}
 
+		public List<Arrangement> GetFuture()
+		{
+			using(var db = new Context()) { return db.Arrangements.Include(a => a.Places).Include(a => a.Steps).Where(a => DateTime.Compare(a.Start, DateTime.Now)>0).ToList(); }
+		}
 		public List<Arrangement> GetAll()
 		{
 			using (var db = new Context()) return db.Arrangements.Include(a => a.Places).Include(a => a.Steps).ToList();
 		}
+
 	}
 }

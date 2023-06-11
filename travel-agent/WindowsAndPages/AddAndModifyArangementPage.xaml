@@ -80,6 +80,17 @@
                 Padding="0"
                 Margin="0 0 0 15"/>
 
+			<controls:FancyTextBox
+                x:Name="ArrangementDescriptionInput"
+                Placeholder="{StaticResource String.DescriptionLabel}"
+                Multiline="True"
+                MaxWidth="725"
+                Margin="0 0 0 15">
+				<controls:FancyTextBox.ValidationRules>
+					<validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
+				</controls:FancyTextBox.ValidationRules>
+			</controls:FancyTextBox>
+
 			<StackPanel
 				Margin="0 0 0 15">
 				<Label 
@@ -155,7 +166,8 @@
 				</Grid>
 			</StackPanel>
 
-			<StackPanel>
+			<StackPanel
+				Margin="0 0 0 20">
 				<Grid
 					Margin="0 20 0 15">
 					<Grid.ColumnDefinitions>
@@ -196,7 +208,7 @@
 						Content="{StaticResource String.StepsEmptyError}"
 						FontWeight="Medium"
 						Padding="1 4 0 0">
-						
+
 					</Label>
 					<Label
 						x:Name="TransportError"
@@ -271,6 +283,15 @@
 											MouseMove="OnMouseMove"
 											AllowDrop="True"
 											Drop="placeListView_Drop">
+											<ListView.ItemContainerStyle>
+												<Style TargetType="ListViewItem">
+													<Setter Property="ToolTip">
+														<Setter.Value>
+															<ToolTip Content="{Binding Address}" />
+														</Setter.Value>
+													</Setter>
+												</Style>
+											</ListView.ItemContainerStyle>
 										</ListView>
 									</ScrollViewer>
 									<Grid x:Name="NoContentAttraction"
@@ -314,6 +335,15 @@
 											MouseMove="OnMouseMove"
 											AllowDrop="True"
 											Drop="placeListView_Drop">
+											<ListView.ItemContainerStyle>
+												<Style TargetType="ListViewItem">
+													<Setter Property="ToolTip">
+														<Setter.Value>
+															<ToolTip Content="{Binding Address}" />
+														</Setter.Value>
+													</Setter>
+												</Style>
+											</ListView.ItemContainerStyle>
 										</ListView>
 									</ScrollViewer>
 									<Grid x:Name="NoContentRestaurants"
@@ -356,6 +386,15 @@
 											MouseMove="OnMouseMove"
 											AllowDrop="True"
 											Drop="placeListView_Drop">
+											<ListView.ItemContainerStyle>
+												<Style TargetType="ListViewItem">
+													<Setter Property="ToolTip">
+														<Setter.Value>
+															<ToolTip Content="{Binding Address}" />
+														</Setter.Value>
+													</Setter>
+												</Style>
+											</ListView.ItemContainerStyle>
 										</ListView>
 									</ScrollViewer>
 									<Grid x:Name="NoContentAccommodation"
@@ -488,7 +527,7 @@
 								Style="{StaticResource SmallButtonStyle}"
 								Grid.Column="2"
 								IsEnabled="False"
-								ToolTipService.IsEnabled="False"
+								ToolTipService.IsEnabled="True"
 								ToolTipService.Placement="Mouse"
 								ToolTipService.ShowOnDisabled="True"
 								ToolTipService.InitialShowDelay="0"
@@ -555,8 +594,10 @@
 
 					</DockPanel>
 				</Grid>
-
 			</StackPanel>
+
+			<controls:FancyMap x:Name="RouteMap" Height="325"/>
+
 			<Button 
 				x:Name="ArrangementsAddOrModifyButton"
 				Content="{StaticResource String.FinishAddingArrangementButton}" 
@@ -566,8 +607,7 @@
             <Button
 				x:Name="DeleteArrangementButton"
 				Content="{StaticResource String.DeleteButton}"
-				Style="{StaticResource OutlineButtonStyle}"
-				Background="{StaticResource Color.White}"
+				Style="{StaticResource OutlineDeleteButtonStyle}"
 				Padding="0"
 				Margin="0 10 0 0" Click="DeleteArrangementButton_Click"
 				Visibility="Collapsed"/>

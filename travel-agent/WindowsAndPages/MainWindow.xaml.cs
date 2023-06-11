@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using travel_agent.Models;
+using travel_agent.Services;
 using travel_agent.Windows;
 
 namespace travel_agent.WindowsAndPages
@@ -10,6 +11,9 @@ namespace travel_agent.WindowsAndPages
         public User User { get; }
         public Frame MainFrame { get; }
         private Application App;
+        private ReservationService reservationService;
+
+        public Visibility IsPassenger = Visibility.Collapsed;
         public MainWindow(User user)
         {
             User = user;
@@ -18,15 +22,27 @@ namespace travel_agent.WindowsAndPages
             Main.Content = new PlacesPage(this);
             SetFocusStyle(PlacesNavbarButton);
             MainFrame = Main;
-
+            reservationService = ReservationService.Instance;
+            reservationService.UpdateReservationsStatus();
+            if (user.Role == Role.PASSENGER) 
+            {
+                MyTripsButton.Visibility = Visibility.Visible;
+            } 
         }
 
-        private void SetFocusStyle(Button button) => button.Style = App.Resources["SelectedNavbarButtonStyle"] as Style;
+        public void SetFocusStyle(Button button) => button.Style = App.Resources["SelectedNavbarButtonStyle"] as Style;
 
-        private void SetUnfocusStyle()
+        public void SetUnfocusStyle()
         {
             foreach (var child in NavbarButtons.Children)
                 if (child is Button) (child as Button).Style = App.Resources["NavbarButtonStyle"] as Style;
+        }
+
+        private void OnMyTripsNavbarButtonClick(object sender, RoutedEventArgs e)
+        {
+            Main.Navigate(new MyTripsPage(this));
+            SetUnfocusStyle();
+            SetFocusStyle(sender as Button);
         }
 
         private void OnPlacesNavbarButtonClick(object sender, RoutedEventArgs e)

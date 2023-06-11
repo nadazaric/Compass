@@ -27,7 +27,7 @@ namespace travel_agent.WindowsAndPages
             PlaceService = PlaceService.Instance;
             SetPlacesList();
             DataContext = this;
-            if (Places.Count <= 1) SetupIfInitiallyNoContent();
+            if (Places.Count <= (parent.User.Role == Role.AGENT ? 1 : 0)) SetupIfInitiallyNoContent();
             PlaceAllRadioBtn.Checked += OnPlaceTypeRadioBtnClick;
         }
 
