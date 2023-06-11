@@ -47,11 +47,26 @@ namespace travel_agent.WindowsAndPages
 				isFromTrips=false;
 			}
 			SetUpButtons();
+			SetUpMap();
 		}
+
+		
 
 		private void CheckUserReservations()
 		{
 			Reservation = reservationService.GetUserReservation(parent.User, Arrangement);
+		}
+
+		private void SetUpMap()
+		{
+			foreach (var step in Arrangement.Steps)
+			{
+				Map.DrawPinForRoute(step.StartPlace);
+			}
+			Place last = Arrangement.Steps[Arrangement.Steps.Count - 1].EndPlace;
+			Map.DrawPinForRoute(last);
+			Map.DrawRouteAsync(Arrangement.Steps);
+			Map.DisableDoubleClick();
 		}
 
 		private void SetUpButtons()

@@ -141,7 +141,7 @@
 				</Label>
 				<Label
 					Content="{Binding Price}" 
-					Padding="10 3 0 5"
+					Padding="10 0 0 0"
 					FontSize="{StaticResource Dim.RegularFontSize}"  
 					FontWeight="Medium"
 					VerticalAlignment="Center">
@@ -151,7 +151,7 @@
 					Content="RSD"
 					FontSize="{StaticResource Dim.RegularFontSize}"
 					FontWeight="Medium"
-					Padding="2 0 0 0"
+					Padding="10 0 0 0"
 					VerticalAlignment="Center">
 
 				</Label>
@@ -177,9 +177,11 @@
 				</Label>
 			</StackPanel>
 
+			<controls:FancyMap x:Name="Map" Height="325"></controls:FancyMap>
+
 			<Button
 				x:Name="MakeReservationButton"
-				Margin="10"
+				Margin="0 10"
 				Content="{StaticResource String.MakeReservationButton}" 
 				Visibility="Collapsed"
 				Click="MakeReservationButton_Click"
@@ -189,7 +191,7 @@
 			</Button>
 			<Button
 				x:Name="PayTripButton"
-				Margin="10"
+				Margin="0 10"
 				Content="{StaticResource String.PayReservationButton}"
 				Visibility="Collapsed"
 				Click="PayTripButton_Click">
@@ -197,7 +199,7 @@
 			</Button>
 			<Button
 				x:Name="CancelReservationButton"
-				Margin="10"
+				Margin="0 10"
 				Content="{StaticResource String.DeleteReservationButton}"
 				Style="{StaticResource OutlineDeleteButtonStyle}"
 				Visibility="Collapsed"
