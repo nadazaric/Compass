@@ -464,6 +464,15 @@
 							PreviewMouseLeftButtonDown="OnMouseLeftButtonDown"
 							MouseMove="OnMouseMove"
 							>
+								<ListView.ItemContainerStyle>
+									<Style TargetType="ListViewItem">
+										<Setter Property="ToolTip">
+											<Setter.Value>
+												<ToolTip Content="{Binding Address}" />
+											</Setter.Value>
+										</Setter>
+									</Style>
+								</ListView.ItemContainerStyle>
 							</ListView>
 						</ScrollViewer>
 
