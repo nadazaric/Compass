@@ -97,6 +97,16 @@ namespace travel_agent.WindowsAndPages
 			{
 				return;
 			}
+
+			DeleteArrangementButton.Visibility = Visibility.Visible;
+
+            if (Arrangement.IsDeleted)
+			{
+				DeleteArrangementButton.Visibility = Visibility.Collapsed;
+				ArrangementsAddOrModifyButton.Visibility = Visibility.Collapsed;
+                ReactivateArrangementButton.Visibility = Visibility.Visible;
+
+            }
 			ArrangementsAddOrModifyButton.Content = (string)Application.Current.FindResource("String.FinishModifyArrangementButton");
 			ArrangementNameInput.InputText = Arrangement.Name;
 			SetImage(Arrangement.Image);
@@ -112,8 +122,6 @@ namespace travel_agent.WindowsAndPages
 			AccommodationList.IsEnabled = false;
 			RestaurantsList.IsEnabled = false;
 			AttractionsList.IsEnabled = false;
-
-			DeleteArrangementButton.Visibility = Visibility.Visible;
 
 		}
 
@@ -223,7 +231,7 @@ namespace travel_agent.WindowsAndPages
 
 		private List<Place> FilterAllPlaces(Place.PlaceType placeType)
 		{
-			List<Place> allPlaces = PlaceService.GetAllByType(placeType);
+			List<Place> allPlaces = PlaceService.GetAllByType(placeType).Where(p => !p.IsDeleted).ToList();
 			if (Arrangement == null) return allPlaces;
 			List<Place> places = new List<Place>();
 			foreach(var place in allPlaces)
@@ -769,8 +777,22 @@ namespace travel_agent.WindowsAndPages
 
 		private void DeleteArrangementButton_Click(object sender, RoutedEventArgs e)
 		{
+            var result = MessageBox.Show(App.Resources["String.DeleteArrangement"] as string, App.Resources["String.AppName"] as string, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No) return;
+            Arrangement.IsDeleted = true;
+			ArrangementService.DeleteArrangement(Arrangement);
+            Parent.MainFrame.Content = new ArrangementsPage(Parent);
+        }
 
-		}
-	}
+		private void ReactivateArrangementButton_Click(object sender, RoutedEventArgs e)
+		{
+            var result = MessageBox.Show(App.Resources["String.ReactivateArrangementMessage"] as string, App.Resources["String.AppName"] as string, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No) return;
+			Arrangement.IsDeleted = false;
+			ArrangementService.ReactivateArrangement(Arrangement);
+            Parent.MainFrame.Content = new ArrangementsPage(Parent);
+        }
+
+    }
 } 
 

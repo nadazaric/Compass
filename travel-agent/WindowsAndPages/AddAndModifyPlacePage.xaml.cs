@@ -74,7 +74,12 @@ namespace travel_agent.WindowsAndPages
             PlaceAddressInput.InputText = Place.Address;
             PlacesAddOrModifyButton.Content = App.Resources["String.FinishModifyPlaceButton"] as string;
             SearchMap.ManuallySetInitialState(new GeocodeResponse { AdressFormatted = Place.Address, Latitude = Place.Latitude, Longitude = Place.Longitude });
-            PlacesDeleteButton.Visibility = Visibility.Visible;
+            if (!Place.IsDeleted) PlacesDeleteButton.Visibility = Visibility.Visible;
+            else
+            {
+                PlacesAddOrModifyButton.Visibility = Visibility.Collapsed;
+                ReactivatePlaceButton.Visibility = Visibility.Visible;
+            }
         }
 
         private void SetImage(BitmapImage image)
@@ -184,7 +189,24 @@ namespace travel_agent.WindowsAndPages
         }
 
         private void OnBackClick(object sender, RoutedEventArgs e) => Parent.MainFrame.Content = new PlacesPage(Parent);
-		#endregion
+        #endregion
 
-	}
+        private void OnDeletePlaceClick(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show(App.Resources["String.DeletePlaceQuestion"] as string, App.Resources["String.AppName"] as string, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No) return;
+            Place.IsDeleted = true;
+            PlaceService.Delete(Place);
+            Parent.MainFrame.Content = new PlacesPage(Parent);
+        }
+
+        private void ReactivatePlaceButtonClick(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show(App.Resources["String.ReactivatePlaceMessage"] as string, App.Resources["String.AppName"] as string, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No) return;
+            Place.IsDeleted = false;
+            PlaceService.ReactivatePlace(Place);
+            Parent.MainFrame.Content = new PlacesPage(Parent);
+        }
+    }
 }

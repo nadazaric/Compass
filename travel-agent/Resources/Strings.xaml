@@ -84,9 +84,11 @@
     <System:String x:Key="String.BackButton">Nazad</System:String>
     <System:String x:Key="String.DeleteButton">Obriši</System:String>
 	<System:String x:Key="String.AddNewArrangementButton">Dodaj novi aranžman</System:String>
-	<System:String x:Key="String.FinishAddingArrangementButton">Završi dodavanje novog aranžman</System:String>
-	<System:String x:Key="String.FinishModifyArrangementButton">Završi izmenu aranžmana</System:String>
-	
+    <System:String x:Key="String.FinishAddingArrangementButton">Završi dodavanje novog aranžman</System:String>
+    <System:String x:Key="String.FinishModifyArrangementButton">Završi izmenu aranžmana</System:String>
+    <System:String x:Key="String.ReactivatePlaceButton">Ponovo aktiviraj mesto</System:String>
+    <System:String x:Key="String.ReactivateArrangementButton">Ponovo aktiviraj aranžman</System:String>
+
     <!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>
     <System:String x:Key="String.WrongEmailPatternError">Uneli ste pogrešnu formu e-mail adrese!</System:String>
@@ -107,5 +109,9 @@
     <System:String x:Key="String.RegisterSuccessMessage">Uspješno ste se registrovali! Sada možete da se prijavite sa novokreiranim nalogom.</System:String>
     <System:String x:Key="String.AddPlaceQuestionMessage">Da li ste sigurni da želite dodati novo mesto?</System:String>
     <System:String x:Key="String.ModifyPlaceQuestinMessage">Da li ste sigurni da želite promeniti mesto?</System:String>
+    <System:String x:Key="String.DeletePlaceQuestion">Da li ste sigurni da želite da obrišete mesto?</System:String>
+    <System:String x:Key="String.ReactivatePlaceMessage">Da li želite da ponovo aktivirate mesto?</System:String>
+    <System:String x:Key="String.DeleteArrangement">Da li sigurni da želite da obrišete aranžman?</System:String>
+    <System:String x:Key="String.ReactivateArrangementMessage">Da li želite da ponovo aktivirate aranžman?</System:String>
 
 </ResourceDictionary>
