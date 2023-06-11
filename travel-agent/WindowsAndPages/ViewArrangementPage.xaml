@@ -16,7 +16,8 @@
                 Style="{StaticResource NoneButtonStyle}" 
                 HorizontalAlignment="Left"
                 Margin="0 -5 0 5"
-                Click="OnBackClick">
+                Click="OnBackClick"
+				Cursor="Hand">
 				<StackPanel
                     VerticalAlignment="Center" Orientation="Horizontal">
 					<TextBlock 
@@ -186,6 +187,7 @@
 				Visibility="Collapsed"
 				Click="MakeReservationButton_Click"
 				ToolTip="{StaticResource String.ReservationTimePassed}"
+				Cursor="Hand"
 				ToolTipService.ShowOnDisabled="True">
 				
 			</Button>
@@ -194,7 +196,8 @@
 				Margin="0 10"
 				Content="{StaticResource String.PayReservationButton}"
 				Visibility="Collapsed"
-				Click="PayTripButton_Click">
+				Click="PayTripButton_Click"
+				Cursor="Hand">
 
 			</Button>
 			<Button
@@ -203,7 +206,8 @@
 				Content="{StaticResource String.DeleteReservationButton}"
 				Style="{StaticResource OutlineDeleteButtonStyle}"
 				Visibility="Collapsed"
-				Click="CancelReservationButton_Click">
+				Click="CancelReservationButton_Click"
+				Cursor="Hand">
 				
 			</Button>
 			

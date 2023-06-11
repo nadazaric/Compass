@@ -50,7 +50,8 @@
 
                 <Button
                     Content="{StaticResource String.LoginButton}"
-                    Click="OnSingInClick"/>
+                    Click="OnSingInClick"
+					Cursor="Hand"/>
 
                 <StackPanel
                     Orientation="Horizontal"
@@ -65,7 +66,8 @@
                         FontSize="{StaticResource Dim.RegularFontSize}"
                         FontWeight="Bold"
                         Padding="0"
-                        MouseLeftButtonDown="OnSwichToRegisterViewClick">
+                        MouseLeftButtonDown="OnSwichToRegisterViewClick"
+						Cursor="Hand">
                         <Label.Style>
                             <Style TargetType="Label">
                                 <Setter Property="Foreground" Value="{StaticResource Color.Black}" />
@@ -133,7 +135,8 @@
                 
                 <Button
                     Content="{StaticResource String.RegisterButton}"
-                    Click="OnRegisterClick"/>
+                    Click="OnRegisterClick"
+					Cursor="Hand"/>
 
                 <StackPanel
                     Orientation="Horizontal"
@@ -148,7 +151,8 @@
                         FontSize="{StaticResource Dim.RegularFontSize}"
                         FontWeight="Bold"
                         Padding="0"
-                        MouseLeftButtonDown="OnSwichToLoginViewClick">
+                        MouseLeftButtonDown="OnSwichToLoginViewClick"
+						Cursor="Hand">
                         <Label.Style>
                             <Style TargetType="Label">
                                 <Setter Property="Foreground" Value="{StaticResource Color.Black}" />

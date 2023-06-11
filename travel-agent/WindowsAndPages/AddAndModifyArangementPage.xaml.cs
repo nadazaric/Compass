@@ -158,6 +158,8 @@ namespace travel_agent.WindowsAndPages
 
 			NextButton.IsEnabled = false;
 			BackButton.IsEnabled = true;
+			NextButton.Cursor = Cursors.Arrow;
+			BackButton.Cursor = Cursors.Hand;
 			GenerateRoute();
 		}
 
@@ -579,6 +581,9 @@ namespace travel_agent.WindowsAndPages
 			RearrangeListView.ItemsSource = new ObservableCollection<Place>();
 			NextButton.IsEnabled = false;
 			BackButton.IsEnabled = true;
+			NextButton.Cursor = Cursors.Arrow;
+			BackButton.Cursor = Cursors.Hand;
+
 			GenerateRoute();
 		}
 
@@ -597,12 +602,16 @@ namespace travel_agent.WindowsAndPages
 			selectedListViewItem = listView.ItemContainerGenerator.ContainerFromItem(selectedItem) as ListViewItem;
 
 			PlaneToggle.IsEnabled = true;
+			PlaneToggle.Cursor = Cursors.Hand;
 			PlaneToggle.ToolTip = (string)Application.Current.FindResource("String.TransportPlane");
 			TrainToggle.IsEnabled = true;
+			TrainToggle.Cursor = Cursors.Hand;
 			TrainToggle.ToolTip = (string)Application.Current.FindResource("String.TransportTrain");
 			BusToggle.IsEnabled = true;
+			BusToggle.Cursor = Cursors.Hand;
 			BusToggle.ToolTip = (string)Application.Current.FindResource("String.TransportBus");
 			FootToggle.IsEnabled = true;
+			FootToggle.Cursor = Cursors.Hand;
 			FootToggle.ToolTip = (string)Application.Current.FindResource("String.TransportSelf");
 			PlaneToggle.IsChecked = selectedItem?.TransportationType == ArrangementStep.TransportType.PLANE;
 			TrainToggle.IsChecked = selectedItem?.TransportationType == ArrangementStep.TransportType.TRAIN;
@@ -690,6 +699,8 @@ namespace travel_agent.WindowsAndPages
 		{
 
 			BackButton.IsEnabled = false;
+			NextButton.Cursor = Cursors.Hand;
+			BackButton.Cursor = Cursors.Arrow;
 			NextButton.IsEnabled = true;
 			NextButton.ToolTip = null;
 
@@ -698,18 +709,22 @@ namespace travel_agent.WindowsAndPages
 			PlaneToggle.ToolTip = (string)Application.Current.FindResource("String.ChooseStep");
 			PlaneToggle.IsChecked = false;
 			PlaneToggle.IsEnabled = false;
+			PlaneToggle.Cursor = Cursors.Arrow;
 
 			TrainToggle.IsChecked = false;
 			TrainToggle.ToolTip = (string)Application.Current.FindResource("String.ChooseStep");
 			TrainToggle.IsEnabled = false;
+			TrainToggle.Cursor = Cursors.Arrow;
 
 			BusToggle.IsChecked = false;
 			BusToggle.ToolTip = (string)Application.Current.FindResource("String.ChooseStep");
 			BusToggle.IsEnabled = false;
+			BusToggle.Cursor = Cursors.Arrow;
 
 			FootToggle.IsChecked = false;
 			FootToggle.ToolTip = (string)Application.Current.FindResource("String.ChooseStep");
 			FootToggle.IsEnabled = false;
+			FootToggle.Cursor = Cursors.Arrow;
 
 			TransportListView.ItemsSource = new ObservableCollection<Place>();
 			RearrangeListView.ItemsSource =lastRearrengement;

@@ -16,6 +16,7 @@
                 Width="350" 
                 Height="350"
                 Click="OnAddNewPlaceClick"
+				Cursor="Hand"
                 Margin="20">
                 <StackPanel
                     VerticalAlignment="Center">
@@ -67,7 +68,8 @@
                     </Style>
                 </Border.Style>
                 <Grid
-                    MouseLeftButtonUp="OnPlaceItemClick">
+                    MouseLeftButtonUp="OnPlaceItemClick"
+					Cursor="Hand">
                     <Grid.Clip>
                         <RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,0,350,350"/>
                     </Grid.Clip>
@@ -118,7 +120,8 @@
                         Padding="1.5" 
                         Content="{StaticResource String.DownButton}" 
                         Click="OnHandlePopupClick" 
-                        VerticalAlignment="Bottom"/>
+                        VerticalAlignment="Bottom"
+						Cursor="Hand"/>
                 </Grid>
 
                 <Popup 
@@ -154,28 +157,32 @@
                                             Style="{StaticResource SmallRadioButtonStyle}" 
                                             Content="{StaticResource String.AllLabel}" 
                                             GroupName="PlaceSearchButtonGroup" 
-                                            IsChecked="True"/>
+                                            IsChecked="True"
+											Cursor="Hand"/>
                                         <RadioButton 
                                             x:Name="PlaceAtractionRadioBtn" 
                                             Grid.Column="1" 
                                             Style="{StaticResource SmallRadioButtonStyle}" 
                                             Content="{StaticResource String.AtractionLabel}" 
                                             GroupName="PlaceSearchButtonGroup"
-                                            Click="OnPlaceTypeRadioBtnClick"/>
+                                            Click="OnPlaceTypeRadioBtnClick"
+											Cursor="Hand"/>
                                         <RadioButton 
                                             x:Name="PlaceRestaurantRadioBtn" 
                                             Grid.Column="2" 
                                             Style="{StaticResource SmallRadioButtonStyle}" 
                                             Content="{StaticResource String.RestaurantLabel}" 
                                             GroupName="PlaceSearchButtonGroup" 
-                                            Click="OnPlaceTypeRadioBtnClick"/>
+                                            Click="OnPlaceTypeRadioBtnClick"
+											Cursor="Hand"/>
                                         <RadioButton 
                                             x:Name="PlaceAccommodationRadioBtn" 
                                             Grid.Column="3" 
                                             Style="{StaticResource SmallRadioButtonStyle}" 
                                             Content="{StaticResource String.AccommodatonLabel}" 
                                             GroupName="PlaceSearchButtonGroup"
-                                            Click="OnPlaceTypeRadioBtnClick"/>
+                                            Click="OnPlaceTypeRadioBtnClick"
+											Cursor="Hand"/>
                                     </Grid>
                                 </Border>
                             </StackPanel>
@@ -190,12 +197,14 @@
                                 Style="{StaticResource OutlineButtonStyle}" 
                                 Content="{StaticResource String.ReturnToDefaultStateButton}" 
                                 Margin="20 10 20 5" 
-                                Click="OnReturnToDefaultClick"/>
+                                Click="OnReturnToDefaultClick"
+								Cursor="Hand"/>
 
                             <Button 
                                 Content="{StaticResource String.SearchButton}" 
                                 Margin="20 5 20 20" 
-                                Click="OnSearchButtonClick"/>
+                                Click="OnSearchButtonClick"
+								Cursor="Hand"/>
                         </StackPanel>
                     </Border>
                 </Popup>
