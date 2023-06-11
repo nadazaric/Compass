@@ -27,7 +27,10 @@ namespace travel_agent.WindowsAndPages
             if (user.Role == Role.PASSENGER) 
             {
                 MyTripsButton.Visibility = Visibility.Visible;
-            } 
+            } else
+            {
+                Statistics.Visibility = Visibility.Visible;
+            }
         }
 
         public void SetFocusStyle(Button button) => button.Style = App.Resources["SelectedNavbarButtonStyle"] as Style;
@@ -41,6 +44,13 @@ namespace travel_agent.WindowsAndPages
         private void OnMyTripsNavbarButtonClick(object sender, RoutedEventArgs e)
         {
             Main.Navigate(new MyTripsPage(this));
+            SetUnfocusStyle();
+            SetFocusStyle(sender as Button);
+        }
+
+        private void StatisticsButtonClick(object sender, RoutedEventArgs e)
+        {
+            Main.Navigate(new Statistics(this));
             SetUnfocusStyle();
             SetFocusStyle(sender as Button);
         }

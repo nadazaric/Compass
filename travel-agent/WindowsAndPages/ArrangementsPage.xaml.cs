@@ -47,7 +47,7 @@ namespace travel_agent.WindowsAndPages
             {
                 ArrangementsList = arrangementService.GetAll();
             }
-            else ArrangementsList = arrangementService.GetFuture();
+            else ArrangementsList = arrangementService.GetFuture().Where(a => !a.IsDeleted).ToList();
 
             foreach (Arrangement item in ArrangementsList) Arrangements.Add(item);
             Arrangements = new ObservableCollection<Arrangement>(Arrangements.Reverse());

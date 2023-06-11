@@ -136,6 +136,15 @@
     <Compile Include="WindowsAndPages\PlacesPage.xaml.cs">
       <DependentUpon>PlacesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowsAndPages\Reports\MonthReport.xaml.cs">
+      <DependentUpon>MonthReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsAndPages\Reports\ReportForArrangement.xaml.cs">
+      <DependentUpon>ReportForArrangement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsAndPages\Reports\Statistics.xaml.cs">
+      <DependentUpon>Statistics.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowsAndPages\ViewArrangementPage.xaml.cs">
       <DependentUpon>ViewArrangementPage.xaml</DependentUpon>
     </Compile>
@@ -207,6 +216,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowsAndPages\PlacesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsAndPages\Reports\MonthReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsAndPages\Reports\ReportForArrangement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsAndPages\Reports\Statistics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

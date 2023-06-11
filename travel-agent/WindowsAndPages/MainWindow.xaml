@@ -37,6 +37,12 @@
                     Style="{StaticResource NavbarButtonStyle}"
                     Content="{StaticResource String.MyTripsButton}"
                     Click="OnMyTripsNavbarButtonClick"/>
+                <Button
+                    Name="Statistics"
+                    Visibility="Collapsed"
+                    Style="{StaticResource NavbarButtonStyle}"
+                    Content="{StaticResource String.StatisticsLabel}"
+                    Click="StatisticsButtonClick"/>
                 <Button 
                     Style="{StaticResource NavbarButtonStyle}"
                     Content="{StaticResource String.LogoutNavbarButton}" 
