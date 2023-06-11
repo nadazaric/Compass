@@ -47,6 +47,7 @@ namespace travel_agent.Services
             reservation.UserId = user.Id;
             reservation.Arrangement = null;
             reservation.ArrangementId = arrangement.Id;
+            reservation.ReservedUntil = DateTime.Now.AddDays(3);
             using (var db = new Context())
             {
                 db.Reservations.Add(reservation);
@@ -62,6 +63,7 @@ namespace travel_agent.Services
                 if(res != null)
                 {
                     res.Status = Reservation.ReservationStatus.RESERVED;
+                    reservation.ReservedUntil = DateTime.Now.AddDays(3);
                     db.SaveChanges();
                 }
                
@@ -85,7 +87,7 @@ namespace travel_agent.Services
             }
         }
 
-        public void PaidReservation(User user, Reservation reservation)
+        public void PayReservation(Reservation reservation)
         {
             using (var db = new Context())
             {
@@ -99,6 +101,22 @@ namespace travel_agent.Services
                 {
                     Console.WriteLine("Greska prilikom otkazivanja");
                 }
+            }
+        }
+
+        public void UpdateReservationsStatus()
+        {
+            using(var db = new Context())
+            {
+                foreach(var reservation in db.Reservations.Where(r => r.Status == Reservation.ReservationStatus.RESERVED))
+                {
+                    if(DateTime.Compare(DateTime.Now, reservation.ReservedUntil) >= 0)
+                    {
+                        reservation.Status = Reservation.ReservationStatus.DELETED;
+                    }
+                }
+
+                db.SaveChanges();
             }
         }
 

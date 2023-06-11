@@ -157,6 +157,26 @@
 				</Label>
 			</StackPanel>
 
+			<StackPanel
+				x:Name="StatusPanel"
+				Orientation="Horizontal"
+				Margin="10">
+				<Label Content="{StaticResource String.ReservationStateLabel}"
+					   FontSize="{StaticResource Dim.MediumFontSize}"
+					   Foreground="{StaticResource Color.PrimaryDark}"
+					   FontWeight="Medium"
+					   VerticalAlignment="Center"
+					   Padding="0 0 0 1"/>
+				<Label
+					x:Name="ReservationStatusLabel"
+					Padding="10 3 0 5"
+					FontSize="{StaticResource Dim.RegularFontSize}"  
+					FontWeight="Medium"
+					VerticalAlignment="Center">
+
+				</Label>
+			</StackPanel>
+
 			<Button
 				x:Name="MakeReservationButton"
 				Margin="10"

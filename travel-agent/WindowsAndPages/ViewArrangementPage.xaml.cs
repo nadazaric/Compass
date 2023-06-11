@@ -74,13 +74,14 @@ namespace travel_agent.WindowsAndPages
 				{
 					MakeReservationButton.IsEnabled = false;
 				}
-				
+				StatusPanel.Visibility = Visibility.Collapsed;
 			}
 			else if(Reservation.Status == Reservation.ReservationStatus.RESERVED)
 			{
 				MakeReservationButton.Visibility= Visibility.Collapsed;
 				PayTripButton.Visibility = Visibility.Visible;
 				CancelReservationButton.Visibility = Visibility.Visible;
+				ReservationStatusLabel.Content = "Rezervisano";
 			}
 			else if((Reservation.Status == Reservation.ReservationStatus.CANCELED || Reservation.Status == Reservation.ReservationStatus.DELETED) && DateTime.Compare(Arrangement.Start, DateTime.Now) > 0)
 			{
@@ -92,6 +93,15 @@ namespace travel_agent.WindowsAndPages
 				}
 				PayTripButton.Visibility = Visibility.Collapsed;
 				CancelReservationButton.Visibility = Visibility.Collapsed;
+				ReservationStatusLabel.Content = Reservation.Status == Reservation.ReservationStatus.CANCELED ? "Otkazano" : "Istekla rezervacija";
+			}
+			else if(Reservation.Status == Reservation.ReservationStatus.PAID)
+			{
+				MakeReservationButton.Visibility= Visibility.Collapsed;
+				PayTripButton.Visibility = Visibility.Collapsed;
+				CancelReservationButton.Visibility = Visibility.Collapsed;
+				
+				ReservationStatusLabel.Content = "Plaćeno";
 			}
 				
 
@@ -109,9 +119,8 @@ namespace travel_agent.WindowsAndPages
 			if (result == MessageBoxResult.No) return;
 			if (Reservation == null) reservationService.CreateReservation(parent.User, Arrangement);
 			else reservationService.RecreateReservation(Reservation);
-			parent.MainFrame.Content = new MyTripsPage(parent);
-			parent.SetUnfocusStyle();
-			parent.SetFocusStyle(parent.MyTripsButton);
+			Reservation.Status = Reservation.ReservationStatus.RESERVED;
+			SetUpButtons();
 		}
 
 		private void CancelReservationButton_Click(object sender, RoutedEventArgs e)
@@ -125,7 +134,12 @@ namespace travel_agent.WindowsAndPages
 
 		private void PayTripButton_Click(object sender, RoutedEventArgs e)
 		{
-
+			string message = "Plati putovanje?" + Environment.NewLine + "Nakon izvršenog plaćanja otkazivanje više nije moguće";
+			var result = MessageBox.Show(message, App.Resources["String.AppName"] as string, MessageBoxButton.YesNo, MessageBoxImage.Question);
+			if (result == MessageBoxResult.No) return;
+			reservationService.PayReservation(Reservation);
+			Reservation.Status = Reservation.ReservationStatus.PAID;
+			SetUpButtons();
 		}
 	}
 }

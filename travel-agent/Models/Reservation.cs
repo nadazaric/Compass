@@ -18,6 +18,8 @@ namespace travel_agent.Models
         public Arrangement Arrangement { get; set; }
 
         public ReservationStatus Status { get; set; } 
+        public DateTime ReservedUntil { get; set; }
+
         public Reservation() { }
         public Reservation(User user, Arrangement arrangement, ReservationStatus status)
         {

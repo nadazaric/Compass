@@ -63,6 +63,7 @@
 	<System:String x:Key="String.HistoryLabel">Istorija</System:String>
 	<System:String x:Key="String.NoFutureLabel">Nema aktuelnih putovanja</System:String>
 	<System:String x:Key="String.NoHistoryLabel">Nema proteklih putovanja</System:String>
+	<System:String x:Key="String.ReservationStateLabel">Status rezervacije: </System:String>
 
 	<!-- Tooltip -->
 	<System:String x:Key="String.Add2Places">Potrebno je najmanje 2 mesta za nastavak</System:String>
