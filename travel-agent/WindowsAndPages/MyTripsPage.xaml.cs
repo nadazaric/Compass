@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,7 @@ namespace travel_agent.WindowsAndPages
 			DataContext = this;
 
 			SetUpReservations();
+			SetIfNoContent();
 		}
 
 		private void SetUpReservations()
@@ -56,8 +58,61 @@ namespace travel_agent.WindowsAndPages
 
 		}
 
+		private void SetIfNoContent()
+		{
+			if(Future.Count == 0)
+			{
+				FutureList.Visibility = Visibility.Collapsed;
+				NoContentFuture.Visibility = Visibility.Visible;
+			}if(History.Count == 0)
+			{
+				HistoryList.Visibility = Visibility.Collapsed;
+				NoContentHistory.Visibility = Visibility.Visible;
+			}
+		}
+
+		private void SetStatus(object sender, RoutedEventArgs e)
+		{
+			
+		}
+
 		private void OnTripItemClick(object sender, EventArgs e) { }
 
 		
+	}
+
+	public class EnumTranslator : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			Reservation.ReservationStatus enumValue = (Reservation.ReservationStatus)value;
+			switch(enumValue)
+			{
+				case Reservation.ReservationStatus.RESERVED:
+					return "Rezervisano";
+				case Reservation.ReservationStatus.PAID:
+					return "Plaćeno";
+				case Reservation.ReservationStatus.CANCELED:
+					return "Otkazano";
+				default:
+					return "Istekla rezervacija";
+			}
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			string stringValue = (string)value;
+			switch (stringValue)
+			{
+				case "Rezervisano":
+					return Reservation.ReservationStatus.RESERVED;
+				case "Plaćeno":
+					return Reservation.ReservationStatus.PAID;
+				case "Otkazano":
+					return Reservation.ReservationStatus.CANCELED;
+				default:
+					return Reservation.ReservationStatus.DELETED;
+			}
+		}
 	}
 }

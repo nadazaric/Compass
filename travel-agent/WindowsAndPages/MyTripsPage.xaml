@@ -8,16 +8,20 @@
       mc:Ignorable="d"
       Title="MyTripsPage">
 
+	<Page.Resources>
+		<local:EnumTranslator x:Key="EnumTranslator" />
+	</Page.Resources>
+
 	<StackPanel
-		Width="625">
+		Width="700">
 		<DockPanel>
 
 			<ScrollViewer
 				VerticalScrollBarVisibility="Auto"
-				Width="800">
+				Width="700">
 				<StackPanel
 					Margin="10"
-					MinWidth="800">
+					MinWidth="700">
 
 					<Label
 						Content="{StaticResource String.FutureTripsLabel}"
@@ -124,8 +128,11 @@
 													</StackPanel>
 													<TextBlock
 														x:Name="ReservationStatus"
+														Grid.Row="2"
+														Margin="10 0"
 														FontSize="10"
-														FontWeight="Regular">
+														FontWeight="Regular"
+														Text="{Binding Status, Converter={StaticResource EnumTranslator}}">
 
 													</TextBlock>
 
@@ -163,11 +170,36 @@
 						
 					</Grid>
 
+					<Grid
+						x:Name="NoContentFuture"
+						Height="100"
+						Visibility="Collapsed">
+						<StackPanel
+							VerticalAlignment="Center"
+							HorizontalAlignment="Center">
+							<TextBlock 
+								HorizontalAlignment="Center" 
+								Text="{StaticResource String.NothingLabel}"
+								FontSize="30"
+								FontWeight="Medium"
+								Foreground="{StaticResource Color.PrimaryDark}"/>
+							<TextBlock 
+								FontSize="15" 
+								Text="{StaticResource String.NoFutureLabel}"
+								HorizontalAlignment="Center"
+								Foreground="{StaticResource Color.PrimaryDark}"
+								FontWeight="Medium"/>
+
+						</StackPanel>
+						
+					</Grid>
+
 					<Label
-					Content="{StaticResource String.HistoryLabel}"
-					FontSize="{StaticResource Dim.MediumFontSize}"
-					Foreground="{StaticResource Color.PrimaryDark}"
-					FontWeight="Medium">
+						Content="{StaticResource String.HistoryLabel}"
+						FontSize="{StaticResource Dim.MediumFontSize}"
+						Foreground="{StaticResource Color.PrimaryDark}"
+						FontWeight="Medium"
+						Margin="0 20 0 0">
 
 					</Label>
 
@@ -308,6 +340,29 @@
 							</ItemsControl.ItemsPanel>
 
 						</ItemsControl>
+
+					</Grid>
+					<Grid
+						x:Name="NoContentHistory"
+						Height="100"
+						Visibility="Collapsed">
+						<StackPanel
+							VerticalAlignment="Center"
+							HorizontalAlignment="Center">
+							<TextBlock 
+								HorizontalAlignment="Center" 
+								Text="{StaticResource String.NothingLabel}"
+								FontSize="30"
+								FontWeight="Medium"
+								Foreground="{StaticResource Color.PrimaryDark}"/>
+							<TextBlock 
+								FontSize="15" 
+								Text="{StaticResource String.NoHistoryLabel}"
+								HorizontalAlignment="Center"
+								Foreground="{StaticResource Color.PrimaryDark}"
+								FontWeight="Medium"/>
+
+						</StackPanel>
 
 					</Grid>
 				</StackPanel>
