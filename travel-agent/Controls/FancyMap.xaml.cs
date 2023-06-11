@@ -17,6 +17,7 @@ namespace travel_agent.Controls
     {
         public Pushpin Pin { get; set; } = null;
         public List<Pushpin> AllPins { get; set; } = new List<Pushpin>();
+        public List<MapPolyline> Polylines { get; set; } = new List<MapPolyline> ();
         public GeocodeResponse LastGeocodeResponse { get; set; }
         private Geocoder Geocoder;
         private static int ZOOM_LEVEL = 13;
@@ -78,49 +79,74 @@ namespace travel_agent.Controls
             map.ZoomLevel = ZOOM_LEVEL;
         }
 
-        public void DrawPinForRoute(Place place)
+        public void UpdatePinsContent()
+        {
+            foreach(var pin in AllPins)
+            {
+				pin.Content = AllPins.IndexOf(pin) + 1;
+			}
+		}
+
+        public void DrawPinForRoute(Place place, int index = -1)
         {
             Location location = new Location(place.Latitude, place.Longitude);
-            Pin = new Pushpin();
-            Pin.Location = location;
-            Pin.Background = App.Resources["Color.PrimaryDark"] as SolidColorBrush;
+			Pin = new Pushpin();
+			Pin.Location = location;
+			Pin.Background = App.Resources["Color.PrimaryDark"] as SolidColorBrush;
 			map.Children.Add(Pin);
 			map.Center = location;
 			map.ZoomLevel = ZOOM_LEVEL;
-            Pin.ToolTip = new ToolTip{ Content = place.Name  };
-            AllPins.Add(Pin);
+			Pin.ToolTip = new ToolTip { Content = place.Name };
+			if (index != -1)
+            {
+                DeletePin(location);
+                AllPins.Insert(index, Pin);
+            }
+            else
+            {
+                DeletePin(location);
+                AllPins.Add(Pin);
+            }
+            UpdatePinsContent();
 		}
 
         public async void DrawRouteAsync(List<Location> locations)
         {
             LocationCollection routePoints = await Geocoder.GetRoute(locations);
-			var polyline = new Polyline()
-			{
-				Stroke = Brushes.Blue,
-				StrokeThickness = 5
-			};
+			MapPolyline routePolyline = new MapPolyline();
+			routePolyline.Stroke = new SolidColorBrush(Color.FromRgb(51, 107, 135));
+			routePolyline.StrokeThickness = 3;
+			routePolyline.Locations = routePoints;
 
-			foreach (var location in routePoints)
-			{
-				polyline.Points.Add(new Point(location.Longitude, location.Latitude));
-			}
-
-
-			map.Children.Add(polyline);
+			map.Children.Add(routePolyline);
+            Polylines.Add(routePolyline);
 		}
 
         public void DeletePin(Location location)
         {
+            Pushpin toRemove = new Pushpin();
             foreach(var pin in AllPins)
             {
                 if(pin.Location == location)
                 {
                     map.Children.Remove(pin);
+                    toRemove = pin;
                 }
             }
+            AllPins.Remove(toRemove);
+			UpdatePinsContent();
+		}
+
+        public void DeleteRoutes()
+        {
+            foreach(var poly in Polylines)
+            {
+                map.Children.Remove(poly);
+            }
+            Polylines.Clear();
         }
 
-        public string TryDrawPinFromAddressLine(string addresQuery)
+		public string TryDrawPinFromAddressLine(string addresQuery)
         {
             LastGeocodeResponse = Geocoder.Geocode(addresQuery);
             if (LastGeocodeResponse == null)

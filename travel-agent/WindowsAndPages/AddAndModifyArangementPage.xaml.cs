@@ -436,16 +436,13 @@ namespace travel_agent.WindowsAndPages
 					{
 						places.Remove(place);
 						places.Insert(index,place);
+						RouteMap.DrawPinForRoute(place, index);
 					}
 				}
 				else
 				{
 					places.Remove(place);
 					places.Add(place);
-				}
-
-				if(RearrangeListView != e.Data.GetData("SourceListView"))
-				{
 					RouteMap.DrawPinForRoute(place);
 				}
 				
@@ -720,6 +717,7 @@ namespace travel_agent.WindowsAndPages
 			AccommodationList.IsEnabled = true;
 			AttractionsList.IsEnabled = true;
 			RestaurantsList.IsEnabled = true;
+			RouteMap.DeleteRoutes();
 		}
 
 		private void OnSubmitClick(object sender, RoutedEventArgs e)

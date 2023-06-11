@@ -72,21 +72,17 @@ namespace travel_agent.Controls
                 HttpResponseMessage response = await httpClient.GetAsync(URL);
                 
                 var responseContent = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(responseContent);
 				dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
 
 				var routePath = new LocationCollection();
 
 				if (jsonResponse?.resourceSets?[0]?.resources?[0]?.routeLegs?[0]?.itineraryItems != null)
 				{
-					foreach (var itineraryItem in jsonResponse.resourceSets[0].resources[0].routeLegs[0].itineraryItems)
+					foreach (var point in jsonResponse.resourceSets[0].resources[0].routePath.line.coordinates)
 					{
-						if (itineraryItem?.point?.coordinates != null && itineraryItem.point.coordinates.Count >= 2)
-						{
-							var latitude = (double)itineraryItem.point.coordinates[0];
-							var longitude = (double)itineraryItem.point.coordinates[1];
-							routePath.Add(new Location(latitude, longitude));
-						}
+						var latitude = (double)point[0];
+						var longitude = (double)point[1];
+						routePath.Add(new Location(latitude, longitude));
 					}
 				}
 
