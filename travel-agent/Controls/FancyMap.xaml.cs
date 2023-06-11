@@ -1,16 +1,22 @@
 ﻿using Microsoft.Maps.MapControl.WPF;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
+using travel_agent.Models;
 
 namespace travel_agent.Controls
 {
     public partial class FancyMap : UserControl
     {
         public Pushpin Pin { get; set; } = null;
+        public List<Pushpin> AllPins { get; set; } = new List<Pushpin>();
         public GeocodeResponse LastGeocodeResponse { get; set; }
         private Geocoder Geocoder;
         private static int ZOOM_LEVEL = 13;
@@ -45,7 +51,7 @@ namespace travel_agent.Controls
         {
             if (IsDoubleClickDisabled) return;
             e.Handled = true;
-            Point mousePosition = e.GetPosition(this);
+            System.Windows.Point mousePosition = e.GetPosition(this);
             Location location = map.ViewportPointToLocation(mousePosition);
             DrawPin(location);
             LastGeocodeResponse = Geocoder.ReverseGeocode(location.Latitude, location.Longitude);
@@ -70,6 +76,48 @@ namespace travel_agent.Controls
             map.Children.Add(Pin);
             map.Center = location;
             map.ZoomLevel = ZOOM_LEVEL;
+        }
+
+        public void DrawPinForRoute(Place place)
+        {
+            Location location = new Location(place.Latitude, place.Longitude);
+            Pin = new Pushpin();
+            Pin.Location = location;
+            Pin.Background = App.Resources["Color.PrimaryDark"] as SolidColorBrush;
+			map.Children.Add(Pin);
+			map.Center = location;
+			map.ZoomLevel = ZOOM_LEVEL;
+            Pin.ToolTip = new ToolTip{ Content = place.Name  };
+            AllPins.Add(Pin);
+		}
+
+        public async void DrawRouteAsync(List<Location> locations)
+        {
+            LocationCollection routePoints = await Geocoder.GetRoute(locations);
+			var polyline = new Polyline()
+			{
+				Stroke = Brushes.Blue,
+				StrokeThickness = 5
+			};
+
+			foreach (var location in routePoints)
+			{
+				polyline.Points.Add(new Point(location.Longitude, location.Latitude));
+			}
+
+
+			map.Children.Add(polyline);
+		}
+
+        public void DeletePin(Location location)
+        {
+            foreach(var pin in AllPins)
+            {
+                if(pin.Location == location)
+                {
+                    map.Children.Remove(pin);
+                }
+            }
         }
 
         public string TryDrawPinFromAddressLine(string addresQuery)

@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.Maps.MapControl.WPF;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +20,7 @@ using System.Xml.Linq;
 using travel_agent.Controls;
 using travel_agent.Models;
 using travel_agent.Services;
+using Point = System.Windows.Point;
 
 namespace travel_agent.WindowsAndPages
 {
@@ -57,6 +59,8 @@ namespace travel_agent.WindowsAndPages
 			StartDatePicker.DateChanged += StartDatePicker_DateChanged;
 			EndDatePicker.DateChanged += EndDatePicker_DateChanged;
 			TransportListView.SelectionChanged += ListView_ItemClick;
+
+			RouteMap.DisableDoubleClick();
 
 			SetUpPage();
 
@@ -440,6 +444,12 @@ namespace travel_agent.WindowsAndPages
 					places.Add(place);
 				}
 
+				if(RearrangeListView != e.Data.GetData("SourceListView"))
+				{
+					RouteMap.DrawPinForRoute(place);
+				}
+				
+
 				if(RearrangeListView.Items.Count == 2)
 				{
 					NextButton.IsEnabled = true;
@@ -483,7 +493,7 @@ namespace travel_agent.WindowsAndPages
 						break;
 				}
 				(RearrangeListView.ItemsSource as ObservableCollection<Place>).Remove(place);
-
+				RouteMap.DeletePin(new Microsoft.Maps.MapControl.WPF.Location(place.Latitude, place.Longitude));
 			}
 			
 		}
@@ -517,7 +527,7 @@ namespace travel_agent.WindowsAndPages
 						break;
 				}
 				(RearrangeListView.ItemsSource as ObservableCollection<Place>).Remove(place);
-
+				RouteMap.DeletePin(new Microsoft.Maps.MapControl.WPF.Location(place.Latitude, place.Longitude));
 			}
 		}
 
@@ -561,6 +571,7 @@ namespace travel_agent.WindowsAndPages
 
 			}
 
+			GenerateRoute();
 			AttractionsList.IsEnabled = false;
 			RestaurantsList.IsEnabled = false;
 			AccommodationList.IsEnabled = false;
@@ -570,6 +581,16 @@ namespace travel_agent.WindowsAndPages
 			NextButton.IsEnabled = false;
 			BackButton.IsEnabled = true;
 
+		}
+
+		private void GenerateRoute()
+		{
+			List<Location> locations = new List<Location>();
+			foreach(Place place in RearrangeListView.Items)
+			{
+				locations.Add(new Location(place.Latitude, place.Longitude));
+			}
+			RouteMap.DrawRouteAsync(locations);
 		}
 
 
