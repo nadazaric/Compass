@@ -125,11 +125,12 @@ namespace travel_agent.WindowsAndPages
 			foreach (var step in Arrangement.Steps)
 			{
 				lastRearrengement.Add(step.StartPlace);
+				RouteMap.DrawPinForRoute(step.StartPlace);
 
 			}
-
-			lastRearrengement.Add(Arrangement.Steps[Arrangement.Steps.Count - 1].EndPlace);
-
+			Place last = Arrangement.Steps[Arrangement.Steps.Count - 1].EndPlace;
+			lastRearrengement.Add(last);
+			RouteMap.DrawPinForRoute(last);
 		}
 
 		private void SetUpSteps()
@@ -157,6 +158,7 @@ namespace travel_agent.WindowsAndPages
 
 			NextButton.IsEnabled = false;
 			BackButton.IsEnabled = true;
+			GenerateRoute();
 		}
 
 		private bool IsFormValid()
