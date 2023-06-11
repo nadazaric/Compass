@@ -1,7 +1,9 @@
 ﻿using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows;
@@ -110,16 +112,52 @@ namespace travel_agent.Controls
             UpdatePinsContent();
 		}
 
-        public async void DrawRouteAsync(List<Location> locations)
+        public async void DrawRouteAsync(List<ArrangementStep> steps)
         {
-            LocationCollection routePoints = await Geocoder.GetRoute(locations);
-			MapPolyline routePolyline = new MapPolyline();
-			routePolyline.Stroke = new SolidColorBrush(Color.FromRgb(51, 107, 135));
-			routePolyline.StrokeThickness = 3;
-			routePolyline.Locations = routePoints;
+            DeleteRoutes();
+            foreach(var step in steps)
+            {
+				MapPolyline routePolyline = new MapPolyline();
+				if (step.TransportationType != ArrangementStep.TransportType.PLANE)
+                {
+					LocationCollection routePoints = await Geocoder.GetRoute(step);
+					routePolyline.Locations = routePoints;
+                }
+                else
+                {
+					LocationCollection routePoints = new LocationCollection
+					{
+						new Location(step.StartPlace.Latitude, step.StartPlace.Longitude),
+						new Location(step.EndPlace.Latitude, step.EndPlace.Longitude)
+					};
+                    routePolyline.Locations = routePoints;
+                }
+                
+				routePolyline.Stroke = new SolidColorBrush(Color.FromRgb(51, 107, 135));
+				routePolyline.StrokeThickness = 3;
 
-			map.Children.Add(routePolyline);
-            Polylines.Add(routePolyline);
+                if(step.TransportationType == ArrangementStep.TransportType.FOOT)
+                {
+                    routePolyline.StrokeDashArray = new DoubleCollection { 4, 1 };
+
+				}
+                else if(step.TransportationType == ArrangementStep.TransportType.PLANE)
+                {
+					routePolyline.Stroke = new SolidColorBrush(Color.FromRgb(86, 141, 166));
+				}else if(step.TransportationType == ArrangementStep.TransportType.TRAIN)
+                {
+					routePolyline.Stroke = new SolidColorBrush(Color.FromRgb(122, 122, 122));
+					routePolyline.StrokeDashArray = new DoubleCollection { 2, 1 };
+                    routePolyline.ToolTip = new ToolTip { Content = "Nisu dostupni podaci za rutu vozom" };
+
+				}
+				map.Children.Add(routePolyline);
+				Polylines.Add(routePolyline);
+			}
+			
+			
+
+			
 		}
 
         public void DeletePin(Location location)

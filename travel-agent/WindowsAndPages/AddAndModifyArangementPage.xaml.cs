@@ -568,7 +568,7 @@ namespace travel_agent.WindowsAndPages
 
 			}
 
-			GenerateRoute();
+			
 			AttractionsList.IsEnabled = false;
 			RestaurantsList.IsEnabled = false;
 			AccommodationList.IsEnabled = false;
@@ -577,17 +577,13 @@ namespace travel_agent.WindowsAndPages
 			RearrangeListView.ItemsSource = new ObservableCollection<Place>();
 			NextButton.IsEnabled = false;
 			BackButton.IsEnabled = true;
-
+			GenerateRoute();
 		}
 
 		private void GenerateRoute()
 		{
-			List<Location> locations = new List<Location>();
-			foreach(Place place in RearrangeListView.Items)
-			{
-				locations.Add(new Location(place.Latitude, place.Longitude));
-			}
-			RouteMap.DrawRouteAsync(locations);
+			List<ArrangementStep> steps = (TransportListView.ItemsSource as ObservableCollection<ArrangementStep>).ToList();
+			RouteMap.DrawRouteAsync(steps);
 		}
 
 
@@ -625,7 +621,7 @@ namespace travel_agent.WindowsAndPages
 
 			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
 			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/plane.png", UriKind.Relative));
-
+			GenerateRoute();
 		}
 
 		private void TrainToggle_Checked(object sender, RoutedEventArgs e)
@@ -638,6 +634,7 @@ namespace travel_agent.WindowsAndPages
 
 			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
 			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/train.png", UriKind.Relative));
+			GenerateRoute();
 		}
 
 		private void BusToggle_Checked(object sender, RoutedEventArgs e)
@@ -649,7 +646,7 @@ namespace travel_agent.WindowsAndPages
 			(TransportListView.ItemsSource as ObservableCollection<ArrangementStep>).First(item => item.StartPlace == selectedItem.StartPlace).TransportationType = ArrangementStep.TransportType.BUS; ;
 			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
 			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/bus.png", UriKind.Relative));
-
+			GenerateRoute();
 		}
 
 		private void FootToggle_Checked(object sender, RoutedEventArgs e)
@@ -661,7 +658,7 @@ namespace travel_agent.WindowsAndPages
 			(TransportListView.ItemsSource as ObservableCollection<ArrangementStep>).First(item => item.StartPlace == selectedItem.StartPlace).TransportationType = ArrangementStep.TransportType.FOOT; 
 			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
 			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/walk.png", UriKind.Relative));
-
+			GenerateRoute();
 		}
 
 
