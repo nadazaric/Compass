@@ -26,9 +26,9 @@ namespace travel_agent.WindowsAndPages
             } 
         }
 
-        private void SetFocusStyle(Button button) => button.Style = App.Resources["SelectedNavbarButtonStyle"] as Style;
+        public void SetFocusStyle(Button button) => button.Style = App.Resources["SelectedNavbarButtonStyle"] as Style;
 
-        private void SetUnfocusStyle()
+        public void SetUnfocusStyle()
         {
             foreach (var child in NavbarButtons.Children)
                 if (child is Button) (child as Button).Style = App.Resources["NavbarButtonStyle"] as Style;

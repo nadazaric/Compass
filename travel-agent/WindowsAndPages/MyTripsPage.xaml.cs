@@ -71,12 +71,12 @@ namespace travel_agent.WindowsAndPages
 			}
 		}
 
-		private void SetStatus(object sender, RoutedEventArgs e)
-		{
-			
-		}
 
-		private void OnTripItemClick(object sender, EventArgs e) { }
+		private void OnTripItemClick(object sender, EventArgs e) {
+			object data = (sender as Grid).DataContext;
+			Reservation reservation = data as Reservation;
+			parent.MainFrame.Content = new ViewArrangementPage(parent, reservation.Arrangement, reservation);
+		}
 
 		
 	}

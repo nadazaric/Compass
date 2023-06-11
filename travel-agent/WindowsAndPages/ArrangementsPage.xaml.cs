@@ -124,6 +124,7 @@ namespace travel_agent.WindowsAndPages
 
 		}
 
+        // TODO Check logic for filter
         private bool CheckTransportType(Arrangement arrangement)
 		{
             bool bus = (bool)TransportBusCB.IsChecked ? false : true;

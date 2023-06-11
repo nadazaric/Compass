@@ -526,7 +526,7 @@
 								Style="{StaticResource SmallButtonStyle}"
 								Grid.Column="2"
 								IsEnabled="False"
-								ToolTipService.IsEnabled="False"
+								ToolTipService.IsEnabled="True"
 								ToolTipService.Placement="Mouse"
 								ToolTipService.ShowOnDisabled="True"
 								ToolTipService.InitialShowDelay="0"

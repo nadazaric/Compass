@@ -22,7 +22,25 @@ namespace travel_agent.Services
             }
         }
 
-        public void CreateReservation(User user, Arrangement arrangement)
+		public List<Reservation> GetAllForUser(User user, bool future)
+		{
+			using (Context db = new Context())
+			{
+				return db.Reservations.Include(r => r.Arrangement).Include(r => r.User)
+					.Where(r => r.User.Id == user.Id && future ? (DateTime.Compare(r.Arrangement.End, DateTime.Now) > 0) : (DateTime.Compare(r.Arrangement.End, DateTime.Now) < 0))
+					.ToList();
+			}
+		}
+
+		public Reservation GetUserReservation(User user, Arrangement arrangement)
+		{
+			using (Context db = new Context())
+			{
+				return db.Reservations.Include(r => r.Arrangement).Include(r => r.User).SingleOrDefault(r => r.UserId == user.Id && r.ArrangementId == arrangement.Id);
+			}
+		}
+
+		public void CreateReservation(User user, Arrangement arrangement)
         {
             Reservation reservation = new Reservation(user, arrangement, Reservation.ReservationStatus.RESERVED);
             reservation.User = null;
@@ -35,15 +53,20 @@ namespace travel_agent.Services
                 db.SaveChanges();
             }
         }
-        public List<Reservation> GetAllForUser(User user, bool future)
+
+        public void RecreateReservation(Reservation reservation)
         {
-			using (Context db = new Context())
-			{
-				return db.Reservations.Include(r => r.Arrangement).Include(r => r.User)
-                    .Where( r => r.User.Id == user.Id && future ? (DateTime.Compare(r.Arrangement.End, DateTime.Now)>0) : (DateTime.Compare(r.Arrangement.End, DateTime.Now) < 0))
-                    .ToList();
-			}
-		}
+            using(var db = new Context())
+            {
+                Reservation res = db.Reservations.Find(reservation.Id);
+                if(res != null)
+                {
+                    res.Status = Reservation.ReservationStatus.RESERVED;
+                    db.SaveChanges();
+                }
+               
+            }
+        }
 
         public void CancelReservationForUser(Reservation reservation) 
         {
@@ -78,5 +101,7 @@ namespace travel_agent.Services
                 }
             }
         }
+
+       
     }
 }

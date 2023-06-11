@@ -67,13 +67,15 @@
 					   FontSize="{StaticResource Dim.MediumFontSize}"
 					   Foreground="{StaticResource Color.PrimaryDark}"
 					   FontWeight="Medium"
+					   VerticalAlignment="Center"
 					   Padding="0 0 0 1"></Label>
 				<TextBlock 
 					Text="{Binding Description}" 
-					Padding="0" 
+					Padding="10 0" 
 					TextWrapping="Wrap"
 					FontSize="{StaticResource Dim.RegularFontSize}"  
-					FontWeight="Normal"/>
+					FontWeight="Normal"
+					VerticalAlignment="Center"/>
 			</StackPanel>
 
 			<Grid 
@@ -158,7 +160,11 @@
 			<Button
 				x:Name="MakeReservationButton"
 				Margin="10"
-				Content="{StaticResource String.MakeReservationButton}" Click="MakeReservationButton_Click">
+				Content="{StaticResource String.MakeReservationButton}" 
+				Visibility="Collapsed"
+				Click="MakeReservationButton_Click"
+				ToolTip="{StaticResource String.ReservationTimePassed}"
+				ToolTipService.ShowOnDisabled="True">
 				
 			</Button>
 			<Button
