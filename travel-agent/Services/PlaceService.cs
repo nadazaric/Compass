@@ -37,7 +37,27 @@ namespace travel_agent.Services
                 placeToUpdate.Address = place.Address;
                 placeToUpdate.Longitude = place.Longitude;
                 placeToUpdate.Latitude = place.Latitude;
-                placeToUpdate.Type = place.Type;    
+                placeToUpdate.Type = place.Type;
+                db.SaveChanges();
+            }
+        }
+
+        public void Delete(Place place)
+        {
+            using (var db = new Context())
+            {
+                var placeToUpdate = db.Places.FirstOrDefault(p => p.Id == place.Id);
+                placeToUpdate.IsDeleted = true;
+                db.SaveChanges();
+            }
+        }
+
+        public void ReactivatePlace(Place place)
+        {
+            using (var db = new Context())
+            {
+                var placeToUpdate = db.Places.FirstOrDefault(p => p.Id == place.Id);
+                placeToUpdate.IsDeleted = false;
                 db.SaveChanges();
             }
         }

@@ -171,6 +171,17 @@
                 Style="{StaticResource OutlineDeleteButtonStyle}"
                 Content="{StaticResource String.DeleteButton}"
                 Padding="0"
+                Click="OnDeletePlaceClick"
+                Margin="0 10 0 0"
+                Visibility="Collapsed"/>
+
+            <Button
+                x:Name="ReactivatePlaceButton"
+                Style="{StaticResource OutlineButtonStyle}"
+                Content="{StaticResource String.ReactivatePlaceButton}" 
+				Background="{StaticResource Color.White}"
+                Padding="0"
+                Click="ReactivatePlaceButtonClick"
                 Margin="0 10 0 0"
                 Visibility="Collapsed"/>
 
