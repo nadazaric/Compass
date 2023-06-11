@@ -59,7 +59,8 @@
 	<System:String x:Key="String.PriceLongLabel">Cena: </System:String>
 	<System:String x:Key="String.DateStartLongLabel">Datum polaska: </System:String>
 	<System:String x:Key="String.DateEndLongLabel">Datum povratka:</System:String>
-
+	<System:String x:Key="String.FutureTripsLabel">Aktuelna putovanja</System:String>
+	<System:String x:Key="String.HistoryLabel">Istorija</System:String>
 
 	<!-- Tooltip -->
 	<System:String x:Key="String.Add2Places">Potrebno je najmanje 2 mesta za nastavak</System:String>
@@ -94,8 +95,8 @@
 	<System:String x:Key="String.MakeReservationButton">Rezerviši</System:String>
 	<System:String x:Key="String.DeleteReservationButton">Otkaži rezervaciju</System:String>
 	<System:String x:Key="String.PayReservationButton">Plati putovanje</System:String>
-	
-    <!-- Errors -->
+
+	<!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>
     <System:String x:Key="String.WrongEmailPatternError">Uneli ste pogrešnu formu e-mail adrese!</System:String>
     <System:String x:Key="String.PasswordMustContainNCaractersError">Lozinka mora sadržati minimalno 6 karaktera!</System:String>

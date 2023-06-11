@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using travel_agent.Models;
+using travel_agent.Services;
 
 namespace travel_agent.WindowsAndPages
 {
@@ -24,6 +25,7 @@ namespace travel_agent.WindowsAndPages
 
 		private Arrangement arrangement;
 		private MainWindow parent;
+		private ReservationService reservationService;
 
 		public ViewArrangementPage(MainWindow parent, Arrangement arrangement)
 		{
@@ -31,13 +33,14 @@ namespace travel_agent.WindowsAndPages
 			this.parent = parent;
 			this.arrangement = arrangement;
 			DataContext = this.arrangement;
+			reservationService = ReservationService.Instance;
 		}
 
 		private void OnBackClick(object sender, RoutedEventArgs e) => parent.MainFrame.Content = new ArrangementsPage(parent);
 
 		private void MakeReservationButton_Click(object sender, RoutedEventArgs e)
 		{
-
+			reservationService.CreateReservation(parent.User, arrangement);
 		}
 
 		private void CancelReservationButton_Click(object sender, RoutedEventArgs e)

@@ -84,7 +84,7 @@
                 x:Name="ArrangementDescriptionInput"
                 Placeholder="{StaticResource String.DescriptionLabel}"
                 Multiline="True"
-                MaxWidth="800"
+                MaxWidth="725"
                 Margin="0 0 0 15">
 				<controls:FancyTextBox.ValidationRules>
 					<validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>

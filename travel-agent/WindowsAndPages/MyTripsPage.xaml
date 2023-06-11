@@ -4,11 +4,320 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:travel_agent.WindowsAndPages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+	  xmlns:controls="clr-namespace:travel_agent.Controls"
+      mc:Ignorable="d"
       Title="MyTripsPage">
 
-    <Grid>
-        
-    </Grid>
+	<StackPanel
+		Width="625">
+		<DockPanel>
+
+			<ScrollViewer
+				VerticalScrollBarVisibility="Auto"
+				Width="800">
+				<StackPanel
+					Margin="10"
+					MinWidth="800">
+
+					<Label
+						Content="{StaticResource String.FutureTripsLabel}"
+						FontSize="{StaticResource Dim.MediumFontSize}"
+						Foreground="{StaticResource Color.PrimaryDark}"
+						FontWeight="Medium">
+
+					</Label>
+					<Grid
+						x:Name="FutureList">
+						<ItemsControl
+							x:Name="FutureItemsControl"
+							Margin="0"
+							ItemsSource="{Binding Future}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Border 
+										BorderBrush="{StaticResource Color.PrimaryDark}" 
+										BorderThickness="1.25" 
+										CornerRadius="{StaticResource Dim.RegularCorner}"
+										Margin="0 20"
+										Padding="5"
+										Height="100"
+										Width="600">		
+										<Border.Style>
+											<Style TargetType="Border">
+												<Style.Triggers>
+													<Trigger Property="IsMouseOver" Value="True">
+														<Trigger.EnterActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1.015" Duration="0:0:0.2"/>
+																	<DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1.015" Duration="0:0:0.2"/>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.EnterActions>
+														<Trigger.ExitActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.2"/>
+																	<DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.2"/>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.ExitActions>
+													</Trigger>
+												</Style.Triggers>
+												<Setter Property="RenderTransform">
+													<Setter.Value>
+														<ScaleTransform ScaleX="1" ScaleY="1"/>
+													</Setter.Value>
+												</Setter>
+											</Style>
+										</Border.Style>
+										<Grid
+											MouseLeftButtonUp="OnTripItemClick">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="*"/>
+												<ColumnDefinition Width="2*"/>
+												<ColumnDefinition Width="*"/>
+											</Grid.ColumnDefinitions>
+											<Image
+												Grid.Column="0"
+												Source="{Binding Arrangement.Image}"
+												Stretch="UniformToFill"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center"/>		
+											<DockPanel Grid.Column="1" LastChildFill="False">
+												<Grid>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="*"></RowDefinition>
+														<RowDefinition Height="*"></RowDefinition>
+														<RowDefinition Height="*"></RowDefinition>
+													</Grid.RowDefinitions>
+													<TextBlock
+														TextWrapping="Wrap"
+														Text="{Binding Arrangement.Name}"
+														FontSize="20"
+														Padding="10 0"
+														FontWeight="Medium"
+													/>
+													<StackPanel
+														Orientation="Horizontal"
+														HorizontalAlignment="Left"
+														Grid.Column="0"
+														Grid.Row="1"
+														Margin="10 0"
+														>
+														<TextBlock
+															Text="{Binding Arrangement.Start, StringFormat='dd.MM.yyyy'}"
+															FontSize="15"
+															Padding="0 0 5 0"
+															FontWeight="Regular"/>
+														<TextBlock
+															Text="-"
+															FontSize="15"
+															Padding="5 0"
+															FontWeight="Regular"/>
+														<TextBlock
+															Text="{Binding Arrangement.End , StringFormat='dd.MM.yyyy'}"
+															FontSize="15"
+															Padding="5 0"
+															FontWeight="Regular"/>
+
+													</StackPanel>
+													<TextBlock
+														x:Name="ReservationStatus"
+														FontSize="10"
+														FontWeight="Regular">
+
+													</TextBlock>
+
+												</Grid>
+											</DockPanel>
+											<StackPanel
+												Orientation="Horizontal"
+												Grid.Column="2"
+												HorizontalAlignment="Right">
+
+												<TextBlock
+													TextWrapping="NoWrap"
+													Text="{Binding Arrangement.Price}"
+													FontSize="20"
+													Padding="5 0"
+													FontWeight="Medium"/>
+												<TextBlock
+													Text="RSD"
+													FontSize="20"
+													Padding="5 0"
+													FontWeight="Medium"/>
+
+											</StackPanel>
+										</Grid>
+									</Border>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<WrapPanel HorizontalAlignment="Stretch"></WrapPanel>
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+							
+						</ItemsControl>
+						
+					</Grid>
+
+					<Label
+					Content="{StaticResource String.HistoryLabel}"
+					FontSize="{StaticResource Dim.MediumFontSize}"
+					Foreground="{StaticResource Color.PrimaryDark}"
+					FontWeight="Medium">
+
+					</Label>
+
+					<Grid
+						x:Name="HistoryList">
+						<ItemsControl
+							x:Name="HistoryItemsControl"
+							Margin="0 10 0 20"
+							ItemsSource="{Binding History}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Border 
+										BorderBrush="{StaticResource Color.PrimaryDark}" 
+										BorderThickness="1.25" 
+										CornerRadius="{StaticResource Dim.RegularCorner}"
+										Margin="0 20"
+										Height="300"
+										Width="600">
+										<Border.Style>
+											<Style TargetType="Border">
+												<Style.Triggers>
+													<Trigger Property="IsMouseOver" Value="True">
+														<Trigger.EnterActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1.015" Duration="0:0:0.2"/>
+																	<DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1.015" Duration="0:0:0.2"/>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.EnterActions>
+														<Trigger.ExitActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.2"/>
+																	<DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.2"/>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.ExitActions>
+													</Trigger>
+												</Style.Triggers>
+												<Setter Property="RenderTransform">
+													<Setter.Value>
+														<ScaleTransform ScaleX="1" ScaleY="1"/>
+													</Setter.Value>
+												</Setter>
+											</Style>
+										</Border.Style>
+										<Grid
+											MouseLeftButtonUp="OnTripItemClick">
+											<Grid.Clip>
+												<RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,0,350,350"/>
+											</Grid.Clip>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="*"/>
+												<ColumnDefinition Width="5*"/>
+												<ColumnDefinition Width="*"/>
+											</Grid.ColumnDefinitions>
+											<Image
+												Source="{Binding Arrangement.Image}"
+												Stretch="UniformToFill"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center"/>
+											<DockPanel Grid.Column="1" LastChildFill="True">
+												<Grid>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="*"></RowDefinition>
+														<RowDefinition Height="*"></RowDefinition>
+														<RowDefinition Height="*"></RowDefinition>
+													</Grid.RowDefinitions>
+													<TextBlock
+														TextWrapping="Wrap"
+														Text="{Binding Arrangement.Name}"
+														FontSize="20"
+														Padding="10 0"
+														FontWeight="Medium"
+													/>
+													<StackPanel
+														Orientation="Horizontal"
+														HorizontalAlignment="Left"
+														Grid.Column="0"
+														Grid.Row="1"
+														Margin="10 0"
+														>
+														<TextBlock
+															Text="{Binding Arrangement.Start, StringFormat='dd.MM.yyyy'}"
+															FontSize="15"
+															Padding="0 0 5 0"
+															FontWeight="Regular"/>
+														<TextBlock
+															Text="-"
+															FontSize="15"
+															Padding="5 0"
+															FontWeight="Regular"/>
+														<TextBlock
+															Text="{Binding Arrangement.End , StringFormat='dd.MM.yyyy'}"
+															FontSize="15"
+															Padding="5 0"
+															FontWeight="Regular"/>
+
+													</StackPanel>
+													<TextBlock
+														x:Name="ReservationStatus"
+														FontSize="10"
+														FontWeight="Regular">
+
+													</TextBlock>
+
+												</Grid>
+											</DockPanel>
+											<StackPanel
+												Orientation="Horizontal"
+												Grid.Column="2"
+												VerticalAlignment="Top"
+												HorizontalAlignment="Right"
+												Margin="10">
+
+												<TextBlock
+													TextWrapping="NoWrap"
+													Text="{Binding Arrangement.Price}"
+													FontSize="20"
+													Padding="5 0"
+													FontWeight="Medium"/>
+												<TextBlock
+													Text="RSD"
+													FontSize="20"
+													Padding="5 0"
+													FontWeight="Medium"/>
+
+											</StackPanel>
+										</Grid>
+									</Border>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<WrapPanel HorizontalAlignment="Stretch"></WrapPanel>
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+
+						</ItemsControl>
+
+					</Grid>
+				</StackPanel>
+
+				
+
+
+			</ScrollViewer>
+		</DockPanel>
+
+	</StackPanel>
+	
 </Page>
