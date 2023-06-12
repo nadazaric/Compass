@@ -91,6 +91,12 @@ namespace travel_agent.WindowsAndPages
 				MakeReservationButton.Visibility = Visibility.Visible;
 				PayTripButton.Visibility = Visibility.Collapsed;
 				CancelReservationButton.Visibility= Visibility.Collapsed;
+				if (Arrangement.IsDeleted)
+				{
+					MakeReservationButton.Visibility = Visibility.Collapsed;
+					PayTripButton.Visibility = Visibility.Collapsed;
+					CancelReservationButton.Visibility = Visibility.Collapsed;
+				}
 				if (days >= 3)
 				{
 					MakeReservationButton.IsEnabled = true;
@@ -122,6 +128,13 @@ namespace travel_agent.WindowsAndPages
 				PayTripButton.Visibility = Visibility.Collapsed;
 				CancelReservationButton.Visibility = Visibility.Collapsed;
 				ReservationStatusLabel.Content = Reservation.Status == Reservation.ReservationStatus.CANCELED ? "Otkazano" : "Istekla rezervacija";
+				if (Arrangement.IsDeleted)
+				{
+					MakeReservationButton.Visibility = Visibility.Collapsed;
+					PayTripButton.Visibility = Visibility.Collapsed;
+					CancelReservationButton.Visibility = Visibility.Collapsed;
+					ReservationStatusLabel.Content = "Putovanje je nažalost otkazano do daljnjeg.";
+				}
 			}
 			else if(Reservation.Status == Reservation.ReservationStatus.PAID)
 			{
@@ -131,6 +144,7 @@ namespace travel_agent.WindowsAndPages
 				
 				ReservationStatusLabel.Content = "Plaćeno";
 			}
+
 				
 
 			
