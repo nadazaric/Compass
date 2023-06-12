@@ -134,6 +134,16 @@ namespace travel_agent.Services
             }
 
         }
+
+        public List<Reservation> GetReservationsForArrangment(Arrangement arrangement)
+        {
+            using (var db = new Context())
+            {
+                List<Reservation> temp = db.Reservations.Where(r => r.Arrangement.Id == arrangement.Id).ToList();
+                if (temp == null) return null;
+                return temp;
+            }
+        }
        
     }
 }
