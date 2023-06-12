@@ -66,6 +66,7 @@
 	<System:String x:Key="String.ReservationStateLabel">Status rezervacije: </System:String>
 	<System:String x:Key="String.TripPlanLabel">Plan putovanja</System:String>
 	<System:String x:Key="String.LookMapLabel">Pogledaj na mapi</System:String>
+	<System:String x:Key="String.DeletedLabel">Obrisano</System:String>
 
 	<!-- Tooltip -->
 	<System:String x:Key="String.Add2Places">Potrebno je najmanje 2 mesta za nastavak</System:String>

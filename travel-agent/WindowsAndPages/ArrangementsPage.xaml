@@ -9,6 +9,7 @@
 	mc:Ignorable="d"
     Title="ArrangementsPage">
 	<Page.Resources>
+
 		<DataTemplate x:Key="FirstItemTemplate">
 			<Button
 				Style="{StaticResource OutlineButtonStyle}"
@@ -124,6 +125,29 @@
 									FontWeight="Regular"/>
 
 							</StackPanel>
+							<Label
+								Content="OBRISANO"
+								FontSize="15"
+								Grid.Column="0"
+								Grid.Row="2"
+								Foreground="{StaticResource Color.PrimaryDark}"
+								Padding="10"
+								FontWeight="Bold"
+								VerticalAlignment="Bottom">
+								<Label.Style>
+									<Style TargetType="Label">
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding IsDeleted}" Value="True">
+												<Setter Property="Visibility" Value="Visible" />
+											</DataTrigger>
+											<DataTrigger Binding="{Binding IsDeleted}" Value="False">
+												<Setter Property="Visibility" Value="Collapsed" />
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</Label.Style>
+
+							</Label>
 							<StackPanel
 								Orientation="Horizontal"
 								Grid.Column="1"
@@ -365,7 +389,6 @@
 									/>
 
 							</StackPanel>
-
 							<Button
 								Style="{StaticResource OutlineButtonStyle}"
 								Content="{StaticResource String.ReturnToDefaultStateButton}"
