@@ -4,3 +4,4 @@ email: vanja@mail.com
 pass: vanja
 Inicijalno baza ima samo Vanju kao korisnika i nedostaje ključ za Bing mapu, pa je samim tim 
 program neupotrebljiv jer se ne može dodati ni Mesto ni Aranžman bez mape. 
+Slike u Help-u zbog velicine nisu mogle da stanu na repozirotijum.
