@@ -7,7 +7,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Statistics">
 
-    <StackPanel Margin="30 40" MinWidth="300" MaxWidth="750" Orientation="Horizontal">
+    <StackPanel Margin="30 40" MinWidth="300" MaxWidth="800" Orientation="Horizontal">
         <Button
 				Style="{StaticResource OutlineButtonStyle}"
 				Width="350"

@@ -43,10 +43,5 @@ namespace travel_agent.WindowsAndPages
         {
             Parent.MainFrame.Content = new MonthReport(Parent);
         }
-
-        public void OnBackClick(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
