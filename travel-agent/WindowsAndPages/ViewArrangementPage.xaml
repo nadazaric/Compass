@@ -9,21 +9,20 @@
       Title="ViewArrangementPage">
 	<Page.Resources>
 		<local:IndexConverter x:Key="IndexConverter"></local:IndexConverter>
-		<local:LastIndexConverter x:Key="LastIndexConverter"></local:LastIndexConverter>
 		<local:LastItemTemplateSelector x:Key="LastItemTemplateSelector"></local:LastItemTemplateSelector>
 
 		<Style TargetType="Image" x:Key="PlaceImageStyle">
 			<Style.Triggers>
-				<DataTrigger Binding="{Binding TransportationType}" Value="PLANE">
+				<DataTrigger Binding="{Binding Step.TransportationType}" Value="PLANE">
 					<Setter Property="Source" Value="../Resources/Images/Plane.png" />
 				</DataTrigger>
-				<DataTrigger Binding="{Binding TransportationType}" Value="BUS">
+				<DataTrigger Binding="{Binding Step.TransportationType}" Value="BUS">
 					<Setter Property="Source" Value="../Resources/Images/Bus.png" />
 				</DataTrigger>
-				<DataTrigger Binding="{Binding TransportationType}" Value="TRAIN">
+				<DataTrigger Binding="{Binding Step.TransportationType}" Value="TRAIN">
 					<Setter Property="Source" Value="../Resources/Images/Train.png" />
 				</DataTrigger>
-				<DataTrigger Binding="{Binding TransportationType}" Value="FOOT">
+				<DataTrigger Binding="{Binding Step.TransportationType}" Value="FOOT">
 					<Setter Property="Source" Value="../Resources/Images/Walk.png" />
 				</DataTrigger>
 			</Style.Triggers>
@@ -31,7 +30,7 @@
 
 		<DataTemplate x:Key="DefaultTemplate">
 			<Grid
-				Width="Auto">
+				HorizontalAlignment="Stretch">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="Auto"/>
@@ -51,10 +50,7 @@
 						Foreground="{StaticResource Color.White}"
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
-						Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}},
-                            Path=(ItemsControl.AlternationIndex),
-                            Mode=OneWay,
-                            Converter={StaticResource IndexConverter}}"
+						Content="{Binding Index}"
 						FontSize="{StaticResource Dim.RegularFontSize}"
 						FontWeight="ExtraBold">
 
@@ -62,7 +58,7 @@
 				</Border>
 				<Label 
 					Grid.Column="1"
-					Content="{Binding StartPlace.Name}"
+					Content="{Binding Step.StartPlace.Name}"
 					FontSize="{StaticResource Dim.RegularFontSize}"
 					FontWeight="Medium"
 					Padding="10 0 0 0"
@@ -96,7 +92,7 @@
 
 		<DataTemplate x:Key="LastItemTemplate">
 			<Grid
-				Width="Auto">
+				HorizontalAlignment="Stretch">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="Auto"/>
@@ -117,10 +113,7 @@
 						Foreground="{StaticResource Color.White}"
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
-						Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}},
-                            Path=(ItemsControl.AlternationIndex),
-                            Mode=OneWay,
-                            Converter={StaticResource IndexConverter}}"
+						Content="{Binding Index}"
 						FontSize="{StaticResource Dim.RegularFontSize}"
 						FontWeight="ExtraBold">
 
@@ -128,7 +121,7 @@
 				</Border>
 				<Label 
 					Grid.Column="1"
-					Content="{Binding StartPlace.Name}"
+					Content="{Binding Step.StartPlace.Name}"
 					FontSize="{StaticResource Dim.RegularFontSize}"
 					FontWeight="Medium"
 					Padding="10 0 0 0"
@@ -168,10 +161,7 @@
 						Foreground="{StaticResource Color.White}"
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
-						Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}},
-                            Path=(ItemsControl.AlternationIndex),
-                            Mode=OneWay,
-                            Converter={StaticResource LastIndexConverter}}"
+						Content="{Binding Index, Converter={StaticResource IndexConverter}}"
 						FontSize="{StaticResource Dim.RegularFontSize}"
 						FontWeight="ExtraBold">
 
@@ -180,7 +170,7 @@
 				<Label 
 					Grid.Column="1"
 					Grid.Row="2"
-					Content="{Binding EndPlace.Name}"
+					Content="{Binding Step.EndPlace.Name}"
 					FontSize="{StaticResource Dim.RegularFontSize}"
 					FontWeight="Medium"
 					Padding="10 0 0 0"
@@ -232,14 +222,14 @@
 					</Grid.RowDefinitions>
 					<Image
                         Grid.Row="0"
-                        Source="{Binding Image}"
+                        Source="{Binding Arrangement.Image}"
                         Stretch="UniformToFill"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"/>
 					<DockPanel Grid.Row="1" Background="{StaticResource Color.PrimaryLight}" LastChildFill="True">
 						<TextBlock
                             TextWrapping="Wrap"
-                            Text="{Binding Name}"
+                            Text="{Binding Arrangement.Name}"
                             VerticalAlignment="Center"
                             FontSize="{StaticResource Dim.LargeFontSize}"
                             Padding="10 0"
@@ -249,7 +239,7 @@
 				</Grid>
 			</Border>
 
-			<StackPanel Orientation="Horizontal" Margin="10">
+			<StackPanel Orientation="Vertical" Margin="10">
 				<Label Content="{StaticResource String.DescriptionWithDoublePointLabel}"
 					   FontSize="{StaticResource Dim.MediumFontSize}"
 					   Foreground="{StaticResource Color.PrimaryDark}"
@@ -257,8 +247,8 @@
 					   VerticalAlignment="Center"
 					   Padding="0 0 0 1"></Label>
 				<TextBlock 
-					Text="{Binding Description}" 
-					Padding="10 0" 
+					Text="{Binding Arrangement.Description}" 
+					Padding="0 0 0 0" 
 					TextWrapping="Wrap"
 					FontSize="{StaticResource Dim.RegularFontSize}"  
 					FontWeight="Normal"
@@ -283,7 +273,7 @@
 							   VerticalAlignment="Center"></Label>
 						<TextBlock 
 						Grid.Row="1"
-						Text="{Binding Start, StringFormat='dd.MM.yyyy.'}" 
+						Text="{Binding Arrangement.Start, StringFormat='dd.MM.yyyy.'}" 
 						TextWrapping="Wrap"
 						FontSize="{StaticResource Dim.RegularFontSize}"  
 						FontWeight="Medium"
@@ -302,7 +292,7 @@
 						></Label>
 						<TextBlock 
 							VerticalAlignment="Center"
-							Text="{Binding End, StringFormat='dd.MM.yyyy.'}" 
+							Text="{Binding Arrangement.End, StringFormat='dd.MM.yyyy.'}" 
 							Padding="10 0 0 0" 
 							TextWrapping="Wrap"
 							FontSize="{StaticResource Dim.RegularFontSize}"  
@@ -327,7 +317,7 @@
 					
 				</Label>
 				<Label
-					Content="{Binding Price}" 
+					Content="{Binding Arrangement.Price}" 
 					Padding="10 0 0 0"
 					FontSize="{StaticResource Dim.RegularFontSize}"  
 					FontWeight="Medium"
@@ -363,28 +353,49 @@
 
 				</Label>
 			</StackPanel>
+			<StackPanel>
+				<Label
+					Content="{StaticResource String.TripPlanLabel}"
+					FontSize="{StaticResource Dim.MediumFontSize}"
+						   Foreground="{StaticResource Color.PrimaryDark}"
+						   FontWeight="Medium"
+						   VerticalAlignment="Center"
+						   Padding="10 30 0 0">
 
-			<Grid
-				x:Name="StepsList"
-				Width="Auto"
-				Margin="0 30">
-				<ItemsControl
-					x:Name="StepsItemsControl"
-					Margin="0"
-					ItemsSource="{Binding Steps}"
-					ItemTemplateSelector="{StaticResource LastItemTemplateSelector}">
-					<ItemsControl.ItemsPanel>
-						<ItemsPanelTemplate>
-							<WrapPanel HorizontalAlignment="Stretch"></WrapPanel>
-						</ItemsPanelTemplate>
-					</ItemsControl.ItemsPanel>
+				</Label>
 
-				</ItemsControl>
+				<Grid
+					x:Name="StepsList"
+					Width="Auto"
+					Margin="0 10 0 20">
+					<ItemsControl
+						x:Name="StepsItemsControl"
+						Margin="0"
+						ItemsSource="{Binding Helper}"
+						ItemTemplateSelector="{StaticResource LastItemTemplateSelector}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel Orientation="Vertical"></StackPanel>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+
+					</ItemsControl>
+
+
+				</Grid>
+			</StackPanel>
+
+
+			<Label
+				Content="{StaticResource String.LookMapLabel}"
+				FontSize="{StaticResource Dim.MediumFontSize}"
+					   Foreground="{StaticResource Color.PrimaryDark}"
+					   FontWeight="Medium"
+					   VerticalAlignment="Center"
+					   Padding="10 20 0 1">
 				
-				
-			</Grid>
-
-			<controls:FancyMap Margin="0 20 0 0" x:Name="Map" Height="325"></controls:FancyMap>
+			</Label>
+			<controls:FancyMap Margin="0 10 0 0" x:Name="Map" Height="325"></controls:FancyMap>
 			<Label
 				FontSize="10"
 				FontWeight="Regular"

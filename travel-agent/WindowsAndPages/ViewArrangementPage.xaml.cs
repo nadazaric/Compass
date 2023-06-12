@@ -27,24 +27,31 @@ namespace travel_agent.WindowsAndPages
 	public partial class ViewArrangementPage : Page
 	{
 
-		private Arrangement Arrangement;
+		public Arrangement Arrangement { get; set; }
 		private Reservation Reservation;
 		private bool isFromTrips = true;
 		private MainWindow parent;
 		private ReservationService reservationService;
+		private ArrangementService arrangementService;
 		private Application App;
 		public ObservableCollection<ArrangementStep> Steps {  get; set; }
+		public ObservableCollection<HelperModel> Helper { get; set; } = new ObservableCollection<HelperModel> ();
 
 		public ViewArrangementPage(MainWindow parent, Arrangement arrangement, Reservation reservation = null)
 		{
 			InitializeComponent();
-			this.parent = parent;
-			this.Arrangement = arrangement;
-			this.Reservation = reservation;
-			DataContext = this.Arrangement;
 			reservationService = ReservationService.Instance;
+			arrangementService = ArrangementService.Instance;
+			this.parent = parent;
+			this.Arrangement = arrangementService.GetOne(arrangement);
+			this.Reservation = reservation;
+			DataContext = this;
 			App = Application.Current;
 			Steps = new ObservableCollection<ArrangementStep>(Arrangement.Steps);
+			for(int i = 1; i <= Steps.Count; i++)
+			{
+				Helper.Add(new HelperModel { Index = i, Step = Steps[i-1] });
+			}
 			Console.WriteLine(Steps.Count);
 
 			if (reservation == null)
@@ -165,14 +172,14 @@ namespace travel_agent.WindowsAndPages
 
 		private void StartPlace_Click(object sender, RoutedEventArgs e)
 		{
-			ArrangementStep data = (sender as Label).DataContext as ArrangementStep;
-			parent.MainFrame.Content = new ViewPlacePage(data.StartPlace, parent, Arrangement);
+			HelperModel data = (sender as Label).DataContext as HelperModel;
+			parent.MainFrame.Content = new ViewPlacePage(data.Step.StartPlace, parent, Arrangement);
 		}
 
 		private void EndPlace_Click(object sender, RoutedEventArgs args)
 		{
-			ArrangementStep data = (sender as Label).DataContext as ArrangementStep;
-			parent.MainFrame.Content = new ViewPlacePage(data.EndPlace, parent, Arrangement);
+			HelperModel data = (sender as Label).DataContext as HelperModel;
+			parent.MainFrame.Content = new ViewPlacePage(data.Step.EndPlace, parent, Arrangement);
 		}
 		
 	}
@@ -181,25 +188,13 @@ namespace travel_agent.WindowsAndPages
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
+			Console.WriteLine("Real value " + value);
 			return (int)value + 1;
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return (int)value - 1;
-		}
-	}
-
-	public class LastIndexConverter : IValueConverter
-	{
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			return (int)value + 2;
-		}
-
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			return (int)value - 2;
 		}
 	}
 
@@ -211,8 +206,8 @@ namespace travel_agent.WindowsAndPages
 			var itemsControl = ItemsControl.ItemsControlFromItemContainer(container);
 			var index = itemsControl.ItemContainerGenerator.IndexFromContainer(container);
 
-			var arrangementStep = item as ArrangementStep;
-			if (arrangementStep != null)
+			var helperModel = item as HelperModel;
+			if (helperModel != null)
 			{
 				if (index == itemsControl.Items.Count - 1)
 				{
