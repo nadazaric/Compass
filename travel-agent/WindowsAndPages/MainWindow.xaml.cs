@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using Microsoft.Win32;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using travel_agent.Help;
 using travel_agent.Models;
 using travel_agent.Services;
 using travel_agent.Windows;
@@ -31,9 +34,17 @@ namespace travel_agent.WindowsAndPages
             {
                 Statistics.Visibility = Visibility.Visible;
             }
-        }
+			Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION",
+	        System.Diagnostics.Process.GetCurrentProcess().ProcessName + ".exe", 11001, RegistryValueKind.DWord);
+		}
 
-        public void SetFocusStyle(Button button) => button.Style = App.Resources["SelectedNavbarButtonStyle"] as Style;
+		private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+            if (User.Role == Role.PASSENGER) HelpProvider.ShowHelp("index", this);
+            else HelpProvider.ShowHelp("index_agent", this);
+		}
+
+		public void SetFocusStyle(Button button) => button.Style = App.Resources["SelectedNavbarButtonStyle"] as Style;
 
         public void SetUnfocusStyle()
         {
