@@ -613,6 +613,14 @@
 			</StackPanel>
 
 			<controls:FancyMap x:Name="RouteMap" Height="325"/>
+			<Label
+				FontSize="10"
+				FontWeight="Regular"
+				Content="*Podaci za rutu voz možda nisu tačni"
+				HorizontalAlignment="Right"
+				Foreground="{StaticResource Color.DisabledBorder}">
+
+			</Label>
 
 			<Button 
 				x:Name="ArrangementsAddOrModifyButton"
