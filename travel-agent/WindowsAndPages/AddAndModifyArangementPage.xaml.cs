@@ -248,7 +248,6 @@ namespace travel_agent.WindowsAndPages
 			
 		}
 
-
 		private List<Place> FilterAllPlaces(Place.PlaceType placeType)
 		{
 			List<Place> allPlaces = PlaceService.GetAllByType(placeType).Where(p => !p.IsDeleted).ToList();
@@ -265,7 +264,6 @@ namespace travel_agent.WindowsAndPages
 			}
 			return places;
 		}
-
 
 		private List<Place> FilterByName(Place.PlaceType placeType, string name)
 		{
@@ -303,7 +301,6 @@ namespace travel_agent.WindowsAndPages
 			openFileDialog.Filter = "Image Files (*.png;*.jpeg;*.jpg;*.gif;*.bmp)|*.png;*.jpeg;*.jpg;*.gif;*.bmp";
 			if (openFileDialog.ShowDialog() == true) SetImage(new BitmapImage(new Uri(openFileDialog.FileName)));
 		}
-
 
 		private void searchPlaceInput_TextChanged(object sender, TextChangedEventArgs e)
 		{
@@ -352,7 +349,6 @@ namespace travel_agent.WindowsAndPages
 					break;
 			}
 		}
-
 
 		private static T FindAnchestor<T>(DependencyObject current)
 		where T : DependencyObject
@@ -601,7 +597,6 @@ namespace travel_agent.WindowsAndPages
 			RouteMap.DrawRouteAsync(steps);
 		}
 
-
 		private void ListView_ItemClick(object sender, SelectionChangedEventArgs e)
 		{
 			// Cast the clicked item to the appropriate type
@@ -680,7 +675,6 @@ namespace travel_agent.WindowsAndPages
 			GenerateRoute();
 		}
 
-
 		private T FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
 		{
 			int childCount = VisualTreeHelper.GetChildrenCount(parent);
@@ -754,7 +748,9 @@ namespace travel_agent.WindowsAndPages
 
 		private void AddArrangement()
 		{
-			Arrangement = new Arrangement();
+            var result = MessageBox.Show(App.Resources["String.AddArrangement"] as string, App.Resources["String.AppName"] as string, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No) return;
+            Arrangement = new Arrangement();
 			SetArrangementAttributes();
 			ArrangementService.Create(Arrangement);
 			Parent.MainFrame.Content = new ArrangementsPage(Parent);
@@ -762,7 +758,9 @@ namespace travel_agent.WindowsAndPages
 
 		private void ModifyArrangement()
 		{
-			SetArrangementAttributes();
+            var result = MessageBox.Show(App.Resources["String.ModifyArrangement"] as string, App.Resources["String.AppName"] as string, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No) return;
+            SetArrangementAttributes();
 			ArrangementService.Modify(Arrangement);
 			Parent.MainFrame.Content = new ArrangementsPage(Parent);
 		}

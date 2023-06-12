@@ -4,66 +4,214 @@
     <head>
         <title>Interactive Columns</title>
         <style>
-            body {
-                display: flex;
-                flex-direction: row;
-                height: 100vh;
-                margin: 0;
-                padding: 0;
-            }
+			body {
+				display: flex;
+				flex-direction: row;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			}
 
-            #sidebar {
-                flex: 1;
-                background-color: #f2f2f2;
-                padding: 20px;
-                box-sizing: border-box;
-            }
+			p {
+				text-align: justify;
+				font-size: medium;
+				width: 90%;
+				margin: 0;
+				margin-bottom: 5px;
+			}
 
-            .column {
-                cursor: pointer;
-                margin-bottom: 10px;
-            }
+			h1 {
+				color: #336B87;
+			}
+
+			h2 {
+				font-weight: normal;
+			}
+
+			#sidebar {
+				padding: 20px;
+				width: 250px;
+				background-color: #f2f2f2;
+				position: fixed;
+				height: 100%;
+				overflow-y: auto;
+			}
+
+			.column {
+				cursor: pointer;
+				margin-bottom: 10px;
+				font-size: 25px;
+				color: #336B87;
+			}
+
 
 			.content {
-				flex: 3;
-				padding: 20px;
-				box-sizing: border-box;
+				flex: 1;
+				margin-left: 300px;
+				padding: 40px;
+				padding-top: 20px;
 				min-height: 100vh;
 			}
 
 			.dissapear_content {
                 display: none;
 			}
+
+			img {
+				border: 1px solid;
+				margin-top: 15px;
+			}
+
+			#column1 img {
+				max-width: 400px;
+			}
+
+			.img-div {
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-start;
+				align-items: center;
+			}
+			#navbar-img {
+				width: 1000px !important;
+				max-width: none !important;
+			}
+
+            #img1, #img2, #img3, #img22, #img23, #img41, #img42 {
+                width: 600px;
+            }
+
+			#imgH32 {
+                width: 500px;
+			}
+
+			.arrangement-img {
+                max-width: 45%;
+			}
+
+			.long {
+                max-width: 1000px;
+			}
         </style>
     </head>
     <body>
         <div id="sidebar">
-            <div class="column" onclick="changeContent('column1')">Početak</div>
-            <div class="column" onclick="changeContent('column2')">Mesta</div>
-            <div class="column" onclick="changeContent('column3')">Aranžmani</div>
-            <div class="column" onclick="changeContent('column4')">Moja putovanja</div>
-            <div class="column" onclick="changeContent('column5')">Odjava</div>
+            <div class="column" onclick="changeContent('1')">Početak</div>
+            <div class="column" onclick="changeContent('2')">Mesta</div>
+            <div class="column" onclick="changeContent('3')">Aranžmani</div>
+            <div class="column" onclick="changeContent('4')">Moja putovanja</div>
+            <div class="column" onclick="changeContent('5')">Odjava</div>
 
         </div>
         <div id="column1" class="content">
-            <h1 id="selectedColumn">Početak</h1>
-            <p id="columnContent">Test</p>
+            <h1 id="selectedColumn">Početak - KOMPAS</h1>
+            <h3>Dobrodošli na KOMPAS - aplikaciju za turističku agenciju!</h3>
+            <p margin-top: 20px">Ovaj vodič će vam pomoći da se upoznate sa efikasnim i uspešnim korišćenjem naše aplikacije. </p>
+            <p>
+                Bez obzira da li ste turistički agent ili klijent koji traži savršen odmor, ovaj vodič će vam pružiti potrebne informacije za snalaženje
+                u funkcijama aplikacije i iskorišćavanje svih njenih mogućnosti.
+            </p>
+            <br />
+            <h2>Prijava</h2>
+            <p>
+                Da biste počeli korišćenje KOMPAS aplikacije, prvo se prijavite sa svojim kredencijalima.
+            </p>
+            <p>
+                Nakon prijave, imaćete pristup svim funkcijama aplikacije.
+            </p>
+            <img id="login-img" src="../../../../KOMPAS/Login.png" />
+            <br /> <br />
+            <p>	Ako još nemate nalog, možete ga kreirati klikom na link <b>"Registruj se"</b> i pratiti proces registracije. </p>
+            <div id="img-div"><img src="../../../../KOMPAS/Register_click.png" style="height:360px; margin-right:40px;" /><img src="../../../../KOMPAS/Register.png" /></div>
+            <br />
+            <br />
+            <h2>
+                Navigacija kroz aplikaciju
+            </h2>
+            <p>Za navigaciju kroz aplikaciju koristi se navigacioni bar.</p>
+            <img id="navbar-img" src="../../../../KOMPAS/navbar_user.png" />
+            <p style="margin: 20px 0;">Klikom na navigaciono dugme bićete preusmereni na sledeću, izabranu stranicu</p>
+
+            <p>Takođe, na određenim stranicama, u levom gornjem uglu je dostupno i dugme za povratak unazad, čijim klikom ćete se vratiti jedan korak u nazad</p>
+            <img style="margin-bottom: 40px" src="../../../../KOMPAS/back.png" />
+
         </div>
         <div id="column2" class="content dissapear_content">
             <h1 id="selectedColumn">Mesta</h1>
-            <p id="columnContent">Click on a column on the left to change the content here.</p>
+            <h2>Pregled</h2>
+            <p id="columnContent">Klikom na navigaciono dugme <b>"Mesta"</b> bićete preusmereni na stranicu za pregled svih mesta.</p>
+            <img id="img1" src="../../../../KOMPAS/H1.png" />
+            <br />
+            <br />
+            <p>Klikom na jednu od kartica postojećih mesta bićete preusmereni na stranicu za detaljniji pregled informacija o mesta, uključujući i prikaz lokacije na mapi na samom dnu stranice.</p>
+            <img id="img3" src="../../../../KOMPAS/H3.png" />
+            <br />
+            <br />
+            <h2>Pretraga mesta</h2>
+            <p>Sva mesta možete pretražiti po imenu, vrsti i adresi.</p>
+            <img id="img2" src="../../../../KOMPAS/H2.png" />
+            <br />
+            <br />
+
         </div> 
         <div id="column3" class="content dissapear_content">
             <h1 id="selectedColumn">Aranžmani</h1>
-            <p id="columnContent">Click on a column on the left to change the content here.</p>
+            <h2>Pregled</h2>
+            <p id="columnContent">Klikom na navigaciono dugme <b>"Aranžmani"</b> bićete preusmereni na stranicu za pregled svih aranžmana.</p>
+            <img id="img22" src="../../../../KOMPAS/H22.png" />
+            <br />
+            <br />
+            <p>Klikom na jednu od kartica postojećih aranžmana bićete preusmereni na stranicu za detaljniji pregled informacija o aranžmanu, uključujući i prikaz rute i destinacija na mapi.</p>
+            <div class="img-div"><img class="arrangement-img" src="../../../../KOMPAS/arrangement-tourist1.png" style="margin-right: 40px;" /><img class="arrangement-img" src="../../../../KOMPAS/arrangement-tourist2.png" /></div>
+            <br /><br />
+            <p>U okiru plana putovanja možete videti koje destinacije će biti posećene, kao i tip prevoza koji će biti korišćen.</p>
+            <p>Ime svake destinacije je link koji će Vas odvesti na stranicu sa više informacija o tom mestu.</p>
+            <br /><br />
+            <h2>Pretraga aranžmana</h2>
+            <p>Sve aranžmane možete pretražiti po imenu, vrsti prevoza, rasponu datuma, po određenom mestu, budžetu ili organizovanim obrocima/smeštaju.</p>
+            <img id="img23" src="../../../../KOMPAS/H23.png" />
+            <br />
+            <br />
+            <h2>Rezervacija</h2>
+            <p>Na dnu stranice za pregled pojedinačnog aranžmana nalazi se dugme <b>"Rezerviši"</b> za rezervaciju aranžmana.</p>
+            <p>Rezervacije su moguće do tri dana pre početka putovanja.</p>
+            <p>Klikom na dugme, Vaša rezervacija će biti sačuvana, ali ukoliko ne uplatite novac nakon tri dana, Vaša rezervacija se briše!</p>
+            <img class="long" src="../../../../KOMPAS/reserve.png" />
+            <br />
+            <br />
+            <p>Nakon uspešne rezervacije pojaviće vam se dugme za plaćanje i dugme za otkazivanje rezervacije.</p>
+            <br />
+            <br />
+            <h2>Otkazivanje</h2>
+            <p>Ukoliko se ipak predomislite i želite da otkažete rezervaciju, to možete učiniti klikom na dugme <b>"Otkaži rezervaciju"</b>.</p>
+            <img class="long" src="../../../../KOMPAS/cancel.png" />
+            <br />
+            <br />
+            <h2>Plaćanje</h2>
+            <p>Klikom na dugme <b>"Plati putovanje"</b> Vaše putovanje je uspešno plaćeno i naknadno otkazivanje nije moguće.</p>
+            <img class="long" src="../../../../KOMPAS/pay.png" />
+            <br />
+            <br />
+            <p>Svu istoriju putovanja, kao i aktuelna putovanja možete pogledati na stranici <b>"Moja putovanja"</b></p>
+            <br />
+            <br />
+            <br />
+            <br />
         </div> 
         <div id="column4" class="content dissapear_content">
             <h1 id="selectedColumn">Moja putovanja</h1>
-            <p id="columnContent">Click on a column on the left to change the content here.</p>
+            <p id="columnContent">Klikom na navigaciono dugme <b>"Moja putovanja"</b> bićete preusmereni na stranicu za pregled aktuelnih putovanja, kao i kompletne istorije putovanja.</p>
+            <img id="imgH32" src="../../../../KOMPAS/H32.png" />
+            <br /><br />
+            <p>Klikom na jednu od karticu bićete preusmereni na stranicu sa dodatnim informacijama o aranžmanu.</p>
+            <br /><br />
+            
         </div> 
         <div id="column5" class="content dissapear_content">
             <h1 id="selectedColumn">Odjava sa sistema</h1>
-            <p id="columnContent">Click on a column on the left to change the content here.</p>
+            <p id="columnContent">Odjavu sa sistema možete izvršiti klikom na dugme "Izloguj se" koje se nalazi u navigacionom baru koje će vas ujedno i vratiti na formu za prijavu.</p>
+            <img src="../../../../KOMPAS/logout.png" />
         </div>
 
         <script src="script.js">
