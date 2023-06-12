@@ -10,8 +10,7 @@
     Title="{StaticResource String.AppName}"
     MinWidth="500"
     WindowState="Maximized"
-    WindowStartupLocation="CenterScreen"
-	help:HelpProvider.HelpKey="index">
+    WindowStartupLocation="CenterScreen">
 	<Window.CommandBindings>
 		<CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
 	</Window.CommandBindings>

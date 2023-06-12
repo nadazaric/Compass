@@ -40,9 +40,8 @@ namespace travel_agent.WindowsAndPages
 
 		private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
-			
-			HelpProvider.ShowHelp("index", this);
-			
+            if (User.Role == Role.PASSENGER) HelpProvider.ShowHelp("index", this);
+            else HelpProvider.ShowHelp("index_agent", this);
 		}
 
 		public void SetFocusStyle(Button button) => button.Style = App.Resources["SelectedNavbarButtonStyle"] as Style;

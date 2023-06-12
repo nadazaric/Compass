@@ -1,0 +1,242 @@
+﻿﻿
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<title>Interactive Columns</title>
+	<style>
+		body {
+			display: flex;
+			flex-direction: row;
+			height: 100vh;
+			margin: 0;
+			padding: 0;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		}
+
+		p {
+			text-align: justify;
+			font-size: medium;
+			width: 90%;
+			margin: 0;
+			margin-bottom: 5px;
+		}
+
+		h1 {
+			color: #336B87;
+		}
+		h2 {
+			font-weight: normal;
+		}
+
+		#sidebar {
+			flex: 1;
+			background-color: #f2f2f2;
+			padding: 20px;
+			box-sizing: border-box;
+		}
+
+		.column {
+			cursor: pointer;
+			margin-bottom: 10px;
+			font-size: 25px;
+			color: #336B87;
+		}
+
+		.content {
+			flex: 5;
+			padding: 40px;
+			padding-top: 20px;
+			box-sizing: border-box;
+			min-height: 100vh;
+		}
+
+		.dissapear_content {
+			display: none;
+		}
+
+		img {
+			border: 1px solid;
+			margin-top: 15px;
+		}
+
+		#column1 img{
+			max-width: 400px;
+		}
+
+		.img-div {
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+		}
+
+		#navbar-img {
+			width: 1000px !important;
+			max-width: none !important;
+		}
+
+		#column2 img, #column3 img, #column4 img {
+			max-width: 600px;
+		}
+
+		#add-place-img , #search-places{
+			max-width: 300px !important;
+			height: 300px;
+			margin-right: 40px;
+		}
+
+		#search-places {
+			height: 250px;
+		}
+		#search-arrangements {
+			max-width: 350px !important;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="sidebar">
+		<div class="column" onclick="changeContent('column1')">Početak</div>
+		<div class="column" onclick="changeContent('column2')">Mesta</div>
+		<div class="column" onclick="changeContent('column3')">Aranžmani</div>
+		<div class="column" onclick="changeContent('column4')">Statistika</div>
+		<div class="column" onclick="changeContent('column5')">Odjava</div>
+
+	</div>
+	<div id="column1" class="content">
+		<h1 id="selectedColumn">Početak - KOMPAS</h1>
+		<h3>Dobrodošli na KOMPAS - aplikaciju za turističku agenciju!</h3>
+		<p margin-top: 20px">Ovaj vodič će vam pomoći da se upoznate sa efikasnim i uspešnim korišćenjem naše aplikacije. </p>
+		<p>
+			Bez obzira da li ste turistički agent ili klijent koji traži savršen odmor, ovaj vodič će vam pružiti potrebne informacije za snalaženje
+			u funkcijama aplikacije i iskorišćavanje svih njenih mogućnosti.
+		</p>
+		<br />
+		<h2>Prijava</h2>
+		<p>
+			Da biste počeli korišćenje KOMPAS aplikacije, prvo se prijavite sa svojim kredencijalima.
+		</p>
+		<p>
+			Nakon prijave, imaćete pristup svim funkcijama aplikacije.
+		</p>
+		<img id="login-img" src="../../../../KOMPAS/Login.png" />
+		<!--<p>	Ako još nemate nalog, možete ga kreirati klikom na link <b>"Registruj se"</b> i pratiti proces registracije. </p>
+		<div id="img-div"><img src="../Resources/Register_click.png" style="height:360px;" /><img src="../Resources/Register.png" /></div>
+		<br />-->
+		<br />
+		<br />
+		<h2>
+			Navigacija kroz aplikaciju
+		</h2>
+		<p>Za navigaciju kroz aplikaciju koristi se navigacioni bar.</p>
+		<img id="navbar-img" src="../../../../KOMPAS/navBar.png"/>
+		<p style="margin: 20px 0;">Klikom na navigaciono dugme bićete preusmereni na sledeću, izabranu stranicu</p>
+
+		<p>Takođe, na određenim stranicama, u levom gornjem uglu je dostupno i dugme za povratak unazad, čijim klikom ćete se vratiti jedan korak u nazad</p>
+		<img style="margin-bottom: 40px" src="../../../../KOMPAS/back.png"/>
+
+	</div>
+	<div id="column2" class="content dissapear_content">
+		<h1 id="selectedColumn">Mesta</h1>
+		<h2>Pregled</h2>
+		<p id="columnContent">Klikom na navigaciono dugme <b>"Mesta"</b> bićete preusmereni na stranicu za pregled svih mesta.</p>
+		<img src="../../../../KOMPAS/mesta.png" />
+		<br />
+		<br />
+		<h2>Pretraga mesta</h2>
+		<p>Sva mesta možete pretražiti po imenu, vrsti i adresi.</p>
+		<img id="search-places"  src="../../../../KOMPAS/search-places.png"/>
+		<br /><br />
+		<h2>Dodavanje novog mesta</h2>
+		<p>Klikom na dugme <b>"Dodaj novo mesto"</b> bićete preusmereni na stranicu koja sadrži formu za dodavanje novog mesta koja će Vas sprovesti kroz poces dodavanja novog mesta.</p>
+		<div class="img-div"><img id="add-place-img" src="../../../../KOMPAS/add-place.png" /> </div>
+		<br />
+		<p>U okviru forme se nalazi i mapa za lociranje željenog mesta.</p>
+		<p>Unos lokacije mesta možete postići unosom adrese mesta u polje za pretragu ili direktno na mapu, dvoklikom na tačnu poziciju.</p>
+		<img src="../../../../KOMPAS/add-place-map.png" />
+		<br />
+		<br />
+		<p>Ukoliko ste ispunili sva neophodna polja validnim podacima, klikom na dugme <b>"Završi dodavanje novog mesta"</b> podaci će se sačuvati i kartica sa novim mestom će se prikazati u listi svih mesta.</p>
+		<img src="../../../../KOMPAS/save-place.png" />
+		<br />
+		<br />
+		<h2>Izmena postojećeg mesta</h2>
+		<p>Klikom na jednu od kartica postojećih mesta bićete preusmereni na stranicu koja sadrži formu za izmenu mesta sa popunjenim prethodno sačuvanim podacima.</p>
+		<p>Ukoliko ste ispunili sva neophodna polja validnim podacima, klikom na dugme <b>"Završi izmenu mesta"</b> novi podaci će se sačuvati.</p>
+		<br/>
+		<br/>
+		<h2>Brisanje mesta</h2>
+		<p>Na dnu stranice za izmenu mesta uočićete dugme  <b>"Obriši"</b> čijim klikom mesto više neće biti dostupno za dodavanje u nove aranžmane, ali biće još dostupno u već kreiranim aranžmanima.</p>
+		<img src="../../../../KOMPAS/delete.png"/>
+		<br /><br />
+		<p>Brisanje je reverzibilna akcija i u svakom trenutku možete opet aktivirati mesto klikom na dugme <b>"Ponovo aktiviraj mesto"</b></p>
+		<img src="../../../../KOMPAS/reactivate.png" style="margin-bottom: 40px;"/>
+
+	</div>
+	<div id="column3" class="content dissapear_content">
+		<h1 id="selectedColumn">Aranžmani</h1>
+		<h2>Pregled</h2>
+		<p id="columnContent">Klikom na navigaciono dugme <b>"Aranžmani"</b> bićete preusmereni na stranicu za pregled svih aranžmana.</p>
+		<img src="../../../../KOMPAS/arrangements.png" />
+		<br />
+		<br />
+		<h2>Pretraga aranžmana</h2>
+		<p>Sve aranžmane možete pretražiti po imenu, vrsti prevoza, rasponu datuma, po određenom mestu, budžetu ili organizovanim obrocima/smeštaju.</p>
+		<img id="search-arrangements" src="../../../../KOMPAS/search-arrangements.png" />
+		<br /><br />
+		<h2>Dodavanje novog aranžmana</h2>
+		<p>Klikom na dugme <b>"Dodaj novi aranžman"</b> bićete preusmereni na stranicu koja sadrži formu za dodavanje novog aranžmana koja će Vas sprovesti kroz poces dodavanja novog aranžmana.</p>
+		<div class="img-div"><img id="add-place-img" src="../../../../KOMPAS/add-arrangement.png" /></div>
+		<br />
+		<p>U okviru forme se nalazi kontrola za dodavanje koraka aranžmana.</p>
+		<p>U levoj koloni se nalazi lista u kojoj se po tabovima nalaze razvrstana sva mesta.</p>
+		<p>Sva željena mesta prevucite u srednju kolonu u kojoj se ujedno definiše i raspored obilaska.</p>
+		<p>Nakon što ste zadovoljni rasporedom, pritisnite dugme <b>"Dalje"</b> koje će za vas generisati i prebaciti korake u desnu kolonu.</p>
+		<p>Ukoliko ipak niste zadovoljni rasporedom, klikom na dugme <b>"Nazad"</b> sva mesta će se vratiti u srednju kolonu i moći ćete da izmenite njihov raspored.</p>
+		<p>Klikom na element iz desne kolone dugmad za dodavanje tipa prevoza postaće aktivna.</p>
+		<p>Klikom na dugme za tip prevoza, odgovarajući tip prevoza će biti povezan za tip aranžmana i pojaviće se odgovarajuća ikonica za potvrdu.</p>
+		<p>Za svaki element neophodno je izabrati tip prevoza</p>
+		<img src="../../../../KOMPAS/arrangement-steps-control.png" />
+		<br />
+		<br />
+		<p>Ukoliko ste ispunili sva neophodna polja validnim podacima, klikom na dugme <b>"Završi dodavanje novog aranžmana"</b> podaci će se sačuvati i kartica sa novim aranžmanom će se prikazati u listi svih aranžmana.</p>
+		<img src="../../../../KOMPAS/add-arrangement-save.png" />
+		<br />
+		<br />
+		<h2>Izmena postojećeg aranžmana</h2>
+		<p>Klikom na jednu od kartica postojećih mesta bićete preusmereni na stranicu koja sadrži formu za izmenu aranžmana sa popunjenim prethodno sačuvanim podacima.</p>
+		<p>Ukoliko ste ispunili sva neophodna polja validnim podacima, klikom na dugme <b>"Završi izmenu aranžmana"</b> novi podaci će se sačuvati.</p>
+		<br />
+		<br />
+		<h2>Brisanje mesta</h2>
+		<p>Na dnu stranice za izmenu aranžmana uočićete dugme  <b>"Obriši"</b> čijim klikom aranžman više neće biti dostupan za rezervacije, ali sve prethodne rezervacije biće sačuvane.</p>
+		<img src="../../../../KOMPAS/delete.png" />
+		<br /><br />
+		<p style="padding-bottom: 40px;" >Brisanje je reverzibilna akcija i u svakom trenutku možete opet aktivirati aranžman klikom na dugme <b>"Ponovo aktiviraj aranžman"</b></p>
+	</div>
+	<div id="column4" class="content dissapear_content">
+		<h1 id="selectedColumn">Statistika</h1>
+		<p id="columnContent">Klikom na navigaciono dugme <b>"Statistika"</b> bićete preusmereni na stranicu za statistiku na kojoj ćete videti dva dugmeta - za generisanje izveštaja po datumima za sve aranžmane, i za generisanje izveštaja za određeni aranžman.</p>
+		<img src="../../../../KOMPAS/statistics.png" />
+		<br /><br />
+		<h2>Izveštaj po datumima</h2>
+		<p>Klikom na dugme <b>"Izveštaj po datumima"</b> bićete preusmereni na stranicu koja sadrži polja za unos početnog i krajnjeg datuma - pomoću kojih možete definisati željeni opseg datuma, kao i tabelu sa samom statistikom.</p>
+		<p>U tabeli su dostupni podaci o broju rezervisanih, prodatih i otkazanih putovanja, kao i ukupna zarada po aranžmanu</p>
+		<p>Klikom na dugme <b>"Preuzmi izveštaj"</b> tabela će biti preuzeta u .xlsx formatu u lokalni direktorijum</p>
+		<br /><br />
+		<h2>Izveštaj za aranžman</h2>
+		<p>Klikom na dugme <b>"Izveštaj za aranžman"</b> bićete preusmereni na stranicu koja sadrži listu svih aranžmana. Odabirom željenog aranžmana bićete preusmereni na stranicu koja sadrži tabelu sa statistikom za izabrani aranžman.</p>
+		<p>U tabeli su dostupni podaci o broju rezervisanih, prodatih i otkazanih putovanja, kao i ukupna zarada za aranžman.</p>
+		<p>Klikom na dugme <b>"Preuzmi izveštaj"</b> tabela će biti preuzeta u .xlsx formatu u lokalni direktorijum</p>
+		<br /><br />
+	</div>
+	<div id="column5" class="content dissapear_content">
+		<h1 id="selectedColumn">Odjava sa sistema</h1>
+		<p id="columnContent">Odjavu sa sistema možete izvršiti klikom na dugme "Izloguj se" koje se nalazi u navigacionom baru koje će vas ujedno i vratiti na formu za prijavu.</p>
+		<img src="../../../../KOMPAS/logout.png"/>
+	</div>
+
+	<script src="script_agent.js">
+	</script>
+</body>
+</html>
