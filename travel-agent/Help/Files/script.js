@@ -1,5 +1,5 @@
-﻿function changeContent(columnName) {
-    var selectedColumn = document.getElementById(columnName);
+﻿function changeContent(index) {
+    var selectedColumn = document.getElementById("column"+index);
     var content = document.getElementsByClassName("content");
 
     // Perform logic to change the content based on the selected column
@@ -7,5 +7,5 @@
         content[i].classList.add("dissapear_content");
     }
     selectedColumn.classList.remove("dissapear_content");
-    
+
 }
