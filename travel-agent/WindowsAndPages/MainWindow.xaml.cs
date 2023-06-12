@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using travel_agent.Help;
 using travel_agent.Models;
 using travel_agent.Services;
 using travel_agent.Windows;
@@ -33,7 +35,17 @@ namespace travel_agent.WindowsAndPages
             }
         }
 
-        public void SetFocusStyle(Button button) => button.Style = App.Resources["SelectedNavbarButtonStyle"] as Style;
+		private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[0]);
+			if (focusedControl is DependencyObject)
+			{
+				string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
+				HelpProvider.ShowHelp(str, this);
+			}
+		}
+
+		public void SetFocusStyle(Button button) => button.Style = App.Resources["SelectedNavbarButtonStyle"] as Style;
 
         public void SetUnfocusStyle()
         {

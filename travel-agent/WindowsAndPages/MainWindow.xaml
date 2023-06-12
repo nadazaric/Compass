@@ -5,12 +5,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:travel_agent.WindowsAndPages"
+	xmlns:help="clr-namespace:travel_agent.Help"
     mc:Ignorable="d"
     Title="{StaticResource String.AppName}"
     MinWidth="500"
     WindowState="Maximized"
-    WindowStartupLocation="CenterScreen">
-    <Grid>
+    WindowStartupLocation="CenterScreen"
+	help:HelpProvider.HelpKey="index">
+	<Window.CommandBindings>
+		<CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
+	</Window.CommandBindings>
+	<Grid>
         <Grid x:Name="Navbar" Height="80" VerticalAlignment="Top" Background="{StaticResource Color.NavbarBackground}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
