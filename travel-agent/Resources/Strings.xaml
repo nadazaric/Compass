@@ -130,7 +130,9 @@
     <!-- Message Box Messages -->
     <System:String x:Key="String.RegisterSuccessMessage">Uspješno ste se registrovali! Sada možete da se prijavite sa novokreiranim nalogom.</System:String>
 
-	<System:String x:Key="String.AddPlaceQuestionMessage">Sačuvaj novo mesto?</System:String>
+    <System:String x:Key="String.AddArrangement">Sačuvaj novi aranžman?</System:String>
+    <System:String x:Key="String.ModifyArrangement">Saćuvaj izmene?</System:String>
+    <System:String x:Key="String.AddPlaceQuestionMessage">Sačuvaj novo mesto?</System:String>
     <System:String x:Key="String.ModifyPlaceQuestinMessage">Sačuvaj izmene?</System:String>
 	<System:String x:Key="String.AddArrangementQuestionMessage">Sačuvaj novi aranžman?</System:String>
 	<System:String x:Key="String.MakeReservationMessage">Rezerviši putovanje?</System:String>
