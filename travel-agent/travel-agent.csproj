@@ -175,6 +175,9 @@
     <Compile Include="WindowsAndPages\Reports\MonthReport.xaml.cs">
       <DependentUpon>MonthReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowsAndPages\Reports\ReportDetail.xaml.cs">
+      <DependentUpon>ReportDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowsAndPages\Reports\ReportForArrangement.xaml.cs">
       <DependentUpon>ReportForArrangement.xaml</DependentUpon>
     </Compile>
@@ -260,6 +263,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowsAndPages\Reports\MonthReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsAndPages\Reports\ReportDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
