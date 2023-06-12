@@ -40,7 +40,7 @@ namespace travel_agent.Services
 			}
 		}
 
-		public void CreateReservation(User user, Arrangement arrangement)
+		public Reservation CreateReservation(User user, Arrangement arrangement)
         {
             Reservation reservation = new Reservation(user, arrangement, Reservation.ReservationStatus.RESERVED);
             reservation.User = null;
@@ -52,6 +52,7 @@ namespace travel_agent.Services
             {
                 db.Reservations.Add(reservation);
                 db.SaveChanges();
+                return reservation;
             }
         }
 

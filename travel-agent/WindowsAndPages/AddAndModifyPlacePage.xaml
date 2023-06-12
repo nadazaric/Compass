@@ -23,7 +23,8 @@
                 Style="{StaticResource NoneButtonStyle}" 
                 HorizontalAlignment="Left"
                 Margin="0 -5 0 5"
-                Click="OnBackClick">
+                Click="OnBackClick"
+				Cursor="Hand">
                 <StackPanel
                     VerticalAlignment="Center" Orientation="Horizontal">
                     <TextBlock 
@@ -79,7 +80,8 @@
                 Content="{StaticResource String.AddImageButton}" 
                 Click="OnAddPictureClick"
                 Padding="0"
-                Margin="0 0 0 15"/>
+                Margin="0 0 0 15"
+				Cursor="Hand"/>
 
             <controls:FancyTextBox
                 x:Name="PlaceDescriptionInput"
@@ -147,10 +149,10 @@
                         <validatrs:RequiredTextBoxRule ErrorMessage="{StaticResource String.RequiredTextBoxError}"/>
                     </controls:FancyTextBox.ValidationRules>
                 </controls:FancyTextBox>
-                <Button Grid.Column="1" Content="{StaticResource String.FindButton}" Click="OnFindButtonClick" VerticalAlignment="Top" Margin="7 26 0 0"/>
+                <Button Grid.Column="1" Content="{StaticResource String.FindButton}" Click="OnFindButtonClick" VerticalAlignment="Top" Margin="7 26 0 0" Cursor="Hand"/>
             </Grid>
 
-            <controls:FancyMap x:Name="SearchMap" Height="325" PinPlaced="OnMapPinPlaced"/>
+            <controls:FancyMap Cursor="Hand" x:Name="SearchMap" Height="325" PinPlaced="OnMapPinPlaced"/>
             <Label 
                 x:Name="MapError"
                 FontSize="{StaticResource Dim.ErrorFontSize}"
@@ -164,7 +166,8 @@
                 Content="{StaticResource String.FinishAddingPlaceButton}" 
                 Padding="0"
                 Click="OnSubmitClick"
-                Margin="0 20 0 0"/>
+                Margin="0 20 0 0"
+				Cursor="Hand"/>
 
             <Button 
                 x:Name="PlacesDeleteButton"
@@ -173,17 +176,18 @@
                 Padding="0"
                 Click="OnDeletePlaceClick"
                 Margin="0 10 0 0"
-                Visibility="Collapsed"/>
+                Visibility="Collapsed"
+				Cursor="Hand"/>
 
             <Button
                 x:Name="ReactivatePlaceButton"
-                Style="{StaticResource OutlineButtonStyle}"
-                Content="{StaticResource String.ReactivatePlaceButton}" 
-				Background="{StaticResource Color.White}"
+                Style="{StaticResource OutlineDeleteButtonStyle}"
+                Content="{StaticResource String.ReactivatePlaceButton}"
                 Padding="0"
                 Click="ReactivatePlaceButtonClick"
                 Margin="0 10 0 0"
-                Visibility="Collapsed"/>
+                Visibility="Collapsed"
+				Cursor="Hand"/>
 
         </StackPanel>
     </ScrollViewer>

@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml;
+using travel_agent.Models;
 
 namespace travel_agent.Controls
 {
@@ -57,19 +58,23 @@ namespace travel_agent.Controls
 
 		}
 
-        public async Task<LocationCollection> GetRoute(List<Location> locations)
+        public async Task<LocationCollection> GetRoute(ArrangementStep step)
         {
-            using (var httpClient = new HttpClient())
-            {
-				string URL = "https://dev.virtualearth.net/REST/v1/Routes?";
-				for (int i = 0; i < locations.Count; i++)
-				{
-					var location = locations[i];
-					URL += "waypoint." + i + "=" + location.Latitude + "," + location.Longitude + "&";
-				}
-				URL += "routeAttributes=routePath&key=" + (KEY == null ? GetKey() : KEY);
+            Location start = new Location(step.StartPlace.Latitude, step.StartPlace.Longitude);
+            Location end = new Location(step.EndPlace.Latitude, step.EndPlace.Longitude);
 
-                HttpResponseMessage response = await httpClient.GetAsync(URL);
+			using (var httpClient = new HttpClient())
+            {
+                string URL = "https://dev.virtualearth.net/REST/v1/Routes?waypoint.1="+start.Latitude + "," + start.Longitude + "&waypoint.2=" + end.Latitude + "," + end.Longitude+ "&routeAttributes=routePath&";
+                if(step.TransportationType == ArrangementStep.TransportType.FOOT)
+                {
+                    URL += "travelMode=Walking&";
+
+				}
+				URL += "key=" + (KEY == null ? GetKey() : KEY);
+
+
+				HttpResponseMessage response = await httpClient.GetAsync(URL);
                 
                 var responseContent = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(responseContent);
@@ -79,14 +84,11 @@ namespace travel_agent.Controls
 
 				if (jsonResponse?.resourceSets?[0]?.resources?[0]?.routeLegs?[0]?.itineraryItems != null)
 				{
-					foreach (var itineraryItem in jsonResponse.resourceSets[0].resources[0].routeLegs[0].itineraryItems)
+					foreach (var point in jsonResponse.resourceSets[0].resources[0].routePath.line.coordinates)
 					{
-						if (itineraryItem?.point?.coordinates != null && itineraryItem.point.coordinates.Count >= 2)
-						{
-							var latitude = (double)itineraryItem.point.coordinates[0];
-							var longitude = (double)itineraryItem.point.coordinates[1];
-							routePath.Add(new Location(latitude, longitude));
-						}
+						var latitude = (double)point[0];
+						var longitude = (double)point[1];
+						routePath.Add(new Location(latitude, longitude));
 					}
 				}
 

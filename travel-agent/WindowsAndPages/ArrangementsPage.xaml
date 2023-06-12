@@ -15,7 +15,8 @@
 				Width="350"
 				Height="350"
 				Margin="20"
-				Click="OnAddNewArangementClick">
+				Click="OnAddNewArangementClick"
+				Cursor="Hand">
 				<StackPanel
 					VerticalAlignment="Center">
 					<TextBlock
@@ -66,7 +67,8 @@
 					</Style>
 				</Border.Style>
 				<Grid
-                    MouseLeftButtonUp="OnArrangementItemClick">
+                    MouseLeftButtonUp="OnArrangementItemClick"
+					Cursor="Hand">
 					<Grid.Clip>
 						<RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,0,350,350"/>
 					</Grid.Clip>
@@ -173,7 +175,8 @@
 						Padding="1.5" 
                         Content="{StaticResource String.DownButton}"
 						Click="OnHandlePopupClick" 
-                        VerticalAlignment="Bottom"/>
+                        VerticalAlignment="Bottom"
+						Cursor="Hand"/>
 				</Grid>
 
 				<Popup
@@ -215,7 +218,8 @@
 											Style="{StaticResource SmallCheckBoxStyle}"
 											Content="{StaticResource String.TransportPlane}"
 											Click="OnCBClick"
-											HorizontalAlignment="Left"/>
+											HorizontalAlignment="Left"
+											Cursor="Hand"/>
 										<CheckBox
 											x:Name="TransportTrainCB"
 											Grid.Column="1"
@@ -223,7 +227,8 @@
 											Style="{StaticResource SmallCheckBoxStyle}"
 											Content="{StaticResource String.TransportTrain}"
 											Click="OnCBClick"
-											HorizontalAlignment="Left"/>
+											HorizontalAlignment="Left"
+											Cursor="Hand"/>
 										<CheckBox
 											x:Name="TransportBusCB"
 											Grid.Column="2"
@@ -231,7 +236,8 @@
 											Style="{StaticResource SmallCheckBoxStyle}"
 											Content="{StaticResource String.TransportBus}"
 											Click="OnCBClick"
-											HorizontalAlignment="Left"/>
+											HorizontalAlignment="Left"
+											Cursor="Hand"/>
 										<CheckBox
 											x:Name="TransportSelfCB"
 											Grid.Column="0"
@@ -240,7 +246,8 @@
 											Style="{StaticResource SmallCheckBoxStyle}"
 											Content="{StaticResource String.TransportSelf}"
 											Click="OnCBClick"
-											HorizontalAlignment="Left"/>
+											HorizontalAlignment="Left"
+											Cursor="Hand"/>
 									</Grid>
 								</Border>
 							</StackPanel>
@@ -294,7 +301,8 @@
 										Style="{StaticResource SmallCheckBoxStyle}"
 										Content="{StaticResource String.RestaurantLabel}"
 										Click="OnCBClick"
-										HorizontalAlignment="Left">
+										HorizontalAlignment="Left"
+										Cursor="Hand">
 										
 									</CheckBox>
 
@@ -304,7 +312,8 @@
 										Content="{StaticResource String.AccommodatonLabel}"
 										Click="OnCBClick"
 										HorizontalAlignment="Left"
-										Grid.Column="1"/>
+										Grid.Column="1"
+										Cursor="Hand"/>
 								</Grid>
 							</StackPanel>
 
@@ -320,6 +329,7 @@
 									Content="{StaticResource String.PriceLabel0}"
 									Click="OnCBClick"
 									HorizontalAlignment="Left"
+									Cursor="Hand"
 									/>
 								<CheckBox
 									x:Name="PriceCB5"
@@ -327,6 +337,7 @@
 									Content="{StaticResource String.PriceLabel5}"
 									Click="OnCBClick"
 									HorizontalAlignment="Left"
+									Cursor="Hand"
 									/>
 								<CheckBox
 									x:Name="PriceCB10"
@@ -334,6 +345,7 @@
 									Content="{StaticResource String.PriceLabel10}"
 									Click="OnCBClick"
 									HorizontalAlignment="Left"
+									Cursor="Hand"
 									/>
 								<CheckBox
 									x:Name="PriceCB15"
@@ -341,6 +353,7 @@
 									Content="{StaticResource String.PriceLabel15}"
 									Click="OnCBClick"
 									HorizontalAlignment="Left"
+									Cursor="Hand"
 									/>
 								<CheckBox
 									x:Name="PriceCB20"
@@ -348,6 +361,7 @@
 									Content="{StaticResource String.PriceLabel20}"
 									Click="OnCBClick"
 									HorizontalAlignment="Left"
+									Cursor="Hand"
 									/>
 
 							</StackPanel>
@@ -356,11 +370,11 @@
 								Style="{StaticResource OutlineButtonStyle}"
 								Content="{StaticResource String.ReturnToDefaultStateButton}"
 								Margin="20 10 20 5"
-								Click="OnReturnToDefaultClick"></Button>
+								Click="OnReturnToDefaultClick" Cursor="Hand"></Button>
 							<Button 
                                 Content="{StaticResource String.SearchButton}" 
                                 Margin="20 5 20 20" 
-                                Click="OnSearchButtonClick"/>
+                                Click="OnSearchButtonClick" Cursor="Hand"/>
 						</StackPanel>
 					</Border>
 				</Popup>

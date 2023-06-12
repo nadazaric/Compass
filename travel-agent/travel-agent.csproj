@@ -129,6 +129,7 @@
     <Compile Include="Infrastructure\Context.cs" />
     <Compile Include="Models\Arrangement.cs" />
     <Compile Include="Models\ArrangementStep.cs" />
+    <Compile Include="Models\HelperModel.cs" />
     <Compile Include="Models\Place.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\User.cs" />

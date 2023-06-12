@@ -133,11 +133,12 @@ namespace travel_agent.WindowsAndPages
 			foreach (var step in Arrangement.Steps)
 			{
 				lastRearrengement.Add(step.StartPlace);
+				RouteMap.DrawPinForRoute(step.StartPlace);
 
 			}
-
-			lastRearrengement.Add(Arrangement.Steps[Arrangement.Steps.Count - 1].EndPlace);
-
+			Place last = Arrangement.Steps[Arrangement.Steps.Count - 1].EndPlace;
+			lastRearrengement.Add(last);
+			RouteMap.DrawPinForRoute(last);
 		}
 
 		private void SetUpSteps()
@@ -165,6 +166,9 @@ namespace travel_agent.WindowsAndPages
 
 			NextButton.IsEnabled = false;
 			BackButton.IsEnabled = true;
+			NextButton.Cursor = Cursors.Arrow;
+			BackButton.Cursor = Cursors.Hand;
+			GenerateRoute();
 		}
 
 		private bool IsFormValid()
@@ -444,16 +448,13 @@ namespace travel_agent.WindowsAndPages
 					{
 						places.Remove(place);
 						places.Insert(index,place);
+						RouteMap.DrawPinForRoute(place, index);
 					}
 				}
 				else
 				{
 					places.Remove(place);
 					places.Add(place);
-				}
-
-				if(RearrangeListView != e.Data.GetData("SourceListView"))
-				{
 					RouteMap.DrawPinForRoute(place);
 				}
 				
@@ -579,7 +580,7 @@ namespace travel_agent.WindowsAndPages
 
 			}
 
-			GenerateRoute();
+			
 			AttractionsList.IsEnabled = false;
 			RestaurantsList.IsEnabled = false;
 			AccommodationList.IsEnabled = false;
@@ -588,17 +589,16 @@ namespace travel_agent.WindowsAndPages
 			RearrangeListView.ItemsSource = new ObservableCollection<Place>();
 			NextButton.IsEnabled = false;
 			BackButton.IsEnabled = true;
+			NextButton.Cursor = Cursors.Arrow;
+			BackButton.Cursor = Cursors.Hand;
 
+			GenerateRoute();
 		}
 
 		private void GenerateRoute()
 		{
-			List<Location> locations = new List<Location>();
-			foreach(Place place in RearrangeListView.Items)
-			{
-				locations.Add(new Location(place.Latitude, place.Longitude));
-			}
-			RouteMap.DrawRouteAsync(locations);
+			List<ArrangementStep> steps = (TransportListView.ItemsSource as ObservableCollection<ArrangementStep>).ToList();
+			RouteMap.DrawRouteAsync(steps);
 		}
 
 
@@ -610,12 +610,16 @@ namespace travel_agent.WindowsAndPages
 			selectedListViewItem = listView.ItemContainerGenerator.ContainerFromItem(selectedItem) as ListViewItem;
 
 			PlaneToggle.IsEnabled = true;
+			PlaneToggle.Cursor = Cursors.Hand;
 			PlaneToggle.ToolTip = (string)Application.Current.FindResource("String.TransportPlane");
 			TrainToggle.IsEnabled = true;
+			TrainToggle.Cursor = Cursors.Hand;
 			TrainToggle.ToolTip = (string)Application.Current.FindResource("String.TransportTrain");
 			BusToggle.IsEnabled = true;
+			BusToggle.Cursor = Cursors.Hand;
 			BusToggle.ToolTip = (string)Application.Current.FindResource("String.TransportBus");
 			FootToggle.IsEnabled = true;
+			FootToggle.Cursor = Cursors.Hand;
 			FootToggle.ToolTip = (string)Application.Current.FindResource("String.TransportSelf");
 			PlaneToggle.IsChecked = selectedItem?.TransportationType == ArrangementStep.TransportType.PLANE;
 			TrainToggle.IsChecked = selectedItem?.TransportationType == ArrangementStep.TransportType.TRAIN;
@@ -636,7 +640,7 @@ namespace travel_agent.WindowsAndPages
 
 			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
 			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/plane.png", UriKind.Relative));
-
+			GenerateRoute();
 		}
 
 		private void TrainToggle_Checked(object sender, RoutedEventArgs e)
@@ -649,6 +653,7 @@ namespace travel_agent.WindowsAndPages
 
 			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
 			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/train.png", UriKind.Relative));
+			GenerateRoute();
 		}
 
 		private void BusToggle_Checked(object sender, RoutedEventArgs e)
@@ -660,7 +665,7 @@ namespace travel_agent.WindowsAndPages
 			(TransportListView.ItemsSource as ObservableCollection<ArrangementStep>).First(item => item.StartPlace == selectedItem.StartPlace).TransportationType = ArrangementStep.TransportType.BUS; ;
 			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
 			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/bus.png", UriKind.Relative));
-
+			GenerateRoute();
 		}
 
 		private void FootToggle_Checked(object sender, RoutedEventArgs e)
@@ -672,7 +677,7 @@ namespace travel_agent.WindowsAndPages
 			(TransportListView.ItemsSource as ObservableCollection<ArrangementStep>).First(item => item.StartPlace == selectedItem.StartPlace).TransportationType = ArrangementStep.TransportType.FOOT; 
 			Image nestedImage = FindVisualChild<Image>(selectedListViewItem);
 			nestedImage.Source = new BitmapImage(new Uri("../Resources/Images/walk.png", UriKind.Relative));
-
+			GenerateRoute();
 		}
 
 
@@ -702,6 +707,8 @@ namespace travel_agent.WindowsAndPages
 		{
 
 			BackButton.IsEnabled = false;
+			NextButton.Cursor = Cursors.Hand;
+			BackButton.Cursor = Cursors.Arrow;
 			NextButton.IsEnabled = true;
 			NextButton.ToolTip = null;
 
@@ -710,24 +717,29 @@ namespace travel_agent.WindowsAndPages
 			PlaneToggle.ToolTip = (string)Application.Current.FindResource("String.ChooseStep");
 			PlaneToggle.IsChecked = false;
 			PlaneToggle.IsEnabled = false;
+			PlaneToggle.Cursor = Cursors.Arrow;
 
 			TrainToggle.IsChecked = false;
 			TrainToggle.ToolTip = (string)Application.Current.FindResource("String.ChooseStep");
 			TrainToggle.IsEnabled = false;
+			TrainToggle.Cursor = Cursors.Arrow;
 
 			BusToggle.IsChecked = false;
 			BusToggle.ToolTip = (string)Application.Current.FindResource("String.ChooseStep");
 			BusToggle.IsEnabled = false;
+			BusToggle.Cursor = Cursors.Arrow;
 
 			FootToggle.IsChecked = false;
 			FootToggle.ToolTip = (string)Application.Current.FindResource("String.ChooseStep");
 			FootToggle.IsEnabled = false;
+			FootToggle.Cursor = Cursors.Arrow;
 
 			TransportListView.ItemsSource = new ObservableCollection<Place>();
 			RearrangeListView.ItemsSource =lastRearrengement;
 			AccommodationList.IsEnabled = true;
 			AttractionsList.IsEnabled = true;
 			RestaurantsList.IsEnabled = true;
+			RouteMap.DeleteRoutes();
 		}
 
 		private void OnSubmitClick(object sender, RoutedEventArgs e)

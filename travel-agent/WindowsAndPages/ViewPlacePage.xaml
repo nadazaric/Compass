@@ -18,7 +18,8 @@
                 Style="{StaticResource NoneButtonStyle}" 
                 HorizontalAlignment="Left"
                 Margin="0 -5 0 5"
-                Click="OnBackClick">
+                Click="OnBackClick"
+				Cursor="Hand">
                 <StackPanel
                     VerticalAlignment="Center" Orientation="Horizontal">
                     <TextBlock 

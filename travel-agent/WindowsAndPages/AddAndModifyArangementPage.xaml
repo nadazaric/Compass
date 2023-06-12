@@ -23,7 +23,8 @@
                 Style="{StaticResource NoneButtonStyle}" 
                 HorizontalAlignment="Left"
                 Margin="0 -5 0 5"
-                Click="OnBackClick">
+                Click="OnBackClick"
+				Cursor="Hand">
 				<StackPanel
                     VerticalAlignment="Center" Orientation="Horizontal">
 					<TextBlock 
@@ -78,7 +79,8 @@
                 Content="{StaticResource String.AddImageButton}" 
                 Click="OnAddPictureClick"
                 Padding="0"
-                Margin="0 0 0 15"/>
+                Margin="0 0 0 15"
+				Cursor="Hand"/>
 
 			<controls:FancyTextBox
                 x:Name="ArrangementDescriptionInput"
@@ -269,7 +271,8 @@
 						<TabControl Name="tabControl">
 							<TabItem 
 								Header="{StaticResource String.AttractionsLabel}"
-								x:Name="AttractionsTabItem"	 >
+								x:Name="AttractionsTabItem"	 
+								Cursor="Hand">
 								<Grid>
 									<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
 										<ListView 
@@ -321,7 +324,8 @@
 							</TabItem>
 							<TabItem 
 								Header="{StaticResource String.RestaurantsLabel}"
-								x:Name="RestaurantsTabItem">
+								x:Name="RestaurantsTabItem"
+								Cursor="Hand">
 								<Grid>
 									<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
 										<ListView 
@@ -372,7 +376,8 @@
 
 							</TabItem>
 							<TabItem Header="{StaticResource String.AccommodatonLabel}"
-									 x:Name="AccommmodationTabItem">
+									 x:Name="AccommmodationTabItem"
+									 Cursor="Hand">
 								<Grid>
 									<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
 										<ListView 
@@ -448,7 +453,8 @@
 								ToolTipService.Placement="Mouse"
 								ToolTipService.ShowOnDisabled="True"
 								ToolTipService.InitialShowDelay="0"
-								ToolTip="{StaticResource String.Add2Places}"></Button>
+								ToolTip="{StaticResource String.Add2Places}"
+								Cursor="Hand"></Button>
 
 						</StackPanel>
 						<ScrollViewer
@@ -464,6 +470,15 @@
 							PreviewMouseLeftButtonDown="OnMouseLeftButtonDown"
 							MouseMove="OnMouseMove"
 							>
+								<ListView.ItemContainerStyle>
+									<Style TargetType="ListViewItem">
+										<Setter Property="ToolTip">
+											<Setter.Value>
+												<ToolTip Content="{Binding Address}" />
+											</Setter.Value>
+										</Setter>
+									</Style>
+								</ListView.ItemContainerStyle>
 							</ListView>
 						</ScrollViewer>
 
@@ -483,7 +498,8 @@
 								Width="70"
 								HorizontalAlignment="Left"
 								Content="{StaticResource String.BackLeftButton}"
-								IsEnabled="False" Click="BackButton_Click">
+								IsEnabled="False" Click="BackButton_Click"
+								Cursor="Hand">
 
 							</Button>
 
@@ -597,29 +613,40 @@
 			</StackPanel>
 
 			<controls:FancyMap x:Name="RouteMap" Height="325"/>
+			<Label
+				FontSize="10"
+				FontWeight="Regular"
+				Content="*Podaci za rutu voz možda nisu tačni"
+				HorizontalAlignment="Right"
+				Foreground="{StaticResource Color.DisabledBorder}">
+
+			</Label>
 
 			<Button 
 				x:Name="ArrangementsAddOrModifyButton"
 				Content="{StaticResource String.FinishAddingArrangementButton}" 
 				Padding="0"
 				Click="OnSubmitClick"
-				Margin="0 20 0 0"/>
-            <Button
+				Margin="0 20 0 0"
+				Cursor="Hand"/>
+			<Button
 				x:Name="DeleteArrangementButton"
 				Content="{StaticResource String.DeleteButton}"
 				Style="{StaticResource OutlineDeleteButtonStyle}"
 				Padding="0"
 				Margin="0 10 0 0" Click="DeleteArrangementButton_Click"
-				Visibility="Collapsed"/>
+				Visibility="Collapsed"
+				Cursor="Hand">
+			</Button>
 
-            <Button
+				<Button
                 x:Name="ReactivateArrangementButton"
                 Content="{StaticResource String.ReactivateArrangementButton}"
-				Style="{StaticResource OutlineButtonStyle}"
-				Background="{StaticResource Color.White}"
+				Style="{StaticResource OutlineDeleteButtonStyle}"
 				Padding="0"
 				Margin="0 10 0 0" Click="ReactivateArrangementButton_Click"
-				Visibility="Collapsed"/>
+				Visibility="Collapsed"
+					Cursor="Hand"/>
 
         </StackPanel>
 		

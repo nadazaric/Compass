@@ -66,11 +66,14 @@
     <System:String x:Key="String.ReservationStateLabel">Status rezervacije:</System:String>
     <System:String x:Key="String.MonthReport">Izveštaj po datumima</System:String>
     <System:String x:Key="String.ReportForArr">Izveštaj za aranžman</System:String>
+	<System:String x:Key="String.TripPlanLabel">Plan putovanja</System:String>
+	<System:String x:Key="String.LookMapLabel">Pogledaj na mapi</System:String>
 
     <!-- Tooltip -->
 	<System:String x:Key="String.Add2Places">Potrebno je najmanje 2 mesta za nastavak</System:String>
 	<System:String x:Key="String.ChooseStep">Izaberite red iz liste za dodavanje prevoza</System:String>
 	<System:String x:Key="String.ReservationTimePassed">Rezervacije su moguće do 3 dana pre putovanja</System:String>
+	<System:String x:Key="String.LookCloser">Pogledaj detaljnije</System:String>
 
 	<!-- Buttons -->
     <System:String x:Key="String.LoginButton">Prijavi me!</System:String>
