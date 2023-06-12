@@ -134,23 +134,28 @@ namespace travel_agent.Controls
                 }
                 
 				routePolyline.Stroke = new SolidColorBrush(Color.FromRgb(51, 107, 135));
-				routePolyline.StrokeThickness = 3;
+				routePolyline.StrokeThickness = 5;
 
                 if(step.TransportationType == ArrangementStep.TransportType.FOOT)
                 {
                     routePolyline.StrokeDashArray = new DoubleCollection { 4, 1 };
-
+                    routePolyline.ToolTip = new ToolTip { Content = "Peške" };
 				}
                 else if(step.TransportationType == ArrangementStep.TransportType.PLANE)
                 {
 					routePolyline.Stroke = new SolidColorBrush(Color.FromRgb(86, 141, 166));
+                    routePolyline.ToolTip = new ToolTip { Content  = "Avion" };
 				}else if(step.TransportationType == ArrangementStep.TransportType.TRAIN)
                 {
 					routePolyline.Stroke = new SolidColorBrush(Color.FromRgb(122, 122, 122));
 					routePolyline.StrokeDashArray = new DoubleCollection { 2, 1 };
-                    routePolyline.ToolTip = new ToolTip { Content = "Nisu dostupni podaci za rutu vozom" };
+                    routePolyline.ToolTip = new ToolTip { Content = "Voz*" };
 
-				}
+                }
+                else
+                {
+                    routePolyline.ToolTip = new ToolTip { Content = "Autobus" };
+                }
 				map.Children.Add(routePolyline);
 				Polylines.Add(routePolyline);
 			}
@@ -202,5 +207,5 @@ namespace travel_agent.Controls
         {
             PinPlaced?.Invoke(this, address);
         }
-    }
+	}
 }

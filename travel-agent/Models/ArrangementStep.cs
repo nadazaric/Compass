@@ -10,7 +10,20 @@ namespace travel_agent.Models
 {
     public class ArrangementStep
     {
-        [Key] public int Id { get; set; }
+		public ArrangementStep(ArrangementStep arrangementStep)
+		{
+            this.Id = arrangementStep.Id;
+            this.StartPlaceId = arrangementStep.StartPlaceId;
+            this.StartPlace = arrangementStep.StartPlace;
+            this.EndPlace = arrangementStep.EndPlace;
+            this.EndPlaceId = arrangementStep.EndPlaceId;
+            this.TravelDistance = arrangementStep.TravelDistance;
+            this.TransportationType = arrangementStep.TransportationType;
+		}
+
+        public ArrangementStep() { }
+
+		[Key] public int Id { get; set; }
         [ForeignKey("StartPlace")] 
         public int? StartPlaceId { get; set; }
         public Place StartPlace { get; set; }

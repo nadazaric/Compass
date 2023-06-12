@@ -7,7 +7,193 @@
 	  xmlns:controls="clr-namespace:travel_agent.Controls"
       mc:Ignorable="d"
       Title="ViewArrangementPage">
+	<Page.Resources>
+		<local:IndexConverter x:Key="IndexConverter"></local:IndexConverter>
+		<local:LastIndexConverter x:Key="LastIndexConverter"></local:LastIndexConverter>
+		<local:LastItemTemplateSelector x:Key="LastItemTemplateSelector"></local:LastItemTemplateSelector>
 
+		<Style TargetType="Image" x:Key="PlaceImageStyle">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding TransportationType}" Value="PLANE">
+					<Setter Property="Source" Value="../Resources/Images/Plane.png" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding TransportationType}" Value="BUS">
+					<Setter Property="Source" Value="../Resources/Images/Bus.png" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding TransportationType}" Value="TRAIN">
+					<Setter Property="Source" Value="../Resources/Images/Train.png" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding TransportationType}" Value="FOOT">
+					<Setter Property="Source" Value="../Resources/Images/Walk.png" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+
+		<DataTemplate x:Key="DefaultTemplate">
+			<Grid
+				Width="Auto">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+				<Border
+					BorderBrush="Transparent"
+					Background="{StaticResource Color.PrimaryDark}"
+					BorderThickness="5"
+					Width="40"
+					Height="40"
+					CornerRadius="50">
+					<Label
+						Foreground="{StaticResource Color.White}"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}},
+                            Path=(ItemsControl.AlternationIndex),
+                            Mode=OneWay,
+                            Converter={StaticResource IndexConverter}}"
+						FontSize="{StaticResource Dim.RegularFontSize}"
+						FontWeight="ExtraBold">
+
+					</Label>
+				</Border>
+				<Label 
+					Grid.Column="1"
+					Content="{Binding StartPlace.Name}"
+					FontSize="{StaticResource Dim.RegularFontSize}"
+					FontWeight="Medium"
+					Padding="10 0 0 0"
+					VerticalAlignment="Center"
+					Cursor="Hand"
+					ToolTip="{StaticResource String.LookCloser}"
+					Style="{StaticResource ClickableLabelStyle}"
+					MouseLeftButtonUp="StartPlace_Click">
+
+				</Label>
+				<Border
+					Grid.Row="1"
+					BorderBrush="Transparent"
+					Background="{StaticResource Color.PrimaryDark}"
+					BorderThickness="0"
+					Width="3" 
+					Height="40"
+					VerticalAlignment="Stretch">
+
+				</Border>
+				<Image
+					Grid.Column="1"
+					Grid.Row="1"
+					Height="30"
+					Style="{StaticResource PlaceImageStyle}" >
+
+				</Image>
+
+			</Grid>
+		</DataTemplate>
+
+		<DataTemplate x:Key="LastItemTemplate">
+			<Grid
+				Width="Auto">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+				<Border
+					BorderBrush="Transparent"
+					Background="{StaticResource Color.PrimaryDark}"
+					BorderThickness="5"
+					Width="40"
+					Height="40"
+					CornerRadius="50">
+					<Label
+						Foreground="{StaticResource Color.White}"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}},
+                            Path=(ItemsControl.AlternationIndex),
+                            Mode=OneWay,
+                            Converter={StaticResource IndexConverter}}"
+						FontSize="{StaticResource Dim.RegularFontSize}"
+						FontWeight="ExtraBold">
+
+					</Label>
+				</Border>
+				<Label 
+					Grid.Column="1"
+					Content="{Binding StartPlace.Name}"
+					FontSize="{StaticResource Dim.RegularFontSize}"
+					FontWeight="Medium"
+					Padding="10 0 0 0"
+					VerticalAlignment="Center"
+					Cursor="Hand"
+					ToolTip="{StaticResource String.LookCloser}"
+					Style="{StaticResource ClickableLabelStyle}"
+					MouseLeftButtonUp="StartPlace_Click">
+					
+				</Label>
+				<Border
+					Grid.Row="1"
+					BorderBrush="Transparent"
+					Background="{StaticResource Color.PrimaryDark}"
+					BorderThickness="0"
+					Width="3" 
+					Height="40"
+					VerticalAlignment="Stretch">
+
+				</Border>
+				<Image
+					Grid.Column="1"
+					Grid.Row="1"
+					Height="30"
+					Style="{StaticResource PlaceImageStyle}">
+
+				</Image>
+				<Border
+					Grid.Row="2"
+					BorderBrush="Transparent"
+					Background="{StaticResource Color.PrimaryDark}"
+					BorderThickness="5"
+					Width="40"
+					Height="40"
+					CornerRadius="50">
+					<Label
+						Foreground="{StaticResource Color.White}"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}},
+                            Path=(ItemsControl.AlternationIndex),
+                            Mode=OneWay,
+                            Converter={StaticResource LastIndexConverter}}"
+						FontSize="{StaticResource Dim.RegularFontSize}"
+						FontWeight="ExtraBold">
+
+					</Label>
+				</Border>
+				<Label 
+					Grid.Column="1"
+					Grid.Row="2"
+					Content="{Binding EndPlace.Name}"
+					FontSize="{StaticResource Dim.RegularFontSize}"
+					FontWeight="Medium"
+					Padding="10 0 0 0"
+					VerticalAlignment="Center"
+					Cursor="Hand"
+					ToolTip="{StaticResource String.LookCloser}"
+					Style="{StaticResource ClickableLabelStyle}"
+					MouseLeftButtonUp="EndPlace_Click">
+
+				</Label>
+			</Grid>
+		</DataTemplate>
+	</Page.Resources>
 	<ScrollViewer VerticalScrollBarVisibility="Auto">
 		<StackPanel Margin="30 40"
 					MinWidth="300"
@@ -178,7 +364,35 @@
 				</Label>
 			</StackPanel>
 
-			<controls:FancyMap x:Name="Map" Height="325"></controls:FancyMap>
+			<Grid
+				x:Name="StepsList"
+				Width="Auto"
+				Margin="0 30">
+				<ItemsControl
+					x:Name="StepsItemsControl"
+					Margin="0"
+					ItemsSource="{Binding Steps}"
+					ItemTemplateSelector="{StaticResource LastItemTemplateSelector}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapPanel HorizontalAlignment="Stretch"></WrapPanel>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+
+				</ItemsControl>
+				
+				
+			</Grid>
+
+			<controls:FancyMap Margin="0 20 0 0" x:Name="Map" Height="325"></controls:FancyMap>
+			<Label
+				FontSize="10"
+				FontWeight="Regular"
+				Content="*Podaci za rutu voz možda nisu tačni"
+				HorizontalAlignment="Right"
+				Foreground="{StaticResource Color.DisabledBorder}">
+				
+			</Label>
 
 			<Button
 				x:Name="MakeReservationButton"
