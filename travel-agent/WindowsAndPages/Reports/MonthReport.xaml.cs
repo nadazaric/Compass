@@ -52,7 +52,7 @@ namespace travel_agent.WindowsAndPages.Reports
             arrangements = ArrangementService.GetAll();
             foreach (Arrangement ar in arrangements)
             {
-                int numRes=0, numCancel=0, numDel=0;
+                int numRes=0, numCancel=0, numPaid=0;
                 decimal total = 0;
 
                 List<Reservation> reservations = new List<Reservation>();
@@ -63,10 +63,9 @@ namespace travel_agent.WindowsAndPages.Reports
                 {
                     if (reservation.Status == Reservation.ReservationStatus.RESERVED) numRes++;
                     else if (reservation.Status == Reservation.ReservationStatus.CANCELED) numCancel++;
-                    else if (reservation.Status == Reservation.ReservationStatus.PAID) { total += ar.Price; numDel++; numRes++; }
-                    else { numDel++; }
+                    else if (reservation.Status == Reservation.ReservationStatus.PAID) { total += ar.Price; numPaid++; numRes++; }
                 }
-                rows.Add(new TableRow(ar.Name, numRes, numCancel, numDel, total));  
+                rows.Add(new TableRow(ar.Name, numRes, numCancel, numPaid, total));  
             }
             return rows;
         }
@@ -127,19 +126,19 @@ namespace travel_agent.WindowsAndPages.Reports
         public string Name { get; set; }
         public int NumberReserved { get; set; }
         public int NumberCanceled { get; set; }
-        public int NumberDeleted { get; set; }
+        public int NumberPaid { get; set; }
         public decimal TotalPrice { get; set; }
-        public TableRow(string name, int numberReserved, int numberCanceled, int numDel, decimal totalPrice)
+        public TableRow(string name, int numberReserved, int numberCanceled, int numPaid, decimal totalPrice)
         {
             Name = name;
             NumberReserved = numberReserved;
             NumberCanceled = numberCanceled;
-            NumberDeleted = numDel;
+            NumberPaid = numPaid;
             TotalPrice = totalPrice;
         }
         public override string ToString()
         {
-            return Name + " " + NumberReserved + " " + NumberCanceled + " " + NumberDeleted;
+            return Name + " " + NumberReserved + " " + NumberCanceled + " " + NumberPaid;
         }
     }
 }
