@@ -634,11 +634,11 @@
 				<Button
                 x:Name="ReactivateArrangementButton"
                 Content="{StaticResource String.ReactivateArrangementButton}"
-				Style="{StaticResource OutlineButtonStyle}"
-				Background="{StaticResource Color.White}"
+				Style="{StaticResource OutlineDeleteButtonStyle}"
 				Padding="0"
 				Margin="0 10 0 0" Click="ReactivateArrangementButton_Click"
-				Visibility="Collapsed"/>
+				Visibility="Collapsed"
+					Cursor="Hand"/>
 
         </StackPanel>
 		
