@@ -7,10 +7,15 @@
     xmlns:local="clr-namespace:travel_agent.Windows"
     xmlns:controls="clr-namespace:travel_agent.Controls"
     xmlns:validatrs="clr-namespace:travel_agent.ValidationRules"
+    xmlns:help="clr-namespace:travel_agent.OnlineHelp"
     mc:Ignorable="d"
     Title="{StaticResource String.AppName}"
     WindowState="Maximized"
-    WindowStartupLocation="CenterScreen">
+    WindowStartupLocation="CenterScreen"
+    help:HelpProvider.HelpKey="test">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
+    </Window.CommandBindings>
     <ScrollViewer
         HorizontalScrollBarVisibility="Auto" 
         VerticalScrollBarVisibility="Auto">

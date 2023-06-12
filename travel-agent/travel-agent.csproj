@@ -133,6 +133,10 @@
     <Compile Include="Models\Place.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="OnlineHelp\HelpProvider.cs" />
+    <Compile Include="OnlineHelp\HelpViewer.xaml.cs">
+      <DependentUpon>HelpViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\ArrangementService.cs" />
     <Compile Include="Services\PlaceService.cs" />
     <Compile Include="Services\ReservationService.cs" />
@@ -199,6 +203,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\FancyTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OnlineHelp\HelpViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -321,6 +329,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\walk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="OnlineHelp\Help\error.htm" />
+    <Content Include="OnlineHelp\Help\index.htm" />
+    <Content Include="OnlineHelp\Help\test.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

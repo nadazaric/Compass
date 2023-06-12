@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using travel_agent.Controls;
 using travel_agent.Models;
+using travel_agent.OnlineHelp;
 using travel_agent.Services;
 using travel_agent.WindowsAndPages;
 
@@ -130,5 +131,15 @@ namespace travel_agent.Windows
         }
 
         private void LoginOnEnter(object sender, EventArgs e) => Login();
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[0]);
+            if (focusedControl is DependencyObject)
+            {
+                string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
+                HelpProvider.ShowHelp(str, this);
+            }
+        }
     }
 }
