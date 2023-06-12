@@ -27,7 +27,6 @@ namespace travel_agent.Help
 		public HelpViewer(string key, MainWindow originator)
 		{
 			InitializeComponent();
-			//string rootPath = ;
 			string executablePath = Assembly.GetExecutingAssembly().Location;
 			string rootPath = Path.GetDirectoryName(executablePath);
 
@@ -39,6 +38,7 @@ namespace travel_agent.Help
 				key = "error";
 			}
 			Uri u = new Uri(curDir+key+".htm");
+			//System.Diagnostics.Process.Start(u.ToString());
 			ch = new JavaScriptControlHelp(originator);
 			wbHelp.ObjectForScripting = ch;
 			wbHelp.Navigate(u);
@@ -72,5 +72,6 @@ namespace travel_agent.Help
 		private void wbHelp_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
 		{
 		}
+
 	}
 }
