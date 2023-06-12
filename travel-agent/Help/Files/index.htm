@@ -1,10 +1,72 @@
 ﻿﻿
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-<head>
-    <title>Start</title>
-</head>
-<body>
-    <h1>Podrazumevana stranica pomoći</h1>
-</body>
+    <head>
+        <title>Interactive Columns</title>
+        <style>
+            body {
+                display: flex;
+                flex-direction: row;
+                height: 100vh;
+                margin: 0;
+                padding: 0;
+            }
+
+            #sidebar {
+                flex: 1;
+                background-color: #f2f2f2;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+
+            .column {
+                cursor: pointer;
+                margin-bottom: 10px;
+            }
+
+			.content {
+				flex: 3;
+				padding: 20px;
+				box-sizing: border-box;
+				min-height: 100vh;
+			}
+
+			.dissapear_content {
+                display: none;
+			}
+        </style>
+    </head>
+    <body>
+        <div id="sidebar">
+            <div class="column" onclick="changeContent('column1')">Početak</div>
+            <div class="column" onclick="changeContent('column2')">Mesta</div>
+            <div class="column" onclick="changeContent('column3')">Aranžmani</div>
+            <div class="column" onclick="changeContent('column4')">Moja putovanja</div>
+            <div class="column" onclick="changeContent('column5')">Odjava</div>
+
+        </div>
+        <div id="column1" class="content">
+            <h1 id="selectedColumn">Početak</h1>
+            <p id="columnContent">Test</p>
+        </div>
+        <div id="column2" class="content dissapear_content">
+            <h1 id="selectedColumn">Mesta</h1>
+            <p id="columnContent">Click on a column on the left to change the content here.</p>
+        </div> 
+        <div id="column3" class="content dissapear_content">
+            <h1 id="selectedColumn">Aranžmani</h1>
+            <p id="columnContent">Click on a column on the left to change the content here.</p>
+        </div> 
+        <div id="column4" class="content dissapear_content">
+            <h1 id="selectedColumn">Moja putovanja</h1>
+            <p id="columnContent">Click on a column on the left to change the content here.</p>
+        </div> 
+        <div id="column5" class="content dissapear_content">
+            <h1 id="selectedColumn">Odjava sa sistema</h1>
+            <p id="columnContent">Click on a column on the left to change the content here.</p>
+        </div>
+
+        <script src="script.js">
+        </script>
+    </body>
 </html>

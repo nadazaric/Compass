@@ -342,6 +342,7 @@
   <ItemGroup>
     <Content Include="Help\Files\error.htm" />
     <Content Include="Help\Files\index.htm" />
+    <Content Include="Help\Files\script.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
