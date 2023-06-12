@@ -10,7 +10,8 @@ namespace travel_agent.WindowsAndPages
     {
         private Place Place;
         private MainWindow Parent;
-        public ViewPlacePage(Place place, MainWindow parent)
+        private Arrangement Arrangement;
+        public ViewPlacePage(Place place, MainWindow parent, Arrangement arrangement = null)
         {
             InitializeComponent();
             Place = place;
@@ -18,7 +19,8 @@ namespace travel_agent.WindowsAndPages
             Loaded += SetType;
             Map.DisableDoubleClick();
             Map.DrawPin(new Location(Place.Latitude, Place.Longitude));
-            Parent = parent;    
+            Parent = parent;
+            Arrangement = arrangement;
         }
 
         private void SetType(object sender, RoutedEventArgs e)
@@ -29,6 +31,10 @@ namespace travel_agent.WindowsAndPages
             Loaded -= SetType;
         }
 
-        private void OnBackClick(object sender, RoutedEventArgs e) => Parent.MainFrame.Content = new PlacesPage(Parent);
+        private void OnBackClick(object sender, RoutedEventArgs e)
+        {
+            if(Arrangement == null) Parent.MainFrame.Content = new PlacesPage(Parent);
+            else Parent.MainFrame.Content = new ViewArrangementPage(Parent, Arrangement);
+        }
     }
 }

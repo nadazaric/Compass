@@ -76,7 +76,8 @@
 											</Style>
 										</Border.Style>
 										<Grid
-											MouseLeftButtonUp="OnTripItemClick">
+											MouseLeftButtonUp="OnTripItemClick"
+											Cursor="Hand">
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition Width="*"/>
 												<ColumnDefinition Width="2*"/>
@@ -248,7 +249,8 @@
 											</Style>
 										</Border.Style>
 										<Grid
-											MouseLeftButtonUp="OnTripItemClick">
+											MouseLeftButtonUp="OnTripItemClick"
+											Cursor="Hand">
 											<Grid.Clip>
 												<RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,0,350,350"/>
 											</Grid.Clip>

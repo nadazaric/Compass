@@ -24,6 +24,14 @@ namespace travel_agent.Services
 			}
 		}
 
+		public Arrangement GetOne(Arrangement arrangement)
+		{
+			using( var db = new Context())
+			{
+				return db.Arrangements.Include(a=>a.Steps).Include(a => a.Places).First(a => a.Id == arrangement.Id);
+			}
+		}
+
 		public void DeleteArrangement(Arrangement arrangement)
 		{
             using (var db = new Context())

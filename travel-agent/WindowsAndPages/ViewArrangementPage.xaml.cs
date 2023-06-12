@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,34 +27,59 @@ namespace travel_agent.WindowsAndPages
 	public partial class ViewArrangementPage : Page
 	{
 
-		private Arrangement Arrangement;
+		public Arrangement Arrangement { get; set; }
 		private Reservation Reservation;
 		private bool isFromTrips = true;
 		private MainWindow parent;
 		private ReservationService reservationService;
+		private ArrangementService arrangementService;
 		private Application App;
+		public ObservableCollection<ArrangementStep> Steps {  get; set; }
+		public ObservableCollection<HelperModel> Helper { get; set; } = new ObservableCollection<HelperModel> ();
 
 		public ViewArrangementPage(MainWindow parent, Arrangement arrangement, Reservation reservation = null)
 		{
 			InitializeComponent();
-			this.parent = parent;
-			this.Arrangement = arrangement;
-			this.Reservation = reservation;
-			DataContext = this.Arrangement;
 			reservationService = ReservationService.Instance;
+			arrangementService = ArrangementService.Instance;
+			this.parent = parent;
+			this.Arrangement = arrangementService.GetOne(arrangement);
+			this.Reservation = reservation;
+			DataContext = this;
 			App = Application.Current;
+			Steps = new ObservableCollection<ArrangementStep>(Arrangement.Steps);
+			for(int i = 1; i <= Steps.Count; i++)
+			{
+				Helper.Add(new HelperModel { Index = i, Step = Steps[i-1] });
+			}
+			Console.WriteLine(Steps.Count);
 
-			if(reservation == null)
+			if (reservation == null)
 			{
 				CheckUserReservations();
 				isFromTrips=false;
 			}
 			SetUpButtons();
+			SetUpMap();
 		}
+
+		
 
 		private void CheckUserReservations()
 		{
 			Reservation = reservationService.GetUserReservation(parent.User, Arrangement);
+		}
+
+		private void SetUpMap()
+		{
+			foreach (var step in Arrangement.Steps)
+			{
+				Map.DrawPinForRoute(step.StartPlace);
+			}
+			Place last = Arrangement.Steps[Arrangement.Steps.Count - 1].EndPlace;
+			Map.DrawPinForRoute(last);
+			Map.DrawRouteAsync(Arrangement.Steps);
+			Map.DisableDoubleClick();
 		}
 
 		private void SetUpButtons()
@@ -117,7 +145,7 @@ namespace travel_agent.WindowsAndPages
 		{
 			var result = MessageBox.Show(App.Resources["String.MakeReservationMessage"] as string, App.Resources["String.AppName"] as string, MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.No) return;
-			if (Reservation == null) reservationService.CreateReservation(parent.User, Arrangement);
+			if (Reservation == null)Reservation = reservationService.CreateReservation(parent.User, Arrangement);
 			else reservationService.RecreateReservation(Reservation);
 			Reservation.Status = Reservation.ReservationStatus.RESERVED;
 			SetUpButtons();
@@ -140,6 +168,60 @@ namespace travel_agent.WindowsAndPages
 			reservationService.PayReservation(Reservation);
 			Reservation.Status = Reservation.ReservationStatus.PAID;
 			SetUpButtons();
+		}
+
+		private void StartPlace_Click(object sender, RoutedEventArgs e)
+		{
+			HelperModel data = (sender as Label).DataContext as HelperModel;
+			parent.MainFrame.Content = new ViewPlacePage(data.Step.StartPlace, parent, Arrangement);
+		}
+
+		private void EndPlace_Click(object sender, RoutedEventArgs args)
+		{
+			HelperModel data = (sender as Label).DataContext as HelperModel;
+			parent.MainFrame.Content = new ViewPlacePage(data.Step.EndPlace, parent, Arrangement);
+		}
+		
+	}
+
+	public class IndexConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			Console.WriteLine("Real value " + value);
+			return (int)value + 1;
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return (int)value - 1;
+		}
+	}
+
+	public class LastItemTemplateSelector : DataTemplateSelector
+	{
+
+		public override DataTemplate SelectTemplate(object item, DependencyObject container)
+		{
+			var itemsControl = ItemsControl.ItemsControlFromItemContainer(container);
+			var index = itemsControl.ItemContainerGenerator.IndexFromContainer(container);
+
+			var helperModel = item as HelperModel;
+			if (helperModel != null)
+			{
+				if (index == itemsControl.Items.Count - 1)
+				{
+					// Last item, use the ending place
+					return (DataTemplate)itemsControl.FindResource("LastItemTemplate");
+				}
+				else
+				{
+					// Other items, use the starting place
+					return (DataTemplate)itemsControl.FindResource("DefaultTemplate");
+				}
+			}
+
+			return null;
 		}
 	}
 }
