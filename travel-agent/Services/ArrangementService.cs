@@ -24,6 +24,26 @@ namespace travel_agent.Services
 			}
 		}
 
+		public void DeleteArrangement(Arrangement arrangement)
+		{
+            using (var db = new Context())
+            {
+                var arrangementUpdate = db.Arrangements.Include(a => a.Steps).Include(a => a.Places).Single(a => a.Id == arrangement.Id);
+				arrangementUpdate.IsDeleted = true;
+				db.SaveChanges();
+            }
+        }
+
+		public void ReactivateArrangement(Arrangement arrangement)
+		{
+            using (var db = new Context())
+            {
+                var arrangementUpdate = db.Arrangements.Include(a => a.Steps).Include(a => a.Places).Single(a => a.Id == arrangement.Id);
+                arrangementUpdate.IsDeleted = false;
+                db.SaveChanges();
+            }
+        }
+
 		public void Create(Arrangement arrangement)
 		{
 			arrangement.TotalDistance = 0;
