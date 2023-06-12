@@ -27,24 +27,31 @@
                     Style="{StaticResource NavbarButtonStyle}"
                     Content="{StaticResource String.PlacesNavbarButton}"
                     Click="OnPlacesNavbarButtonClick"
-					Cursor="Hand"/>
+					          Cursor="Hand"/>
                 <Button
                     Style="{StaticResource NavbarButtonStyle}"
                     Content="{StaticResource String.ArrangementsNavbarButton}" 
                     Click="OnArrangementsNavbarBttonClick"
-					Cursor="Hand"/>
-				<Button 
+					          Cursor="Hand"/>
+				        <Button 
                     Name="MyTripsButton"
                     Visibility="Collapsed"
                     Style="{StaticResource NavbarButtonStyle}"
                     Content="{StaticResource String.MyTripsButton}"
                     Click="OnMyTripsNavbarButtonClick"
-					Cursor="Hand"/>
+                    Cursor="Hand"/>
+                <Button
+                    Name="Statistics"
+                    Visibility="Collapsed"
+                    Style="{StaticResource NavbarButtonStyle}"
+                    Content="{StaticResource String.StatisticsLabel}"
+                    Click="StatisticsButtonClick"
+					          Cursor="Hand"/>
                 <Button 
                     Style="{StaticResource NavbarButtonStyle}"
                     Content="{StaticResource String.LogoutNavbarButton}" 
                     Click="OnLogoutButtonClick"
-					Cursor="Hand"/>
+					          Cursor="Hand"/>
 				
             </StackPanel>
         </Grid>

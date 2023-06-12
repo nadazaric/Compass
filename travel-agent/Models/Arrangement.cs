@@ -58,6 +58,11 @@ namespace travel_agent.Models
 			Steps = new List<ArrangementStep>();
 		}
 
-
-	}
+        public override string ToString()
+        {
+			String temp = "Aktivan";
+			if (IsDeleted) temp = "Uklonjen";
+			return Id + " - " + Name + " - " + Price + "RSD - " + temp;
+        }
+    }
 }

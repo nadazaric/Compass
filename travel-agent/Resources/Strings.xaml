@@ -60,14 +60,16 @@
 	<System:String x:Key="String.DateStartLongLabel">Datum polaska: </System:String>
 	<System:String x:Key="String.DateEndLongLabel">Datum povratka:</System:String>
 	<System:String x:Key="String.FutureTripsLabel">Aktuelna putovanja</System:String>
-	<System:String x:Key="String.HistoryLabel">Istorija</System:String>
-	<System:String x:Key="String.NoFutureLabel">Nema aktuelnih putovanja</System:String>
-	<System:String x:Key="String.NoHistoryLabel">Nema proteklih putovanja</System:String>
-	<System:String x:Key="String.ReservationStateLabel">Status rezervacije: </System:String>
+    <System:String x:Key="String.HistoryLabel">Istorija</System:String>
+    <System:String x:Key="String.NoFutureLabel">Nema aktuelnih putovanja</System:String>
+    <System:String x:Key="String.NoHistoryLabel">Nema proteklih putovanja</System:String>
+    <System:String x:Key="String.ReservationStateLabel">Status rezervacije:</System:String>
+    <System:String x:Key="String.MonthReport">Izveštaj po datumima</System:String>
+    <System:String x:Key="String.ReportForArr">Izveštaj za aranžman</System:String>
 	<System:String x:Key="String.TripPlanLabel">Plan putovanja</System:String>
 	<System:String x:Key="String.LookMapLabel">Pogledaj na mapi</System:String>
 
-	<!-- Tooltip -->
+    <!-- Tooltip -->
 	<System:String x:Key="String.Add2Places">Potrebno je najmanje 2 mesta za nastavak</System:String>
 	<System:String x:Key="String.ChooseStep">Izaberite red iz liste za dodavanje prevoza</System:String>
 	<System:String x:Key="String.ReservationTimePassed">Rezervacije su moguće do 3 dana pre putovanja</System:String>
@@ -96,14 +98,17 @@
     <System:String x:Key="String.BackButton">Nazad</System:String>
 	<System:String x:Key="String.DeleteButton">Obriši</System:String>
 	<System:String x:Key="String.AddNewArrangementButton">Dodaj novi aranžman</System:String>
-	<System:String x:Key="String.MyTripsButton">Moja putovanja</System:String>
-	<System:String x:Key="String.FinishAddingArrangementButton">Završi dodavanje novog aranžman</System:String>
+    <System:String x:Key="String.MyTripsButton">Moja putovanja</System:String>
+    <System:String x:Key="String.StatisticsLabel">Statistika</System:String>
+    <System:String x:Key="String.FinishAddingArrangementButton">Završi dodavanje novog aranžman</System:String>
 	<System:String x:Key="String.FinishModifyArrangementButton">Završi izmenu aranžmana</System:String>
 	<System:String x:Key="String.MakeReservationButton">Rezerviši</System:String>
 	<System:String x:Key="String.DeleteReservationButton">Otkaži rezervaciju</System:String>
 	<System:String x:Key="String.PayReservationButton">Plati putovanje</System:String>
   <System:String x:Key="String.ReactivatePlaceButton">Ponovo aktiviraj mesto</System:String>
-  <System:String x:Key="String.ReactivateArrangementButton">Ponovo aktiviraj aranžman</System:String>
+    <System:String x:Key="String.ReactivateArrangementButton">Ponovo aktiviraj aranžman</System:String>
+    <System:String x:Key="String.GenerateReport">Generiši izveštaj</System:String>
+    <System:String x:Key="String.DownloadReport">Preuzmi izveštaj</System:String>
 
     <!-- Errors -->
     <System:String x:Key="String.RequiredTextBoxError">Ovo polje je obavezno!</System:String>
