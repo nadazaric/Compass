@@ -1,11 +1,12 @@
 # hci-travel-agent
 
+Inicijalno baza ima samo Vanju kao korisnika (agent)
+
 Parametri za logovanje našeg korisnika:
 email: vanja@mail.com
 pass: vanja
 
-Inicijalno baza ima samo Vanju kao korisnika i nedostaje ključ za Bing mapu, bez kog je
-program neupotrebljiv jer se ne može dodati ni Mesto ni Aranžman bez mape. 
+Potrebno je instalirati paket koji podrzava Bing mape: U Solution Explorer-u, desnim klikom na projekat otvoriti meni konteksta i izabrati opciju "Manage NuGet Packages...", zatim u Browse tabu pretraziti "Microsoft.Maps.MapControl.WPF" i instlirati taj paket. 
 
 Za dodavanje kljuca napraviti Bing nalog i preuzeti kljuc. Unutar direktorijuma travel-agent generisati 
 mapkey.txt datoteku koja sadrzi preuzeti kljuc.
